@@ -14,31 +14,33 @@ import { Button } from "@/components/ui/button";
 import { PRODUCTS } from "@/src/constants";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 
-// Variabel Animasi untuk Menu Mobile (Staggered Effect)
+// Easing profesional (Cepat di awal, sangat halus di akhir)
+const smoothEase = [0.16, 1, 0.3, 1];
+
 const mobileMenuVars = {
-  initial: { opacity: 0, y: -10, scaleY: 0.95, transformOrigin: "top" },
+  initial: { opacity: 0, y: -15, scale: 0.98, transformOrigin: "top" },
   animate: { 
     opacity: 1, 
     y: 0, 
-    scaleY: 1, 
+    scale: 1, 
     transition: { 
-      duration: 0.3, 
-      ease: [0.12, 0, 0.39, 0], // Custom cubic-bezier for smooth open
+      duration: 0.5, 
+      ease: smoothEase,
       staggerChildren: 0.05,
-      delayChildren: 0.1
+      delayChildren: 0.05
     } 
   },
   exit: { 
     opacity: 0, 
     y: -10, 
-    scaleY: 0.95, 
-    transition: { duration: 0.2, ease: "easeInOut" } 
+    scale: 0.98, 
+    transition: { duration: 0.3, ease: smoothEase } 
   }
 };
 
 const mobileLinkVars = {
-  initial: { opacity: 0, x: -10 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.3, ease: "easeOut" } },
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.4, ease: smoothEase } },
 };
 
 export default function Navbar() {
@@ -84,21 +86,21 @@ export default function Navbar() {
 
   return (
     <motion.header 
-      initial={{ y: -100 }}
-      animate={{ y: isHidden ? "-100%" : 0 }}
-      transition={{ duration: 0.4, type: "spring", stiffness: 100, damping: 20 }}
+      initial={{ y: "-100%" }}
+      animate={{ y: isHidden ? "-100%" : "0%" }}
+      transition={{ duration: 0.6, ease: smoothEase }}
       className={cn(
-        "fixed top-0 z-50 w-full transition-colors duration-300",
+        "fixed top-0 z-50 w-full transition-all duration-500",
         isScrolled 
-          ? "border-b border-gray-100/50 bg-white/80 backdrop-blur-xl shadow-sm h-16 md:h-20" 
+          ? "border-b border-gray-100/50 bg-white/85 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] h-16 md:h-20" 
           : "bg-white border-b border-transparent h-20 md:h-24"
       )}
     >
       <div className="container mx-auto flex h-full items-center px-4 lg:px-8">
         
-        {/* KIRI: Logo (Menggunakan flex-1 agar porsi seimbang) */}
+        {/* KIRI: Logo */}
         <div className="flex flex-1 justify-start">
-          <Link to="/" className="flex items-center gap-3 transition-transform hover:scale-105" onClick={() => setIsOpen(false)}>
+          <Link to="/" className="flex items-center gap-3 transition-opacity duration-300 hover:opacity-80" onClick={() => setIsOpen(false)}>
             <img 
               src="/Logo.png" 
               alt="Parahita Logo" 
@@ -108,15 +110,15 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* TENGAH: Navigasi Desktop (Benar-benar di tengah) */}
-        <div className="hidden lg:flex items-center justify-center gap-2">
+        {/* TENGAH: Navigasi Desktop */}
+        <div className="hidden lg:flex items-center justify-center gap-1">
           <Link
             to="/"
             className={cn(
-              "px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:-translate-y-[2px]",
+              "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out",
               location.pathname === "/" 
-                ? "text-red-600 bg-red-50/80 shadow-sm" 
-                : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
+                ? "text-red-600 bg-red-50/80" 
+                : "text-gray-600 hover:bg-gray-100/60 hover:text-gray-900"
             )}
           >
             {t('nav.home')}
@@ -125,25 +127,28 @@ export default function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
-                "px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:-translate-y-[2px] flex items-center gap-2 outline-none",
+                "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out flex items-center gap-2 outline-none group",
                 location.pathname.includes('/product') 
-                  ? "text-red-600 bg-red-50/80 shadow-sm" 
-                  : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
+                  ? "text-red-600 bg-red-50/80" 
+                  : "text-gray-600 hover:bg-gray-100/60 hover:text-gray-900"
               )}
             >
               {t('nav.products')}
-              <ChevronDown className="w-3 h-3 opacity-50 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+              <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-300 ease-out group-data-[state=open]:rotate-180" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="center" className="w-48 p-2 rounded-xl shadow-xl bg-white/95 backdrop-blur-lg border-gray-100">
+            <DropdownMenuContent 
+              align="center" 
+              className="w-52 p-2 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] bg-white/95 backdrop-blur-xl border-gray-100/60 animate-in fade-in-0 zoom-in-95 duration-200"
+            >
               {PRODUCTS.map((product) => (
                 <DropdownMenuItem 
                   key={product.id} 
                   asChild
                   className={cn(
-                    "w-full px-3 py-2 rounded-lg text-sm font-medium cursor-pointer transition-all duration-200",
+                    "w-full px-3 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-all duration-200 ease-out outline-none",
                     location.pathname === `/product/${product.id}` 
-                      ? "bg-red-50 text-red-600 focus:bg-red-50 focus:text-red-600" 
-                      : "hover:bg-gray-50 hover:pl-4 text-gray-700" // Efek geser kanan saat hover
+                      ? "bg-red-50 text-red-600" 
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5"
                   )}
                 >
                   <Link to={`/product/${product.id}`}>
@@ -159,10 +164,10 @@ export default function Navbar() {
               key={item.name}
               to={item.path}
               className={cn(
-                "px-4 py-2 rounded-xl text-sm font-bold transition-all duration-300 hover:-translate-y-[2px]",
+                "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out",
                 location.pathname === item.path 
-                  ? "text-red-600 bg-red-50/80 shadow-sm" 
-                  : "text-gray-600 hover:bg-gray-50/80 hover:text-gray-900"
+                  ? "text-red-600 bg-red-50/80" 
+                  : "text-gray-600 hover:bg-gray-100/60 hover:text-gray-900"
               )}
             >
               {item.name}
@@ -170,28 +175,33 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* KANAN: Tools & Mobile Toggle (Menggunakan flex-1 justify-end) */}
+        {/* KANAN: Tools & Mobile Toggle */}
         <div className="flex flex-1 justify-end items-center gap-3 md:gap-4">
-          
-          {/* Language Switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm" className="hidden sm:flex items-center gap-2 font-bold h-10 px-3 cursor-pointer rounded-xl bg-white/80 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-gray-50 hover:shadow-md transition-all duration-300 hover:-translate-y-[2px]">
-                <Globe className="w-4 h-4 text-gray-500" />
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="hidden sm:flex items-center gap-2 font-semibold h-10 px-3 cursor-pointer rounded-xl bg-white/80 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 ease-out group"
+              >
+                <Globe className="w-4 h-4 text-gray-500 transition-colors group-hover:text-gray-700" />
                 <span>{currentLanguage}</span>
-                <ChevronDown className="w-3 h-3 opacity-50 ml-1" />
+                <ChevronDown className="w-3 h-3 opacity-50 ml-1 transition-transform duration-300 group-data-[state=open]:rotate-180" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-32 rounded-xl shadow-xl">
+            <DropdownMenuContent 
+              align="end" 
+              className="w-36 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] bg-white/95 backdrop-blur-xl border-gray-100/60 p-2 animate-in fade-in-0 zoom-in-95 duration-200"
+            >
               <DropdownMenuItem 
                 onClick={() => changeLanguage('id')}
-                className={cn("font-bold cursor-pointer transition-colors", i18n.language.startsWith('id') && "text-red-600 bg-red-50")}
+                className={cn("font-medium rounded-xl cursor-pointer py-2.5 transition-colors", i18n.language.startsWith('id') ? "text-red-600 bg-red-50" : "text-gray-600 hover:bg-gray-50")}
               >
                 Bahasa Indonesia
               </DropdownMenuItem>
               <DropdownMenuItem 
                 onClick={() => changeLanguage('en')}
-                className={cn("font-bold cursor-pointer transition-colors", i18n.language.startsWith('en') && "text-red-600 bg-red-50")}
+                className={cn("font-medium rounded-xl cursor-pointer py-2.5 transition-colors", i18n.language.startsWith('en') ? "text-red-600 bg-red-50" : "text-gray-600 hover:bg-gray-50")}
               >
                 English
               </DropdownMenuItem>
@@ -201,20 +211,20 @@ export default function Navbar() {
           <div className="lg:hidden">
             <button 
               className={cn(
-                "p-2.5 rounded-xl border transition-all duration-300 active:scale-95",
+                "p-2.5 rounded-xl border transition-all duration-300 ease-out active:scale-95",
                 isOpen 
-                  ? "bg-red-50 border-red-200 text-red-600 shadow-inner" 
-                  : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 shadow-sm"
+                  ? "bg-red-50 border-red-100 text-red-600" 
+                  : "bg-white border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300"
               )}
               onClick={() => setIsOpen(!isOpen)}
             >
               <AnimatePresence mode="wait">
                 <motion.div
                   key={isOpen ? "close" : "menu"}
-                  initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                  initial={{ opacity: 0, rotate: -90, scale: 0.8 }}
                   animate={{ opacity: 1, rotate: 0, scale: 1 }}
-                  exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
-                  transition={{ duration: 0.2 }}
+                  exit={{ opacity: 0, rotate: 90, scale: 0.8 }}
+                  transition={{ duration: 0.3, ease: smoothEase }}
                 >
                   {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </motion.div>
@@ -224,122 +234,135 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Hamburger Menu Dropdown (Kekinian dengan Staggered Animation) */}
+      {/* Hamburger Menu Dropdown */}
       <AnimatePresence>
         {isOpen && (
-          <motion.div 
-            variants={mobileMenuVars}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="absolute top-full right-0 w-full sm:w-[400px] sm:right-4 sm:mt-2 bg-white/95 backdrop-blur-xl border border-gray-100/50 sm:rounded-3xl shadow-2xl overflow-hidden z-50 lg:hidden flex flex-col max-h-[85vh] sm:max-h-[calc(100dvh-7rem)]"
-          >
-            <nav className="flex flex-col p-4 pb-8 space-y-1 overflow-y-auto scrollbar-hide text-left flex-1">
-              <motion.div variants={mobileLinkVars}>
-                <Link
-                  to="/"
-                  onClick={() => setIsOpen(false)}
-                  className={cn(
-                    "block px-4 py-3 rounded-xl text-sm font-bold transition-all active:scale-[0.98]",
-                    location.pathname === "/" ? "bg-red-50 text-red-600" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                  )}
-                >
-                  {t('nav.home')}
-                </Link>
-              </motion.div>
-              
-              <motion.div variants={mobileLinkVars}>
-                <button 
-                  onClick={() => setIsProductsOpen(!isProductsOpen)}
-                  className={cn(
-                    "px-4 py-3 rounded-xl text-sm font-bold transition-all flex items-center justify-between w-full active:scale-[0.98]",
-                    isProductsOpen ? "bg-gray-50 text-gray-900" : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-                  )}
-                >
-                  <div className="flex items-center gap-3">
-                    <Package className={cn("w-4 h-4 transition-colors", isProductsOpen ? "text-red-500" : "text-gray-400")} />
-                    <span>{t('nav.products')}</span>
-                  </div>
-                  <ChevronRight className={cn("w-4 h-4 text-gray-400 transition-transform duration-300", isProductsOpen ? "rotate-90" : "")} />
-                </button>
-                
-                <AnimatePresence>
-                  {isProductsOpen && (
-                    <motion.div 
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="border-l-2 border-red-200 ml-8 pl-4 mb-1 overflow-hidden"
-                    >
-                      <div className="flex flex-col py-1 space-y-1 w-full pt-2">
-                        {PRODUCTS.map((product) => (
-                          <div key={product.id} className="w-full flex shrink-0">
-                            <Link
-                              to={`/product/${product.id}`}
-                              onClick={() => setIsOpen(false)}
-                              className={cn(
-                                "w-full px-3 py-2 rounded-xl text-sm font-semibold transition-all active:scale-[0.98]",
-                                location.pathname === `/product/${product.id}`
-                                  ? "bg-red-50 text-red-600" 
-                                  : "text-gray-500 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-1"
-                              )}
-                            >
-                              {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                            </Link>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.div>
-
-              <motion.div variants={mobileLinkVars} className="h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent my-2 mx-4" />
-
-              {navItems.slice(1).map((item) => (
-                <motion.div key={item.name} variants={mobileLinkVars}>
+          <>
+            {/* Optional: Subtle backdrop overlay for mobile menu */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.4 }}
+              className="fixed inset-0 top-[4.5rem] bg-gray-900/5 backdrop-blur-sm z-40 lg:hidden"
+              onClick={() => setIsOpen(false)}
+            />
+            
+            <motion.div 
+              variants={mobileMenuVars}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="absolute top-full right-0 w-full sm:w-[400px] sm:right-4 sm:mt-2 bg-white/95 backdrop-blur-2xl border border-gray-100/60 sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.08)] overflow-hidden z-50 lg:hidden flex flex-col max-h-[85vh] sm:max-h-[calc(100dvh-7rem)]"
+            >
+              <nav className="flex flex-col p-4 pb-8 space-y-1 overflow-y-auto scrollbar-hide text-left flex-1 relative z-10">
+                <motion.div variants={mobileLinkVars}>
                   <Link
-                    to={item.path}
+                    to="/"
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "block px-4 py-3 rounded-xl text-sm font-bold transition-all active:scale-[0.98]",
-                      location.pathname === item.path 
-                        ? "bg-red-50 text-red-600" 
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                      "block px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
+                      location.pathname === "/" ? "bg-red-50/80 text-red-600" : "text-gray-600 hover:bg-gray-50/80"
                     )}
                   >
-                    {item.name}
+                    {t('nav.home')}
                   </Link>
                 </motion.div>
-              ))}
-
-              <motion.div variants={mobileLinkVars} className="h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent my-3 mx-4 sm:hidden" />
-
-              <motion.div variants={mobileLinkVars} className="flex items-center justify-between px-4 py-3 sm:hidden">
-                <span className="text-sm font-bold text-gray-500">{t('nav.language') || 'Language'}</span>
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => { changeLanguage('id'); setIsOpen(false); }}
+                
+                <motion.div variants={mobileLinkVars}>
+                  <button 
+                    onClick={() => setIsProductsOpen(!isProductsOpen)}
                     className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95",
-                      i18n.language.startsWith('id') ? "bg-red-50 text-red-600 border border-red-100 shadow-sm" : "bg-gray-50 text-gray-500 border border-transparent hover:bg-gray-100"
+                      "px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 flex items-center justify-between w-full active:scale-[0.98]",
+                      isProductsOpen ? "bg-gray-50/80 text-gray-900" : "text-gray-600 hover:bg-gray-50/80"
                     )}
                   >
-                    ID
+                    <div className="flex items-center gap-3">
+                      <Package className={cn("w-4.5 h-4.5 transition-colors duration-300", isProductsOpen ? "text-red-500" : "text-gray-400")} />
+                      <span>{t('nav.products')}</span>
+                    </div>
+                    <ChevronRight className={cn("w-4.5 h-4.5 text-gray-400 transition-transform duration-400 ease-out", isProductsOpen ? "rotate-90" : "")} />
                   </button>
-                  <button
-                    onClick={() => { changeLanguage('en'); setIsOpen(false); }}
-                    className={cn(
-                      "px-3 py-1.5 rounded-lg text-xs font-bold transition-all active:scale-95",
-                      i18n.language.startsWith('en') ? "bg-red-50 text-red-600 border border-red-100 shadow-sm" : "bg-gray-50 text-gray-500 border border-transparent hover:bg-gray-100"
+                  
+                  <AnimatePresence>
+                    {isProductsOpen && (
+                      <motion.div 
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: smoothEase }}
+                        className="border-l-2 border-red-100 ml-8 pl-4 mb-2 overflow-hidden"
+                      >
+                        <div className="flex flex-col py-1 space-y-1 w-full pt-2">
+                          {PRODUCTS.map((product) => (
+                            <div key={product.id} className="w-full flex shrink-0">
+                              <Link
+                                to={`/product/${product.id}`}
+                                onClick={() => setIsOpen(false)}
+                                className={cn(
+                                  "w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98]",
+                                  location.pathname === `/product/${product.id}`
+                                    ? "bg-red-50/80 text-red-600" 
+                                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                                )}
+                              >
+                                {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+                              </Link>
+                            </div>
+                          ))}
+                        </div>
+                      </motion.div>
                     )}
-                  >
-                    EN
-                  </button>
-                </div>
-              </motion.div>
-            </nav>
-          </motion.div>
+                  </AnimatePresence>
+                </motion.div>
+
+                <motion.div variants={mobileLinkVars} className="h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent my-2 mx-4" />
+
+                {navItems.slice(1).map((item) => (
+                  <motion.div key={item.name} variants={mobileLinkVars}>
+                    <Link
+                      to={item.path}
+                      onClick={() => setIsOpen(false)}
+                      className={cn(
+                        "block px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
+                        location.pathname === item.path 
+                          ? "bg-red-50/80 text-red-600" 
+                          : "text-gray-600 hover:bg-gray-50/80"
+                      )}
+                    >
+                      {item.name}
+                    </Link>
+                  </motion.div>
+                ))}
+
+                <motion.div variants={mobileLinkVars} className="h-px bg-gradient-to-r from-transparent via-gray-100 to-transparent my-3 mx-4 sm:hidden" />
+
+                <motion.div variants={mobileLinkVars} className="flex items-center justify-between px-4 py-3 sm:hidden">
+                  <span className="text-[15px] font-semibold text-gray-500">{t('nav.language') || 'Language'}</span>
+                  <div className="flex gap-2 p-1 bg-gray-50/80 rounded-xl border border-gray-100">
+                    <button
+                      onClick={() => { changeLanguage('id'); setIsOpen(false); }}
+                      className={cn(
+                        "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300",
+                        i18n.language.startsWith('id') ? "bg-white text-red-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                      )}
+                    >
+                      ID
+                    </button>
+                    <button
+                      onClick={() => { changeLanguage('en'); setIsOpen(false); }}
+                      className={cn(
+                        "px-4 py-2 rounded-lg text-xs font-bold transition-all duration-300",
+                        i18n.language.startsWith('en') ? "bg-white text-red-600 shadow-sm" : "text-gray-500 hover:text-gray-700"
+                      )}
+                    >
+                      EN
+                    </button>
+                  </div>
+                </motion.div>
+              </nav>
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </motion.header>
