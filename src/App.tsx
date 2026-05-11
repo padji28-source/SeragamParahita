@@ -67,56 +67,22 @@ function AnimatedRoutes() {
   
   return (
     <AnimatePresence mode="wait">
-      <Routes location={location} key={location.pathname}>
-        <Route 
-          path="/" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <HomePage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/products" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <ProductsPage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/product/:id" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <ProductDetailPage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/partner" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <PartnerPage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/about" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <AboutPage />
-            </motion.div>
-          } 
-        />
-        <Route 
-          path="/contact" 
-          element={
-            <motion.div variants={pageVariants} initial="initial" animate="animate" exit="exit">
-              <ContactPage />
-            </motion.div>
-          } 
-        />
-      </Routes>
+      <motion.div 
+        key={location.pathname}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+      >
+        <Routes location={location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/partner" element={<PartnerPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+        </Routes>
+      </motion.div>
     </AnimatePresence>
   );
 }
