@@ -291,7 +291,7 @@ export default function ProductsPage() {
                   <div className="space-y-4">
                     <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Description</h4>
                     <p className="text-gray-500 leading-relaxed">
-                      {t(`products.items.${selectedProduct.id}.desc`, { defaultValue: product.description })}
+                      {t(`products.items.${selectedProduct.id}.desc`, { defaultValue: selectedProduct.description })}
                     </p>
                   </div>
 
