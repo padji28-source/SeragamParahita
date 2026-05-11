@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslation } from "react-i18next";
-import { Info, ExternalLink, CheckCircle2, Ruler } from "lucide-react";
+import { Info, ExternalLink, CheckCircle2, Ruler, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 export default function ProductCatalog() {
@@ -95,94 +95,92 @@ export default function ProductCatalog() {
         </div>
       </div>
 
-      {/* Quick View Modal */}
+      {/* Quick View Modal - Photo Only */}
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden border-none rounded-3xl shadow-2xl">
+        <DialogContent className="max-w-4xl p-0 overflow-hidden border-none rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] bg-transparent sm:bg-white/5 sm:backdrop-blur-3xl transition-all duration-500">
           {selectedProduct && (
-            <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
-              <div className="w-full md:w-2/5 relative h-64 md:h-auto">
-                <img 
-                  src={selectedProduct.image} 
-                  alt={selectedProduct.name}
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent md:hidden" />
-                <Badge className="absolute top-6 left-6 bg-red-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 shadow-lg">
-                  {selectedProduct.badge || "Premium"}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+              exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              className="relative group w-full"
+            >
+              <Carousel className="w-full">
+                <CarouselContent>
+                  {(selectedProduct.images && selectedProduct.images.length > 0 
+                    ? selectedProduct.images 
+                    : [selectedProduct.image]
+                  ).map((img, index) => (
+                    <CarouselItem key={index}>
+                      <div className="flex items-center justify-center bg-gray-950/20 backdrop-blur-2xl rounded-3xl overflow-hidden aspect-[4/5] md:aspect-video select-none">
+                        <img 
+                          src={img} 
+                          alt={`${selectedProduct.name} - ${index + 1}`}
+                          className="w-full h-full object-contain md:object-cover transition-all duration-700 hover:scale-105"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                
+                {(selectedProduct.images && selectedProduct.images.length > 1) && (
+                  <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none">
+                    <CarouselPrevious className="relative left-0 pointer-events-auto h-12 w-12 rounded-2xl bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90" />
+                    <CarouselNext className="relative right-0 pointer-events-auto h-12 w-12 rounded-2xl bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90" />
+                  </div>
+                )}
+              </Carousel>
+              
+              {/* Top Bar with Badge & Close */}
+              <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-50 pointer-events-none">
+                <Badge className="bg-red-600/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest px-4 py-2 shadow-2xl shadow-red-600/20 rounded-xl border border-red-500/30">
+                  {selectedProduct.badge || "Premium Collection"}
                 </Badge>
+                <button 
+                  onClick={() => setSelectedProduct(null)}
+                  className="pointer-events-auto p-3 bg-white/10 hover:bg-red-600/20 backdrop-blur-xl rounded-2xl text-white border border-white/20 transition-all duration-300 hover:scale-110 active:scale-90 shadow-2xl hover:border-red-500/30 group/close"
+                >
+                  <X className="w-5 h-5 transition-transform group-hover/close:rotate-90" />
+                </button>
               </div>
-
-              <div className="w-full md:w-3/5 p-8 md:p-10 bg-white overflow-y-auto">
-                <DialogHeader className="p-0 text-left mb-8">
-                   <div className="flex flex-col gap-2 mb-4">
-                      <span className="text-[10px] font-black text-red-600 uppercase tracking-widest">
-                        {selectedProduct.category}
-                      </span>
-                      <DialogTitle className="text-3xl font-black text-gray-900 tracking-tighter leading-none">
-                        {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
-                      </DialogTitle>
-                   </div>
-                   <DialogDescription className="text-gray-500 leading-relaxed text-base font-medium">
-                      {t(`products.items.${selectedProduct.id}.description`, { defaultValue: selectedProduct.description })}
-                   </DialogDescription>
-                </DialogHeader>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-10">
-                   <div className="space-y-4">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Key Features</h4>
-                      <ul className="space-y-3">
-                        {(Array.isArray(t(`products.items.${selectedProduct.id}.features`, { returnObjects: true })) 
-                          ? (t(`products.items.${selectedProduct.id}.features`, { returnObjects: true }) as string[]) 
-                          : (selectedProduct.features || [])
-                        ).slice(0, 3).map((feature, i) => (
-                          <li key={i} className="flex items-center gap-3 text-sm font-bold text-gray-700">
-                             <CheckCircle2 className="w-4 h-4 text-red-600 shrink-0" />
-                             {feature}
-                          </li>
-                        ))}
-                      </ul>
-                   </div>
-
-                   {selectedMaterial && (
-                     <div className="space-y-4">
-                        <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Material Info</h4>
-                        <div className="bg-gray-50 p-4 rounded-2xl border border-gray-100">
-                           <p className="text-xs font-black text-gray-900 mb-1">{selectedMaterial.name}</p>
-                           <div className="flex flex-wrap gap-2 mt-2">
-                              <span className="text-[10px] font-bold bg-white px-2 py-1 rounded border border-gray-200">
-                                {selectedMaterial.specifications.grammage}
-                              </span>
-                              <span className="text-[10px] font-bold bg-white px-2 py-1 rounded border border-gray-200">
-                                {selectedMaterial.specifications.composition}
-                              </span>
-                           </div>
-                        </div>
-                     </div>
-                   )}
+              
+              {/* Bottom Info Bar - Glassmorphism */}
+              <div className="absolute bottom-6 left-6 right-6 p-6 bg-gray-950/40 backdrop-blur-2xl rounded-[2rem] border border-white/10 text-white flex flex-col md:flex-row gap-4 justify-between items-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-2xl">
+                <div className="flex flex-col text-center md:text-left">
+                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-1">
+                    {selectedProduct.category}
+                  </span>
+                  <h3 className="text-xl md:text-2xl font-black tracking-tight leading-none">
+                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
+                  </h3>
                 </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-gray-100">
+                
+                <div className="flex items-center gap-3 w-full md:w-auto">
                    <Button 
-                     onClick={() => {
+                     onClick={(e) => {
+                        e.stopPropagation();
                         navigate(`/product/${selectedProduct.id}`);
                         setSelectedProduct(null);
                      }}
-                     className="flex-1 bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest h-14 rounded-2xl shadow-xl shadow-red-600/20 group"
+                     className="flex-1 md:flex-none h-12 px-8 bg-red-600 hover:bg-red-700 text-white border-none rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-xl shadow-red-600/20 group/btn transition-all duration-300 active:scale-95"
                    >
-                     Lihat Detail Selengkapnya
-                     <ExternalLink className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-                   </Button>
-                   <Button 
-                     variant="outline"
-                     onClick={() => setSelectedProduct(null)}
-                     className="h-14 px-8 rounded-2xl border-gray-200 font-bold text-gray-600 hover:bg-gray-50"
-                   >
-                     Tutup
+                     Detail Lengkap
+                     <ExternalLink className="w-3.5 h-3.5 ml-2 transition-transform group-hover/btn:translate-x-1" />
                    </Button>
                 </div>
               </div>
-            </div>
+
+              {/* Mobile Swipe Indicator (Visible only on mobile if multiple images) */}
+              {(selectedProduct.images && selectedProduct.images.length > 1) && (
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 md:hidden">
+                  {selectedProduct.images.map((_, i) => (
+                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/30" />
+                  ))}
+                </div>
+              )}
+            </motion.div>
           )}
         </DialogContent>
       </Dialog>
