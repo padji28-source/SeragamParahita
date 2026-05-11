@@ -97,15 +97,9 @@ export default function ProductCatalog() {
 
       {/* Quick View Modal - Photo Only */}
       <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-4xl p-0 overflow-hidden border-none rounded-3xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] bg-transparent sm:bg-white/5 sm:backdrop-blur-3xl transition-all duration-500">
+        <DialogContent className="max-w-3xl p-0 overflow-hidden border-none rounded-3xl shadow-2xl bg-transparent">
           {selectedProduct && (
-            <motion.div 
-              initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-              animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="relative group w-full"
-            >
+            <div className="relative group">
               <Carousel className="w-full">
                 <CarouselContent>
                   {(selectedProduct.images && selectedProduct.images.length > 0 
@@ -113,11 +107,11 @@ export default function ProductCatalog() {
                     : [selectedProduct.image]
                   ).map((img, index) => (
                     <CarouselItem key={index}>
-                      <div className="flex items-center justify-center bg-gray-950/20 backdrop-blur-2xl rounded-3xl overflow-hidden aspect-[4/5] md:aspect-video select-none">
+                      <div className="flex items-center justify-center bg-gray-900/10 backdrop-blur-sm rounded-3xl overflow-hidden aspect-[4/5]">
                         <img 
                           src={img} 
                           alt={`${selectedProduct.name} - ${index + 1}`}
-                          className="w-full h-full object-contain md:object-cover transition-all duration-700 hover:scale-105"
+                          className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
                         />
                       </div>
@@ -126,61 +120,45 @@ export default function ProductCatalog() {
                 </CarouselContent>
                 
                 {(selectedProduct.images && selectedProduct.images.length > 1) && (
-                  <div className="absolute inset-x-4 top-1/2 -translate-y-1/2 flex justify-between pointer-events-none">
-                    <CarouselPrevious className="relative left-0 pointer-events-auto h-12 w-12 rounded-2xl bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90" />
-                    <CarouselNext className="relative right-0 pointer-events-auto h-12 w-12 rounded-2xl bg-white/10 hover:bg-white/20 border-white/20 text-white backdrop-blur-xl shadow-2xl transition-all duration-300 hover:scale-110 active:scale-90" />
-                  </div>
+                  <>
+                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-md border-none text-white hover:bg-white/40 h-10 w-10" />
+                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-md border-none text-white hover:bg-white/40 h-10 w-10" />
+                  </>
                 )}
               </Carousel>
               
-              {/* Top Bar with Badge & Close */}
-              <div className="absolute top-6 left-6 right-6 flex justify-between items-start z-50 pointer-events-none">
-                <Badge className="bg-red-600/90 backdrop-blur-md text-[10px] font-black uppercase tracking-widest px-4 py-2 shadow-2xl shadow-red-600/20 rounded-xl border border-red-500/30">
-                  {selectedProduct.badge || "Premium Collection"}
-                </Badge>
-                <button 
-                  onClick={() => setSelectedProduct(null)}
-                  className="pointer-events-auto p-3 bg-white/10 hover:bg-red-600/20 backdrop-blur-xl rounded-2xl text-white border border-white/20 transition-all duration-300 hover:scale-110 active:scale-90 shadow-2xl hover:border-red-500/30 group/close"
-                >
-                  <X className="w-5 h-5 transition-transform group-hover/close:rotate-90" />
-                </button>
-              </div>
+              {/* Close Button Hint */}
+              <button 
+                onClick={() => setSelectedProduct(null)}
+                className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-all active:scale-90"
+              >
+                <X className="w-5 h-5" />
+              </button>
               
-              {/* Bottom Info Bar - Glassmorphism */}
-              <div className="absolute bottom-6 left-6 right-6 p-6 bg-gray-950/40 backdrop-blur-2xl rounded-[2rem] border border-white/10 text-white flex flex-col md:flex-row gap-4 justify-between items-center opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 shadow-2xl">
-                <div className="flex flex-col text-center md:text-left">
-                  <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-400 mb-1">
+              {/* Product Info Overlay (Thin) */}
+              <div className="absolute bottom-6 left-6 right-6 p-4 bg-black/20 backdrop-blur-md rounded-2xl border border-white/10 text-white flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-red-400 mb-0.5">
                     {selectedProduct.category}
                   </span>
-                  <h3 className="text-xl md:text-2xl font-black tracking-tight leading-none">
+                  <h3 className="text-lg font-bold tracking-tight">
                     {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
                   </h3>
                 </div>
-                
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                   <Button 
-                     onClick={(e) => {
-                        e.stopPropagation();
-                        navigate(`/product/${selectedProduct.id}`);
-                        setSelectedProduct(null);
-                     }}
-                     className="flex-1 md:flex-none h-12 px-8 bg-red-600 hover:bg-red-700 text-white border-none rounded-2xl font-black uppercase tracking-widest text-[11px] shadow-xl shadow-red-600/20 group/btn transition-all duration-300 active:scale-95"
-                   >
-                     Detail Lengkap
-                     <ExternalLink className="w-3.5 h-3.5 ml-2 transition-transform group-hover/btn:translate-x-1" />
-                   </Button>
-                </div>
+                <Button 
+                   onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/product/${selectedProduct.id}`);
+                      setSelectedProduct(null);
+                   }}
+                   size="sm"
+                   className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-bold"
+                >
+                  <ExternalLink className="w-4 h-4 mr-2" />
+                  Info
+                </Button>
               </div>
-
-              {/* Mobile Swipe Indicator (Visible only on mobile if multiple images) */}
-              {(selectedProduct.images && selectedProduct.images.length > 1) && (
-                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 md:hidden">
-                  {selectedProduct.images.map((_, i) => (
-                    <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/30" />
-                  ))}
-                </div>
-              )}
-            </motion.div>
+            </div>
           )}
         </DialogContent>
       </Dialog>
