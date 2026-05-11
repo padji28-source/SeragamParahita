@@ -37,15 +37,25 @@ const SALES_CONTACTS = [
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const product = PRODUCTS.find(p => p.id === id);
   const { t } = useTranslation();
   const [activeImg, setActiveImg] = useState(0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
+  // Cari produk dengan id yang sesuai
+  const product = id ? PRODUCTS.find(p => p.id === id) : undefined;
+
   if (!product) return <NotFound t={t} />;
 
-  const material = MATERIALS.find(m => m.id === product.materialId);
-  const images = product.images && product.images.length > 0 ? product.images : [product.image];
+  const material = product.materialId ? MATERIALS.find(m => m.id === product.materialId) : undefined;
+  
+  // Pastikan images selalu berupa array string yang valid
+  const images = Array.isArray(product.images) && product.images.length > 0 
+    ? product.images 
+    : (product.image ? [product.image] : []);
+
+  // Guard untuk activeImg jika images mendadak berubah atau kosong
+  const safeActiveImg = (activeImg >= 0 && activeImg < images.length) ? activeImg : 0;
+  const currentImage = images[safeActiveImg] || product.image || "/placeholder.jpg";
 
   return (
     <div className="pt-20 bg-white min-h-screen">
@@ -70,12 +80,12 @@ export default function ProductDetailPage() {
               >
                 <AnimatePresence mode="wait">
                   <motion.img 
-                    key={activeImg}
+                    key={safeActiveImg}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
-                    src={images[activeImg] || product.image} 
+                    src={currentImage} 
                     className="w-full h-full object-cover"
                   />
                 </AnimatePresence>
