@@ -1,0 +1,207 @@
+import { Product, Partner, Material, LiveProject, MajorPartner } from './types';
+
+export const PARTNERS: Partner[] = [
+  { name: 'Pertamina', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/3840px-Pertamina_Logo.svg.png' },
+  { name: 'Alfamart', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ALFAMART_LOGO_BARU.png' },
+  { name: 'Pelindo', logo: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Logo_Baru_Pelindo_%282021%29.png' },
+  { name: 'Mitra Keluarga', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Mitra_Keluarga_2014.svg' },
+  { name: 'Indomaret', logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7yYDzQd8TQI48mkt0r4EUvr3CpWQuGs2YyT0r_2eRxA0gtRwvRdGcW7Uak31ujWtM3yj4m-6RL4_rtNMAbsANX3mjhbBVXJIywiL-GfJ-s5jgwjgbTERF8xkRdMpdbjKJKa0TpP6R-No9/w680/1_CIBGcN49hlB48uB8HbnejQ.png' },
+];
+
+export const PRODUCTS: Product[] = [
+  {
+    id: '1',
+    name: 'Seragam Waralaba',
+    category: 'Waralaba',
+    image: '/images.jpeg',
+    badge: 'Best Seller',
+    description: 'Produk seragam unggulan kami, yang hampir seluruhnya berjenis kemeja & polo shirt. Untuk kebutuhan seragam Waralaba anda yang bergerak dibidan barang atau jasa.',
+    features: ['Kualitas Premium', 'Nyaman Dipakai', 'Desain Custom'],
+    materialId: '1',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  },
+  {
+    id: '2',
+    name: 'Seragam Otomotif',
+    category: 'Otomotif',
+    image: '/product-1.jpg',
+    badge: 'Durable',
+    description: 'Kami siap membantu anda dalam pembuatan seragam Otomotif dengan berbagai jenis model & desain. Yang dimana dalam pemakaiannya menuntut kualitas , daya tahan & kenyamanan.',
+    features: ['Tahan Lama', 'Kualitas Tinggi', 'Desain Sporty'],
+    materialId: '2',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  },
+  {
+    id: '3',
+    name: 'Seragam Tambang',
+    category: 'Tambang',
+    image: '/images-1.jpeg',
+    badge: 'Safety First',
+    description: 'Seragam lapangan untuk perusahaan minyak bumi, konstruksi & pekerjaan umum yang selalu kami kembangkan agar terlihat menarik, tanpa mengurangi fungsinya sebagai seragam lapangan.',
+    features: ['Reflective Tape', 'Bahan Kuat', 'Fungsional'],
+    materialId: '2',
+    sizes: ['M', 'L', 'XL', 'XXL'],
+  },
+  {
+    id: '4',
+    name: 'Seragam Media',
+    category: 'Media',
+    image: '/images.jpeg',
+    badge: 'Professional',
+    description: 'Kami juga berpengalaman dalam pembuatan seragam untuk Media Elektronik & Media Cetak dengan jaminan mutu & kualitas.',
+    features: ['Tampilan Elegan', 'Bahan Berkualitas', 'Jaminan Mutu'],
+    materialId: '1',
+    sizes: ['S', 'M', 'L', 'XL'],
+  },
+  {
+    id: '5',
+    name: 'Seragam F&B',
+    category: 'Food & Beverage',
+    image: '/product-2.jpg',
+    badge: 'Hygienic',
+    description: 'Untuk pembuatan seragam seperti Apron, Baju & Topi Koki untuk keperluan perusahaan F&B anda, kami pun siap membantu.',
+    features: ['Mudah Dibersihkan', 'Bahan Nyaman', 'Set Lengkap'],
+    materialId: '1',
+    sizes: ['All Size', 'S', 'M', 'L', 'XL'],
+  },
+  {
+    id: '6',
+    name: 'Seragam Event',
+    category: 'Event',
+    image: '/images-2.jpeg',
+    badge: 'Fast Production',
+    description: 'Perusahaan anda membutuhkan seragam untuk keperluan Gathering & Promosi yang di tuntun cepat & berkualitas? Parahita dapat membantu anda.',
+    features: ['Produksi Cepat', 'Harga Kompetitif', 'Desain Menarik'],
+    materialId: '1',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL'],
+  },
+  {
+    id: '7',
+    name: 'Seragam Kantor',
+    category: 'Kantor',
+    image: '/product-1.jpg',
+    badge: 'Exclusive',
+    description: 'Formal, Exclusive, & Nyaman adalah salah satu syarat seragam Kantor atau Staff dalam perusahaan anda? Kami berpengalaman dalam pembuatannya.',
+    features: ['Formal & Eksklusif', 'Bahan Premium', 'Jahitan Rapi'],
+    materialId: '1',
+    sizes: ['S', 'M', 'L', 'XL', 'XXL', 'Custom'],
+  },
+  {
+    id: '8',
+    name: 'Merchandise',
+    category: 'Merchandise',
+    image: '/images-1.jpeg',
+    badge: 'Accessories',
+    description: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.',
+    features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'],
+    materialId: '1',
+    sizes: ['All Size'],
+  },
+];
+
+export const MATERIALS: Material[] = [
+  {
+    id: '1',
+    name: 'Premium Cotton Pique',
+    image: '/images.jpeg',
+    specifications: {
+      grammage: '230g',
+      composition: '100% Cotton',
+      recommendedUse: 'Uniforms & Polo Shirts',
+      technicals: ['Breathable', 'Soft Touch', 'Durable Color'],
+    },
+  },
+  {
+    id: '2',
+    name: 'Heavy Duty Drill',
+    image: '/product-1.jpg',
+    specifications: {
+      grammage: '280g',
+      composition: '65% Poly, 35% Cotton',
+      recommendedUse: 'Safety Wear & Field Uniforms',
+      technicals: ['Tear Resistant', 'Easy Care', 'Industrial Wash'],
+    },
+  },
+  {
+    id: '3',
+    name: 'Lacoste CVC',
+    image: '/images-1.jpeg',
+    specifications: {
+      grammage: '210g',
+      composition: '60% Cotton, 40% Polyester',
+      recommendedUse: 'Premium Polo Shirts',
+      technicals: ['Absorbent', 'Shape Retention', 'Less Wrinkle'],
+    },
+  },
+  {
+    id: '4',
+    name: 'Oxford Tropical',
+    image: '/images.jpeg',
+    specifications: {
+      grammage: '180g',
+      composition: 'Polyester Cotton Blend',
+      recommendedUse: 'Formal Office Shirts',
+      technicals: ['Cool Feel', 'Formal Look', 'Easy Iron'],
+    },
+  },
+];
+
+export const HERO_IMAGES = [
+  '/product-1.jpg',
+  '/product-2.jpg',
+];
+
+export const LIVE_PROJECTS: LiveProject[] = [
+  {
+    id: '1',
+    title: 'Pattern Cutting',
+    status: 'Sewing 75k complete',
+    progress: 75,
+    image: '/images.jpeg',
+  },
+  {
+    id: '2',
+    title: 'Sewing & Assembly',
+    status: 'Sewing 75% complete',
+    progress: 98,
+    image: '/images-1.jpeg',
+  },
+  {
+    id: '3',
+    title: 'Quality Control & Finishing',
+    status: 'Quality 70k complete',
+    progress: 55,
+    image: '/images-2.jpeg',
+  },
+];
+
+export const MAJOR_PARTNERS: MajorPartner[] = [
+  {
+    id: '1',
+    name: 'Alfamart',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ALFAMART_LOGO_BARU.png',
+    status: 'Live Order',
+    progress: 85,
+  },
+  {
+    id: '2',
+    name: 'Indomaret',
+    logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7yYDzQd8TQI48mkt0r4EUvr3CpWQuGs2YyT0r_2eRxA0gtRwvRdGcW7Uak31ujWtM3yj4m-6RL4_rtNMAbsANX3mjhbBVXJIywiL-GfJ-s5jgwjgbTERF8xkRdMpdbjKJKa0TpP6R-No9/w680/1_CIBGcN49hlB48uB8HbnejQ.png',
+    status: 'Live Order',
+    progress: 60,
+  },
+  {
+    id: '3',
+    name: 'Pertamina',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/3840px-Pertamina_Logo.svg.png',
+    status: 'Live Order',
+    progress: 45,
+  },
+  {
+    id: '4',
+    name: 'Pelindo',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Logo_Baru_Pelindo_%282021%29.png',
+    status: 'Live Order',
+    progress: 90,
+  },
+];
