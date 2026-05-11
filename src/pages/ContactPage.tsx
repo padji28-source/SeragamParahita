@@ -108,7 +108,7 @@ export default function ContactPage() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-xl">
                   <a 
-                    href="https://wa.me/6285211511211" 
+                    href="https://wa.me/6281214007871" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-green-200 transition-all group"
