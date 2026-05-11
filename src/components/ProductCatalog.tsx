@@ -27,7 +27,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const SALES_CONTACTS = [
-  { name: "Sales 1", phone: "6281214007871" },
+  { name: "Sales 1", phone: "6285211511211" },
   { name: "Sales 2", phone: "6285211511212" }
 ];
 
@@ -243,9 +243,9 @@ export default function ProductCatalog() {
                     const quantity = formData.get('q-quantity');
                     const message = formData.get('q-message');
                     
-                    const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${selectedProduct.name}*.\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
+                    const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${selectedProduct.name}*.\n\n*Deskripsi Produk:*\n${selectedProduct.description}\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
                     
-                    window.open(`https://wa.me/6281214007871?text=${encodeURIComponent(waMessage)}`, "_blank");
+                    window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
                     setIsQuoteModalOpen(false); 
                   }}
                >
