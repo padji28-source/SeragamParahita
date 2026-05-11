@@ -39,7 +39,6 @@ export default function Footer() {
             <h4 className="text-lg font-black mb-6 uppercase tracking-wider">{t('footer.quickLinks')}</h4>
             <ul className="space-y-4 text-gray-400 font-bold">
               <li><Link to="/" className="hover:text-red-500 transition-colors">{t('nav.home')}</Link></li>
-              <li><Link to="/products" className="hover:text-red-500 transition-colors">{t('nav.products')}</Link></li>
               <li><Link to="/partner" className="hover:text-red-500 transition-colors">{t('nav.partner')}</Link></li>
               <li><Link to="/about" className="hover:text-red-500 transition-colors">{t('nav.about')}</Link></li>
               <li><Link to="/contact" className="hover:text-red-500 transition-colors">{t('nav.contact')}</Link></li>
