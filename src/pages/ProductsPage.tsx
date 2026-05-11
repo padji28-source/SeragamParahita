@@ -35,10 +35,10 @@ export default function ProductsPage() {
     });
   }, [searchQuery, selectedCategory]);
 
-  const currentShowcaseMaterial = MATERIALS[activeMaterialIndex];
+  const currentShowcaseMaterial = MATERIALS[activeMaterialIndex] || MATERIALS[0];
 
-  const nextMaterial = () => setActiveMaterialIndex((prev) => (prev + 1) % MATERIALS.length);
-  const prevMaterial = () => setActiveMaterialIndex((prev) => (prev - 1 + MATERIALS.length) % MATERIALS.length);
+  const nextMaterial = () => setActiveMaterialIndex((prev) => (prev + 1) % (MATERIALS.length || 1));
+  const prevMaterial = () => setActiveMaterialIndex((prev) => (prev - 1 + (MATERIALS.length || 1)) % (MATERIALS.length || 1));
 
   return (
     <div className="pt-20 min-h-screen bg-[#FAFAFA]">
