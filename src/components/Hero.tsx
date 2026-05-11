@@ -6,17 +6,6 @@ import { Scissors, Ruler, Palette, Shirt, Pipette, MessageCircle } from "lucide-
 import { Link } from "react-router-dom";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-
-const SALES_CONTACTS = [
-  { name: "Sales 1", phone: "6285211511211" },
-  { name: "Sales 2", phone: "6285211511212" }
-];
 
 const FloatingElements = () => {
   return (
@@ -132,30 +121,10 @@ export default function Hero() {
                       {t('hero.subtitle')}
                     </p>
                     <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
-                          <MessageCircle className="w-5 h-5" />
-                          Konsultasi Gratis
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="center" className="w-64 p-3 rounded-2xl border-gray-100 shadow-2xl bg-white/95 backdrop-blur-xl">
-                          <div className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-gray-400 mb-1 border-b border-gray-50">Hubungi Konsultan Kami</div>
-                          {SALES_CONTACTS.map((sales, idx) => (
-                            <DropdownMenuItem 
-                              key={idx}
-                              className="rounded-xl py-3.5 px-4 cursor-pointer focus:bg-red-50 focus:text-red-700 font-bold flex items-center gap-3 transition-colors mb-1 last:mb-0"
-                              onClick={() => window.open(`https://wa.me/${sales.phone}?text=Halo ${sales.name}, saya ingin konsultasi gratis mengenai kebutuhan produksi seragam saya.`, "_blank")}
-                            >
-                              <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center shrink-0">
-                                <MessageCircle className="w-4 h-4 text-green-600" />
-                              </div>
-                              <div className="flex flex-col">
-                                <span className="text-sm">{sales.name}</span>
-                                <span className="text-[10px] font-medium text-gray-400">Online Sekarang</span>
-                              </div>
-                            </DropdownMenuItem>
-                          ))}
-                        </DropdownMenuContent>
-                      </DropdownMenu>
+                      <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
+                        <MessageCircle className="w-5 h-5" />
+                        Konsultasi Gratis
+                      </Link>
                       <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg w-full sm:w-auto border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border-2")}>
                         Lihat Katalog
                       </a>
