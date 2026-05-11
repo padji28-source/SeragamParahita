@@ -229,21 +229,36 @@ export default function ProductDetailPage() {
               </DialogDescription>
            </DialogHeader>
 
-           <form className="p-8 space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Permintaan penawaran telah terkirim!'); setIsQuoteModalOpen(false); }}>
+           <form 
+              className="p-8 space-y-6" 
+              onSubmit={(e) => { 
+                e.preventDefault(); 
+                const formData = new FormData(e.currentTarget);
+                const name = formData.get('name');
+                const company = formData.get('company');
+                const quantity = formData.get('quantity');
+                const message = formData.get('message');
+                
+                const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${product.name}*.\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
+                
+                window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
+                setIsQuoteModalOpen(false); 
+              }}
+           >
               <div className="space-y-4">
                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
                        <Label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
                        <div className="relative">
                           <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input id="name" placeholder="John Doe" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
+                          <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
                        </div>
                     </div>
                     <div className="space-y-2">
                        <Label htmlFor="company" className="text-xs font-black uppercase tracking-widest text-gray-400">Perusahaan</Label>
                        <div className="relative">
                           <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input id="company" placeholder="Nama PT/CV" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" />
+                          <Input id="company" name="company" placeholder="Nama PT/CV" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" />
                        </div>
                     </div>
                  </div>
@@ -252,7 +267,7 @@ export default function ProductDetailPage() {
                     <Label htmlFor="quantity" className="text-xs font-black uppercase tracking-widest text-gray-400">Jumlah Pesanan (Pcs)</Label>
                     <div className="relative">
                        <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                       <Input id="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
+                       <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
                     </div>
                  </div>
 
@@ -262,6 +277,7 @@ export default function ProductDetailPage() {
                        <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
                        <textarea 
                         id="message" 
+                        name="message"
                         placeholder="Contoh: Saya ingin tambah logo di dada kiri..." 
                         rows={4}
                         className="w-full pl-11 pt-3.5 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20 text-sm font-medium outline-none resize-none"
