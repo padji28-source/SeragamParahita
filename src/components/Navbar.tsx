@@ -2,7 +2,7 @@ import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuL
 import { cn } from "@/lib/utils";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, Globe, ChevronDown, Package, ChevronRight } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import {
   DropdownMenu,
@@ -111,7 +111,7 @@ export default function Navbar() {
         </div>
 
         {/* TENGAH: Navigasi Desktop */}
-        <div className="hidden lg:flex items-center justify-center gap-1">
+        <div className="hidden lg:flex items-center justify-center gap-2">
           <Link
             to="/"
             className={cn(
@@ -127,14 +127,13 @@ export default function Navbar() {
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
-                "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out flex items-center gap-2 outline-none group",
+                "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out outline-none group",
                 location.pathname.includes('/product') 
                   ? "text-red-600 bg-red-50/80" 
                   : "text-gray-600 hover:bg-gray-100/60 hover:text-gray-900"
               )}
             >
               {t('nav.products')}
-              <ChevronDown className="w-3.5 h-3.5 opacity-50 transition-transform duration-300 ease-out group-data-[state=open]:rotate-180" />
             </DropdownMenuTrigger>
             <DropdownMenuContent 
               align="center" 
@@ -259,7 +258,7 @@ export default function Navbar() {
                     to="/"
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "block px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
+                      "block px-4 py-3 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
                       location.pathname === "/" ? "bg-red-50/80 text-red-600" : "text-gray-600 hover:bg-gray-50/80"
                     )}
                   >
@@ -271,14 +270,11 @@ export default function Navbar() {
                   <button 
                     onClick={() => setIsProductsOpen(!isProductsOpen)}
                     className={cn(
-                      "px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 flex items-center justify-between w-full active:scale-[0.98]",
+                      "px-4 py-3 rounded-2xl text-[15px] font-semibold transition-all duration-200 flex items-center justify-between w-full active:scale-[0.98]",
                       isProductsOpen ? "bg-gray-50/80 text-gray-900" : "text-gray-600 hover:bg-gray-50/80"
                     )}
                   >
-                    <div className="flex items-center gap-3">
-                      <Package className={cn("w-4.5 h-4.5 transition-colors duration-300", isProductsOpen ? "text-red-500" : "text-gray-400")} />
-                      <span>{t('nav.products')}</span>
-                    </div>
+                    <span>{t('nav.products')}</span>
                     <ChevronRight className={cn("w-4.5 h-4.5 text-gray-400 transition-transform duration-400 ease-out", isProductsOpen ? "rotate-90" : "")} />
                   </button>
                   
@@ -289,19 +285,19 @@ export default function Navbar() {
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.4, ease: smoothEase }}
-                        className="border-l-2 border-red-100 ml-8 pl-4 mb-2 overflow-hidden"
+                        className="mb-2 overflow-hidden"
                       >
-                        <div className="flex flex-col py-1 space-y-1 w-full pt-2">
+                        <div className="flex flex-col space-y-0.5 w-full">
                           {PRODUCTS.map((product) => (
-                            <div key={product.id} className="w-full flex shrink-0">
+                            <div key={product.id} className="w-full">
                               <Link
                                 to={`/product/${product.id}`}
                                 onClick={() => setIsOpen(false)}
                                 className={cn(
-                                  "w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98]",
+                                  "block w-full px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 active:scale-[0.98]",
                                   location.pathname === `/product/${product.id}`
                                     ? "bg-red-50/80 text-red-600" 
-                                    : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                                    : "text-gray-500 hover:text-gray-900"
                                 )}
                               >
                                 {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
@@ -322,7 +318,7 @@ export default function Navbar() {
                       to={item.path}
                       onClick={() => setIsOpen(false)}
                       className={cn(
-                        "block px-4 py-3.5 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
+                        "block px-4 py-3 rounded-2xl text-[15px] font-semibold transition-all duration-200 active:scale-[0.98]",
                         location.pathname === item.path 
                           ? "bg-red-50/80 text-red-600" 
                           : "text-gray-600 hover:bg-gray-50/80"
