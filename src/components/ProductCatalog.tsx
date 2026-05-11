@@ -9,11 +9,29 @@ import { motion, AnimatePresence } from "motion/react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslation } from "react-i18next";
-import { Info, ExternalLink, CheckCircle2, Ruler, X } from "lucide-react";
+import { 
+  Info, ExternalLink, CheckCircle2, Ruler, X, 
+  MessageCircle, Send, User, Building, Package, MessageSquare,
+  ChevronRight, ChevronLeft, ArrowRight
+} from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+
+const SALES_CONTACTS = [
+  { name: "Sales 1", phone: "6285211511211" },
+  { name: "Sales 2", phone: "6285211511212" }
+];
 
 export default function ProductCatalog() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
   const autoPlayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -136,7 +154,7 @@ export default function ProductCatalog() {
               </button>
               
               {/* Product Info Overlay (Thin) */}
-              <div className="absolute bottom-6 left-6 right-6 p-4 bg-black/20 backdrop-blur-md rounded-2xl border border-white/10 text-white flex justify-between items-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div className="absolute bottom-6 left-6 right-6 p-4 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-white flex flex-col md:flex-row justify-between items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                 <div className="flex flex-col">
                   <span className="text-[10px] font-black uppercase tracking-widest text-red-400 mb-0.5">
                     {selectedProduct.category}
@@ -145,21 +163,104 @@ export default function ProductCatalog() {
                     {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
                   </h3>
                 </div>
-                <Button 
-                   onClick={(e) => {
-                      e.stopPropagation();
-                      navigate(`/product/${selectedProduct.id}`);
-                      setSelectedProduct(null);
-                   }}
-                   size="sm"
-                   className="bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-xl font-bold"
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Info
-                </Button>
+                <div className="flex items-center gap-2 w-full md:w-auto">
+                   <Button 
+                     onClick={() => setIsQuoteModalOpen(true)}
+                     size="sm"
+                     className="flex-1 md:flex-none bg-red-600 hover:bg-red-700 text-white border-none rounded-xl font-bold"
+                   >
+                     Minta Penawaran
+                   </Button>
+                   
+                   <DropdownMenu>
+                      <DropdownMenuTrigger 
+                        className={cn(
+                          buttonVariants({ variant: "outline", size: "sm" }),
+                          "bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-xl font-bold h-9 w-9 p-0 flex items-center justify-center"
+                        )}
+                      >
+                        <MessageCircle className="w-4 h-4" />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end" className="w-48 p-2 rounded-xl border-gray-100 shadow-2xl">
+                        {SALES_CONTACTS.map((sales, idx) => (
+                          <DropdownMenuItem 
+                            key={idx}
+                            className="rounded-lg py-2.5 px-3 cursor-pointer focus:bg-green-50 focus:text-green-700 font-bold text-xs"
+                            onClick={() => window.open(`https://wa.me/${sales.phone}?text=Halo ${sales.name}, saya tertarik dengan produk ${selectedProduct.name}`, "_blank")}
+                          >
+                            <MessageCircle className="w-3.5 h-3.5 mr-2 text-green-500" />
+                            {sales.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuContent>
+                   </DropdownMenu>
+
+                   <Button 
+                     onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/product/${selectedProduct.id}`);
+                        setSelectedProduct(null);
+                     }}
+                     size="sm"
+                     variant="outline"
+                     className="bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-xl font-bold h-9 w-9 p-0"
+                   >
+                     <ExternalLink className="w-4 h-4" />
+                   </Button>
+                </div>
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Quote Form Modal (Duplicate of Detail Page for consistency) */}
+      <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
+        <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[2.5rem] border-none shadow-2xl">
+           {selectedProduct && (
+             <>
+               <DialogHeader className="p-8 pb-4 bg-gray-50 border-b border-gray-100">
+                  <div className="flex items-center gap-3 mb-2">
+                     <div className="p-2 bg-red-100 rounded-xl">
+                        <Package className="w-5 h-5 text-red-600" />
+                     </div>
+                     <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Form Penawaran</DialogTitle>
+                  </div>
+                  <DialogDescription className="text-gray-500 font-medium leading-relaxed">
+                     Lengkapi data untuk mendapatkan penawaran <span className="text-red-600 font-bold">{selectedProduct.name}</span>.
+                  </DialogDescription>
+               </DialogHeader>
+
+               <form className="p-8 space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Permintaan penawaran telah terkirim!'); setIsQuoteModalOpen(false); }}>
+                  <div className="space-y-4">
+                     <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                           <Label htmlFor="q-name" className="text-xs font-black uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
+                           <Input id="q-name" placeholder="John Doe" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
+                        </div>
+                        <div className="space-y-2">
+                           <Label htmlFor="q-company" className="text-xs font-black uppercase tracking-widest text-gray-400">Perusahaan</Label>
+                           <Input id="q-company" placeholder="Nama PT/CV" className="h-12 rounded-xl bg-gray-50 border-none px-4" />
+                        </div>
+                     </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="q-quantity" className="text-xs font-black uppercase tracking-widest text-gray-400">Jumlah Pesanan</Label>
+                        <Input id="q-quantity" type="number" placeholder="Pcs" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
+                     </div>
+                     <div className="space-y-2">
+                        <Label htmlFor="q-message" className="text-xs font-black uppercase tracking-widest text-gray-400">Pesan</Label>
+                        <textarea id="q-message" rows={3} className="w-full p-4 rounded-xl bg-gray-50 border-none outline-none resize-none text-sm font-medium" placeholder="Detail pesanan..." />
+                     </div>
+                  </div>
+                  <div className="pt-4 flex gap-3">
+                     <Button type="submit" className="w-full h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest shadow-xl shadow-red-600/20">
+                        Kirim Sekarang
+                        <Send className="w-4 h-4 ml-2" />
+                     </Button>
+                  </div>
+               </form>
+             </>
+           )}
         </DialogContent>
       </Dialog>
     </section>
