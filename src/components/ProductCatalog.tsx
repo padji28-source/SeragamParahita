@@ -233,25 +233,40 @@ export default function ProductCatalog() {
                   </DialogDescription>
                </DialogHeader>
 
-               <form className="p-8 space-y-6" onSubmit={(e) => { e.preventDefault(); alert('Permintaan penawaran telah terkirim!'); setIsQuoteModalOpen(false); }}>
+               <form 
+                  className="p-8 space-y-6" 
+                  onSubmit={(e) => { 
+                    e.preventDefault(); 
+                    const formData = new FormData(e.currentTarget);
+                    const name = formData.get('q-name');
+                    const company = formData.get('q-company');
+                    const quantity = formData.get('q-quantity');
+                    const message = formData.get('q-message');
+                    
+                    const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${selectedProduct.name}*.\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
+                    
+                    window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
+                    setIsQuoteModalOpen(false); 
+                  }}
+               >
                   <div className="space-y-4">
                      <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
                            <Label htmlFor="q-name" className="text-xs font-black uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
-                           <Input id="q-name" placeholder="John Doe" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
+                           <Input id="q-name" name="q-name" placeholder="John Doe" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
                         </div>
                         <div className="space-y-2">
                            <Label htmlFor="q-company" className="text-xs font-black uppercase tracking-widest text-gray-400">Perusahaan</Label>
-                           <Input id="q-company" placeholder="Nama PT/CV" className="h-12 rounded-xl bg-gray-50 border-none px-4" />
+                           <Input id="q-company" name="q-company" placeholder="Nama PT/CV" className="h-12 rounded-xl bg-gray-50 border-none px-4" />
                         </div>
                      </div>
                      <div className="space-y-2">
                         <Label htmlFor="q-quantity" className="text-xs font-black uppercase tracking-widest text-gray-400">Jumlah Pesanan</Label>
-                        <Input id="q-quantity" type="number" placeholder="Pcs" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
+                        <Input id="q-quantity" name="q-quantity" type="number" placeholder="Pcs" className="h-12 rounded-xl bg-gray-50 border-none px-4" required />
                      </div>
                      <div className="space-y-2">
                         <Label htmlFor="q-message" className="text-xs font-black uppercase tracking-widest text-gray-400">Pesan</Label>
-                        <textarea id="q-message" rows={3} className="w-full p-4 rounded-xl bg-gray-50 border-none outline-none resize-none text-sm font-medium" placeholder="Detail pesanan..." />
+                        <textarea id="q-message" name="q-message" rows={3} className="w-full p-4 rounded-xl bg-gray-50 border-none outline-none resize-none text-sm font-medium" placeholder="Detail pesanan..." />
                      </div>
                   </div>
                   <div className="pt-4 flex gap-3">
