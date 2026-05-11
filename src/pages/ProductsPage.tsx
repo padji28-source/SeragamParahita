@@ -6,7 +6,6 @@ import { Product } from "../types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "motion/react";
@@ -16,28 +15,14 @@ import { useTranslation } from "react-i18next";
 export default function ProductsPage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [activeCategory, setActiveCategory] = useState("Semua");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeMaterialIndex, setActiveMaterialIndex] = useState(0);
 
-  const CATEGORIES = [
-    { id: "Semua", label: t('products.categories.all') || "Semua" },
-    { id: "Waralaba", label: t('products.categories.franchise') || "Waralaba" },
-    { id: "Otomotif", label: t('products.categories.automotive') || "Otomotif" },
-    { id: "Tambang", label: t('products.categories.mining') || "Tambang" },
-    { id: "Kantor", label: t('products.categories.office') || "Kantor" },
-    { id: "Media", label: t('products.categories.media') || "Media" },
-    { id: "Food & Beverage", label: t('products.categories.fnb') || "Food & Beverage" },
-    { id: "Event", label: t('products.categories.event') || "Event" },
-    { id: "Merchandise", label: t('products.categories.merchandise') || "Merchandise" }
-  ];
-
   const filteredProducts = PRODUCTS.filter((p) => {
-    const matchesCategory = activeCategory === "Semua" || p.category === activeCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           p.description?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
+    return matchesSearch;
   });
 
   const selectedMaterial = selectedProduct?.materialId 
@@ -84,8 +69,8 @@ export default function ProductsPage() {
       {/* Filter & Grid */}
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-12 max-w-5xl mx-auto">
-            <div className="relative w-full md:w-auto flex-grow max-w-md">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-12 max-w-xl mx-auto">
+            <div className="relative w-full flex-grow">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input 
                 placeholder={t('productsPage.searchPlaceholder')} 
@@ -94,19 +79,6 @@ export default function ProductsPage() {
                 className="pl-10 h-12 rounded-xl bg-white border-gray-200 focus:ring-red-500/20 w-full"
               />
             </div>
-            <Tabs defaultValue="Semua" onValueChange={setActiveCategory} className="w-full md:w-auto flex-grow overflow-hidden">
-              <TabsList className="w-full bg-gray-100/40 border border-gray-200/50 rounded-2xl md:rounded-full flex flex-wrap justify-start md:justify-center p-2 h-auto shadow-inner gap-1">
-                {CATEGORIES.map((cat) => (
-                  <TabsTrigger
-                    key={cat.id}
-                    value={cat.id}
-                    className="data-[state=active]:bg-white data-[state=active]:text-gray-900 data-[state=active]:shadow-sm whitespace-nowrap px-4 py-2 rounded-full font-bold text-gray-500 transition-all duration-300 text-sm flex-grow sm:flex-grow-0"
-                  >
-                    {cat.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -276,14 +248,14 @@ export default function ProductsPage() {
               <div className="flex flex-col h-full overflow-hidden">
                 <div className="p-6 md:p-10 space-y-8 overflow-y-auto flex-grow">
                   <DialogHeader className="space-y-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <Badge variant="outline" className="text-red-600 border-red-200 bg-red-50 px-3 py-1">
-                        {CATEGORIES.find(c => c.id === selectedProduct.category)?.label || selectedProduct.category}
-                      </Badge>
-                      {selectedProduct.badge && (
-                        <Badge className="bg-gray-900 px-3 py-1">{selectedProduct.badge}</Badge>
-                      )}
-                    </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <Badge variant="outline" className="text-red-600 border-red-200 bg-red-50 px-3 py-1">
+                          {selectedProduct.category}
+                        </Badge>
+                        {selectedProduct.badge && (
+                          <Badge className="bg-gray-900 px-3 py-1">{selectedProduct.badge}</Badge>
+                        )}
+                      </div>
                     <div>
                       <DialogTitle className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
                         {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
