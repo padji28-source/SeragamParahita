@@ -27,7 +27,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const SALES_CONTACTS = [
-  { name: "Sales 1", phone: "6285211511211" },
+  { name: "Sales 1", phone: "6281214007871" },
   { name: "Sales 2", phone: "6285211511212" }
 ];
 
