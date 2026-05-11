@@ -14,6 +14,7 @@ export const PRODUCTS: Product[] = [
     name: 'Seragam Waralaba',
     category: 'Waralaba',
     image: '/images.jpeg',
+    images: ['/images.jpeg', '/product-1.jpg', '/product-2.jpg'],
     badge: 'Best Seller',
     description: 'Produk seragam unggulan kami, yang hampir seluruhnya berjenis kemeja & polo shirt. Untuk kebutuhan seragam Waralaba anda yang bergerak dibidan barang atau jasa.',
     features: ['Kualitas Premium', 'Nyaman Dipakai', 'Desain Custom'],
