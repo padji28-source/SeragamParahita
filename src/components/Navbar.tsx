@@ -10,7 +10,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { PRODUCTS } from "@/src/constants";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 
@@ -143,7 +143,6 @@ export default function Navbar() {
               {PRODUCTS.map((product) => (
                 <DropdownMenuItem 
                   key={product.id} 
-                  asChild
                   className={cn(
                     "w-full px-3 py-2.5 rounded-xl text-sm font-medium cursor-pointer transition-all duration-200 ease-out outline-none",
                     location.pathname === `/product/${product.id}` 
@@ -178,16 +177,15 @@ export default function Navbar() {
         {/* KANAN: Tools & Mobile Toggle */}
         <div className="flex flex-1 justify-end items-center gap-3 md:gap-4">
           <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button 
-                variant="outline" 
-                size="sm" 
-                className="hidden sm:flex items-center gap-2 font-semibold h-10 px-3 cursor-pointer rounded-xl bg-white/80 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 ease-out group"
-              >
-                <Globe className="w-4 h-4 text-gray-500 transition-colors group-hover:text-gray-700" />
-                <span>{currentLanguage}</span>
-                <ChevronDown className="w-3 h-3 opacity-50 ml-1 transition-transform duration-300 group-data-[state=open]:rotate-180" />
-              </Button>
+            <DropdownMenuTrigger
+              className={cn(
+                buttonVariants({ variant: "outline", size: "sm" }),
+                "hidden sm:flex items-center gap-2 font-semibold h-10 px-3 cursor-pointer rounded-xl bg-white/80 backdrop-blur-sm border-gray-200 text-gray-700 hover:bg-gray-50 hover:border-gray-300 transition-all duration-300 ease-out group"
+              )}
+            >
+              <Globe className="w-4 h-4 text-gray-500 transition-colors group-hover:text-gray-700" />
+              <span>{currentLanguage}</span>
+              <ChevronDown className="w-3 h-3 opacity-50 ml-1 transition-transform duration-300 group-data-[state=open]:rotate-180" />
             </DropdownMenuTrigger>
             <DropdownMenuContent 
               align="end" 
