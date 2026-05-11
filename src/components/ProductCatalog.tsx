@@ -245,7 +245,7 @@ export default function ProductCatalog() {
                     
                     const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${selectedProduct.name}*.\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
                     
-                    window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
+                    window.open(`https://wa.me/6281214007871?text=${encodeURIComponent(waMessage)}`, "_blank");
                     setIsQuoteModalOpen(false); 
                   }}
                >
