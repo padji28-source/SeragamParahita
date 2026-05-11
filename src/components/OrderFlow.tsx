@@ -53,7 +53,7 @@ ${additionalNotes || '-'}
 Mohon informasi harga dan estimasi waktu pengerjaan. Terima kasih!`;
 
     const encodedMessage = encodeURIComponent(message);
-    const waNumbers = ["6281234567890", "6281234567891"];
+    const waNumbers = ["6285211511211", "6285211511212"];
     // Select one randomly, or we could just use a fixed number.
     const targetWa = waNumbers[Math.floor(Math.random() * waNumbers.length)];
     
