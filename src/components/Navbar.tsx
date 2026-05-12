@@ -131,7 +131,7 @@ export default function Navbar() {
               className="w-52 p-2 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] bg-white/95 backdrop-blur-xl border-gray-100/60 animate-in fade-in-0 zoom-in-95 duration-200"
             >
               {PRODUCTS.map((product) => (
-                <DropdownMenuItem key={product.id} asChild className="p-0">
+                <DropdownMenuItem key={product.id} className="p-0">
                   <Link 
                     to={`/product/${product.id}`}
                     className={cn(
@@ -149,7 +149,6 @@ export default function Navbar() {
           </DropdownMenu>
 
           <Link to="/partner" className={getLinkStyle("/partner")}>{t('nav.partner')}</Link>
-          <Link to="/about" className={getLinkStyle("/about")}>{t('nav.about')}</Link>
           <Link to="/contact" className={getLinkStyle("/contact")}>{t('nav.contact')}</Link>
         </div>
 
@@ -255,7 +254,7 @@ export default function Navbar() {
                   </AnimatePresence>
                 </motion.div>
 
-                {['partner', 'about', 'contact'].map((item) => (
+                {['partner', 'contact'].map((item) => (
                   <motion.div key={item} variants={mobileLinkVars}>
                     <Link 
                       to={`/${item}`} 
