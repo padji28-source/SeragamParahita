@@ -10,7 +10,6 @@ const HomePage = lazy(() => import("./pages/HomePage"));
 const ProductsPage = lazy(() => import("./pages/ProductsPage"));
 const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
 const PartnerPage = lazy(() => import("./pages/PartnerPage"));
-const AboutPage = lazy(() => import("./pages/AboutPage"));
 const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 // Loading Fallback (Sederhana tapi penting)
@@ -72,7 +71,6 @@ function AnimatedRoutes() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/partner" element={<PartnerPage />} />
-            <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             
             {/* 2. Catch-all Route 404 */}
