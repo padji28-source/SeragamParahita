@@ -71,7 +71,7 @@ export default function Footer() {
           <div>
             <h4 className="text-xs font-black mb-8 uppercase tracking-[0.3em] text-red-600">Navigasi</h4>
             <ul className="space-y-4 text-gray-300 font-bold text-sm">
-              {['home', 'partner', 'about', 'contact'].map((item) => (
+              {['home', 'partner', 'contact'].map((item) => (
                 <li key={item}>
                   <Link to={`/${item === 'home' ? '' : item}`} className="hover:text-red-500 transition-colors flex items-center group">
                     {t(`nav.${item}`)}
