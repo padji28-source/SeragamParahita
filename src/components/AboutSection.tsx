@@ -48,7 +48,7 @@ export default function AboutSection() {
         </div>
         
         <div className="container mx-auto px-4 md:px-8 relative z-10 py-16 md:py-24 flex flex-col lg:flex-row gap-12 lg:gap-16 items-center lg:items-stretch">
-          <motion.div 
+           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-100px" }}
