@@ -93,12 +93,12 @@ export default function PartnerPage() {
       <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <img 
-            src="/background.png" 
+            src="/Parahitaprimasentosa.png" 
             alt="Partners Background" 
-            className="w-full h-full object-cover blur-sm scale-105"
+            className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/50" />
+          <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center text-white">
           <motion.div
