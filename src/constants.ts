@@ -1,13 +1,12 @@
 import { Product, Partner, Material, LiveProject, MajorPartner } from './types';
 
 export const PARTNERS: Partner[] = [
-  { name: 'Pertamina', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/3840px-Pertamina_Logo.svg.png' },
+  { name: 'Pertamina', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Pertamina_Logo.svg' },
   { name: 'Alfamart', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ALFAMART_LOGO_BARU.png' },
-  { name: 'Bridgestone', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bridgestone_logo.svg/3840px-Bridgestone_logo.svg.png' },
-  { name: 'Shell', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Shell_logo.svg/1200px-Shell_logo.svg.png' },
-  { name: 'Indomaret', logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7yYDzQd8TQI48mkt0r4EUvr3CpWQuGs2YyT0r_2eRxA0gtRwvRdGcW7Uak31ujWtM3yj4m-6RL4_rtNMAbsANX3mjhbBVXJIywiL-GfJ-s5jgwjgbTERF8xkRdMpdbjKJKa0TpP6R-No9/w680/1_CIBGcN49hlB48uB8HbnejQ.png' },
-  { name: 'Hankook', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hankook_Tire_logo.svg/1280px-Hankook_Tire_logo.svg.png' },
-  { name: 'Superindo', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Super_Indo_logo.svg/1200px-Super_Indo_logo.svg.png' },
+  { name: 'Bridgestone', logo: 'https://bpando.org/wp-content/uploads/New-Bridgestone-Logo-Design-2011-BPO.jpg' },
+  { name: 'Shell', logo: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Shell_logo.svg' },
+  { name: 'Hankook', logo: 'https://1000logos.net/wp-content/uploads/2020/08/Hankook-Logo-1990s.png' },
+  { name: 'Superindo', logo: 'https://www.superindo.co.id/korporasi-keberlanjutan/upload/images/LOGO%20SUPER%20INDO%20PNG.PNG' },
 ];
 
 export const PRODUCTS: Product[] = [
@@ -195,22 +194,22 @@ export const MAJOR_PARTNERS: MajorPartner[] = [
   },
   {
     id: '2',
-    name: 'Indomaret',
-    logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7yYDzQd8TQI48mkt0r4EUvr3CpWQuGs2YyT0r_2eRxA0gtRwvRdGcW7Uak31ujWtM3yj4m-6RL4_rtNMAbsANX3mjhbBVXJIywiL-GfJ-s5jgwjgbTERF8xkRdMpdbjKJKa0TpP6R-No9/w680/1_CIBGcN49hlB48uB8HbnejQ.png',
+    name: 'Hankook',
+    logo: 'https://1000logos.net/wp-content/uploads/2020/08/Hankook-Logo-1990s.png',
     status: 'Live Order',
     progress: 60,
   },
   {
     id: '3',
     name: 'Pertamina',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/3840px-Pertamina_Logo.svg.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Pertamina_Logo.svg',
     status: 'Live Order',
     progress: 45,
   },
   {
     id: '4',
     name: 'Bridgestone',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bridgestone_logo.svg/3840px-Bridgestone_logo.svg.png',
+    logo: 'https://bpando.org/wp-content/uploads/New-Bridgestone-Logo-Design-2011-BPO.jpg',
     status: 'Live Order',
     progress: 90,
   },
