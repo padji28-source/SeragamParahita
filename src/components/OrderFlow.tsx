@@ -95,28 +95,28 @@ Mohon informasi harga dan estimasi waktu pengerjaan. Terima kasih!`;
                 title: t('orderFlow.steps.consultation.title'),
                 desc: t('orderFlow.steps.consultation.desc'),
                 color: "bg-blue-50 text-blue-600 border-blue-100",
-                image: "/bg1.png"
+                image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=800"
               },
               {
                 icon: <Settings className="w-6 h-6" />,
                 title: t('orderFlow.steps.design.title'),
                 desc: t('orderFlow.steps.design.desc'),
                 color: "bg-purple-50 text-purple-600 border-purple-100",
-                image: "/bg2.png"
+                image: "https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=800"
               },
               {
                 icon: <Scissors className="w-6 h-6" />,
                 title: t('orderFlow.steps.production.title'),
                 desc: t('orderFlow.steps.production.desc'),
                 color: "bg-orange-50 text-orange-600 border-orange-100",
-                image: "/bg3.png"
+                image: "https://images.unsplash.com/photo-1596440612457-3f8c85e2b02e?q=80&w=800"
               },
               {
                 icon: <CheckCircle className="w-6 h-6" />,
                 title: t('orderFlow.steps.qc.title'),
                 desc: t('orderFlow.steps.qc.desc'),
                 color: "bg-green-50 text-green-600 border-green-100",
-                image: "/Parahitaprimasentosa.png"
+                image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=800"
               }
             ].map((step, index) => {
               return (
