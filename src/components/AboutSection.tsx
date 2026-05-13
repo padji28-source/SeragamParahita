@@ -85,7 +85,7 @@ export default function AboutSection() {
 
               <div className="pt-4">
                 <a 
-                  href="/company-profile.pdf" 
+                  href="/Compro-Parahita-Garment.pdf" 
                   download="Compro-Parahita-Garment.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
