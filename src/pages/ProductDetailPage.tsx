@@ -71,44 +71,58 @@ export default function ProductDetailPage() {
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
           
           {/* KIRI: Image Gallery (Sticky di Desktop) */}
-          <div className="lg:w-[55%] xl:w-[60%]">
-            <div className="h-full flex flex-col space-y-4">
+          <div className="lg:w-[50%] xl:w-[50%]">
+            <div className="lg:sticky lg:top-32 flex flex-col space-y-4">
               <motion.div 
                 layoutId={`img-${product.id}`}
-                className="relative w-full rounded-[2.5rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex-1 min-h-[400px] lg:min-h-0"
+                className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm group"
               >
                 <AnimatePresence mode="wait">
                   <motion.img 
                     key={safeActiveImg}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
+                    initial={{ opacity: 0, scale: 1.05 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     src={currentImage} 
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                 </AnimatePresence>
 
-                {/* Manual Navigation Arrows */}
+                {/* Navigation Arrows */}
                 {images.length > 1 && (
                   <>
                     <button 
                       onClick={() => setActiveImg((prev) => (prev - 1 + images.length) % images.length)}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-white/40"
+                      className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/60 backdrop-blur-md border border-white/80 text-gray-800 shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-300 hover:bg-white hover:scale-105"
                     >
                       <ChevronLeft className="w-6 h-6" />
                     </button>
                     <button 
                       onClick={() => setActiveImg((prev) => (prev + 1) % images.length)}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 backdrop-blur-md border border-white/30 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-white/40"
+                      className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/60 backdrop-blur-md border border-white/80 text-gray-800 shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-300 hover:bg-white hover:scale-105"
                     >
                       <ChevronRight className="w-6 h-6" />
                     </button>
+                    
+                    {/* Dots indicator */}
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/30 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      {images.map((_, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setActiveImg(idx)}
+                          className={cn(
+                            "transition-all duration-300 rounded-full",
+                            activeImg === idx ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/60 hover:bg-white/80"
+                          )}
+                        />
+                      ))}
+                    </div>
                   </>
                 )}
                 
                 {product.badge && (
-                  <Badge className="absolute top-6 left-6 bg-red-600 text-white font-black px-4 py-1 rounded-full shadow-xl">
+                  <Badge className="absolute top-6 left-6 bg-red-600/90 backdrop-blur border border-red-500/50 text-white font-black px-4 py-1.5 rounded-full shadow-xl tracking-widest text-xs uppercase z-10">
                     {product.badge}
                   </Badge>
                 )}
@@ -116,14 +130,14 @@ export default function ProductDetailPage() {
 
               {/* Thumbnails */}
               {images.length > 1 && (
-                <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                <div className="flex gap-4 overflow-x-auto pb-4 pt-2 scrollbar-hide snap-x">
                   {images.map((img, idx) => (
                     <button 
                       key={idx}
                       onClick={() => setActiveImg(idx)}
                       className={cn(
-                        "relative w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all shrink-0",
-                        activeImg === idx ? "border-red-500 scale-95" : "border-transparent opacity-60 hover:opacity-100"
+                        "relative w-24 h-24 rounded-xl overflow-hidden border-2 transition-all duration-300 shrink-0 snap-start shadow-sm",
+                        activeImg === idx ? "border-red-500 ring-2 ring-red-500/20 scale-100" : "border-white opacity-60 hover:opacity-100 hover:scale-[1.02]"
                       )}
                     >
                       <img src={img} className="w-full h-full object-cover" />
@@ -135,7 +149,7 @@ export default function ProductDetailPage() {
           </div>
 
           {/* KANAN: Product Info */}
-          <div className="lg:w-[45%] xl:w-[40%] flex flex-col space-y-8">
+          <div className="lg:w-[50%] xl:w-[50%] flex flex-col space-y-8">
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -168,61 +182,44 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* Features & Material Grid */}
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pt-6">
-                {/* Features List */}
-                <div className="space-y-4">
+              {/* Material Info - Integrated */}
+              {material && (
+                <div className="pt-6 space-y-5">
                   <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    Fitur Utama
+                    <Package className="w-5 h-5 text-red-500" />
+                    Material
+                    {material.name.includes('Premium') && <span className="text-red-500 ml-1">Premium</span>}
+                    <span className="text-gray-900">{material.name.replace('Premium ', '')}</span>
                   </h3>
-                  <div className="grid grid-cols-1 gap-3">
-                    {(product.features || []).map((feature: string, idx: number) => (
-                      <div key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
-                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
-                        <span className="text-gray-700 text-sm font-medium leading-tight">{feature}</span>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 rounded-[2.5rem] bg-gray-50/50 border border-gray-100 hover:bg-gray-50 transition-colors duration-300">
+                    <div className="space-y-6">
+                       <div>
+                         <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">Komposisi</p>
+                         <p className="text-lg font-bold text-gray-900">{material.specifications.composition}</p>
+                       </div>
+                       <div>
+                         <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">Gramasi</p>
+                         <p className="text-lg font-bold text-gray-900">{material.specifications.grammage}</p>
+                       </div>
+                    </div>
+                    
+                    {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
+                      <div className="md:border-l md:border-gray-200/60 md:pl-8 flex flex-col justify-center">
+                        <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Fitur Teknis</p>
+                        <div className="flex flex-wrap gap-2.5">
+                          {material.specifications.technicals.map((tech, idx) => (
+                            <span key={idx} className="text-[11px] font-bold text-gray-700 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm flex items-center gap-2 group-hover:border-red-100 transition-colors">
+                              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
                       </div>
-                    ))}
+                    )}
                   </div>
                 </div>
-
-                {/* Material Info - Integrated */}
-                {material && (
-                  <div className="space-y-4">
-                    <h3 className="font-bold text-gray-900 flex flex-wrap items-center gap-2">
-                      <Package className="w-5 h-5 text-red-500" />
-                      <span>Material</span>
-                      {material.name.includes('Premium') && <span className="text-red-500 font-black">Premium</span>}
-                      <span className="text-gray-900">{material.name.replace('Premium ', '')}</span>
-                    </h3>
-                    <div className="flex flex-col gap-6 p-6 rounded-[2rem] bg-gray-50/80 border border-gray-100/80 h-max justify-center shadow-sm">
-                      <div className="grid grid-cols-2 gap-8">
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Komposisi</p>
-                          <p className="text-sm font-bold text-gray-900">{material.specifications.composition}</p>
-                        </div>
-                        <div className="space-y-2">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Gramasi</p>
-                          <p className="text-sm font-bold text-gray-900">{material.specifications.grammage}</p>
-                        </div>
-                      </div>
-                      
-                      {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
-                        <div className="pt-6 border-t border-gray-200/50">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Fitur Teknis</p>
-                          <div className="flex flex-wrap gap-2.5">
-                            {material.specifications.technicals.map((tech, idx) => (
-                              <span key={idx} className="text-xs font-semibold text-gray-700 bg-white px-4 py-2 rounded-2xl border border-gray-100 shadow-sm">
-                                {tech}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
+              )}
 
               {/* CTA Actions */}
               <div className="flex flex-col sm:flex-row gap-3 pt-8">
