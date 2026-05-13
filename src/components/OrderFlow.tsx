@@ -65,9 +65,12 @@ Mohon informasi harga dan estimasi waktu pengerjaan. Terima kasih!`;
     <section className="bg-white">
       {/* Inquiry & Order Flow Header */}
       <div className="bg-white py-24 relative overflow-hidden border-b border-gray-100">
-        <div className="absolute top-0 left-0 w-full h-full opacity-[0.03] pointer-events-none">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-red-600 rounded-full blur-[100px]" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 border border-black rounded-full animate-pulse delay-700" />
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none -z-10">
+          <img 
+            src="/Parahitaprimasentosa.png" 
+            alt="Parahita Background" 
+            className="w-full h-full object-cover"
+          />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
@@ -82,58 +85,83 @@ Mohon informasi harga dan estimasi waktu pengerjaan. Terima kasih!`;
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto relative">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto relative">
             {/* Connecting Line for Desktop */}
-            <div className="hidden lg:block absolute top-[4.5rem] left-[10%] right-[10%] h-0.5 bg-gray-100 -z-10" />
+            <div className="hidden lg:block absolute top-[100px] left-[10%] right-[10%] h-0.5 bg-gray-200/60 -z-10" />
 
             {[
               {
                 icon: <FileText className="w-6 h-6" />,
                 title: t('orderFlow.steps.consultation.title'),
                 desc: t('orderFlow.steps.consultation.desc'),
-                color: "bg-blue-50 text-blue-600",
-                borderColor: "group-hover:border-blue-200"
+                color: "bg-blue-50 text-blue-600 border-blue-100",
+                image: "/bg1.png"
               },
               {
                 icon: <Settings className="w-6 h-6" />,
                 title: t('orderFlow.steps.design.title'),
                 desc: t('orderFlow.steps.design.desc'),
-                color: "bg-purple-50 text-purple-600",
-                borderColor: "group-hover:border-purple-200"
+                color: "bg-purple-50 text-purple-600 border-purple-100",
+                image: "/bg2.png"
               },
               {
                 icon: <Scissors className="w-6 h-6" />,
                 title: t('orderFlow.steps.production.title'),
                 desc: t('orderFlow.steps.production.desc'),
-                color: "bg-orange-50 text-orange-600",
-                borderColor: "group-hover:border-orange-200"
+                color: "bg-orange-50 text-orange-600 border-orange-100",
+                image: "/bg3.png"
               },
               {
                 icon: <CheckCircle className="w-6 h-6" />,
                 title: t('orderFlow.steps.qc.title'),
                 desc: t('orderFlow.steps.qc.desc'),
-                color: "bg-green-50 text-green-600",
-                borderColor: "group-hover:border-green-200"
+                color: "bg-green-50 text-green-600 border-green-100",
+                image: "/Parahitaprimasentosa.png"
               }
-            ].map((step, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: index * 0.05 }}
-                viewport={{ once: true }}
-                className={`bg-white rounded-3xl p-8 border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 group ${step.borderColor} relative hover:-translate-y-2`}
-              >
-                <div className="absolute -top-4 -right-4 w-12 h-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 font-black text-xl border border-gray-100 z-10 group-hover:scale-110 transition-transform">
-                  {index + 1}
+            ].map((step, index) => {
+              return (
+                <div key={index} className="relative">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
+                    viewport={{ once: true }}
+                    className="relative group flex flex-col items-center bg-white rounded-3xl p-6 border border-gray-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 mt-4 h-full"
+                  >
+                    {/* Number Badge */}
+                    <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-full border-4 border-red-50 flex items-center justify-center text-xl font-black text-red-600 shadow-md z-10">
+                      {index + 1}
+                    </div>
+
+                    {/* Image/Visual */}
+                    <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 mt-4 relative border border-gray-100">
+                      <img 
+                        src={step.image} 
+                        alt={step.title} 
+                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                      <div className={`absolute bottom-3 right-3 w-10 h-10 rounded-xl ${step.color} flex items-center justify-center shadow-lg border border-white/20`}>
+                        {step.icon}
+                      </div>
+                    </div>
+
+                    {/* Text Details */}
+                    <div className="text-center w-full flex-1 flex flex-col">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
+                      <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                    </div>
+                  </motion.div>
+
+                  {/* Flow Arrow (only visible on large screens between items) */}
+                  {index < 3 && (
+                    <div className="hidden lg:block absolute top-[130px] -right-[2.5rem] w-8 h-8 z-0 text-red-200">
+                      <ArrowRight className="w-full h-full object-contain" />
+                    </div>
+                  )}
                 </div>
-                <div className={`w-16 h-16 rounded-2xl ${step.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
-                  {step.icon}
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{step.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
