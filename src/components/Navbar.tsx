@@ -112,7 +112,10 @@ export default function Navbar() {
             <img 
               src="/Logo.png" 
               alt="Logo" 
-              className="h-10 md:h-12 w-auto object-contain"
+              className={cn(
+                "w-auto object-contain transition-all duration-300",
+                isScrolled ? "h-11 md:h-14" : "h-14 md:h-16"
+              )}
             />
           </Link>
         </div>
