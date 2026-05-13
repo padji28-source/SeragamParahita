@@ -114,55 +114,74 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-12">
+          {/* Products List */}
+          <div className="mt-16 flex flex-col gap-12">
             <AnimatePresence mode="popLayout">
               {filteredProducts.map((product, idx) => (
                 <motion.div
                   key={product.id}
                   layout
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ duration: 0.5, delay: idx * 0.05, ease: smoothEase }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.6, ease: smoothEase }}
                 >
                   <Card 
                     onClick={() => setSelectedProduct(product)}
-                    className="group border-none shadow-none bg-transparent cursor-pointer"
+                    className={cn(
+                      "group border border-gray-100 shadow-sm bg-white overflow-hidden rounded-[2.5rem] cursor-pointer hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 flex flex-col items-stretch",
+                      idx % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
+                    )}
                   >
-                    <div className="relative aspect-[3/4] overflow-hidden rounded-[2rem] bg-white shadow-sm transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
+                    {/* Image Area */}
+                    <div className="w-full md:w-1/2 relative bg-white overflow-hidden min-h-[300px] md:min-h-0 p-8 md:p-12 flex items-center justify-center">
                       <img
                         src={product.image}
                         alt={product.name}
-                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                        className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-[1.05]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.02] transition-colors duration-500 rounded-[2.5rem]" />
                       
                       {product.badge && (
-                        <Badge className="absolute top-5 left-5 bg-red-600 text-[10px] font-black uppercase tracking-widest px-3 py-1">
+                        <Badge className="absolute top-6 left-6 md:top-8 md:left-8 bg-red-600 text-[10px] font-black uppercase tracking-widest px-4 py-1.5 shadow-lg">
                           {product.badge}
                         </Badge>
                       )}
-                      
-                      <div className="absolute bottom-5 left-5 right-5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                         <Button className="w-full bg-white/20 backdrop-blur-md border border-white/30 text-white font-bold hover:bg-white hover:text-black">
-                            Quick View
-                         </Button>
-                      </div>
                     </div>
                     
-                    <CardContent className="pt-6 px-2 space-y-2">
-                      <div className="flex items-center gap-2">
-                        <span className="w-4 h-[1px] bg-red-500" />
-                        <span className="text-[10px] font-black text-red-500 uppercase tracking-widest">
+                    {/* Content Area */}
+                    <div className="w-full md:w-1/2 p-8 md:p-16 flex flex-col justify-center bg-white h-full relative overflow-hidden">
+                      {/* Decorative Background Element */}
+                      <div className={cn(
+                        "absolute w-64 h-64 bg-red-50 rounded-full blur-[80px] -z-10 transition-transform duration-700 pointer-events-none group-hover:scale-150",
+                        idx % 2 === 1 ? "-right-20 top-0" : "-left-20 top-0"
+                      )} />
+                      
+                      <div className="flex items-center gap-3 mb-6">
+                        <span className="w-8 h-[2px] bg-red-600" />
+                        <span className="text-sm font-black text-red-600 uppercase tracking-widest">
                           {product.category}
                         </span>
                       </div>
-                      <h3 className="text-xl font-bold text-gray-900 leading-tight">
+                      
+                      <h3 className="text-3xl md:text-5xl font-black text-gray-900 leading-[1.1] mb-6 tracking-tight">
                         {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
                       </h3>
-                      <p className="text-gray-500 text-sm font-bold">{product.price}</p>
-                    </CardContent>
+                      
+                      <p className="text-gray-500 text-base md:text-lg leading-relaxed mb-8 line-clamp-4">
+                        {t(`products.items.${product.id}.desc`, { defaultValue: product.description })}
+                      </p>
+                      
+                      <div className="mt-auto flex items-center gap-6">
+                         <div className="flex bg-gray-50 rounded-full p-2 border border-gray-100 items-center justify-center transition-all duration-300 group-hover:bg-red-600 group-hover:border-red-600 group-hover:shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+                            <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
+                         </div>
+                         <span className="font-bold text-gray-400 group-hover:text-gray-900 transition-colors uppercase tracking-widest text-xs">
+                           Detail Produk
+                         </span>
+                      </div>
+                    </div>
                   </Card>
                 </motion.div>
               ))}
