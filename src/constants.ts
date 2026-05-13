@@ -3,7 +3,7 @@ import { Product, Partner, Material, LiveProject, MajorPartner } from './types';
 export const PARTNERS: Partner[] = [
   { name: 'Pertamina', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pertamina_Logo.svg/3840px-Pertamina_Logo.svg.png' },
   { name: 'Alfamart', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ALFAMART_LOGO_BARU.png' },
-  { name: 'Bridgestone', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridgestone_logo.svg/1280px-Bridgestone_logo.svg.png' },
+  { name: 'Bridgestone', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bridgestone_logo.svg/3840px-Bridgestone_logo.svg.png' },
   { name: 'Shell', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Shell_logo.svg/1200px-Shell_logo.svg.png' },
   { name: 'Indomaret', logo: 'https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi7yYDzQd8TQI48mkt0r4EUvr3CpWQuGs2YyT0r_2eRxA0gtRwvRdGcW7Uak31ujWtM3yj4m-6RL4_rtNMAbsANX3mjhbBVXJIywiL-GfJ-s5jgwjgbTERF8xkRdMpdbjKJKa0TpP6R-No9/w680/1_CIBGcN49hlB48uB8HbnejQ.png' },
   { name: 'Hankook', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Hankook_Tire_logo.svg/1280px-Hankook_Tire_logo.svg.png' },
@@ -210,7 +210,7 @@ export const MAJOR_PARTNERS: MajorPartner[] = [
   {
     id: '4',
     name: 'Bridgestone',
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e5/Bridgestone_logo.svg/1280px-Bridgestone_logo.svg.png',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Bridgestone_logo.svg/3840px-Bridgestone_logo.svg.png',
     status: 'Live Order',
     progress: 90,
   },
