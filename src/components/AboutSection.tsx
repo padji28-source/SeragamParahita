@@ -51,16 +51,17 @@ export default function AboutSection() {
               <div className="space-y-5 text-gray-700 font-medium text-[15px] md:text-base leading-relaxed">
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
+                <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
               </div>
 
               <div className="pt-4">
                 <a 
-                  href="/company-profile.pdf" 
-                  target="_blank"
+                  href="" 
+                  target="/company-profile.pdf"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 bg-[maroon] hover:bg-neutral-900 text-white font-bold h-14 px-8 rounded-xl transition-all duration-300 uppercase tracking-widest text-sm group shadow-lg"
                 >
-                  <span>{t('about.companyProfile')}</span>
+                  <span>{t('Unduh Profil Perusahaan')}</span>
                   <Download className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                 </a>
               </div>
