@@ -15,7 +15,7 @@ const resources = {
       },
       hero: {
         title: 'Excellence in Garment Manufacturing',
-        subtitle: 'Providing high-quality uniforms and corporate wear for Indonesia\'s leading industries since 2010.',
+        subtitle: 'Providing high-quality uniforms and corporate wear for Indonesia\'s leading industries since 1990.',
         cta: 'Explore Products'
       },
       footer: {
@@ -135,7 +135,7 @@ const resources = {
       },
       about: {
         title: 'About',
-        subtitle: 'Crafting excellence in every stitch since 2010.',
+        subtitle: 'Crafting excellence in every stitch since 1990.',
         vision: 'Our Vision',
         mission: 'Our Mission',
         visionStatement: '"To become a trusted and leading garment company in quality and service."',
@@ -276,7 +276,7 @@ const resources = {
       },
       hero: {
         title: 'Keunggulan dalam Manufaktur Garmen',
-        subtitle: 'Menyediakan seragam berkualitas tinggi dan pakaian korporat untuk industri terkemuka di Indonesia sejak 2010.',
+        subtitle: 'Menyediakan seragam berkualitas tinggi dan pakaian korporat untuk industri terkemuka di Indonesia sejak 1990.',
         cta: 'Jelajahi Produk'
       },
       footer: {
@@ -375,7 +375,7 @@ const resources = {
       },
       about: {
         title: 'Tentang',
-        subtitle: 'Menciptakan keunggulan dalam setiap jahitan sejak 2010.',
+        subtitle: 'Menciptakan keunggulan dalam setiap jahitan sejak 1990.',
         vision: 'Visi',
         mission: 'Misi',
         visionStatement: '"Menjadi perusahaan garmen yang terpercaya dan terdepan dalam kualitas serta pelayanan."',
