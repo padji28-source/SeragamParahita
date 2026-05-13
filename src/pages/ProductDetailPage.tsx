@@ -31,8 +31,7 @@ import { Label } from "@/components/ui/label";
 const smoothEase = [0.16, 1, 0.3, 1];
 
 const SALES_CONTACTS = [
-  { name: "Sales 1", phone: "6281214007871" },
-  { name: "Sales 2", phone: "6285211511212" }
+  { name: "Sales 1", phone: "6282125478346" }
 ];
 
 export default function ProductDetailPage() {
@@ -251,7 +250,7 @@ export default function ProductDetailPage() {
                 
                 const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${product.name}*.\n\n*Deskripsi Produk:*\n${product.description}\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
                 
-                window.open(`https://wa.me/6281214007871?text=${encodeURIComponent(waMessage)}`, "_blank");
+                window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
                 setIsQuoteModalOpen(false); 
               }}
            >
