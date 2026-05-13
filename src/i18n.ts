@@ -147,10 +147,14 @@ const resources = {
         ],
         features: ['Premium Materials', 'Timely Delivery', 'Custom Designs', 'Quality Control'],
         yearsExcellence: 'Years of Excellence',
+        companyProfile: 'Download Company Profile',
         story: {
-          title: 'Our Story',
-          p1: 'Since 1990, our industry was established under the name PT. Parahita Sanu Setia, better known as Parahita. PT. Parahita Sanu Setia is a garment industry that has a retail concept by creating a number of brands such as "Vercaro", "Freeport", "Chihamplast", "Kulaniki" and "Geurutee" spread across outlets in major cities in Indonesia.',
-          p2: 'Since 2010, PT. Parahita Sanu Setia changed its name to PT. Parahita Prima Sentosa with a focus on uniform production services for promotional products.'
+          title: 'About Parahita',
+          p1: 'Parahita Prima Sentosa was founded in 1990 with a simple yet strong foundation: delivering quality products and building lasting relationships. What started as a retail store gradually evolved alongside market demands and industry opportunities.',
+          p2: 'In 2008, we strategically expanded into the garment industry, marking a significant milestone in our journey. Since then, we have focused on producing uniforms across various sectors, including the Food & Beverage (F&B), Retail, and Mining industries. This transition has allowed us to incorporate expertise, operational discipline, and industry-specific requirements into every product we manufacture.',
+          p3: 'Today, Parahita Prima Sentosa operates with a production capacity of up to 20,000 pieces per month, serving clients across Indonesia and internationally. Our products have reached various regions nationwide and extended overseas, reflecting the trust our clients have placed in us.',
+          p4: 'We believe that a uniform represents more than just clothing — it embodies identity, professionalism, and brand values. With decades of experience, a dedicated team, and a commitment to consistent quality, we continue to deliver reliable solutions tailored to each client\'s needs.',
+          p5: 'At Parahita Prima Sentosa, we grow together with our partners, maintain high standards in every process, and remain committed to excellence — delivered professionally, with a personal touch.'
         },
         stats: {
           capacity: 'Production Capacity',
@@ -383,10 +387,14 @@ const resources = {
         ],
         features: ['Material Premium', 'Pengiriman Tepat Waktu', 'Desain Kustom', 'Kontrol Kualitas'],
         yearsExcellence: 'Tahun Keunggulan',
+        companyProfile: 'Unduh Profil Perusahaan',
         story: {
           title: 'Tentang Parahita',
-          p1: 'Sejak tahun 1990, industri kami berdiri dengan nama PT. Parahita Sanu Setia yang lebih dikenal dengan Parahita. PT. Parahita Sanu Setia merupakan industri garmen yang memiliki konsep retail dengan melahirkan sejumlah brand seperti "Vercaro", "Freeport", "Chihamplast", "Kulaniki" dan "Geurutee" yang tersebar di outlet di kota - kota besar Indonesia.',
-          p2: 'Sejak tahun 2010, PT. Parahita Sanu Setia berganti nama menjadi PT. Parahita Prima Sentosa dengan fokus terhadap jasa produksi seragam produk promosi.'
+          p1: 'Parahita Prima Sentosa didirikan pada tahun 1990 dengan fondasi yang sederhana namun kuat: menghadirkan produk berkualitas dan membangun hubungan yang langgeng. Apa yang dimulai sebagai toko ritel secara bertahap berkembang seiring dengan tuntutan pasar dan peluang industri.',
+          p2: 'Pada tahun 2008, kami secara strategis berekspansi ke industri garmen, menandai tonggak penting dalam perjalanan kami. Sejak saat itu, kami fokus pada produksi seragam di berbagai sektor, termasuk industri Makanan & Minuman (F&B), Ritel, dan Pertambangan. Transisi ini memungkinkan kami untuk menggabungkan keahlian, disiplin operasional, dan persyaratan khusus industri ke dalam setiap produk yang kami hasilkan.',
+          p3: 'Saat ini, Parahita Prima Sentosa beroperasi dengan kapasitas produksi hingga 20.000 buah per bulan , melayani klien di seluruh Indonesia dan internasional. Produk kami telah menjangkau berbagai wilayah di seluruh negeri dan meluas hingga ke luar negeri, mencerminkan kepercayaan yang diberikan klien kepada kami.',
+          p4: 'Kami percaya bahwa seragam mewakili lebih dari sekadar pakaian — seragam mewujudkan identitas, profesionalisme, dan nilai-nilai merek. Dengan pengalaman puluhan tahun, tim yang berdedikasi, dan komitmen terhadap kualitas yang konsisten, kami terus memberikan solusi andal yang disesuaikan dengan kebutuhan setiap klien.',
+          p5: 'Di Parahita Prima Sentosa, kami tumbuh bersama mitra kami, mempertahankan standar tinggi dalam setiap proses, dan tetap berkomitmen pada keunggulan — yang disampaikan secara profesional, dengan sentuhan pribadi.'
         },
         stats: {
           capacity: 'Kapasitas Produksi',
