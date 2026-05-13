@@ -72,10 +72,10 @@ export default function ProductDetailPage() {
           
           {/* KIRI: Image Gallery (Sticky di Desktop) */}
           <div className="lg:w-[55%] xl:w-[60%]">
-            <div className="lg:sticky lg:top-28 space-y-4">
+            <div className="h-full flex flex-col space-y-4">
               <motion.div 
                 layoutId={`img-${product.id}`}
-                className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-sm"
+                className="relative w-full rounded-[2.5rem] overflow-hidden bg-gray-50 border border-gray-100 shadow-sm flex-1 min-h-[400px] lg:min-h-0"
               >
                 <AnimatePresence mode="wait">
                   <motion.img 
@@ -85,7 +85,7 @@ export default function ProductDetailPage() {
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.4 }}
                     src={currentImage} 
-                    className="w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover"
                   />
                 </AnimatePresence>
 
@@ -168,24 +168,64 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* Features List */}
-              <div className="space-y-4 pt-4">
-                <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-red-500" />
-                  Key Highlights
-                </h3>
-                <div className="grid grid-cols-1 gap-3">
-                  {(product.features || []).map((feature: string, idx: number) => (
-                    <div key={idx} className="flex items-start gap-3 p-3 rounded-2xl border border-gray-50 bg-gray-50/30">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 shrink-0" />
-                      <span className="text-gray-600 text-sm font-medium leading-tight">{feature}</span>
-                    </div>
-                  ))}
+              {/* Features & Material Grid */}
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 pt-6">
+                {/* Features List */}
+                <div className="space-y-4">
+                  <h3 className="font-bold text-gray-900 flex items-center gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-red-500" />
+                    Key Highlights
+                  </h3>
+                  <div className="grid grid-cols-1 gap-3">
+                    {(product.features || []).map((feature: string, idx: number) => (
+                      <div key={idx} className="flex items-start gap-3 p-3.5 rounded-2xl border border-gray-100 bg-gray-50/50 hover:bg-gray-50 transition-colors">
+                        <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-1.5 shrink-0" />
+                        <span className="text-gray-700 text-sm font-medium leading-tight">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {/* Material Info - Integrated */}
+                {material && (
+                  <div className="space-y-4">
+                    <h3 className="font-bold text-gray-900 flex items-center gap-2">
+                      <Package className="w-5 h-5 text-red-500" />
+                      Material
+                      <span className="text-red-500 ml-1">{material.name.includes('Premium') ? 'Premium' : ''}</span>
+                      <span className="text-gray-900">{material.name.replace('Premium ', '')}</span>
+                    </h3>
+                    <div className="flex flex-col gap-5 p-5 rounded-[1.5rem] bg-gray-50 border border-gray-100 h-max">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-1.5">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Composition</p>
+                          <p className="text-sm font-bold text-gray-900">{material.specifications.composition}</p>
+                        </div>
+                        <div className="space-y-1.5">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Grammage</p>
+                          <p className="text-sm font-bold text-gray-900">{material.specifications.grammage}</p>
+                        </div>
+                      </div>
+                      
+                      {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
+                        <div className="pt-4 border-t border-gray-200/60">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Technical Features</p>
+                          <div className="flex flex-wrap gap-2">
+                            {material.specifications.technicals.map((tech, idx) => (
+                              <span key={idx} className="text-xs font-semibold text-gray-700 bg-white px-3 py-1.5 rounded-xl border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
 
               {/* CTA Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-6">
+              <div className="flex flex-col sm:flex-row gap-3 pt-8">
                 <Button 
                   onClick={() => setIsQuoteModalOpen(true)}
                   className="flex-1 h-16 rounded-2xl bg-black hover:bg-gray-800 text-white font-bold text-lg shadow-xl transition-all active:scale-95"
@@ -250,7 +290,7 @@ export default function ProductDetailPage() {
                 
                 const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${product.name}*.\n\n*Deskripsi Produk:*\n${product.description}\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
                 
-                window.open(`https://wa.me/6285211511211?text=${encodeURIComponent(waMessage)}`, "_blank");
+                window.open(`https://wa.me/6282125478346?text=${encodeURIComponent(waMessage)}`, "_blank");
                 setIsQuoteModalOpen(false); 
               }}
            >
@@ -305,60 +345,6 @@ export default function ProductDetailPage() {
            </form>
         </DialogContent>
       </Dialog>
-
-      {/* Material Section - Dibuat lebih modern dengan Card Glassmorphism */}
-      {material && (
-        <section className="py-24 bg-gray-50/50 border-t border-gray-100">
-          <div className="container mx-auto px-4">
-             <div className="max-w-3xl mb-16">
-                <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
-                  Crafted with <span className="text-red-600">Premium</span> Material
-                </h2>
-                <p className="text-gray-500 text-lg leading-relaxed">
-                  Kami menggunakan <strong>{material.name}</strong> untuk memastikan durabilitas dan kenyamanan maksimal.
-                </p>
-             </div>
-
-             <div className="bg-white rounded-[3rem] p-8 md:p-16 border border-gray-100 shadow-[0_20px_50px_rgba(0,0,0,0.02)] flex flex-col lg:flex-row gap-16 items-center">
-                <div className="lg:w-1/2 space-y-10">
-                   <div className="grid grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <p className="text-xs font-black text-red-500 uppercase tracking-widest">Composition</p>
-                        <p className="text-xl font-bold text-gray-900 leading-tight">{material.specifications.composition}</p>
-                      </div>
-                      <div className="space-y-2">
-                        <p className="text-xs font-black text-red-500 uppercase tracking-widest">Grammage</p>
-                        <p className="text-xl font-bold text-gray-900 leading-tight">{material.specifications.grammage}</p>
-                      </div>
-                   </div>
-
-                   <div className="h-px bg-gray-100 w-full" />
-
-                   <div className="space-y-4">
-                      <p className="text-xs font-black text-gray-400 uppercase tracking-widest">Technical Features</p>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
-                         {(material.specifications?.technicals || []).map((tech, idx) => (
-                            <li key={idx} className="flex items-center gap-3 text-gray-700 font-medium">
-                               <div className="w-2 h-2 rounded-full bg-red-200" />
-                               {tech}
-                            </li>
-                         ))}
-                      </ul>
-                   </div>
-                </div>
-
-                <div className="lg:w-1/2 relative">
-                   <div className="absolute inset-0 bg-red-100 blur-[80px] opacity-30 rounded-full" />
-                   <img 
-                     src={material.image} 
-                     alt={material.name}
-                     className="relative z-10 w-full aspect-square object-cover rounded-[2.5rem] shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-700"
-                   />
-                </div>
-             </div>
-          </div>
-        </section>
-      )}
     </div>
   );
 }
