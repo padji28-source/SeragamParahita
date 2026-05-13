@@ -174,7 +174,7 @@ export default function ProductDetailPage() {
                 <div className="space-y-4">
                   <h3 className="font-bold text-gray-900 flex items-center gap-2">
                     <CheckCircle2 className="w-5 h-5 text-red-500" />
-                    Key Highlights
+                    Fitur Utama
                   </h3>
                   <div className="grid grid-cols-1 gap-3">
                     {(product.features || []).map((feature: string, idx: number) => (
@@ -189,30 +189,30 @@ export default function ProductDetailPage() {
                 {/* Material Info - Integrated */}
                 {material && (
                   <div className="space-y-4">
-                    <h3 className="font-bold text-gray-900 flex items-center gap-2">
+                    <h3 className="font-bold text-gray-900 flex flex-wrap items-center gap-2">
                       <Package className="w-5 h-5 text-red-500" />
-                      Material
-                      <span className="text-red-500 ml-1">{material.name.includes('Premium') ? 'Premium' : ''}</span>
+                      <span>Material</span>
+                      {material.name.includes('Premium') && <span className="text-red-500 font-black">Premium</span>}
                       <span className="text-gray-900">{material.name.replace('Premium ', '')}</span>
                     </h3>
-                    <div className="flex flex-col gap-5 p-5 rounded-[1.5rem] bg-gray-50 border border-gray-100 h-max">
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-1.5">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Composition</p>
+                    <div className="flex flex-col gap-6 p-6 rounded-[2rem] bg-gray-50/80 border border-gray-100/80 h-max justify-center shadow-sm">
+                      <div className="grid grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Komposisi</p>
                           <p className="text-sm font-bold text-gray-900">{material.specifications.composition}</p>
                         </div>
-                        <div className="space-y-1.5">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Grammage</p>
+                        <div className="space-y-2">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Gramasi</p>
                           <p className="text-sm font-bold text-gray-900">{material.specifications.grammage}</p>
                         </div>
                       </div>
                       
                       {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
-                        <div className="pt-4 border-t border-gray-200/60">
-                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Technical Features</p>
-                          <div className="flex flex-wrap gap-2">
+                        <div className="pt-6 border-t border-gray-200/50">
+                          <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Fitur Teknis</p>
+                          <div className="flex flex-wrap gap-2.5">
                             {material.specifications.technicals.map((tech, idx) => (
-                              <span key={idx} className="text-xs font-semibold text-gray-700 bg-white px-3 py-1.5 rounded-xl border border-gray-100 shadow-[0_2px_10px_rgba(0,0,0,0.02)]">
+                              <span key={idx} className="text-xs font-semibold text-gray-700 bg-white px-4 py-2 rounded-2xl border border-gray-100 shadow-sm">
                                 {tech}
                               </span>
                             ))}
