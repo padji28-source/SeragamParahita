@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 export default function AboutSection() {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<'vision' | 'mission' | null>(null);
+  const [showMoreStory, setShowMoreStory] = useState(false);
 
   const toggleTab = (tab: 'vision' | 'mission') => {
     setActiveTab(prev => prev === tab ? null : tab);
@@ -31,7 +32,7 @@ export default function AboutSection() {
       <section className="relative w-full py-20 lg:py-32 overflow-hidden z-20">
         <div className="container mx-auto px-4 md:px-8">
 
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
+          <div className="flex flex-col lg:flex-row gap-16 items-start">
             
             {/* Left: Text & Story */}
             <motion.div 
@@ -51,9 +52,35 @@ export default function AboutSection() {
               <div className="space-y-5 text-gray-700 font-medium text-[15px] md:text-base leading-relaxed">
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('about.story.p5') }} />
+                <AnimatePresence>
+                  {showMoreStory && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      className="space-y-5 overflow-hidden"
+                    >
+                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
+                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
+                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p5') }} />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+
+              <div className="pt-2">
+                <button
+                  onClick={() => setShowMoreStory(!showMoreStory)}
+                  className="text-red-600 font-bold text-sm tracking-widest uppercase hover:text-gray-900 transition-colors flex items-center gap-2 mb-4"
+                >
+                  {showMoreStory ? "Lebih Sedikit" : "Lihat Lebih Banyak"}
+                  <motion.svg 
+                    animate={{ rotate: showMoreStory ? 180 : 0 }} 
+                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                  >
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                  </motion.svg>
+                </button>
               </div>
 
               <div className="pt-4">
