@@ -109,7 +109,7 @@ Mohon informasi harga dan estimasi waktu pengerjaan. Terima kasih!`;
                 title: t('orderFlow.steps.production.title'),
                 desc: t('orderFlow.steps.production.desc'),
                 color: "bg-orange-50 text-orange-600 border-orange-100",
-                image: "https://images.unsplash.com/photo-1596440612457-3f8c85e2b02e?q=80&w=800"
+                image: "/bg2.png"
               },
               {
                 icon: <CheckCircle className="w-6 h-6" />,
