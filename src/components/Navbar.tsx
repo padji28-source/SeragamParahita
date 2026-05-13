@@ -51,6 +51,7 @@ export default function Navbar() {
   // States
   const [isOpen, setIsOpen] = useState(false);
   const [isProductsOpen, setIsProductsOpen] = useState(false);
+  const [isDesktopProductsOpen, setIsDesktopProductsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [lastYPos, setLastYPos] = useState(0);
@@ -81,10 +82,10 @@ export default function Navbar() {
 
   // Helper untuk class link aktif
   const getLinkStyle = (path: string) => cn(
-    "px-4 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ease-out",
+    "px-4 py-2.5 text-[15px] font-bold transition-all duration-300 ease-out relative",
     location.pathname === path 
-      ? "text-red-600 bg-red-50/80" 
-      : "text-gray-600 hover:bg-gray-100/60 hover:text-gray-900"
+      ? "text-red-600 after:content-[''] after:absolute after:bottom-0 after:left-4 after:right-4 after:h-[3px] after:bg-red-600 after:rounded-full" 
+      : "text-gray-700 hover:text-red-600"
   );
 
   const changeLanguage = (lng: string) => {
@@ -122,31 +123,46 @@ export default function Navbar() {
             {t('nav.home')}
           </Link>
           
-          <DropdownMenu>
-            <DropdownMenuTrigger className={cn(getLinkStyle("/product"), "outline-none group")}>
+          <div 
+            className="relative flex items-center h-full"
+            onMouseEnter={() => setIsDesktopProductsOpen(true)}
+            onMouseLeave={() => setIsDesktopProductsOpen(false)}
+          >
+            <Link to="/product" className={cn(getLinkStyle("/product"), "outline-none")} onClick={(e) => {
+              if (window.innerWidth >= 1024) e.preventDefault();
+            }}>
               {t('nav.products')}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent 
-              align="center" 
-              className="w-52 p-2 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] bg-white/95 backdrop-blur-xl border-gray-100/60 animate-in fade-in-0 zoom-in-95 duration-200"
-            >
-              {PRODUCTS.map((product) => (
-                <DropdownMenuItem key={product.id} className="p-0">
-                  <Link 
-                    to={`/product/${product.id}`}
-                    className={cn(
-                      "w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 block",
-                      location.pathname === `/product/${product.id}` 
-                        ? "bg-red-50 text-red-600" 
-                        : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5"
-                    )}
-                  >
-                    {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                  </Link>
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+            </Link>
+            
+            <AnimatePresence>
+              {isDesktopProductsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+4px)] w-52 p-2 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] bg-white/95 backdrop-blur-xl border border-gray-100/60 z-50 overflow-hidden"
+                >
+                  <div className="absolute -top-4 left-0 w-full h-4 bg-transparent" />
+                  {PRODUCTS.map((product) => (
+                    <Link 
+                      key={product.id}
+                      to={`/product/${product.id}`}
+                      className={cn(
+                        "w-full px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 block",
+                        location.pathname === `/product/${product.id}` 
+                          ? "bg-red-50 text-red-600" 
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5"
+                      )}
+                      onClick={() => setIsDesktopProductsOpen(false)}
+                    >
+                      {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+                    </Link>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           <Link to="/partner" className={getLinkStyle("/partner")}>{t('nav.partner')}</Link>
           <Link to="/contact" className={getLinkStyle("/contact")}>{t('nav.contact')}</Link>
