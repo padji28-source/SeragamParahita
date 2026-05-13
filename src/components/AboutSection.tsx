@@ -53,6 +53,7 @@ export default function AboutSection() {
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
+                <p dangerouslySetInnerHTML={{ __html: t('about.story.p5') }} />
               </div>
 
               <div className="pt-4">
