@@ -9,7 +9,6 @@ import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "motion/react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { useTranslation } from "react-i18next";
 import { 
   Info, ExternalLink, CheckCircle2, Ruler, X, 
@@ -27,14 +26,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
 const SALES_CONTACTS = [
-  { name: "Sales 1", phone: "6285211511211" },
-  { name: "Sales 2", phone: "6285211511212" }
+  { name: "Sales 1", phone: "6282125478346" }
 ];
 
 export default function ProductCatalog() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const autoPlayPlugin = useRef(Autoplay({ delay: 3000, stopOnInteraction: true }));
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -52,65 +49,39 @@ export default function ProductCatalog() {
 
         <div className="relative px-0 sm:px-12">
           <Carousel 
-            plugins={[autoPlayPlugin.current]}
             opts={{ align: "start", loop: true }}
             className="w-full"
-            onMouseEnter={() => autoPlayPlugin.current.stop()}
-            onMouseLeave={() => autoPlayPlugin.current.play()}
           >
             <CarouselContent className="-ml-4">
-              <AnimatePresence mode="popLayout">
                 {PRODUCTS.map((product) => (
                   <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/4 lg:basis-1/4 xl:basis-1/4">
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0, filter: "blur(10px)" }}
-                      animate={{ opacity: 1, filter: "blur(0px)" }}
-                      exit={{ opacity: 0, filter: "blur(10px)" }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="h-full"
-                    >
+                    <div className="h-full">
                       <button 
                         onClick={() => setSelectedProduct(product)}
-                        className="w-full h-full text-left outline-none group"
+                        className="w-full h-full text-left outline-none"
                       >
-                        <Card className="overflow-hidden border border-gray-100 shadow-sm group-hover:shadow-2xl group-hover:-translate-y-1 transition-all duration-500 bg-white h-full flex flex-col rounded-3xl cursor-pointer">
-                          <CardContent className="p-0 relative aspect-[4/5] shrink-0">
-                            <img
-                              src={product.image}
-                              alt={product.name}
-                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                              referrerPolicy="no-referrer"
-                            />
-                            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
-                            {product.badge && (
-                              <Badge className="absolute top-4 left-4 bg-red-600 hover:bg-red-700 text-[10px] font-black uppercase tracking-widest px-3 py-1 shadow-md shadow-red-500/20 border-none rounded-full">
-                                {product.badge}
-                              </Badge>
-                            )}
-                            <div className="absolute bottom-4 right-4 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                               <div className="bg-white/95 backdrop-blur-md p-2 rounded-full text-red-600 shadow-xl border border-white/20">
-                                  <Info className="w-5 h-5" />
-                               </div>
-                            </div>
-                          </CardContent>
-                          <CardFooter className="p-6 flex flex-col items-start gap-1 grow bg-gradient-to-b from-white to-gray-50/50">
-                            <span className="text-[10px] font-black text-red-600 uppercase tracking-widest bg-red-50 px-2 py-1 rounded-md">
-                              {product.category}
-                            </span>
-                            <h3 className="text-lg font-bold text-gray-900 leading-tight group-hover:text-red-600 transition-colors">
-                              {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                            </h3>
-                          </CardFooter>
-                        </Card>
+                        <div className="flex flex-col items-center h-full p-2 md:p-3 rounded-[1.5rem] group border border-transparent hover:bg-red-50 transition-all duration-300 cursor-pointer">
+                           <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-shadow duration-500 bg-white">
+                             <img
+                               src={product.image}
+                               alt={product.name}
+                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                               referrerPolicy="no-referrer"
+                             />
+                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                           </div>
+                           <h3 className="text-red-900 text-sm md:text-[13px] font-black uppercase tracking-[0.1em] text-center w-full px-2">
+                             {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+                           </h3>
+                           <div className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-red-900 transition-colors mt-3"></div>
+                        </div>
                       </button>
-                    </motion.div>
+                    </div>
                   </CarouselItem>
                 ))}
-              </AnimatePresence>
             </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 border-none bg-white shadow-md hover:bg-gray-50 h-12 w-12" />
-            <CarouselNext className="hidden md:flex -right-12 border-none bg-white shadow-md hover:bg-gray-50 h-12 w-12" />
+            <CarouselPrevious className="hidden md:flex -left-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
+            <CarouselNext className="hidden md:flex -right-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
           </Carousel>
         </div>
       </div>
