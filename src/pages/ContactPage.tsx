@@ -128,26 +128,53 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="h-[500px] w-full bg-gray-100 relative overflow-hidden">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2162348545!2d106.6455043!3d-6.2350812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbe8c3410c17%3A0x9b3aa1ee3c4a13f0!2sPT.%20PARAHITA%20PRIMA%20SENTOSA!5e0!3m2!1sen!2sid!4v1713145000000!5m2!1sen!2sid" 
-          className="absolute inset-0 w-full h-full border-0 grayscale contrast-125"
-          allowFullScreen
-          loading="lazy"
-          title="Parahita Office Location"
-        ></iframe>
-        <div className="absolute inset-0 bg-red-600/5 pointer-events-none" />
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-          <a 
-            href="https://www.google.com/maps/place/PT.+PARAHITA+PRIMA+SENTOSA/@-6.2350812,106.647693,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbe8c3410c17:0x9b3aa1ee3c4a13f0!8m2!3d-6.2350812!4d106.647693!16s%2Fg%2F11c1vnlxdg" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="bg-white text-gray-900 px-8 py-4 rounded-2xl font-bold shadow-2xl hover:bg-red-600 hover:text-white transition-all flex items-center gap-2 whitespace-nowrap"
+      {/* Map Section Layered & Floating */}
+      <section className="py-12 bg-white relative pb-28">
+        <div className="container mx-auto px-4 z-10 relative">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="relative h-[550px] w-full rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border-4 border-white group"
           >
-            <MapPin className="w-5 h-5" />
-            {t('contact.openMap')}
-          </a>
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2162348545!2d106.6455043!3d-6.2350812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbe8c3410c17%3A0x9b3aa1ee3c4a13f0!2sPT.%20PARAHITA%20PRIMA%20SENTOSA!5e0!3m2!1sen!2sid!4v1713145000000!5m2!1sen!2sid" 
+              className="absolute inset-0 w-full h-full border-0 group-hover:scale-105 transition-transform duration-700 ease-out"
+              allowFullScreen
+              loading="lazy"
+              title="Parahita Office Location"
+            ></iframe>
+            
+            {/* Subtle Overlay to make UI pop */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+            
+            {/* Glassmorphism Card Info Floating on Map */}
+            <div className="absolute bottom-6 left-6 right-6 md:left-8 md:right-auto md:w-96 bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/50 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0 border border-red-100">
+                  <MapPin className="w-6 h-6 text-red-600" />
+                </div>
+                <div>
+                  <h4 className="font-extrabold text-gray-900 text-lg leading-tight tracking-wide">Head Office</h4>
+                  <p className="text-sm font-bold text-red-500">PT Parahita Prima Sentosa</p>
+                </div>
+              </div>
+              <p className="text-sm text-gray-600 leading-relaxed mb-6 font-medium">
+                Kawasan Industri Multiguna Blok B No. 10A, Jl. Raya Serpong KM 7, Pakualam, Serpong Utara.
+              </p>
+              
+              <a 
+                href="https://www.google.com/maps/place/PT.+PARAHITA+PRIMA+SENTOSA/@-6.2350812,106.647693,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbe8c3410c17:0x9b3aa1ee3c4a13f0!8m2!3d-6.2350812!4d106.647693!16s%2Fg%2F11c1vnlxdg" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="w-full bg-gray-900 text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 group/btn shadow-lg"
+              >
+                <MapPin className="w-4 h-4 group-hover/btn:animate-bounce" />
+                {t('contact.openMap')}
+              </a>
+            </div>
+          </motion.div>
         </div>
       </section>
     </div>
