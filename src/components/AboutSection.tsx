@@ -1,254 +1,243 @@
 import { motion, AnimatePresence } from "motion/react";
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle2, Factory, Users, Award, Target, Rocket, Download, ShieldCheck, Trophy, Star } from "lucide-react";
+import { CheckCircle2, Download, Target, Rocket, ArrowRight, Minus, PlayCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function AboutSection() {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<'vision' | 'mission' | null>(null);
+  const [activeTab, setActiveTab] = useState<'vision' | 'mission'>('vision');
   const [showMoreStory, setShowMoreStory] = useState(false);
 
-  const toggleTab = (tab: 'vision' | 'mission') => {
-    setActiveTab(prev => prev === tab ? null : tab);
-  };
-
-
   return (
-    <div className="relative overflow-hidden bg-white">
-      {/* Background Graphic */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
-        <img 
-          src="/Parahitaprimasentosa.png" 
-          alt="Parahita Background" 
-          className="w-full h-full object-cover opacity-20 blur-sm"
-        />
-        <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]" />
-      </div>
-
-      {/* Background gradients for About and Vision sections */}
-      <div className="absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-white to-transparent pointer-events-none z-0" />
-      
-      {/* About Split-Pane Section */}
-      <section className="relative w-full py-20 lg:py-32 overflow-hidden z-20">
-        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
-
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+    <div className="relative bg-white text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+      <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
+        
+        {/* --- BAGIAN 1: Cerita & Statistik (Bento Layout) --- */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 space-y-8"
+          >
+            <div className="space-y-4">
+              <span className="flex items-center gap-3 text-red-600 font-semibold tracking-wider uppercase text-sm">
+                <Minus className="w-6 h-6" /> Tentang Kami
+              </span>
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+                {t('about.story.title')}
+              </h2>
+            </div>
             
-            {/* Left: Text & Story */}
-            <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full lg:w-[55%] space-y-8 bg-white p-8 md:p-14 lg:p-16 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)]"
-            >
-              <div className="space-y-4">
-                <h3 className="text-red-600 font-bold tracking-widest uppercase text-xs md:text-sm">Tentang Kami</h3>
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-[1.1]">
-                  {t('about.story.title')}
-                </h2>
-              </div>
+            <div className="space-y-5 text-slate-600 text-base md:text-lg leading-relaxed">
+              <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
+              <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
               
-              <div className="space-y-6 text-gray-600 font-medium text-[15px] md:text-[16px] leading-relaxed">
-                <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
-                <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
-                <AnimatePresence>
-                  {showMoreStory && (
-                    <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      className="space-y-6 overflow-hidden"
+              <AnimatePresence>
+                {showMoreStory && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="space-y-5 overflow-hidden"
+                  >
+                    <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
+                    <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
+                    <p dangerouslySetInnerHTML={{ __html: t('about.story.p5') }} />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-6 pt-2">
+              <a 
+                href="/company-profile.pdf" 
+                download="Company Profile MKS.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-red-600 text-white font-medium h-12 md:h-14 px-8 rounded-full transition-all duration-300 group shadow-lg shadow-slate-900/20 hover:shadow-red-600/30"
+              >
+                <span>Unduh Profil</span>
+                <Download className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
+              </a>
+
+              <button
+                onClick={() => setShowMoreStory(!showMoreStory)}
+                className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:text-red-600 transition-colors group"
+              >
+                {showMoreStory ? "Tutup Cerita" : "Baca Selengkapnya"}
+                <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${showMoreStory ? '-rotate-45' : 'group-hover:translate-x-1'}`} />
+              </button>
+            </div>
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="lg:col-span-5 grid grid-cols-2 gap-4"
+          >
+            <div className="col-span-2 bg-slate-50 rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+              <div className="text-7xl md:text-8xl font-black text-red-600 mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500">
+                15+
+              </div>
+              <h3 className="text-lg font-bold text-slate-900 uppercase tracking-widest">
+                Tahun Pengalaman
+              </h3>
+              <p className="text-slate-500 font-medium mt-2">
+                Berdedikasi memberikan kualitas terbaik.
+              </p>
+            </div>
+
+            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+              <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">50k+</div>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Kapasitas/Bln</p>
+            </div>
+            
+            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+              <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">200+</div>
+              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Tenaga Ahli</p>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* --- BAGIAN 2: Visi & Misi --- */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="w-full bg-[#0B1120] rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center shadow-2xl"
+        >
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+          
+          <div className="relative z-10 flex p-1.5 bg-slate-800/50 backdrop-blur-md rounded-full border border-slate-700/50 w-max mb-12 md:mb-16">
+            {(['vision', 'mission'] as const).map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`relative px-8 md:px-12 py-3 rounded-full text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 outline-none ${
+                  activeTab === tab ? "text-white" : "text-slate-400 hover:text-slate-200"
+                }`}
+              >
+                {activeTab === tab && (
+                  <motion.div
+                    layoutId="active-pill"
+                    className="absolute inset-0 bg-red-600 rounded-full"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+                <span className="relative z-10 flex items-center gap-2">
+                  {tab === 'vision' ? <Target className="w-4 h-4" /> : <Rocket className="w-4 h-4" />}
+                  {tab === 'vision' ? t('about.vision') : t('about.mission')}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          <div className="relative z-10 w-full max-w-5xl min-h-[300px]">
+            <AnimatePresence mode="wait">
+              {activeTab === 'vision' && (
+                <motion.div
+                  key="vision"
+                  initial={{ opacity: 0, scale: 0.95, filter: "blur(10px)" }}
+                  animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
+                  transition={{ duration: 0.4 }}
+                  className="flex flex-col items-center justify-center text-center h-full pt-8 pb-12"
+                >
+                  <Target className="w-16 h-16 text-red-500 mb-8 opacity-80" />
+                  <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500 max-w-4xl">
+                    "{t('about.visionStatement')}"
+                  </p>
+                </motion.div>
+              )}
+
+              {activeTab === 'mission' && (
+                <motion.div
+                  key="mission"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6"
+                >
+                  {((Array.isArray(t('about.missionStatements', { returnObjects: true })) 
+                    ? t('about.missionStatements', { returnObjects: true }) 
+                    : []) as string[]).map((misi, idx) => (
+                    <motion.div 
+                      key={idx}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.4, delay: idx * 0.1 }}
+                      className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-red-500/50 p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:bg-slate-800/60 hover:-translate-y-1"
                     >
-                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
-                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
-                      <p dangerouslySetInnerHTML={{ __html: t('about.story.p5') }} />
+                      <div className="w-12 h-12 rounded-full bg-slate-700/50 group-hover:bg-red-500/20 flex items-center justify-center shrink-0 transition-colors">
+                        <CheckCircle2 className="w-6 h-6 text-slate-300 group-hover:text-red-400 transition-colors" />
+                      </div>
+                      <p className="text-slate-300 group-hover:text-white font-medium leading-relaxed text-base md:text-lg transition-colors pt-1">
+                        {misi}
+                      </p>
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              <div className="pt-2">
-                <button
-                  onClick={() => setShowMoreStory(!showMoreStory)}
-                  className="text-red-600 font-bold text-xs md:text-sm tracking-[0.15em] uppercase hover:text-red-800 transition-colors flex items-center gap-2 mb-6"
-                >
-                  {showMoreStory ? "Lebih Sedikit" : "Lihat Lebih Banyak"}
-                  <motion.svg 
-                    animate={{ rotate: showMoreStory ? 180 : 0 }} 
-                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
-                    className="mt-0.5"
-                  >
-                    <polyline points="6 9 12 15 18 9"></polyline>
-                  </motion.svg>
-                </button>
-              </div>
-
-              <div>
-                <a 
-                  href="/company-profile.pdf" 
-                  download="Company Profile MKS.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-[#8B0000] hover:bg-[#600000] text-white font-bold h-12 md:h-14 px-8 md:px-10 rounded-xl transition-all duration-300 uppercase tracking-[0.1em] text-xs md:text-sm group shadow-lg"
-                >
-                  <span>Unduh Profil Perusahaan</span>
-                  <Download className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" />
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Right: Stats including 15+ Years */}
-            <motion.div 
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full lg:w-[45%] flex flex-col gap-6"
-            >
-                {/* 15+ Years Card */}
-                <div className="bg-gradient-to-br from-white to-gray-50 p-10 md:p-14 lg:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(227,6,19,0.08)] relative overflow-hidden">
-                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full blur-[40px] -mr-16 -mt-16 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
-                   <div className="text-[5.5rem] md:text-[6.5rem] lg:text-[7.5rem] font-black text-[#E30613] leading-[1] mb-2 tracking-tighter group-hover:scale-110 transition-transform duration-500 relative z-10 drop-shadow-sm">
-                     15+
-                   </div>
-                   <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-3 uppercase tracking-[0.2em] relative z-10">
-                     Tahun Pengalaman
-                   </h3>
-                   <p className="text-sm md:text-base text-gray-500 font-medium relative z-10 max-w-[80%]">
-                     Berdedikasi dalam memberikan kualitas terbaik.
-                   </p>
-                </div>
-
-                {/* Lower Stats Grid */}
-                <div className="grid grid-cols-2 gap-6 h-full">
-                  <div className="bg-gradient-to-br from-white to-gray-50 p-8 md:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative overflow-hidden">
-                     <div className="absolute top-0 left-0 w-24 h-24 bg-gray-100 rounded-full blur-[30px] -ml-12 -mt-12 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
-                     <div className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3 tracking-tight relative z-10">50.000+</div>
-                     <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed relative z-10">Kapasitas Produksi<br/>(Pcs/Bulan)</p>
-                  </div>
-                  
-                  <div className="bg-gradient-to-br from-white to-gray-50 p-8 md:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative overflow-hidden">
-                     <div className="absolute top-0 right-0 w-24 h-24 bg-gray-100 rounded-full blur-[30px] -mr-12 -mt-12 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
-                     <div className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3 tracking-tight relative z-10">200+</div>
-                     <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed relative z-10">Tenaga Ahli<br/>Berpengalaman</p>
-                  </div>
-                </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Vision & Mission Section */}
-      <section className="pt-4 pb-24 relative overflow-hidden z-20">
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-gray-50 to-transparent pointer-events-none z-0" />
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-start">
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              onClick={() => toggleTab('vision')}
-              className="bg-white/90 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-white/50 flex flex-col shadow-2xl cursor-pointer group"
-            >
-              <div className="flex items-center gap-4 transition-all duration-300">
-                <div className="flex items-center justify-center w-14 h-14 bg-red-50 rounded-2xl shadow-sm border border-red-100 shrink-0 group-hover:bg-red-100 transition-colors">
-                  <Target className="w-7 h-7 text-red-600" />
-                </div>
-                <h2 className="text-2xl md:text-3xl font-black text-gray-900 tracking-tight flex-1">{t('about.vision')}</h2>
-                <motion.div 
-                  animate={{ rotate: activeTab === 'vision' ? 180 : 0 }} 
-                  className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center border border-gray-100 text-gray-400 group-hover:text-red-600 transition-colors"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                  ))}
                 </motion.div>
-              </div>
-              <AnimatePresence>
-                {activeTab === 'vision' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                    animate={{ height: "auto", opacity: 1, marginTop: 24 }}
-                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-gray-700 text-base md:text-lg leading-relaxed font-serif italic text-balance mb-6 flex-1 drop-shadow-sm">
-                      "{t('about.visionStatement')}"
-                    </p>
-                    <div className="w-12 h-1 bg-red-600 rounded-full" />
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
-
-            <motion.div
-              layout
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              onClick={() => toggleTab('mission')}
-              className="bg-gray-900/90 backdrop-blur-xl p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl relative overflow-hidden flex flex-col border border-gray-700/50 cursor-pointer group"
-            >
-              <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[60px] rounded-full -mr-20 -mt-20 pointer-events-none" />
-              <div className="absolute bottom-0 left-0 w-64 h-64 bg-red-600/10 blur-[60px] rounded-full -ml-20 -mb-20 pointer-events-none" />
-              
-              <div className="flex items-center gap-4 relative z-10 transition-all duration-300">
-                <div className="flex items-center justify-center w-14 h-14 bg-white/10 rounded-2xl border border-white/10 backdrop-blur-sm shrink-0 group-hover:bg-white/20 transition-colors">
-                  <Rocket className="w-7 h-7 text-red-400" />
-                </div>
-                <h2 className="text-2xl md:text-3xl font-black text-white tracking-tight flex-1">{t('about.mission')}</h2>
-                <motion.div 
-                  animate={{ rotate: activeTab === 'mission' ? 180 : 0 }} 
-                  className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center border border-white/10 text-gray-400 group-hover:text-red-400 transition-colors"
-                >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                </motion.div>
-              </div>
-              <AnimatePresence>
-                {activeTab === 'mission' && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0, marginTop: 0 }}
-                    animate={{ height: "auto", opacity: 1, marginTop: 24 }}
-                    exit={{ height: 0, opacity: 0, marginTop: 0 }}
-                    className="overflow-hidden relative z-10"
-                  >
-                    <ul className="space-y-4 flex-1">
-                      {(Array.isArray(t('about.missionStatements', { returnObjects: true })) ? (t('about.missionStatements', { returnObjects: true }) as string[]) : []).map((misi, idx) => (
-                        <motion.li 
-                          key={idx} 
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.1 + (idx * 0.1) }}
-                          className="flex items-start gap-4 text-gray-300"
-                        >
-                          <CheckCircle2 className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-                          <span className="text-sm md:text-base font-medium leading-relaxed">{misi}</span>
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+              )}
+            </AnimatePresence>
           </div>
-        </div>
-      </section>
+        </motion.div>
 
-      {/* Video Section */}
-      <section className="relative w-full pb-20 lg:pb-32 flex justify-center z-20 px-4">
-        <div className="w-full max-w-7xl relative aspect-video rounded-[2rem] overflow-hidden shadow-2xl border border-gray-100">
-          <div className="absolute inset-0 bg-gray-900 animate-pulse pointer-events-none" />
-          <iframe
-            className="absolute inset-0 w-full h-full"
-            src="https://www.youtube.com/embed/iKVxh4JNqgo?autoplay=1&mute=1&loop=1&playlist=iKVxh4JNqgo&controls=0&rel=0&modestbranding=1"
-            title="Parahita Production Video"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            allowFullScreen
-          ></iframe>
-        </div>
+        {/* --- BAGIAN 3: Video Interaktif (Cinematic Upgrade) --- */}
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+          className="w-full max-w-6xl mx-auto relative group"
+        >
+          {/* Ambilight Background Glow */}
+          <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-transparent to-slate-500/30 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+          
+          <div className="relative aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-slate-900 ring-1 ring-slate-800/50 shadow-2xl z-10">
+            {/* Loading Placeholder */}
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-900 pointer-events-none">
+              <PlayCircle className="w-12 h-12 text-slate-700 animate-pulse" />
+            </div>
+
+            {/* Video Iframe */}
+            <iframe
+              className="absolute inset-0 w-full h-full scale-[1.02] transition-transform duration-700 group-hover:scale-100"
+              src="https://www.youtube.com/embed/iKVxh4JNqgo?autoplay=1&mute=1&loop=1&playlist=iKVxh4JNqgo&controls=0&rel=0&modestbranding=1"
+              title="Parahita Production Video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            ></iframe>
+
+            {/* Cinematic Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+            
+            {/* Overlay Content / Badge */}
+            <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20 pointer-events-none flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                {/* Ping Animation Indicator */}
+                <div className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+                </div>
+                <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/80">
+                  Fasilitas Produksi
+                </span>
+              </div>
+              <h3 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-md">
+                Di Balik Layar Kami
+              </h3>
+            </div>
+          </div>
+        </motion.div>
+
       </section>
     </div>
   );
