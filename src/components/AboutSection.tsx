@@ -17,12 +17,13 @@ export default function AboutSection() {
   return (
     <div className="relative overflow-hidden bg-white">
       {/* Background Graphic */}
-      <div className="absolute inset-0 z-0 select-none pointer-events-none">
+      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
         <img 
           src="/Parahitaprimasentosa.png" 
           alt="Parahita Background" 
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-20 blur-sm"
         />
+        <div className="absolute inset-0 bg-white/20 backdrop-blur-[2px]" />
       </div>
 
       {/* Background gradients for About and Vision sections */}
@@ -85,8 +86,8 @@ export default function AboutSection() {
 
               <div className="pt-4">
                 <a 
-                  href="/Compro-Parahita-Garment.pdf" 
-                  download="Compro-Parahita-Garment.pdf"
+                  href="/company-profile.pdf" 
+                  download="Company Profile MKS.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-3 bg-[maroon] hover:bg-neutral-900 text-white font-bold h-14 px-8 rounded-xl transition-all duration-300 uppercase tracking-widest text-sm group shadow-lg"
