@@ -110,24 +110,24 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="w-full bg-[#0B1120] rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center shadow-2xl"
+          className="w-full bg-slate-50 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
         >
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none mix-blend-screen" />
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
           
-          <div className="relative z-10 flex p-1.5 bg-slate-800/50 backdrop-blur-md rounded-full border border-slate-700/50 w-max mb-12 md:mb-16">
+          <div className="relative z-10 flex p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-slate-200 shadow-sm w-max mb-12 md:mb-16">
             {(['vision', 'mission'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`relative px-8 md:px-12 py-3 rounded-full text-sm md:text-base font-bold uppercase tracking-widest transition-colors duration-300 outline-none ${
-                  activeTab === tab ? "text-white" : "text-slate-400 hover:text-slate-200"
+                  activeTab === tab ? "text-white" : "text-slate-500 hover:text-slate-800"
                 }`}
               >
                 {activeTab === tab && (
                   <motion.div
                     layoutId="active-pill"
-                    className="absolute inset-0 bg-red-600 rounded-full"
+                    className="absolute inset-0 bg-red-600 rounded-full shadow-md"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
@@ -150,8 +150,8 @@ export default function AboutSection() {
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center justify-center text-center h-full pt-8 pb-12"
                 >
-                  <Target className="w-16 h-16 text-red-500 mb-8 opacity-80" />
-                  <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-slate-200 to-slate-500 max-w-4xl">
+                  <Target className="w-16 h-16 text-red-500 mb-8" />
+                  <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-slate-800 max-w-4xl">
                     "{t('about.visionStatement')}"
                   </p>
                 </motion.div>
@@ -174,12 +174,12 @@ export default function AboutSection() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: idx * 0.1 }}
-                      className="bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 hover:border-red-500/50 p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:bg-slate-800/60 hover:-translate-y-1"
+                      className="bg-white border border-slate-100 hover:border-red-200 hover:shadow-md p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:-translate-y-1"
                     >
-                      <div className="w-12 h-12 rounded-full bg-slate-700/50 group-hover:bg-red-500/20 flex items-center justify-center shrink-0 transition-colors">
-                        <CheckCircle2 className="w-6 h-6 text-slate-300 group-hover:text-red-400 transition-colors" />
+                      <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-red-50 flex items-center justify-center shrink-0 transition-colors">
+                        <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover:text-red-500 transition-colors" />
                       </div>
-                      <p className="text-slate-300 group-hover:text-white font-medium leading-relaxed text-base md:text-lg transition-colors pt-1">
+                      <p className="text-slate-600 group-hover:text-slate-900 font-medium leading-relaxed text-base md:text-lg transition-colors pt-1">
                         {misi}
                       </p>
                     </motion.div>
