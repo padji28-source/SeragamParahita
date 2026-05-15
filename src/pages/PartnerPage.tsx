@@ -88,6 +88,12 @@ export default function PartnerPage() {
   ];
 
   return (
+    <div 
+      className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
+      style={{ backgroundImage: "url('/background.png')" }}
+    >
+      {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
+      <div className="absolute inset-0 z-0 bg-white/50" />
     <div className="bg-white">
       {/* Hero Section */}
       <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
@@ -459,6 +465,7 @@ export default function PartnerPage() {
           )}
         </DialogContent>
       </Dialog>
+      </div>
     </div>
   );
 }
