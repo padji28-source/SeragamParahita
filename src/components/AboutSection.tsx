@@ -10,6 +10,7 @@ export default function AboutSection() {
 
   return (
     <div className="relative bg-white text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+      {/* Container Utama untuk Bagian 1 & 2 */}
       <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
         
         {/* --- BAGIAN 1: Cerita & Statistik (Bento Layout) --- */}
@@ -189,56 +190,75 @@ export default function AboutSection() {
             </AnimatePresence>
           </div>
         </motion.div>
-
-        {/* --- BAGIAN 3: Video Interaktif (Cinematic Upgrade) --- */}
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-          className="w-full max-w-6xl mx-auto relative group"
-        >
-          {/* Ambilight Background Glow */}
-          <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-transparent to-slate-500/30 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-          
-          <div className="relative aspect-video rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-slate-900 ring-1 ring-slate-800/50 shadow-2xl z-10">
-            {/* Loading Placeholder */}
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-900 pointer-events-none">
-              <PlayCircle className="w-12 h-12 text-slate-700 animate-pulse" />
-            </div>
-
-            {/* Video Iframe */}
-            <iframe
-              className="absolute inset-0 w-full h-full scale-[1.02] transition-transform duration-700 group-hover:scale-100"
-              src="https://www.youtube.com/embed/iKVxh4JNqgo?autoplay=1&mute=1&loop=1&playlist=iKVxh4JNqgo&controls=0&rel=0&modestbranding=1"
-              title="Parahita Production Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            ></iframe>
-
-            {/* Cinematic Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent pointer-events-none opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
-            
-            {/* Overlay Content / Badge */}
-            <div className="absolute bottom-6 left-6 md:bottom-12 md:left-12 z-20 pointer-events-none flex flex-col gap-2">
-              <div className="flex items-center gap-3">
-                {/* Ping Animation Indicator */}
-                <div className="relative flex h-3 w-3">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-                </div>
-                <span className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/80">
-                  Fasilitas Produksi
-                </span>
-              </div>
-              <h3 className="text-2xl md:text-4xl font-black text-white tracking-tight drop-shadow-md">
-                Di Balik Layar Kami
-              </h3>
-            </div>
-          </div>
-        </motion.div>
-
       </section>
+
+      {/* --- BAGIAN 3: Video Interaktif (Full-Width Professional Upgrade) --- */}
+      <section className="relative w-full py-24 lg:py-32 bg-[#0B1120] border-t border-slate-800 overflow-hidden">
+        {/* Background Image (bg2.png) dengan efek Parallax & Gradient Overlay */}
+        <div 
+          className="absolute inset-0 z-0 opacity-20 mix-blend-screen bg-[url('/bg2.png')] bg-cover bg-center bg-fixed"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-transparent to-[#0B1120] z-0 opacity-80" />
+        
+        <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
+          
+          {/* Header Video */}
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12 md:mb-16 space-y-4"
+          >
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold tracking-[0.2em] uppercase">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+              </span>
+              Live Preview
+            </span>
+            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+              Fasilitas Produksi Kami
+            </h2>
+          </motion.div>
+
+          {/* Video Player */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full max-w-5xl mx-auto relative group"
+          >
+            {/* Glow Latar Belakang Frame */}
+            <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-slate-500/10 to-blue-600/20 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+            
+            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden bg-slate-900 ring-1 ring-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 p-2 md:p-3 backdrop-blur-sm bg-white/5">
+              
+              {/* Inner Frame */}
+              <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+                {/* Loading Placeholder */}
+                <div className="absolute inset-0 flex items-center justify-center bg-slate-900 pointer-events-none">
+                  <PlayCircle className="w-12 h-12 text-slate-700 animate-pulse" />
+                </div>
+
+                {/* Video Iframe */}
+                <iframe
+                  className="absolute inset-0 w-full h-full scale-[1.02] transition-transform duration-700 group-hover:scale-100"
+                  src="https://www.youtube.com/embed/iKVxh4JNqgo?autoplay=1&mute=1&loop=1&playlist=iKVxh4JNqgo&controls=0&rel=0&modestbranding=1"
+                  title="Parahita Production Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                ></iframe>
+
+                {/* Overlay Halus */}
+                <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] pointer-events-none" />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
     </div>
   );
 }
