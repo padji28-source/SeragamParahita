@@ -11,7 +11,7 @@ export default function HomePage() {
   return (
     <div 
       className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
-      style={{ backgroundImage: "url('/bg3.png')" }}
+      style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
       <div className="absolute inset-0 z-0 bg-white/50" />
