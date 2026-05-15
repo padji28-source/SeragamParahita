@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useMemo, Suspense } from "react";
 import { PRODUCTS, MATERIALS } from "@/src/constants";
 import { Product } from "@/src/types";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 import { 
   Info, ExternalLink, CheckCircle2, Ruler, X, 
   MessageCircle, Send, User, Building, Package, MessageSquare,
-  ChevronRight, ChevronLeft, ArrowRight
+  ChevronRight, ChevronLeft, ArrowRight, Loader2
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -29,60 +29,193 @@ const SALES_CONTACTS = [
   { name: "Sales 1", phone: "6282125478346" }
 ];
 
+// Custom Loading Spinner Component
+function CustomLoadingSpinner() {
+  return (
+    <div className="flex flex-col items-center justify-center py-24 w-full min-h-[400px]">
+      <div className="relative w-16 h-16 mb-4">
+         <div className="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+         <div className="absolute inset-0 rounded-full border-4 border-red-600 border-t-transparent animate-spin"></div>
+         <Package className="absolute inset-0 m-auto w-6 h-6 text-red-600 animate-pulse" />
+      </div>
+      <p className="text-gray-500 font-bold uppercase tracking-widest text-sm animate-pulse">Memuat Produk...</p>
+    </div>
+  );
+}
+
+// Simple resource to simulate fetching and trigger Suspense
+let productsCache: Product[] | null = null;
+let productsPromise: Promise<Product[]> | null = null;
+
+function useProductsResource() {
+  if (productsCache !== null) {
+    return productsCache;
+  }
+  if (!productsPromise) {
+    productsPromise = new Promise<Product[]>((resolve) => {
+      setTimeout(() => {
+        productsCache = PRODUCTS;
+        resolve(PRODUCTS);
+      }, 1500); // 1.5 second simulated fetch delay
+    });
+  }
+  throw productsPromise;
+}
+
+// Extracted Product Grid component to be wrapped in Suspense
+function ProductGrid({ 
+  searchQuery, 
+  selectedCategory, 
+  setSelectedProduct,
+  setSearchQuery,
+  setSelectedCategory
+}: { 
+  searchQuery: string; 
+  selectedCategory: string; 
+  setSelectedProduct: (p: Product) => void;
+  setSearchQuery: (q: string) => void;
+  setSelectedCategory: (c: string) => void;
+}) {
+  const { t } = useTranslation();
+  const loadedProducts = useProductsResource();
+
+  const filteredProducts = useMemo(() => {
+    return loadedProducts.filter((p) => {
+      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                            (p.description || "").toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory = selectedCategory === "Semua" || p.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [searchQuery, selectedCategory, loadedProducts]);
+
+  if (filteredProducts.length === 0) {
+    return (
+      <div className="text-center py-20 px-4 w-full">
+        <div className="bg-white rounded-[2rem] p-8 max-w-md mx-auto shadow-sm border border-gray-100">
+          <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
+          <p className="text-gray-500 font-bold mb-2">Produk tidak ditemukan</p>
+          <p className="text-gray-400 text-sm">Coba cari dengan kata kunci lain atau pilih kategori berbeda.</p>
+          <Button 
+            variant="ghost" 
+            className="mt-6 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-xl"
+            onClick={() => { setSearchQuery(""); setSelectedCategory("Semua"); }}
+          >
+            Reset Filter
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <Carousel 
+      opts={{ align: "start", loop: filteredProducts.length > 4 }}
+      className="w-full"
+    >
+      <CarouselContent className="-ml-4">
+          {filteredProducts.map((product) => (
+            <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/4 lg:basis-1/4 xl:basis-1/4">
+              <div className="h-full">
+                <button 
+                  onClick={() => setSelectedProduct(product)}
+                  className="w-full h-full text-left outline-none"
+                >
+                  <div className="flex flex-col items-center h-full p-2 md:p-3 rounded-[1.5rem] group border border-transparent hover:bg-red-50 transition-all duration-300 cursor-pointer">
+                     <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-shadow duration-500 bg-white">
+                       <img
+                         src={product.image}
+                         alt={product.name}
+                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                         referrerPolicy="no-referrer"
+                       />
+                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                     </div>
+                     <h3 className="text-red-900 text-sm md:text-[13px] font-black uppercase tracking-[0.1em] text-center w-full px-2">
+                       {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+                     </h3>
+                     <div className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-red-900 transition-colors mt-3"></div>
+                  </div>
+                </button>
+              </div>
+            </CarouselItem>
+          ))}
+      </CarouselContent>
+      {filteredProducts.length > 1 && (
+        <>
+          <CarouselPrevious className="hidden md:flex -left-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
+          <CarouselNext className="hidden md:flex -right-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
+        </>
+      )}
+    </Carousel>
+  );
+}
+
 export default function ProductCatalog() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("Semua");
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  // Extract unique categories directly from PRODUCTS to allow fast filter toggles
+  const categories = useMemo(() => ["Semua", ...new Set(PRODUCTS.map(p => p.category))], []);
 
   const selectedMaterial = selectedProduct?.materialId 
     ? MATERIALS.find(m => m.id === selectedProduct.materialId) 
     : null;
 
   return (
-    <section id="products" className="py-20 bg-gray-50 overflow-hidden">
+    <section id="products" className="py-20 bg-transparent overflow-hidden">
       <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{t('products.title')}</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg mb-8">{t('products.subtitle')}</p>
+          <p className="text-gray-500 max-w-2xl mx-auto text-lg">{t('products.subtitle')}</p>
         </div>
 
-        <div className="relative px-0 sm:px-12">
-          <Carousel 
-            opts={{ align: "start", loop: true }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-4">
-                {PRODUCTS.map((product) => (
-                  <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/4 lg:basis-1/4 xl:basis-1/4">
-                    <div className="h-full">
-                      <button 
-                        onClick={() => setSelectedProduct(product)}
-                        className="w-full h-full text-left outline-none"
-                      >
-                        <div className="flex flex-col items-center h-full p-2 md:p-3 rounded-[1.5rem] group border border-transparent hover:bg-red-50 transition-all duration-300 cursor-pointer">
-                           <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-shadow duration-500 bg-white">
-                             <img
-                               src={product.image}
-                               alt={product.name}
-                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                               referrerPolicy="no-referrer"
-                             />
-                             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-                           </div>
-                           <h3 className="text-red-900 text-sm md:text-[13px] font-black uppercase tracking-[0.1em] text-center w-full px-2">
-                             {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                           </h3>
-                           <div className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-red-900 transition-colors mt-3"></div>
-                        </div>
-                      </button>
-                    </div>
-                  </CarouselItem>
-                ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
-            <CarouselNext className="hidden md:flex -right-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
-          </Carousel>
+        {/* Search & Filter Bar - Sticky at the top of the grid */}
+        <div className="sticky top-20 z-30 mb-12 bg-gray-50/80 backdrop-blur-md p-4 rounded-3xl border border-gray-100 shadow-sm">
+          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+            {/* Categories */}
+            <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={cn(
+                    "px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap",
+                    selectedCategory === cat 
+                      ? "bg-red-600 text-white shadow-md" 
+                      : "bg-white text-gray-500 hover:bg-gray-100 border border-gray-100"
+                  )}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* Search */}
+            <div className="relative w-full md:w-80">
+              <Input 
+                placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-4 h-11 rounded-2xl bg-white border-gray-100 focus:ring-2 focus:ring-red-500/10 text-sm shadow-sm"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="relative px-0 sm:px-12 min-h-[400px]">
+          <Suspense fallback={<CustomLoadingSpinner />}>
+            <ProductGrid 
+              searchQuery={searchQuery} 
+              selectedCategory={selectedCategory} 
+              setSelectedProduct={setSelectedProduct} 
+              setSearchQuery={setSearchQuery}
+              setSelectedCategory={setSelectedCategory}
+            />
+          </Suspense>
         </div>
       </div>
 
