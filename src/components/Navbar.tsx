@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Menu, X, Globe, ChevronDown, ChevronRight, Sparkles, LayoutGrid } from "lucide-react";
+import { Menu, X, Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
 
@@ -15,33 +15,20 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { PRODUCTS } from "@/src/constants";
 
-// Easing premium (Fast deceleration)
-const smoothEase = [0.16, 1, 0.3, 1];
+const snapEase = [0.25, 1, 0.5, 1];
 
 const mobileMenuVars = {
-  initial: { opacity: 0, y: -10, scale: 0.99, transformOrigin: "top" },
+  initial: { opacity: 0, y: -8 },
   animate: { 
     opacity: 1, 
     y: 0, 
-    scale: 1, 
-    transition: { 
-      duration: 0.4, 
-      ease: smoothEase,
-      staggerChildren: 0.04,
-      delayChildren: 0.02
-    } 
+    transition: { duration: 0.3, ease: snapEase } 
   },
   exit: { 
     opacity: 0, 
     y: -8, 
-    scale: 0.99, 
-    transition: { duration: 0.25, ease: "easeInOut" } 
+    transition: { duration: 0.2, ease: "easeInOut" } 
   }
-};
-
-const mobileLinkVars = {
-  initial: { opacity: 0, x: -8 },
-  animate: { opacity: 1, x: 0, transition: { duration: 0.3, ease: smoothEase } },
 };
 
 export default function Navbar() {
@@ -58,123 +45,114 @@ export default function Navbar() {
 
   const { scrollY } = useScroll();
 
-  // Smart Header Scroll Logic
+  // Smart Hide/Show on Scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 20);
-    
     const scrollDelta = latest - lastYPos;
     
-    if (latest > 120 && scrollDelta > 12 && !isOpen) {
-      setIsHidden(true); // Scroll down: Hide safely
-    } else if (scrollDelta < -12) {
-      setIsHidden(false); // Scroll up: Reveal elegantly
+    if (latest > 100 && scrollDelta > 15 && !isOpen) {
+      setIsHidden(true);
+    } else if (scrollDelta < -15) {
+      setIsHidden(false);
     }
     setLastYPos(latest);
   });
 
-  // Auto close on route alterations
   useEffect(() => {
     setIsOpen(false);
     setIsProductsOpen(false);
   }, [location.pathname]);
 
   const currentLanguage = i18n.language.startsWith('id') ? 'ID' : 'EN';
+  const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-  };
+  // Helper style menu desktop
+  const navLinkClass = (path: string) => cn(
+    "text-[14px] font-semibold tracking-wide px-1 py-2 transition-colors relative duration-200",
+    location.pathname === path ? "text-gray-900" : "text-gray-500 hover:text-gray-900"
+  );
 
   return (
     <motion.header 
       initial={{ y: "-100%" }}
       animate={{ y: isHidden ? "-100%" : "0%" }}
-      transition={{ duration: 0.5, ease: smoothEase }}
+      transition={{ duration: 0.4, ease: snapEase }}
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-500 will-change-transform",
+        "fixed top-0 z-50 w-full transition-all duration-300",
         isScrolled 
-          ? "border-b border-slate-200/60 bg-white/80 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.02)] h-16 md:h-20" 
-          : "bg-white border-b border-transparent h-20 md:h-24"
+          ? "border-b border-gray-200/70 bg-white/90 backdrop-blur-md h-16 shadow-[0_2px_20px_rgba(0,0,0,0.01)]" 
+          : "bg-white h-20 md:h-24"
       )}
     >
       <div className="container mx-auto max-w-7xl h-full flex items-center justify-between px-6 lg:px-8">
         
         {/* LOGO AREA */}
         <div className="flex items-center">
-          <Link to="/" className="flex items-center gap-3 transition-transform duration-300 active:scale-98">
+          <Link to="/" className="transition-opacity hover:opacity-90">
             <img 
               src="/Logo.png" 
               alt="Logo" 
               className={cn(
-                "w-auto object-contain transition-all duration-500",
-                isScrolled ? "h-10 md:h-12" : "h-12 md:h-15"
+                "w-auto object-contain transition-all duration-300",
+                isScrolled ? "h-9" : "h-12"
               )}
             />
           </Link>
         </div>
 
-        {/* DESKTOP CENTRAL NAVIGATION */}
-        <nav className="hidden lg:flex items-center bg-slate-100/60 p-1.5 rounded-2xl border border-slate-200/40 relative">
-          
-          {/* Menu: Home */}
-          <Link to="/" className={cn(
-            "px-5 py-2 text-sm font-bold tracking-tight rounded-xl transition-all relative z-10",
-            location.pathname === "/" ? "text-red-600" : "text-slate-600 hover:text-slate-900"
-          )}>
-            {location.pathname === "/" && (
-              <motion.span layoutId="activeNavBackground" className="absolute inset-0 bg-white shadow-sm border border-slate-200/50 rounded-xl z-[-1]" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
-            )}
+        {/* DESKTOP MINIMALIST NAVIGATION */}
+        <nav className="hidden lg:flex items-center gap-8">
+          {/* Home */}
+          <Link to="/" className={navLinkClass("/")}>
             {t('nav.home')}
+            {location.pathname === "/" && (
+              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
+            )}
           </Link>
           
-          {/* Menu: Products Dropdown Trigger */}
+          {/* Products Dropdown */}
           <div 
-            className="relative"
+            className="relative py-2"
             onMouseEnter={() => setIsDesktopProductsOpen(true)}
             onMouseLeave={() => setIsDesktopProductsOpen(false)}
           >
             <Link 
               to="/product" 
               className={cn(
-                "px-5 py-2 text-sm font-bold tracking-tight rounded-xl transition-all flex items-center gap-1 relative z-10 outline-none",
-                location.pathname.startsWith("/product") ? "text-red-600" : "text-slate-600 hover:text-slate-900"
-              )} 
+                "text-[14px] font-semibold tracking-wide px-1 transition-colors duration-200 flex items-center gap-1 outline-none",
+                location.pathname.startsWith("/product") ? "text-gray-900" : "text-gray-500 hover:text-gray-900"
+              )}
               onClick={(e) => { if (window.innerWidth >= 1024) e.preventDefault(); }}
             >
-              {location.pathname.startsWith("/product") && (
-                <motion.span layoutId="activeNavBackground" className="absolute inset-0 bg-white shadow-sm border border-slate-200/50 rounded-xl z-[-1]" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
-              )}
               <span>{t('nav.products')}</span>
-              <ChevronDown className={cn("w-3.5 h-3.5 opacity-60 transition-transform duration-300", isDesktopProductsOpen ? "rotate-180" : "")} />
+              <ChevronDown className={cn("w-3.5 h-3.5 opacity-70 transition-transform duration-200", isDesktopProductsOpen ? "rotate-180" : "")} />
             </Link>
+            {location.pathname.startsWith("/product") && (
+              <motion.div layoutId="activeLine" className="absolute bottom-0 left-1 right-1 h-[2px] bg-red-600 rounded-full" />
+            )}
             
             <AnimatePresence>
               {isDesktopProductsOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 8, scale: 0.98 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 6, scale: 0.98 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute left-1/2 -translate-x-1/2 top-[calc(100%+6px)] w-64 p-2 rounded-2xl shadow-[0_20px_50px_rgba(15,23,42,0.08)] bg-white border border-slate-200/80 z-50 overflow-hidden"
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 4 }}
+                  transition={{ duration: 0.15 }}
+                  className="absolute left-1/2 -translate-x-1/2 top-full w-56 bg-white border border-gray-200/80 rounded-xl shadow-xl p-1.5 z-50"
                 >
-                  <div className="absolute -top-4 left-0 w-full h-4 bg-transparent" />
-                  <div className="px-3 py-1.5 mb-1 text-[10px] font-black uppercase tracking-widest text-slate-400 flex items-center gap-1.5 border-b border-slate-50">
-                    <LayoutGrid className="w-3 h-3 text-red-500" />
-                    Portfolio Produk
-                  </div>
                   {PRODUCTS.map((product) => (
                     <Link 
                       key={product.id}
                       to={`/product/${product.id}`}
                       className={cn(
-                        "w-full px-3 py-2.5 rounded-xl text-xs font-bold tracking-tight transition-all flex items-center justify-between group/item",
+                        "w-full px-3 py-2 rounded-lg text-xs font-medium transition-colors block",
                         location.pathname === `/product/${product.id}` 
-                          ? "bg-red-50 text-red-600" 
-                          : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                          ? "bg-gray-50 text-red-600 font-semibold" 
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                       )}
                       onClick={() => setIsDesktopProductsOpen(false)}
                     >
-                      <span className="truncate">{t(`products.items.${product.id}.name`, { defaultValue: product.name })}</span>
-                      <ChevronRight className="w-3 h-3 opacity-0 -translate-x-1 transition-all group-hover/item:opacity-100 group-hover/item:translate-x-0 text-red-500" />
+                      {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
                     </Link>
                   ))}
                 </motion.div>
@@ -182,113 +160,88 @@ export default function Navbar() {
             </AnimatePresence>
           </div>
 
-          {/* Menu: Partner */}
-          <Link to="/partner" className={cn(
-            "px-5 py-2 text-sm font-bold tracking-tight rounded-xl transition-all relative z-10",
-            location.pathname === "/partner" ? "text-red-600" : "text-slate-600 hover:text-slate-900"
-          )}>
-            {location.pathname === "/partner" && (
-              <motion.span layoutId="activeNavBackground" className="absolute inset-0 bg-white shadow-sm border border-slate-200/50 rounded-xl z-[-1]" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
-            )}
+          {/* Partner */}
+          <Link to="/partner" className={navLinkClass("/partner")}>
             {t('nav.partner')}
+            {location.pathname === "/partner" && (
+              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
+            )}
           </Link>
 
-          {/* Menu: Contact */}
-          <Link to="/contact" className={cn(
-            "px-5 py-2 text-sm font-bold tracking-tight rounded-xl transition-all relative z-10",
-            location.pathname === "/contact" ? "text-red-600" : "text-slate-600 hover:text-slate-900"
-          )}>
-            {location.pathname === "/contact" && (
-              <motion.span layoutId="activeNavBackground" className="absolute inset-0 bg-white shadow-sm border border-slate-200/50 rounded-xl z-[-1]" transition={{ type: "spring", stiffness: 380, damping: 30 }} />
-            )}
+          {/* Contact */}
+          <Link to="/contact" className={navLinkClass("/contact")}>
             {t('nav.contact')}
+            {location.pathname === "/contact" && (
+              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
+            )}
           </Link>
         </nav>
 
-        {/* RIGHT METRICS: Language Selector & Mobile Action */}
-        <div className="flex items-center gap-3">
+        {/* RIGHT CONTROLS */}
+        <div className="flex items-center gap-4">
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
-                buttonVariants({ variant: "outline", size: "sm" }),
-                "hidden sm:flex items-center gap-2 font-bold text-xs tracking-wider h-10 px-4 rounded-xl bg-white border-slate-200 text-slate-700 hover:bg-slate-50 transition-all group shadow-sm focus:ring-0"
+                buttonVariants({ variant: "ghost", size: "sm" }),
+                "hidden sm:flex items-center gap-1.5 font-semibold text-xs tracking-wide h-9 px-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 focus:ring-0"
               )}
             >
-              <Globe className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 transition-colors" />
+              <Globe className="w-3.5 h-3.5 opacity-70" />
               <span>{currentLanguage}</span>
-              <ChevronDown className="w-3 h-3 opacity-40 transition-transform duration-300 group-data-[state=open]:rotate-180" />
+              <ChevronDown className="w-3 h-3 opacity-50 group-data-[state=open]:rotate-180 transition-transform" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-44 rounded-2xl p-1.5 bg-white shadow-xl border-slate-200/80 mt-1 relative z-[110]">
-              <DropdownMenuItem onClick={() => changeLanguage('id')} className={cn("rounded-xl cursor-pointer py-2.5 font-semibold text-xs transition-colors", i18n.language.startsWith('id') ? "text-red-600 bg-red-50 font-bold" : "text-slate-600 focus:bg-slate-50")}>
+            <DropdownMenuContent align="end" className="w-36 rounded-xl p-1 bg-white shadow-lg border-gray-200/80 mt-1">
+              <DropdownMenuItem onClick={() => changeLanguage('id')} className={cn("rounded-lg cursor-pointer py-2 text-xs font-medium", i18n.language.startsWith('id') ? "text-red-600 bg-red-50/50 font-semibold" : "text-gray-600")}>
                 Bahasa Indonesia
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => changeLanguage('en')} className={cn("rounded-xl cursor-pointer py-2.5 font-semibold text-xs transition-colors", i18n.language.startsWith('en') ? "text-red-600 bg-red-50 font-bold" : "text-slate-600 focus:bg-slate-50")}>
-                English (US)
+              <DropdownMenuItem onClick={() => changeLanguage('en')} className={cn("rounded-lg cursor-pointer py-2 text-xs font-medium", i18n.language.startsWith('en') ? "text-red-600 bg-red-50/50 font-semibold" : "text-gray-600")}>
+                English
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Mobile Hamburg Trigger button */}
+          {/* Hamburg Button Menu */}
           <button 
-            className={cn(
-              "p-2.5 rounded-xl border lg:hidden transition-all duration-300 active:scale-95 shadow-sm",
-              isOpen ? "bg-red-50 border-red-100 text-red-600" : "bg-white border-slate-200 text-slate-700"
-            )}
+            className="p-2 text-gray-600 hover:text-gray-900 lg:hidden transition-colors"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Menu"
           >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={isOpen ? "close" : "menu"}
-                initial={{ opacity: 0, rotate: -45 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0, rotate: 45 }}
-                transition={{ duration: 0.15 }}
-                className="w-5 h-5 flex items-center justify-center"
-              >
-                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </motion.div>
-            </AnimatePresence>
+            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* MOBILE FLOATING DRAWER CONTAINER */}
+      {/* MOBILE DRAWER */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop Blur Mesh */}
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 top-[4rem] md:top-[5rem] bg-slate-900/10 backdrop-blur-md z-40 lg:hidden"
+              className="fixed inset-0 top-16 bg-black/5 backdrop-blur-sm z-40 lg:hidden"
               onClick={() => setIsOpen(false)}
             />
             
-            {/* Control Panel Card */}
             <motion.div 
               variants={mobileMenuVars}
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute top-full right-0 w-full sm:w-[380px] sm:right-6 sm:mt-3 bg-white border-t sm:border border-slate-200 sm:rounded-[2rem] shadow-[0_25px_60px_rgba(15,23,42,0.12)] z-50 lg:hidden overflow-hidden"
+              className="absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-xl z-50 lg:hidden overflow-hidden"
             >
-              <nav className="flex flex-col p-5 space-y-1">
+              <nav className="flex flex-col p-4 space-y-1">
+                <Link to="/" className={cn("block px-4 py-2.5 rounded-lg text-sm font-semibold", location.pathname === "/" ? "bg-gray-50 text-red-600" : "text-gray-600")}>
+                  {t('nav.home')}
+                </Link>
                 
-                <motion.div variants={mobileLinkVars}>
-                  <Link to="/" className={cn("block px-4 py-3 rounded-xl text-sm font-bold tracking-tight transition-colors", location.pathname === "/" ? "bg-red-50 text-red-600" : "text-slate-600 hover:bg-slate-50")}>
-                    {t('nav.home')}
-                  </Link>
-                </motion.div>
-                
-                <motion.div variants={mobileLinkVars} className="space-y-1">
+                <div className="space-y-0.5">
                   <button 
                     onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    className={cn("px-4 py-3 rounded-xl text-sm font-bold tracking-tight flex items-center justify-between w-full transition-colors", isProductsOpen ? "bg-slate-50 text-slate-900" : "text-slate-600 hover:bg-slate-50")}
+                    className={cn("px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-between w-full text-gray-600 hover:bg-gray-50")}
                   >
                     <span>{t('nav.products')}</span>
-                    <ChevronRight className={cn("w-4 h-4 text-slate-400 transition-transform duration-300", isProductsOpen ? "rotate-90 text-slate-900" : "")} />
+                    <ChevronRight className={cn("w-4 h-4 text-gray-400 transition-transform duration-200", isProductsOpen ? "rotate-90 text-gray-900" : "")} />
                   </button>
                   
                   <AnimatePresence>
@@ -297,15 +250,14 @@ export default function Navbar() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                        className="overflow-hidden bg-slate-50/70 rounded-xl mx-2"
+                        className="overflow-hidden bg-gray-50/50 rounded-lg pl-4"
                       >
-                        <div className="py-1.5 space-y-0.5">
+                        <div className="py-1 space-y-0.5">
                           {PRODUCTS.map((product) => (
                             <Link
                               key={product.id}
                               to={`/product/${product.id}`}
-                              className={cn("block px-6 py-2.5 text-xs font-semibold tracking-tight transition-colors", location.pathname === `/product/${product.id}` ? "text-red-600 font-bold" : "text-slate-500 hover:text-slate-800")}
+                              className={cn("block px-4 py-2 text-xs font-medium", location.pathname === `/product/${product.id}` ? "text-red-600 font-semibold" : "text-gray-500")}
                             >
                               {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
                             </Link>
@@ -314,37 +266,33 @@ export default function Navbar() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </motion.div>
+                </div>
 
                 {['partner', 'contact'].map((item) => (
-                  <motion.div key={item} variants={mobileLinkVars}>
-                    <Link 
-                      to={`/${item}`} 
-                      className={cn("block px-4 py-3 rounded-xl text-sm font-bold tracking-tight transition-colors", location.pathname === `/${item}` ? "bg-red-50 text-red-600" : "text-slate-600 hover:bg-slate-50")}
-                    >
-                      {t(`nav.${item}`)}
-                    </Link>
-                  </motion.div>
+                  <Link 
+                    key={item}
+                    to={`/${item}`} 
+                    className={cn("block px-4 py-2.5 rounded-lg text-sm font-semibold", location.pathname === `/${item}` ? "bg-gray-50 text-red-600" : "text-gray-600")}
+                  >
+                    {t(`nav.${item}`)}
+                  </Link>
                 ))}
 
-                {/* Mobile Language Switcher Section */}
-                <motion.div variants={mobileLinkVars} className="pt-5 mt-3 border-t border-slate-100 flex items-center justify-between px-4">
-                   <span className="text-[10px] font-black tracking-widest text-slate-400 uppercase flex items-center gap-1">
-                     <Sparkles className="w-3 h-3 text-red-500" />
-                     Localization
-                   </span>
-                   <div className="flex gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200/40">
+                {/* Mobile Lang Selector */}
+                <div className="pt-4 mt-2 border-t border-gray-100 flex items-center justify-between px-4">
+                   <span className="text-xs font-semibold text-gray-400">Language</span>
+                   <div className="flex gap-1 bg-gray-50 p-1 rounded-lg border border-gray-200/50">
                       {['id', 'en'].map((lng) => (
                         <button
                           key={lng}
                           onClick={() => changeLanguage(lng)}
-                          className={cn("px-4 py-1.5 rounded-lg text-[11px] font-bold transition-all uppercase tracking-wider", i18n.language.startsWith(lng) ? "bg-white text-red-600 shadow-sm" : "text-slate-500")}
+                          className={cn("px-3 py-1 rounded-md text-[11px] font-bold uppercase transition-all", i18n.language.startsWith(lng) ? "bg-white text-gray-900 shadow-sm" : "text-gray-400")}
                         >
                           {lng}
                         </button>
                       ))}
                    </div>
-                </motion.div>
+                </div>
               </nav>
             </motion.div>
           </>
