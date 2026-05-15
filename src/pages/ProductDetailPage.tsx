@@ -1,11 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { PRODUCTS, MATERIALS } from "../constants";
 import { Badge } from "@/components/ui/badge";
-import { motion, AnimatePresence } from "motion/react"; // Pastikan versi terbaru
+import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowLeft, CheckCircle2, Factory, ShieldCheck, 
   Ruler, ArrowRight, Layers, MessageCircle, ChevronRight,
-  ChevronLeft, Send, User, Building, Package, MessageSquare
+  ChevronLeft, Send, User, Building, Package, MessageSquare, Info, Sliders
 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -27,7 +27,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-// Helper easing
 const smoothEase = [0.16, 1, 0.3, 1];
 
 const SALES_CONTACTS = [
@@ -40,80 +39,89 @@ export default function ProductDetailPage() {
   const [activeImg, setActiveImg] = useState(0);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
-  // Cari produk dengan id yang sesuai
   const product = id ? PRODUCTS.find(p => p.id === id) : undefined;
 
   if (!product) return <NotFound t={t} />;
 
   const material = product.materialId ? MATERIALS.find(m => m.id === product.materialId) : undefined;
   
-  // Pastikan images selalu berupa array string yang valid
   const images = Array.isArray(product.images) && product.images.length > 0 
     ? product.images 
     : (product.image ? [product.image] : []);
 
-  // Guard untuk activeImg jika images mendadak berubah atau kosong
   const safeActiveImg = (activeImg >= 0 && activeImg < images.length) ? activeImg : 0;
   const currentImage = images[safeActiveImg] || product.image || "/placeholder.jpg";
 
   return (
-    <div className="pt-20 bg-white min-h-screen">
-      {/* Breadcrumbs - Membantu Navigasi & SEO */}
-      <nav className="container mx-auto px-4 py-4 flex items-center gap-2 text-xs font-medium text-gray-400">
-        <Link to="/" className="hover:text-red-600 transition-colors">Home</Link>
-        <ChevronRight className="w-3 h-3" />
-        <span className="text-gray-900 truncate">
-          {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-        </span>
+    <div className="pt-24 bg-slate-50/50 min-h-screen text-slate-900 selection:bg-red-100 font-sans relative overflow-hidden">
+      
+      {/* Ambient Decorative Light */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none z-0" />
+      <div className="absolute top-[40%] -left-20 w-[400px] h-[400px] bg-slate-400/10 blur-[100px] rounded-full pointer-events-none z-0" />
+
+      {/* --- BREADCRUMBS & NAVIGATION --- */}
+      <nav className="container mx-auto px-6 max-w-7xl relative z-10 py-4 flex items-center justify-between border-b border-slate-200/60 mb-8">
+        <div className="flex items-center gap-2 text-xs font-semibold text-slate-400 tracking-wider uppercase">
+          <Link to="/" className="hover:text-red-500 transition-colors">Home</Link>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
+          <span className="text-slate-900 truncate max-w-[200px] sm:max-w-none">
+            {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+          </span>
+        </div>
+        <Link to="/products" className="inline-flex items-center gap-2 text-xs font-bold text-slate-500 hover:text-red-500 transition-colors group">
+          <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+          {t('productDetail.backToList', { defaultValue: 'Kembali' })}
+        </Link>
       </nav>
 
-      <section className="container mx-auto px-4 pb-20">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16">
+      {/* --- MAIN INTERACTIVE CONTAINER --- */}
+      <section className="container mx-auto px-6 max-w-7xl pb-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
-          {/* KIRI: Image Gallery (Sticky di Desktop) */}
-          <div className="lg:w-[50%] xl:w-[50%]">
-            <div className="lg:sticky lg:top-32 flex flex-col space-y-4">
+          {/* LEFT: Image Gallery Showcase (Sticky on Desktop) */}
+          <div className="lg:col-span-6 xl:col-span-6">
+            <div className="lg:sticky lg:top-28 flex flex-col space-y-4">
               <motion.div 
                 layoutId={`img-${product.id}`}
-                className="relative w-full aspect-square rounded-2xl overflow-hidden bg-gray-50 border border-gray-100 shadow-sm group"
+                className="relative w-full aspect-[4/4] sm:aspect-[4/3] lg:aspect-square rounded-[2rem] overflow-hidden bg-white border border-slate-200/60 shadow-[0_15px_40px_-15px_rgba(0,0,0,0.05)] group"
               >
                 <AnimatePresence mode="wait">
                   <motion.img 
                     key={safeActiveImg}
-                    initial={{ opacity: 0, scale: 1.05 }}
+                    initial={{ opacity: 0, scale: 1.02 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.4, ease: "easeOut" }}
                     src={currentImage} 
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover object-center"
                   />
                 </AnimatePresence>
 
-                {/* Navigation Arrows */}
+                {/* Arrow Controllers */}
                 {images.length > 1 && (
                   <>
                     <button 
                       onClick={() => setActiveImg((prev) => (prev - 1 + images.length) % images.length)}
-                      className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/60 backdrop-blur-md border border-white/80 text-gray-800 shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-4 transition-all duration-300 hover:bg-white hover:scale-105"
+                      className="absolute left-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-slate-800 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 -translate-x-3 transition-all duration-300 hover:bg-slate-900 hover:text-white"
                     >
-                      <ChevronLeft className="w-6 h-6" />
+                      <ChevronLeft className="w-5 h-5" />
                     </button>
                     <button 
                       onClick={() => setActiveImg((prev) => (prev + 1) % images.length)}
-                      className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/60 backdrop-blur-md border border-white/80 text-gray-800 shadow-lg flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-4 transition-all duration-300 hover:bg-white hover:scale-105"
+                      className="absolute right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200 text-slate-800 shadow-md flex items-center justify-center opacity-0 group-hover:opacity-100 group-hover:translate-x-0 translate-x-3 transition-all duration-300 hover:bg-slate-900 hover:text-white"
                     >
-                      <ChevronRight className="w-6 h-6" />
+                      <ChevronRight className="w-5 h-5" />
                     </button>
                     
-                    {/* Dots indicator */}
-                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 px-4 py-2 rounded-full bg-white/30 backdrop-blur-md border border-white/30 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {/* Modern Floating Bar Indicator */}
+                    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-950/20 backdrop-blur-md border border-white/20 shadow-sm opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-300">
                       {images.map((_, idx) => (
                         <button
                           key={idx}
                           onClick={() => setActiveImg(idx)}
                           className={cn(
-                            "transition-all duration-300 rounded-full",
-                            activeImg === idx ? "w-6 h-2 bg-white" : "w-2 h-2 bg-white/60 hover:bg-white/80"
+                            "transition-all duration-300 rounded-full h-1.5",
+                            activeImg === idx ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/80"
                           )}
                         />
                       ))}
@@ -122,22 +130,22 @@ export default function ProductDetailPage() {
                 )}
                 
                 {product.badge && (
-                  <Badge className="absolute top-6 left-6 bg-red-600/90 backdrop-blur border border-red-500/50 text-white font-black px-4 py-1.5 rounded-full shadow-xl tracking-widest text-xs uppercase z-10">
+                  <Badge className="absolute top-6 left-6 bg-red-600 border border-red-500 text-white font-black px-4 py-1.5 rounded-xl shadow-lg tracking-widest text-[10px] uppercase z-10">
                     {product.badge}
                   </Badge>
                 )}
               </motion.div>
 
-              {/* Thumbnails */}
+              {/* Thumbnails Row */}
               {images.length > 1 && (
-                <div className="flex gap-4 overflow-x-auto pb-4 pt-2 scrollbar-hide snap-x">
+                <div className="flex gap-3 overflow-x-auto pb-2 pt-1 scrollbar-hide snap-x">
                   {images.map((img, idx) => (
                     <button 
                       key={idx}
                       onClick={() => setActiveImg(idx)}
                       className={cn(
-                        "relative w-24 h-24 rounded-xl overflow-hidden border-2 transition-all duration-300 shrink-0 snap-start shadow-sm",
-                        activeImg === idx ? "border-red-500 ring-2 ring-red-500/20 scale-100" : "border-white opacity-60 hover:opacity-100 hover:scale-[1.02]"
+                        "relative w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-300 shrink-0 snap-start bg-white shadow-sm",
+                        activeImg === idx ? "border-red-500 scale-[0.98]" : "border-transparent opacity-60 hover:opacity-100"
                       )}
                     >
                       <img src={img} className="w-full h-full object-cover" />
@@ -148,69 +156,87 @@ export default function ProductDetailPage() {
             </div>
           </div>
 
-          {/* KANAN: Product Info */}
-          <div className="lg:w-[50%] xl:w-[50%] flex flex-col space-y-8">
+          {/* RIGHT: Corporate Product Specification Meta */}
+          <div className="lg:col-span-6 xl:col-span-6 flex flex-col space-y-8">
             <motion.div 
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: smoothEase }}
+              transition={{ duration: 0.5, ease: smoothEase }}
               className="space-y-6"
             >
-              <Badge variant="secondary" className="bg-red-50 text-red-600 border-none px-4 py-1 rounded-full text-xs font-bold uppercase tracking-widest">
+              {/* Category tag */}
+              <div className="inline-flex items-center gap-2 text-xs font-black text-red-600 bg-red-50 px-3.5 py-1.5 rounded-xl tracking-wider uppercase">
+                <span className="w-1.5 h-1.5 bg-red-500 rounded-full" />
                 {product.category}
-              </Badge>
+              </div>
               
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-[1.1]">
+              <h1 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight leading-[1.1]">
                 {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
               </h1>
 
-              <p className="text-lg text-gray-500 leading-relaxed">
+              <p className="text-base text-slate-500 leading-relaxed font-medium">
                 {t(`products.items.${product.id}.desc`, { defaultValue: product.description })}
               </p>
 
-              {/* USP Grid */}
-              <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="p-4 rounded-3xl bg-gray-50 border border-gray-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
-                  <Factory className="w-6 h-6 text-red-500 mb-3" />
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">{t('productDetail.capacity')}</p>
-                  <p className="font-bold text-gray-900">{t('productDetail.minPcs')}</p>
+              {/* USP Bento Block */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_10px_25px_rgba(0,0,0,0.01)] flex gap-4 items-start group hover:border-slate-300 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 shrink-0 shadow-inner">
+                    <Factory className="w-5 h-5 text-red-500" />
+                  </div>
+                  <div className="space-y-0.5">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('productDetail.capacity', { defaultValue: 'Kapasitas Minimum' })}</p>
+                    <p className="font-bold text-slate-900 text-sm">{t('productDetail.minPcs', { defaultValue: 'Hubungi Sales' })}</p>
+                  </div>
                 </div>
-                <div className="p-4 rounded-3xl bg-gray-50 border border-gray-100 group hover:bg-white hover:shadow-xl transition-all duration-500">
-                  <ShieldCheck className="w-6 h-6 text-red-500 mb-3" />
-                  <p className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">{t('productDetail.warranty')}</p>
-                  <p className="font-bold text-gray-900">{t('productDetail.returnGuarantee')}</p>
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_10px_25px_rgba(0,0,0,0.01)] flex gap-4 items-start group hover:border-slate-300 transition-all">
+                  <div className="w-10 h-10 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-800 shrink-0 shadow-inner">
+                    <ShieldCheck className="w-5 h-5 text-red-500" />
+                  </div>
+                  <div className="space-y-0.5">
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('productDetail.warranty', { defaultValue: 'Jaminan Layanan' })}</p>
+                    <p className="font-bold text-slate-900 text-sm">{t('productDetail.returnGuarantee', { defaultValue: 'Garansi Presisi Ganti Baru' })}</p>
+                  </div>
                 </div>
               </div>
 
-              {/* Material Info - Integrated */}
+              {/* Technical Specifications Panel */}
               {material && (
-                <div className="pt-6 space-y-5">
-                  <h3 className="font-bold text-gray-900 flex items-center gap-2">
-                    <Package className="w-5 h-5 text-red-500" />
-                    Material
-                    {material.name.includes('Premium') && <span className="text-red-500 ml-1">Premium</span>}
-                    <span className="text-gray-900">{material.name.replace('Premium ', '')}</span>
+                <div className="pt-4 space-y-4">
+                  <h3 className="font-bold text-sm uppercase text-slate-400 tracking-widest flex items-center gap-2">
+                    <Sliders className="w-4 h-4 text-red-500" />
+                    {t('productDetail.technicalSpec', { defaultValue: 'Spesifikasi Teknis Material' })}
                   </h3>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 rounded-[2.5rem] bg-gray-50/50 border border-gray-100 hover:bg-gray-50 transition-colors duration-300">
-                    <div className="space-y-6">
+                  <div className="p-6 md:p-8 rounded-[2rem] bg-white border border-slate-200/80 shadow-sm relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-[4rem] border-l border-b border-slate-100 flex items-center justify-center text-slate-300 font-bold text-xs pointer-events-none uppercase tracking-wider">
+                      SPEC-SHEET
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
                        <div>
-                         <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">Komposisi</p>
-                         <p className="text-lg font-bold text-gray-900">{material.specifications.composition}</p>
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Nama Kain</span>
+                         <div className="text-base font-extrabold text-slate-900 flex items-center gap-1.5">
+                           {material.name}
+                         </div>
                        </div>
                        <div>
-                         <p className="text-xs font-black text-red-500 uppercase tracking-widest mb-2">Gramasi</p>
-                         <p className="text-lg font-bold text-gray-900">{material.specifications.grammage}</p>
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Komposisi Serat</span>
+                         <p className="text-base font-extrabold text-slate-900">{material.specifications.composition}</p>
+                       </div>
+                       <div className="sm:col-span-2 border-t border-slate-100 pt-5">
+                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Kerapatan / Gramasi</span>
+                         <p className="text-base font-extrabold text-slate-900">{material.specifications.grammage}</p>
                        </div>
                     </div>
                     
                     {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
-                      <div className="md:border-l md:border-gray-200/60 md:pl-8 flex flex-col justify-center">
-                        <p className="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Fitur Teknis</p>
-                        <div className="flex flex-wrap gap-2.5">
+                      <div className="border-t border-slate-100 pt-6 mt-6">
+                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3">Keunggulan Teknis Kain</span>
+                        <div className="flex flex-wrap gap-2">
                           {material.specifications.technicals.map((tech, idx) => (
-                            <span key={idx} className="text-[11px] font-bold text-gray-700 bg-white px-4 py-2 rounded-xl border border-gray-100 shadow-sm flex items-center gap-2 group-hover:border-red-100 transition-colors">
-                              <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
+                            <span key={idx} className="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200/60 px-3.5 py-2 rounded-xl flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
                               {tech}
                             </span>
                           ))}
@@ -221,34 +247,34 @@ export default function ProductDetailPage() {
                 </div>
               )}
 
-              {/* CTA Actions */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-8">
+              {/* Dynamic Action Gateway */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-6">
                 <Button 
                   onClick={() => setIsQuoteModalOpen(true)}
-                  className="flex-1 h-16 rounded-2xl bg-black hover:bg-gray-800 text-white font-bold text-lg shadow-xl transition-all active:scale-95"
+                  className="flex-1 h-15 rounded-2xl bg-slate-900 hover:bg-red-600 text-white font-bold text-base shadow-lg shadow-slate-900/10 hover:shadow-red-600/20 transition-all group"
                 >
-                  {t('productDetail.requestQuote')}
-                  <ArrowRight className="w-5 h-5 ml-2" />
+                  {t('productDetail.requestQuote', { defaultValue: 'Minta Penawaran Harga' })}
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-0.5 transition-transform" />
                 </Button>
                 
                 <DropdownMenu>
                   <DropdownMenuTrigger 
                     className={cn(
                       buttonVariants({ variant: "outline", size: "lg" }),
-                      "h-16 w-full sm:w-16 rounded-2xl border-gray-200 hover:bg-green-50 hover:border-green-200 hover:text-green-600 transition-all"
+                      "h-15 w-full sm:w-15 rounded-2xl border-slate-200 bg-white hover:bg-green-50 hover:border-green-200 hover:text-green-600 transition-all shrink-0"
                     )}
                   >
-                    <MessageCircle className="w-6 h-6" />
+                    <MessageCircle className="w-5 h-5" />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-56 p-2 rounded-2xl border-gray-100 shadow-2xl">
-                    <div className="px-3 py-2 text-xs font-black uppercase tracking-widest text-gray-400">Hubungi Sales</div>
+                  <DropdownMenuContent align="end" className="w-60 p-2 rounded-2xl border-slate-200/80 shadow-xl bg-white/95 backdrop-blur-md relative z-[100]">
+                    <div className="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400">Hubungi Konsultan Sales</div>
                     {SALES_CONTACTS.map((sales, idx) => (
                       <DropdownMenuItem 
                         key={idx}
-                        className="rounded-xl py-3 px-3 cursor-pointer focus:bg-green-50 focus:text-green-700 font-bold"
+                        className="rounded-xl py-2.5 px-3 cursor-pointer focus:bg-green-50 focus:text-green-700 font-bold text-sm transition-colors"
                         onClick={() => window.open(`https://wa.me/${sales.phone}?text=Halo ${sales.name}, saya tertarik dengan produk ${product.name}`, "_blank")}
                       >
-                        <MessageCircle className="w-4 h-4 mr-2 text-green-500" />
+                        <MessageSquare className="w-4 h-4 mr-2 text-green-500" />
                         {sales.name}
                       </DropdownMenuItem>
                     ))}
@@ -260,23 +286,23 @@ export default function ProductDetailPage() {
         </div>
       </section>
 
-      {/* Quote Form Modal */}
+      {/* --- FORM PENAWARAN MODAL --- */}
       <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
-        <DialogContent className="sm:max-w-[500px] p-0 overflow-hidden rounded-[2.5rem] border-none shadow-2xl">
-           <DialogHeader className="p-8 pb-4 bg-gray-50 border-b border-gray-100">
+        <DialogContent className="sm:max-w-[520px] p-0 overflow-hidden rounded-[2.5rem] border border-slate-200 shadow-2xl bg-white">
+           <DialogHeader className="p-8 pb-5 bg-slate-50 border-b border-slate-100 relative">
               <div className="flex items-center gap-3 mb-2">
-                 <div className="p-2 bg-red-100 rounded-xl">
+                 <div className="w-10 h-10 bg-red-50 border border-red-100 rounded-xl flex items-center justify-center">
                     <Package className="w-5 h-5 text-red-600" />
                  </div>
-                 <DialogTitle className="text-2xl font-black text-gray-900 tracking-tight">Form Penawaran</DialogTitle>
+                 <DialogTitle className="text-xl font-black text-slate-900 tracking-tight">E-Quote Form Penawaran</DialogTitle>
               </div>
-              <DialogDescription className="text-gray-500 font-medium leading-relaxed">
-                 Silakan lengkapi data di bawah ini untuk mendapatkan penawaran harga terbaik untuk produk <span className="text-red-600 font-bold">{product.name}</span>.
+              <DialogDescription className="text-slate-500 font-medium text-xs leading-relaxed pt-1">
+                 Isi formulir secara lengkap untuk mendapatkan estimasi harga produksi massal unit <span className="text-red-600 font-bold">{product.name}</span> dari tim estimasi kami.
               </DialogDescription>
            </DialogHeader>
 
            <form 
-              className="p-8 space-y-6" 
+              className="p-8 space-y-5" 
               onSubmit={(e) => { 
                 e.preventDefault(); 
                 const formData = new FormData(e.currentTarget);
@@ -292,51 +318,53 @@ export default function ProductDetailPage() {
               }}
            >
               <div className="space-y-4">
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                       <Label htmlFor="name" className="text-xs font-black uppercase tracking-widest text-gray-400">Nama Lengkap</Label>
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                       <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Nama Lengkap</Label>
                        <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
+                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-12 rounded-xl bg-slate-50 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-slate-900/10 focus-visible:border-slate-900 transition-all font-medium text-sm" required />
                        </div>
                     </div>
-                    <div className="space-y-2">
-                       <Label htmlFor="company" className="text-xs font-black uppercase tracking-widest text-gray-400">Perusahaan</Label>
+                    <div className="space-y-1.5">
+                       <Label htmlFor="company" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Perusahaan / CV</Label>
                        <div className="relative">
-                          <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                          <Input id="company" name="company" placeholder="Nama PT/CV" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" />
+                          <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Input id="company" name="company" placeholder="Nama PT / Instansi" className="pl-11 h-12 rounded-xl bg-slate-50 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-slate-900/10 focus-visible:border-slate-900 transition-all font-medium text-sm" />
                        </div>
                     </div>
                  </div>
 
-                 <div className="space-y-2">
-                    <Label htmlFor="quantity" className="text-xs font-black uppercase tracking-widest text-gray-400">Jumlah Pesanan (Pcs)</Label>
+                 <div className="space-y-1.5">
+                    <Label htmlFor="quantity" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Estimasi Kuantitas Kebutuhan (Pcs)</Label>
                     <div className="relative">
-                       <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-                       <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-12 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20" required />
+                       <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                       <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-12 rounded-xl bg-slate-50 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-slate-900/10 focus-visible:border-slate-900 transition-all font-medium text-sm" required />
                     </div>
                  </div>
 
-                 <div className="space-y-2">
-                    <Label htmlFor="message" className="text-xs font-black uppercase tracking-widest text-gray-400">Pesan Tambahan</Label>
+                 <div className="space-y-1.5">
+                    <Label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-slate-400">Catatan Spesifikasi Kustom</Label>
                     <div className="relative">
-                       <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-gray-400" />
+                       <MessageSquare className="absolute left-4 top-3.5 w-4 h-4 text-slate-400" />
                        <textarea 
                         id="message" 
                         name="message"
-                        placeholder="Contoh: Saya ingin tambah logo di dada kiri..." 
-                        rows={4}
-                        className="w-full pl-11 pt-3.5 rounded-xl bg-gray-50 border-none focus:ring-2 focus:ring-red-500/20 text-sm font-medium outline-none resize-none"
+                        placeholder="Detail kustomisasi seperti posisi bordir logo instansi, variasi warna kancing, skema ukuran, atau deadline kebutuhan..." 
+                        rows={3}
+                        className="w-full pl-11 pr-4 pt-3 rounded-xl bg-slate-50 border border-slate-200/80 focus:ring-2 focus:ring-slate-900/10 focus:border-slate-900 text-sm font-medium outline-none transition-all resize-none min-h-[90px]"
                        />
                     </div>
                  </div>
               </div>
 
-              <div className="pt-4 flex gap-3">
-                 <Button type="button" variant="ghost" onClick={() => setIsQuoteModalOpen(false)} className="flex-1 h-14 rounded-2xl font-bold text-gray-500 mb-2">Batal</Button>
-                 <Button type="submit" className="flex-[2] h-14 rounded-2xl bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest shadow-xl shadow-red-600/20">
-                    Kirim Permintaan
-                    <Send className="w-4 h-4 ml-2" />
+              <div className="pt-2 flex flex-col sm:flex-row gap-2">
+                 <Button type="button" variant="ghost" onClick={() => setIsQuoteModalOpen(false)} className="sm:flex-1 h-13 rounded-xl font-bold text-slate-500 hover:bg-slate-100 order-2 sm:order-1">
+                   Batal
+                 </Button>
+                 <Button type="submit" className="sm:flex-[2] h-13 rounded-xl bg-slate-900 hover:bg-red-600 text-white font-bold uppercase tracking-wider text-xs shadow-md order-1 sm:order-2 transition-colors">
+                    Kirim via WhatsApp
+                    <Send className="w-3.5 h-3.5 ml-2" />
                  </Button>
               </div>
            </form>
@@ -346,16 +374,16 @@ export default function ProductDetailPage() {
   );
 }
 
-// Sub-komponen untuk Not Found agar kode lebih rapi
 function NotFound({ t }: { t: any }) {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center mb-6">
-        <Layers className="w-10 h-10 text-gray-300" />
+    <div className="min-h-screen flex flex-col items-center justify-center p-6 bg-slate-50">
+      <div className="w-20 h-20 bg-white border border-slate-200 rounded-2xl flex items-center justify-center mb-6 shadow-sm">
+        <Layers className="w-8 h-8 text-slate-400" />
       </div>
-      <h1 className="text-3xl font-bold mb-4">{t('productDetail.notFound')}</h1>
-      <Link to="/" className={cn(buttonVariants({ variant: "link" }), "text-red-500")}>
-        {t('productDetail.backToHome')}
+      <h1 className="text-2xl font-black mb-2 text-slate-900">{t('productDetail.notFound', { defaultValue: 'Produk Tidak Ditemukan' })}</h1>
+      <p className="text-sm text-slate-400 mb-6 max-w-xs text-center font-medium">Data produk yang Anda cari tidak tersedia dalam direktori parahita.</p>
+      <Link to="/products" className={cn(buttonVariants({ variant: "outline" }), "rounded-xl font-bold px-6 border-slate-200 bg-white")}>
+        {t('productDetail.backToHome', { defaultValue: 'Lihat Katalog Produk' })}
       </Link>
     </div>
   );
