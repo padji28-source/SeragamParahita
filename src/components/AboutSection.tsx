@@ -31,9 +31,9 @@ export default function AboutSection() {
       
       {/* About Split-Pane Section */}
       <section className="relative w-full py-20 lg:py-32 overflow-hidden z-20">
-        <div className="container mx-auto px-4 md:px-8">
+        <div className="container mx-auto px-4 md:px-8 max-w-7xl">
 
-          <div className="flex flex-col lg:flex-row gap-16 items-start">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
             
             {/* Left: Text & Story */}
             <motion.div 
@@ -41,16 +41,16 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full lg:w-1/2 space-y-8 bg-white/85 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white/50 shadow-2xl"
+              className="w-full lg:w-[55%] space-y-8 bg-white p-8 md:p-14 lg:p-16 rounded-[2.5rem] md:rounded-[3rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)]"
             >
               <div className="space-y-4">
-                <h3 className="text-red-600 font-bold tracking-widest uppercase text-sm">Tentang Kami</h3>
-                <h2 className="text-4xl md:text-5xl lg:text-5xl font-black text-gray-900 tracking-tight leading-[1.2]">
+                <h3 className="text-red-600 font-bold tracking-widest uppercase text-xs md:text-sm">Tentang Kami</h3>
+                <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 tracking-tight leading-[1.1]">
                   {t('about.story.title')}
                 </h2>
               </div>
               
-              <div className="space-y-5 text-gray-700 font-medium text-[15px] md:text-base leading-relaxed">
+              <div className="space-y-6 text-gray-600 font-medium text-[15px] md:text-[16px] leading-relaxed">
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
                 <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
                 <AnimatePresence>
@@ -59,7 +59,7 @@ export default function AboutSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      className="space-y-5 overflow-hidden"
+                      className="space-y-6 overflow-hidden"
                     >
                       <p dangerouslySetInnerHTML={{ __html: t('about.story.p3') }} />
                       <p dangerouslySetInnerHTML={{ __html: t('about.story.p4') }} />
@@ -72,28 +72,29 @@ export default function AboutSection() {
               <div className="pt-2">
                 <button
                   onClick={() => setShowMoreStory(!showMoreStory)}
-                  className="text-red-600 font-bold text-sm tracking-widest uppercase hover:text-gray-900 transition-colors flex items-center gap-2 mb-4"
+                  className="text-red-600 font-bold text-xs md:text-sm tracking-[0.15em] uppercase hover:text-red-800 transition-colors flex items-center gap-2 mb-6"
                 >
                   {showMoreStory ? "Lebih Sedikit" : "Lihat Lebih Banyak"}
                   <motion.svg 
                     animate={{ rotate: showMoreStory ? 180 : 0 }} 
-                    width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                    width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+                    className="mt-0.5"
                   >
                     <polyline points="6 9 12 15 18 9"></polyline>
                   </motion.svg>
                 </button>
               </div>
 
-              <div className="pt-4">
+              <div>
                 <a 
                   href="/company-profile.pdf" 
                   download="Company Profile MKS.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-3 bg-[maroon] hover:bg-neutral-900 text-white font-bold h-14 px-8 rounded-xl transition-all duration-300 uppercase tracking-widest text-sm group shadow-lg"
+                  className="inline-flex items-center justify-center gap-3 bg-[#8B0000] hover:bg-[#600000] text-white font-bold h-12 md:h-14 px-8 md:px-10 rounded-xl transition-all duration-300 uppercase tracking-[0.1em] text-xs md:text-sm group shadow-lg"
                 >
-                  <span>{t('about.companyProfile')}</span>
-                  <Download className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                  <span>Unduh Profil Perusahaan</span>
+                  <Download className="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-1" />
                 </a>
               </div>
             </motion.div>
@@ -104,32 +105,36 @@ export default function AboutSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full lg:w-1/2"
+              className="w-full lg:w-[45%] flex flex-col gap-6"
             >
-              <div className="grid grid-cols-2 gap-6 md:gap-8">
-                {/* 15+ Years - Takes full width or prominent spot */}
-                <div className="col-span-2 bg-white/85 backdrop-blur-xl p-8 md:p-12 rounded-[2.5rem] border border-white/50 shadow-2xl flex flex-col items-center justify-center text-center group hover:bg-white/95 transition-all">
-                   <div className="text-6xl md:text-8xl font-black text-red-600 mb-4 tracking-tighter group-hover:scale-105 transition-transform duration-500 drop-shadow-sm">
+                {/* 15+ Years Card */}
+                <div className="bg-gradient-to-br from-white to-gray-50 p-10 md:p-14 lg:p-16 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(227,6,19,0.08)] relative overflow-hidden">
+                   <div className="absolute top-0 right-0 w-32 h-32 bg-red-50 rounded-full blur-[40px] -mr-16 -mt-16 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+                   <div className="text-[5.5rem] md:text-[6.5rem] lg:text-[7.5rem] font-black text-[#E30613] leading-[1] mb-2 tracking-tighter group-hover:scale-110 transition-transform duration-500 relative z-10 drop-shadow-sm">
                      15+
                    </div>
-                   <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 uppercase tracking-widest">
+                   <h3 className="text-base md:text-lg lg:text-xl font-bold text-gray-900 mb-3 uppercase tracking-[0.2em] relative z-10">
                      Tahun Pengalaman
                    </h3>
-                   <p className="text-sm md:text-base text-gray-600 font-medium">
+                   <p className="text-sm md:text-base text-gray-500 font-medium relative z-10 max-w-[80%]">
                      Berdedikasi dalam memberikan kualitas terbaik.
                    </p>
                 </div>
 
-                <div className="bg-white/85 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] border border-white/50 shadow-xl flex flex-col items-center justify-center text-center">
-                   <div className="text-3xl md:text-4xl font-black text-gray-900 mb-2 drop-shadow-sm">50.000+</div>
-                   <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest">Kapasitas Produksi (Pcs/Bulan)</p>
+                {/* Lower Stats Grid */}
+                <div className="grid grid-cols-2 gap-6 h-full">
+                  <div className="bg-gradient-to-br from-white to-gray-50 p-8 md:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative overflow-hidden">
+                     <div className="absolute top-0 left-0 w-24 h-24 bg-gray-100 rounded-full blur-[30px] -ml-12 -mt-12 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+                     <div className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3 tracking-tight relative z-10">50.000+</div>
+                     <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed relative z-10">Kapasitas Produksi<br/>(Pcs/Bulan)</p>
+                  </div>
+                  
+                  <div className="bg-gradient-to-br from-white to-gray-50 p-8 md:p-10 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100 flex flex-col items-center justify-center text-center group hover:-translate-y-2 transition-all duration-500 hover:shadow-[0_30px_60px_rgba(0,0,0,0.08)] relative overflow-hidden">
+                     <div className="absolute top-0 right-0 w-24 h-24 bg-gray-100 rounded-full blur-[30px] -mr-12 -mt-12 transition-opacity duration-500 opacity-0 group-hover:opacity-100" />
+                     <div className="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 mb-3 tracking-tight relative z-10">200+</div>
+                     <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-[0.15em] leading-relaxed relative z-10">Tenaga Ahli<br/>Berpengalaman</p>
+                  </div>
                 </div>
-                
-                <div className="bg-white/85 backdrop-blur-xl p-6 md:p-8 rounded-[2rem] border border-white/50 shadow-xl flex flex-col items-center justify-center text-center">
-                   <div className="text-3xl md:text-4xl font-black text-gray-900 mb-2 drop-shadow-sm">200+</div>
-                   <p className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-widest">Tenaga Ahli</p>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
