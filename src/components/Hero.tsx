@@ -1,4 +1,5 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import * as React from "react";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel";
 import { HERO_IMAGES } from "@/src/constants";
 import { motion } from "motion/react";
 import { useTranslation } from "react-i18next";
@@ -84,10 +85,25 @@ const FloatingElements = () => {
 
 export default function Hero() {
   const { t } = useTranslation();
+  const [api, setApi] = React.useState<CarouselApi>();
+  const [current, setCurrent] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   return (
     <section className="relative w-full h-[65dvh] min-h-[550px] md:h-[100dvh] max-h-[1080px] overflow-hidden bg-gray-900">
       <Carousel
+        setApi={setApi}
         opts={{
           align: "start",
           loop: true,
@@ -95,7 +111,9 @@ export default function Hero() {
         className="w-full h-full [&_[data-slot=carousel-content]]:h-full"
       >
         <CarouselContent className="h-full ml-0">
-          {HERO_IMAGES.map((src, index) => (
+          {HERO_IMAGES.map((src, index) => {
+            const isActive = index === current;
+            return (
             <CarouselItem key={index} className="h-full basis-full pl-0">
               <div className="relative h-full w-full">
                 <img
@@ -107,9 +125,9 @@ export default function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80 backdrop-blur-[4px]" />
                 <div className="absolute inset-0 flex items-center justify-center text-center z-20">
                   <motion.div
-                    initial={{ opacity: 0, filter: "blur(10px)" }}
-                    animate={{ opacity: 1, filter: "blur(0px)" }}
-                    transition={{ duration: 0.8 }}
+                    initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                    animate={isActive ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 30, filter: "blur(10px)" }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
                     className="max-w-5xl px-4 sm:px-6 w-full"
                   >
                     <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black text-white drop-shadow-2xl tracking-tighter leading-[1.1] sm:leading-none break-words">
@@ -133,7 +151,7 @@ export default function Hero() {
                 </div>
               </div>
             </CarouselItem>
-          ))}
+          )})}
         </CarouselContent>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-30 mb-safe">
           <CarouselPrevious className="relative left-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md" />
