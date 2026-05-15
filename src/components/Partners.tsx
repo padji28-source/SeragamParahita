@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 export default function Partners() {
   const { t } = useTranslation();
   return (
-    <section className="py-16 bg-white overflow-hidden">
+    <section className="py-16 bg-transparent overflow-hidden">
       <div className="container mx-auto px-4 text-center">
         <h2 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-8">
           {t('partner.distinguished')}
