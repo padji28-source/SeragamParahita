@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import FloatingSocials from "./components/FloatingSocials";
 
 // 1. Lazy Loading untuk performa maksimal
 const HomePage = lazy(() => import("./pages/HomePage"));
@@ -98,6 +99,7 @@ export default function App() {
         <main>
           <AnimatedRoutes />
         </main>
+        <FloatingSocials />
         <Footer />
       </div>
     </Router>
