@@ -9,20 +9,9 @@ export default function AboutSection() {
   const [showMoreStory, setShowMoreStory] = useState(false);
 
   return (
-    // Wrapper Utama ditambahkan Dot Grid Pattern dan Gradient Halus
-    <div className="relative bg-slate-50 text-slate-900 selection:bg-red-200 font-sans overflow-hidden">
-      
-      {/* --- BACKGROUND DECORATION --- */}
-      <div 
-        className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none" 
-        style={{ backgroundImage: 'radial-gradient(#000 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }}
-      />
-      <div className="absolute top-0 inset-x-0 h-[600px] bg-gradient-to-b from-red-50/80 via-transparent to-transparent pointer-events-none z-0" />
-      <div className="absolute -left-40 top-40 w-[500px] h-[500px] bg-red-400/10 blur-[100px] rounded-full pointer-events-none" />
-      <div className="absolute -right-40 top-80 w-[500px] h-[500px] bg-blue-400/10 blur-[100px] rounded-full pointer-events-none" />
-
+    <div className="relative bg-transparent text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
       {/* Container Utama untuk Bagian 1 & 2 */}
-      <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32 relative z-10">
+      <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
         
         {/* --- BAGIAN 1: Cerita & Statistik (Bento Layout) --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -92,8 +81,8 @@ export default function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5 grid grid-cols-2 gap-4"
           >
-            <div className="col-span-2 bg-white/70 backdrop-blur-md rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] border border-white/80 hover:border-red-100 group">
-              <div className="text-7xl md:text-8xl font-black text-red-600 mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500 drop-shadow-sm">
+            <div className="col-span-2 bg-slate-50 rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+              <div className="text-7xl md:text-8xl font-black text-red-600 mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500">
                 15+
               </div>
               <h3 className="text-lg font-bold text-slate-900 uppercase tracking-widest">
@@ -104,12 +93,12 @@ export default function AboutSection() {
               </p>
             </div>
 
-            <div className="bg-white/70 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] border border-white/80 hover:border-red-100 group">
+            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">50k+</div>
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Kapasitas/Bln</p>
             </div>
             
-            <div className="bg-white/70 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_20px_40px_rgb(0,0,0,0.06)] border border-white/80 hover:border-red-100 group">
+            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">200+</div>
               <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Tenaga Ahli</p>
             </div>
@@ -122,13 +111,12 @@ export default function AboutSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="w-full bg-white/60 backdrop-blur-xl rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center border border-white/80 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+          className="w-full bg-slate-50 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
         >
-          {/* Inner Ornaments */}
-          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-red-600/5 to-transparent blur-[80px] rounded-full pointer-events-none" />
-          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-gradient-to-tl from-slate-600/5 to-transparent blur-[80px] rounded-full pointer-events-none" />
+          <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
+          <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
           
-          <div className="relative z-10 flex p-1.5 bg-white/90 backdrop-blur-md rounded-full border border-slate-100 shadow-sm w-max mb-12 md:mb-16">
+          <div className="relative z-10 flex p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-slate-200 shadow-sm w-max mb-12 md:mb-16">
             {(['vision', 'mission'] as const).map((tab) => (
               <button
                 key={tab}
@@ -163,7 +151,7 @@ export default function AboutSection() {
                   transition={{ duration: 0.4 }}
                   className="flex flex-col items-center justify-center text-center h-full pt-8 pb-12"
                 >
-                  <Target className="w-16 h-16 text-red-500 mb-8 drop-shadow-md" />
+                  <Target className="w-16 h-16 text-red-500 mb-8" />
                   <p className="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight text-slate-800 max-w-4xl">
                     "{t('about.visionStatement')}"
                   </p>
@@ -187,9 +175,9 @@ export default function AboutSection() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: idx * 0.1 }}
-                      className="bg-white/80 border border-white hover:border-red-200 hover:shadow-lg p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:-translate-y-1"
+                      className="bg-white border border-slate-100 hover:border-red-200 hover:shadow-md p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:-translate-y-1"
                     >
-                      <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-red-50 flex items-center justify-center shrink-0 transition-colors shadow-inner">
+                      <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-red-50 flex items-center justify-center shrink-0 transition-colors">
                         <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover:text-red-500 transition-colors" />
                       </div>
                       <p className="text-slate-600 group-hover:text-slate-900 font-medium leading-relaxed text-base md:text-lg transition-colors pt-1">
@@ -204,16 +192,14 @@ export default function AboutSection() {
         </motion.div>
       </section>
 
-      {/* --- BAGIAN 3: Video Interaktif (Cinematic Premium Dark Mode) --- */}
-      <section className="relative w-full py-24 lg:py-32 bg-slate-950 border-t border-slate-900 overflow-hidden">
-        
-        {/* Cinematic Background Effects */}
+      {/* --- BAGIAN 3: Video Interaktif (Full-Width Professional Upgrade) --- */}
+      <section className="relative w-full py-24 lg:py-32 bg-slate-50 border-t border-slate-200 overflow-hidden">
+        {/* Background Image (bg2.png) dengan efek Parallax & Gradient Overlay */}
         <div 
-          className="absolute inset-0 z-0 opacity-10 mix-blend-screen bg-cover bg-center bg-fixed grayscale"
+          className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center bg-fixed"
           style={{ backgroundImage: "url('/bg2.png')" }}
         />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-red-600/10 blur-[150px] rounded-full pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-transparent to-slate-950 z-0" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/60 to-slate-50/90 z-0" />
         
         <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
           
@@ -225,14 +211,14 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 md:mb-16 space-y-4"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold tracking-[0.2em] uppercase backdrop-blur-sm shadow-[0_0_15px_rgba(239,68,68,0.2)]">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-100 text-red-600 text-xs font-bold tracking-[0.2em] uppercase">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
               Live Preview
             </span>
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight drop-shadow-lg">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
               Fasilitas Produksi Kami
             </h2>
           </motion.div>
@@ -245,16 +231,16 @@ export default function AboutSection() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="w-full max-w-5xl mx-auto relative group"
           >
-            {/* Cinematic Glow Latar Belakang Frame */}
-            <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/40 via-transparent to-red-800/40 blur-3xl rounded-[3rem] opacity-30 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+            {/* Glow Latar Belakang Frame */}
+            <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-slate-500/10 to-blue-600/20 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
-            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden ring-1 ring-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 p-2 md:p-3 backdrop-blur-xl bg-white/5">
+            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden ring-1 ring-slate-200 shadow-xl z-10 p-2 md:p-3 backdrop-blur-md bg-white/70">
               
               {/* Inner Frame */}
-              <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+              <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-slate-900">
                 {/* Loading Placeholder */}
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-900 pointer-events-none">
-                  <PlayCircle className="w-16 h-16 text-slate-700 animate-pulse" />
+                  <PlayCircle className="w-12 h-12 text-slate-700 animate-pulse" />
                 </div>
 
                 {/* Video Iframe */}
@@ -267,7 +253,7 @@ export default function AboutSection() {
                 ></iframe>
 
                 {/* Overlay Halus */}
-                <div className="absolute inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] pointer-events-none" />
+                <div className="absolute inset-0 shadow-[inset_0_0_50px_rgba(0,0,0,0.5)] pointer-events-none" />
               </div>
             </div>
           </motion.div>
