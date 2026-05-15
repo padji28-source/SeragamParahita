@@ -9,13 +9,21 @@ import Footer from "../components/Footer";
 
 export default function HomePage() {
   return (
-    <>
-      <Hero />
-      <AboutSection />
-      <ProductCatalog />
-      <Partners />
-      <LiveProjects />
-      <OrderFlow />
-    </>
+    <div 
+      className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
+      style={{ backgroundImage: "url('/bg3.png')" }}
+    >
+      {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
+      <div className="absolute inset-0 z-0 bg-white/50" />
+      
+      <div className="relative z-10">
+        <Hero />
+        <AboutSection />
+        <ProductCatalog />
+        <Partners />
+        <LiveProjects />
+        <OrderFlow />
+      </div>
+    </div>
   );
 }
