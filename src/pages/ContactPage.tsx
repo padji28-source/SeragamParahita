@@ -1,173 +1,227 @@
 import { motion } from "motion/react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Mail, Phone, MapPin, ArrowUpRight, MessageSquare, Clock, Shield, Minus } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function ContactPage() {
   const { t } = useTranslation();
 
   return (
-    <div 
-      className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
-      style={{ backgroundImage: "url('/background.png')" }}
-    >
-      {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
-      <div className="absolute inset-0 z-0 bg-white/50" />
+    <div className="relative min-h-screen bg-slate-50 text-slate-900 selection:bg-red-200 font-sans overflow-hidden">
       
-    <div className="pt-20">
-      <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
+      {/* --- GLOBAL BACKGROUND AMBIENT --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+        style={{ backgroundImage: 'radial-gradient(#000 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }}
+      />
+      <div className="absolute top-0 inset-x-0 h-[800px] bg-gradient-to-b from-slate-100 via-transparent to-transparent pointer-events-none z-0" />
+      <div className="absolute top-[30%] -right-40 w-[600px] h-[600px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[20%] -left-40 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* --- HERO SECTION --- */}
+      <section className="relative h-[450px] flex items-center overflow-hidden z-10">
         <div className="absolute inset-0">
           <img 
             src="/Parahitaprimasentosa.png" 
             alt="Contact Background" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent" />
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-center text-white">
-          <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-5xl md:text-7xl font-black mb-6 tracking-tight"
-          >
-            {t('contact.title', { defaultValue: 'Hubungi' })} <span className="text-red-600">Parahita</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto font-medium"
-          >
-            {t('contact.subtitle')}
-          </motion.p>
+        
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
+          <div className="max-w-3xl space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-[0.15em] backdrop-blur-md"
+            >
+              <Shield className="w-3.5 h-3.5" />
+              {t('contact.badge', { defaultValue: 'Get In Touch' })}
+            </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="text-4xl md:text-6xl font-black tracking-tight text-white"
+            >
+              {t('contact.title', { defaultValue: 'Hubungi' })} <span className="text-red-500">Parahita</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-lg md:text-xl text-slate-300 max-w-xl font-medium leading-relaxed"
+            >
+              {t('contact.subtitle')}
+            </motion.p>
+          </div>
         </div>
       </section>
 
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-16">
-            <div className="lg:col-span-1 space-y-12">
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-gray-900">{t('contact.contactInfo')}</h2>
-                <p className="text-gray-500">
-                  {t('contact.contactDesc')}
+      {/* --- CONTACT MAIN CONTENT HUB --- */}
+      <section className="py-16 lg:py-24 relative z-10 -mt-10">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            
+            {/* LEFT COLUMN: Channels Info */}
+            <div className="lg:col-span-5 space-y-10">
+              <div className="space-y-4">
+                <div className="flex items-center gap-3 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
+                  <Minus className="w-5 h-5 text-red-500" /> {t('contact.contactInfo', { defaultValue: 'Corporate Directory' })}
+                </div>
+                <h2 className="text-2xl md:text-4xl font-black text-slate-900 tracking-tight">
+                  {t('contact.connectTitle', { defaultValue: 'Saluran Komunikasi Resmi' })}
+                </h2>
+                <p className="text-slate-500 text-base leading-relaxed">
+                  {t('contact.contactDesc', { defaultValue: 'Hubungi tim operasional dan layanan pelanggan kami melalui kanal resmi di bawah ini untuk respons cepat.' })}
                 </p>
               </div>
 
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="bg-red-50 p-3 rounded-xl">
-                    <Phone className="text-red-600 w-6 h-6" />
+              {/* Info Block Node Cards */}
+              <div className="space-y-4">
+                
+                {/* Phone Card */}
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_10px_30px_rgba(0,0,0,0.01)] flex gap-5 items-center group hover:border-red-500/20 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center shrink-0 group-hover:bg-red-50 group-hover:text-red-600 transition-colors shadow-inner">
+                    <Phone className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 uppercase tracking-wider text-xs mb-1">{t('contact.phone')}</h4>
-                    <a href="tel:+62215399261" className="text-gray-600 font-medium hover:text-red-600 transition-colors">
+                  <div className="flex-1 space-y-0.5">
+                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('contact.phone', { defaultValue: 'Telepon Kantor' })}</h4>
+                    <a href="tel:+62215399261" className="text-base font-bold text-slate-900 hover:text-red-600 transition-colors block">
                       +6221-5399-261
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-red-50 p-3 rounded-xl">
-                    <Mail className="text-red-600 w-6 h-6" />
+                {/* Email Card */}
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_10px_30px_rgba(0,0,0,0.01)] flex gap-5 items-center group hover:border-red-500/20 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center shrink-0 group-hover:bg-red-50 group-hover:text-red-600 transition-colors shadow-inner">
+                    <Mail className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 uppercase tracking-wider text-xs mb-1">{t('contact.email')}</h4>
-                    <a href="mailto:seragam@parahitaps.com" className="text-gray-600 font-medium hover:text-red-600 transition-colors">
+                  <div className="flex-1 space-y-0.5">
+                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('contact.email', { defaultValue: 'Korespondensi Email' })}</h4>
+                    <a href="mailto:seragam@parahitaps.com" className="text-base font-bold text-slate-900 hover:text-red-600 transition-colors block breakdown-all">
                       seragam@parahitaps.com
                     </a>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-4">
-                  <div className="bg-red-50 p-3 rounded-xl">
-                    <MapPin className="text-red-600 w-6 h-6" />
+                {/* Office Address Card */}
+                <div className="p-5 rounded-2xl bg-white border border-slate-200/60 shadow-[0_10px_30px_rgba(0,0,0,0.01)] flex gap-5 items-start group hover:border-red-500/20 transition-all duration-300">
+                  <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center shrink-0 group-hover:bg-red-50 group-hover:text-red-600 transition-colors shadow-inner mt-0.5">
+                    <MapPin className="w-5 h-5" />
                   </div>
-                  <div>
-                    <h4 className="font-bold text-gray-900 uppercase tracking-wider text-xs mb-1">{t('contact.office')}</h4>
-                    <p className="text-gray-600 leading-relaxed">
+                  <div className="flex-1 space-y-1">
+                    <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('contact.office', { defaultValue: 'Headquarters Address' })}</h4>
+                    <p className="text-sm text-slate-600 leading-relaxed font-medium">
                       Kawasan Industri Multiguna Blok B No. 10A, Jl. Raya Serpong KM 7, Pakualam, Serpong Utara, Kota Tangerang Selatan, Banten 15310
                     </p>
-                    <a 
-                      href="https://www.google.com/maps/place/PT.+PARAHITA+PRIMA+SENTOSA/@-6.2350812,106.647693,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbe8c3410c17:0x9b3aa1ee3c4a13f0!8m2!3d-6.2350812!4d106.647693!16s%2Fg%2F11c1vnlxdg" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="text-red-600 text-sm font-bold hover:underline mt-2 inline-block"
-                    >
-                      {t('contact.viewOnMaps')}
-                    </a>
                   </div>
                 </div>
+
               </div>
             </div>
 
-            <div className="lg:col-span-2">
-              <div className="bg-gray-50 p-8 md:p-12 rounded-3xl border border-gray-100 shadow-sm flex flex-col items-center justify-center text-center h-full space-y-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{t('contact.waTitle')}</h3>
-                  <p className="text-gray-600 max-w-md mx-auto">
-                    {t('contact.waDesc')}
+            {/* RIGHT COLUMN: Interactive Department Gateway */}
+            <div className="lg:col-span-7 h-full">
+              <div className="bg-white border border-slate-200/80 p-8 md:p-10 rounded-[2.2rem] shadow-[0_15px_40px_rgba(0,0,0,0.02)] space-y-8 relative overflow-hidden backdrop-blur-md">
+                <div className="absolute top-0 right-0 w-48 h-48 bg-green-500/5 blur-[60px] rounded-full pointer-events-none" />
+                
+                <div className="space-y-2">
+                  <div className="inline-flex items-center gap-1.5 text-xs font-bold text-green-600 bg-green-50 border border-green-100 px-2.5 py-1 rounded-md">
+                    <Clock className="w-3.5 h-3.5" />
+                    {t('contact.hours', { defaultValue: 'Response Time: < 15 Mins' })}
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">{t('contact.waTitle', { defaultValue: 'Instant Support & Inquiry' })}</h3>
+                  <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
+                    {t('contact.waDesc', { defaultValue: 'Terhubung langsung dengan perwakilan divisi kami untuk memproses konsultasi desain, penawaran harga produksi, atau status kemitraan secara praktis.' })}
                   </p>
                 </div>
-                
-                <div className="flex flex-col gap-6 w-full max-w-xs mx-auto">
+
+                {/* Split Router Channels */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                  
+                  {/* Channel 1: B2B Sales */}
                   <a 
                     href="https://wa.me/6282125478346" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="flex flex-col items-center justify-center p-6 bg-white rounded-2xl border border-gray-100 shadow-sm hover:shadow-md hover:border-green-200 transition-all group"
+                    className="p-6 bg-slate-50/60 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-green-300 hover:bg-white transition-all group relative flex flex-col justify-between items-start space-y-6"
                   >
-                    <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <svg className="w-8 h-8 text-green-500" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
-                    </svg>
-                  </div>
-                  <h4 className="font-bold text-gray-900 group-hover:text-green-600 transition-colors">Sales</h4>
-                  <p className="text-sm text-gray-500 mt-1">{t('contact.chatNow')}</p>
-                </a>
-              </div>
+                    <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-500 group-hover:scale-105 transition-transform shadow-inner">
+                      <MessageSquare className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1 w-full">
+                      <div className="flex items-center justify-between w-full">
+                        <h4 className="font-bold text-slate-900 group-hover:text-green-600 transition-colors text-base">Divisi Sales & B2B</h4>
+                        <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-green-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                      </div>
+                      <p className="text-xs text-slate-400 leading-normal">{t('contact.chatNow', { defaultValue: 'Konsultasi Produksi Massal & Seragam Korporat' })}</p>
+                    </div>
+                  </a>
+
+                  {/* Channel 2: General Helpdesk */}
+                  <a 
+                    href="https://wa.me/6282125478346" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="p-6 bg-slate-50/60 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md hover:border-green-300 hover:bg-white transition-all group relative flex flex-col justify-between items-start space-y-6"
+                  >
+                    <div className="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center text-green-500 group-hover:scale-105 transition-transform shadow-inner">
+                      <MessageSquare className="w-5 h-5" />
+                    </div>
+                    <div className="space-y-1 w-full">
+                      <div className="flex items-center justify-between w-full">
+                        <h4 className="font-bold text-slate-900 group-hover:text-green-600 transition-colors text-base">Customer Support</h4>
+                        <ArrowUpRight className="w-4 h-4 text-slate-300 group-hover:text-green-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                      </div>
+                      <p className="text-xs text-slate-400 leading-normal">{t('contact.supportDesc', { defaultValue: 'Layanan Pelacakan Pesanan & Informasi Umum' })}</p>
+                    </div>
+                  </a>
+
+                </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
 
-      {/* Map Section Layered & Floating */}
-      <section className="py-12 bg-white relative pb-28">
-        <div className="container mx-auto px-4 z-10 relative">
+      {/* --- FLOATING MAP INTEGRATION --- */}
+      <section className="py-8 bg-transparent relative pb-24 z-10">
+        <div className="container mx-auto px-6 max-w-7xl">
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="relative h-[550px] w-full rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_-12px_rgba(0,0,0,0.15)] border-4 border-white group"
+            transition={{ duration: 0.6 }}
+            className="relative h-[500px] lg:h-[550px] w-full rounded-[2.5rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-slate-200/80 group"
           >
             <iframe 
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2162348545!2d106.6455043!3d-6.2350812!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fbe8c3410c17%3A0x9b3aa1ee3c4a13f0!2sPT.%20PARAHITA%20PRIMA%20SENTOSA!5e0!3m2!1sen!2sid!4v1713145000000!5m2!1sen!2sid" 
-              className="absolute inset-0 w-full h-full border-0 group-hover:scale-105 transition-transform duration-700 ease-out"
+              className="absolute inset-0 w-full h-full border-0 transition-transform duration-700 ease-out grayscale-[20%] contrast-[110%] group-hover:scale-[1.02]"
               allowFullScreen
               loading="lazy"
               title="Parahita Office Location"
             ></iframe>
             
-            {/* Subtle Overlay to make UI pop */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
+            {/* Ambient Shadow Overlay on map container */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
             
-            {/* Glassmorphism Card Info Floating on Map */}
-            <div className="absolute bottom-6 left-6 right-6 md:left-8 md:right-auto md:w-96 bg-white/90 backdrop-blur-xl p-8 rounded-3xl shadow-xl border border-white/50 transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out z-10">
+            {/* Docked / Floating Premium Meta-Card */}
+            <div className="absolute bottom-6 left-6 right-6 lg:bottom-8 lg:left-8 lg:right-auto lg:w-96 bg-white/95 backdrop-blur-xl p-6 lg:p-8 rounded-3xl shadow-xl border border-white/60 transform transition-all duration-500 ease-out z-10">
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center shrink-0 border border-red-100">
-                  <MapPin className="w-6 h-6 text-red-600" />
+                <div className="w-12 h-12 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center shrink-0 shadow-inner">
+                  <MapPin className="w-5 h-5 text-red-600" />
                 </div>
-                <div>
-                  <h4 className="font-extrabold text-gray-900 text-lg leading-tight tracking-wide">Head Office</h4>
-                  <p className="text-sm font-bold text-red-500">PT Parahita Prima Sentosa</p>
+                <div className="space-y-0.5">
+                  <h4 className="font-black text-slate-900 text-base leading-tight">Head Office</h4>
+                  <p className="text-xs font-bold text-red-500">PT Parahita Prima Sentosa</p>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 leading-relaxed mb-6 font-medium">
+              <p className="text-xs lg:text-sm text-slate-500 leading-relaxed mb-6 font-medium">
                 Kawasan Industri Multiguna Blok B No. 10A, Jl. Raya Serpong KM 7, Pakualam, Serpong Utara.
               </p>
               
@@ -175,13 +229,12 @@ export default function ContactPage() {
                 href="https://www.google.com/maps/place/PT.+PARAHITA+PRIMA+SENTOSA/@-6.2350812,106.647693,17z/data=!3m1!4b1!4m6!3m5!1s0x2e69fbe8c3410c17:0x9b3aa1ee3c4a13f0!8m2!3d-6.2350812!4d106.647693!16s%2Fg%2F11c1vnlxdg" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="w-full bg-gray-900 text-white px-6 py-3.5 rounded-2xl font-bold hover:bg-red-600 transition-colors flex items-center justify-center gap-2 group/btn shadow-lg"
+                className="w-full bg-slate-900 text-white px-6 py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider hover:bg-red-600 transition-colors flex items-center justify-center gap-2 group/btn shadow-md shadow-slate-900/10 hover:shadow-red-600/20"
               >
                 <MapPin className="w-4 h-4 group-hover/btn:animate-bounce" />
-                {t('contact.openMap')}
+                {t('contact.openMap', { defaultValue: 'Buka di Google Maps' })}
               </a>
             </div>
-          </div>
           </motion.div>
         </div>
       </section>
