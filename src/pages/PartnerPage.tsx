@@ -18,9 +18,10 @@ import {
   Truck,
   Scissors,
   Cpu,
-  Search
+  Search,
+  Minus
 } from "lucide-react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { MajorPartner } from "../types";
 import { useTranslation } from "react-i18next";
 
@@ -42,6 +43,7 @@ export default function PartnerPage() {
       status: progress >= step.threshold ? "completed" : (progress + 20 > step.threshold ? "current" : "upcoming")
     }));
   };
+
   const benefits = [
     {
       icon: <ShieldCheck className="w-6 h-6" />,
@@ -88,69 +90,77 @@ export default function PartnerPage() {
   ];
 
   return (
-    <div 
-      className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
-      style={{ backgroundImage: "url('/background.png')" }}
-    >
-      {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
-      <div className="absolute inset-0 z-0 bg-white/50" />
-    <div className="bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[500px] flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen bg-slate-50 text-slate-900 selection:bg-red-200 font-sans overflow-hidden">
+      
+      {/* --- GLOBAL BACKGROUND AMBIENT --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+        style={{ backgroundImage: 'radial-gradient(#000 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }}
+      />
+      <div className="absolute top-0 inset-x-0 h-[800px] bg-gradient-to-b from-slate-100 via-transparent to-transparent pointer-events-none z-0" />
+      <div className="absolute top-[20%] -left-40 w-[600px] h-[600px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-[40%] -right-40 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+
+      {/* --- HERO SECTION --- */}
+      <section className="relative h-[600px] lg:h-[650px] flex items-center overflow-hidden z-10">
         <div className="absolute inset-0">
           <img 
             src="/Parahitaprimasentosa.png" 
             alt="Partners Background" 
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover object-center"
             referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-black/60" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent" />
         </div>
-        <div className="container mx-auto px-4 relative z-10 text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, filter: "blur(5px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/20 border border-red-600/30 text-red-400 text-[10px] font-black uppercase tracking-widest mb-6 backdrop-blur-md"
-          >
-            <HeartHandshake className="w-3 h-3" />
-            {t('partner.strategicPartnerships') || 'Strategic Partnerships'}
-          </motion.div>
-          <motion.h1 
-            initial={{ opacity: 0, filter: "blur(10px)" }}
-            animate={{ opacity: 1, filter: "blur(0px)" }}
-            transition={{ delay: 0.1 }}
-            className="text-5xl md:text-7xl font-black mb-6 tracking-tight text-white drop-shadow-xl"
-          >
-            {t('partner.title')} <span className="text-red-600">Partners</span>
-          </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto font-medium"
-          >
-            {t('partner.subtitle')}
-          </motion.p>
+        
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-8 text-left space-y-6">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-[0.15em] backdrop-blur-md"
+            >
+              <HeartHandshake className="w-3.5 h-3.5" />
+              {t('partner.strategicPartnerships') || 'Strategic Partnerships'}
+            </motion.div>
+            <motion.h1 
+              initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
+              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.15]"
+            >
+              {t('partner.title')} <span className="text-red-500">Partners</span>
+            </motion.h1>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-lg md:text-xl text-slate-300 max-w-2xl font-medium leading-relaxed"
+            >
+              {t('partner.subtitle')}
+            </motion.p>
+          </div>
         </div>
       </section>
 
-      {/* Partner Logo Grid */}
-      <section className="py-24 border-b border-gray-50 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-sm font-bold uppercase tracking-widest text-gray-500 mb-8">
-              {t('partner.distinguished')}
-            </h2>
+      {/* --- TRUSTED BY / MARQUEE LOGO --- */}
+      <section className="py-16 relative z-10 -mt-12">
+        <div className="container mx-auto px-6 max-w-7xl mb-8">
+          <div className="flex items-center gap-3 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
+            <Minus className="w-5 h-5 text-red-500" /> {t('partner.distinguished') || "Distinguished Partners"}
           </div>
         </div>
-        <div className="relative flex overflow-hidden">
-          <div className="flex items-center space-x-16 animate-marquee min-w-max pr-16 hover:[animation-play-state:paused]">
+        
+        {/* Infinite Slider dengan Gradient Fade Out Kiri-Kanan */}
+        <div className="relative w-full flex overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-20 before:bg-gradient-to-r before:from-slate-50 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-20 after:bg-gradient-to-l after:from-slate-50 after:to-transparent">
+          <div className="flex items-center space-x-20 animate-marquee min-w-max pr-20 hover:[animation-play-state:paused] py-4">
             {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, index) => (
               <img
                 key={`${partner.name}-${index}`}
                 src={partner.logo}
                 alt={partner.name}
-                className="h-10 md:h-14 w-auto max-w-none object-contain opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-10 md:h-12 w-auto max-w-none object-contain opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-105"
                 referrerPolicy="no-referrer"
               />
             ))}
@@ -158,87 +168,103 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* Active Projects Section */}
-      <section className="py-24 bg-gray-50 relative overflow-hidden">
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col items-center text-center mb-16 gap-8">
-            <div className="max-w-3xl">
-              <div className="flex items-center justify-center gap-2 text-red-600 font-bold tracking-widest uppercase text-sm mb-3">
+      {/* --- ACTIVE PROJECTS SECTION --- */}
+      <section className="py-24 relative z-10">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+          
+          {/* Header & Live Capacity Status */}
+          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16 border-b border-slate-200 pb-10">
+            <div className="max-w-2xl space-y-4">
+              <div className="flex items-center gap-2 text-red-600 font-bold tracking-widest uppercase text-sm">
                 <Activity className="w-4 h-4 animate-pulse" />
-                {t('partner.liveProduction')}
+                {t('partner.liveProduction') || "Live Production"}
               </div>
-              <h2 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">{t('partner.activeStatus')}</h2>
-              <p className="text-gray-500 mt-4 text-lg leading-relaxed mx-auto">
+              <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
+                {t('partner.activeStatus') || "Active Monitoring Dashboard"}
+              </h2>
+              <p className="text-slate-500 text-base md:text-lg leading-relaxed">
                 {t('partner.monitoring')}
               </p>
             </div>
-            <div className="bg-white border border-gray-200 p-6 rounded-3xl shadow-sm inline-block">
-              <p className="text-[10px] text-gray-400 uppercase font-black tracking-widest mb-1">{t('partner.capacity')}</p>
-              <p className="text-2xl font-bold text-gray-900">94.2% <span className="text-xs text-green-500 ml-1 font-bold">▲ 2.1%</span></p>
+            
+            <div className="bg-white border border-slate-200/80 p-5 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.02)] flex items-center gap-5 shrink-0 backdrop-blur-md">
+              <div className="w-12 h-12 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
+                <BarChart3 className="w-6 h-6" />
+              </div>
+              <div>
+                <p className="text-[10px] text-slate-400 uppercase font-black tracking-widest mb-0.5">{t('partner.capacity') || "Factory Utilization"}</p>
+                <p className="text-2xl font-black text-slate-900 flex items-baseline gap-2">
+                  94.2% <span className="text-xs text-green-500 font-bold flex items-center">▲ 2.1%</span>
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {/* Grid Major Partners */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {MAJOR_PARTNERS.map((partner, index) => (
               <motion.div
                 key={partner.id}
-                initial={{ opacity: 0, filter: "blur(10px)" }}
-                whileInView={{ opacity: 1, filter: "blur(0px)" }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.05, duration: 0.4 }}
                 viewport={{ once: true }}
               >
-                <Card className="bg-white border-gray-100 overflow-hidden group hover:border-red-600/30 transition-all duration-500 shadow-xl hover:shadow-2xl h-full flex flex-col rounded-[2rem]">
+                <Card className="bg-white/80 backdrop-blur-md border border-slate-200/60 overflow-hidden group hover:border-red-500/30 transition-all duration-500 shadow-[0_15px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(239,68,68,0.08)] h-full flex flex-col rounded-[2.2rem]">
                   <CardContent className="p-0 flex-1 flex flex-col">
-                    <div className="relative h-44 bg-gray-50 flex items-center justify-center p-10 overflow-hidden border-b border-gray-50">
-                      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
-                        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '24px 24px' }} />
+                    
+                    {/* Top Content (Logo & Badge) */}
+                    <div className="relative h-44 bg-slate-50/50 flex items-center justify-center p-10 overflow-hidden border-b border-slate-100">
+                      <div className="absolute inset-0 opacity-[0.02] pointer-events-none">
+                        <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '20px 20px' }} />
                       </div>
                       
                       <img
                         src={partner.logo}
                         alt={partner.name}
-                        className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-110 grayscale group-hover:grayscale-0"
+                        className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
                         referrerPolicy="no-referrer"
                       />
                       
                       <div className="absolute top-4 right-4">
-                        <div className="bg-green-50 text-green-600 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest border border-green-100 flex items-center gap-1.5 shadow-sm">
+                        <div className="bg-white border border-slate-100 text-slate-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 shadow-sm group-hover:border-green-200 group-hover:text-green-600 transition-colors">
                           <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
                           {partner.status}
                         </div>
                       </div>
                     </div>
 
-                    <div className="p-8 space-y-6 flex-1 flex flex-col justify-between">
-                      <div>
-                        <h3 className="font-bold text-gray-900 text-xl mb-1">{partner.name}</h3>
-                        <p className="text-gray-400 text-[10px] font-black uppercase tracking-widest">{t('partner.projectId')}: PRT-24-{100 + index}</p>
+                    {/* Description & Track Control */}
+                    <div className="p-6 md:p-8 space-y-6 flex-1 flex flex-col justify-between">
+                      <div className="space-y-1">
+                        <h3 className="font-bold text-slate-900 text-lg group-hover:text-red-600 transition-colors">{partner.name}</h3>
+                        <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{t('partner.projectId') || "Project ID"}: PRT-24-{100 + index}</p>
                       </div>
                       
-                      <div className="space-y-4">
+                      <div className="space-y-3">
                         <div className="flex justify-between items-end">
-                          <span className="text-[10px] uppercase tracking-widest font-black text-gray-400">{t('partner.efficiency')}</span>
-                          <span className="text-2xl font-black text-gray-900">{partner.progress}%</span>
+                          <span className="text-[10px] uppercase tracking-widest font-black text-slate-400">{t('partner.efficiency') || "Efficiency Rate"}</span>
+                          <span className="text-xl font-black text-slate-900">{partner.progress}%</span>
                         </div>
-                        <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                        <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
                           <motion.div 
                             initial={{ width: 0 }}
                             whileInView={{ width: `${partner.progress}%` }}
-                            transition={{ duration: 0.5, delay: 0.1 }}
-                            className="h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full shadow-[0_0_10px_rgba(220,38,38,0.2)]"
+                            transition={{ duration: 0.6, ease: "easeOut" }}
+                            className="h-full bg-gradient-to-r from-red-600 to-red-500 rounded-full shadow-[0_0_12px_rgba(220,38,38,0.25)]"
                           />
                         </div>
                       </div>
 
                       <button 
                         onClick={() => setSelectedPartner(partner)}
-                        className="w-full py-4 mt-4 rounded-2xl bg-gray-900 hover:bg-red-600 text-white text-sm font-bold transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-lg shadow-gray-900/10 hover:shadow-red-600/20"
+                        className="w-full py-3.5 rounded-xl bg-slate-900 hover:bg-red-600 text-white text-xs font-bold uppercase tracking-wider transition-all duration-300 flex items-center justify-center gap-2 group/btn shadow-md shadow-slate-900/10 hover:shadow-red-600/20"
                       >
-                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                        {t('partner.trackOrder')}
+                        {t('partner.trackOrder') || "Track Live Order"}
                         <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" />
                       </button>
                     </div>
+
                   </CardContent>
                 </Card>
               </motion.div>
@@ -247,92 +273,93 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* Partnership Process */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-100 text-gray-600 text-[10px] font-black uppercase tracking-widest mb-4">
-              <Zap className="w-3 h-3" />
-              {t('partner.howItWorks')}
+      {/* --- PARTNERSHIP PROCESS (STEPS) --- */}
+      <section className="py-24 border-y border-slate-200/60 bg-white/50 backdrop-blur-md relative z-10">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+          <div className="text-center mb-20 space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 border border-slate-200 text-slate-600 text-xs font-bold tracking-widest uppercase">
+              <Zap className="w-3.5 h-3.5 text-red-500" />
+              {t('partner.howItWorks') || "Workflow"}
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('partner.simpleProcess')}</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">{t('partner.simpleProcessDesc')}</p>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.simpleProcess') || "Our Seamless Integration"}</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg">{t('partner.simpleProcessDesc')}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-6xl mx-auto">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto relative">
             {steps.map((step, index) => (
-              <div key={index} className="relative group">
+              <div key={index} className="relative group flex flex-col items-center text-center">
                 {index < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 left-full w-full h-px bg-gray-200 -ml-4 z-0" />
+                  <div className="hidden lg:block absolute top-8 left-[60%] w-[80%] h-[1px] bg-gradient-to-r from-slate-200 to-transparent z-0" />
                 )}
-                <div className="relative z-10 flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-2xl bg-white border border-gray-100 shadow-lg flex items-center justify-center text-xl font-black text-red-600 mb-6 group-hover:bg-red-600 group-hover:text-white transition-all duration-300">
-                    0{index + 1}
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">{step.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed">{step.desc}</p>
+                <div className="relative z-10 w-16 h-16 rounded-2xl bg-white border border-slate-200/80 shadow-md flex items-center justify-center text-lg font-black text-slate-900 mb-6 group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 transition-all duration-300 group-hover:-translate-y-1">
+                  0{index + 1}
                 </div>
+                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-red-600 transition-colors">{step.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed max-w-xs">{step.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Why Partner With Us */}
-      <section className="py-24 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('partner.whyPartner')}</h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">{t('partner.whyPartnerDesc')}</p>
+      {/* --- BENEFITS SECTION --- */}
+      <section className="py-24 relative z-10">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+          <div className="text-center mb-20 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.whyPartner') || "Enterprise-Grade Capabilities"}</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg">{t('partner.whyPartnerDesc')}</p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.05, duration: 0.3 }}
                 viewport={{ once: true }}
-                className="p-8 rounded-[2rem] bg-white border border-gray-100 hover:border-red-600/20 transition-all duration-300 group shadow-sm hover:shadow-xl"
+                className="p-8 rounded-[2rem] bg-white border border-slate-200/60 hover:border-red-500/20 transition-all duration-300 group shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
               >
-                <div className="w-12 h-12 rounded-2xl bg-gray-50 text-red-600 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-red-50 transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-red-50 group-hover:text-red-600 transition-all duration-300 shadow-inner">
                   {benefit.icon}
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{benefit.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm">{benefit.description}</p>
+                <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">{benefit.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-sm">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-24 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 text-red-600 text-[10px] font-black uppercase tracking-widest mb-4">
-              <MessageSquare className="w-3 h-3" />
-              {t('partner.feedback')}
+      {/* --- TESTIMONIALS --- */}
+      <section className="py-24 border-t border-slate-200/60 bg-white/30 backdrop-blur-sm relative z-10">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+          <div className="text-center mb-16 space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-100 text-red-600 text-xs font-bold tracking-widest uppercase">
+              <MessageSquare className="w-3.5 h-3.5" />
+              {t('partner.feedback') || "Client Reviews"}
             </div>
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">{t('partner.successStories')}</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.successStories') || "Trusted by Industry Leaders"}</h2>
           </div>
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {testimonials.map((t, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -15 : 15 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                className="bg-gray-50 p-10 rounded-[3rem] relative border border-gray-100"
+                className="bg-white border border-slate-200/70 p-8 md:p-10 rounded-[2.5rem] relative shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between"
               >
-                <Quote className="absolute top-8 right-8 w-12 h-12 text-red-600/10" />
-                <p className="text-lg text-gray-700 italic mb-8 relative z-10 leading-relaxed">
+                <Quote className="absolute top-8 right-8 w-12 h-12 text-slate-100 pointer-events-none" />
+                <p className="text-slate-600 italic mb-8 relative z-10 leading-relaxed text-base md:text-lg">
                   "{t.quote}"
                 </p>
-                <div className="flex items-center gap-4">
-                  <img src={t.avatar} alt={t.author} className="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md" />
+                <div className="flex items-center gap-4 border-t border-slate-100 pt-6">
+                  <img src={t.avatar} alt={t.author} className="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 shadow-sm" />
                   <div>
-                    <div className="font-bold text-gray-900">{t.author}</div>
-                    <div className="text-xs text-red-600 font-bold uppercase tracking-widest">{t.company}</div>
+                    <div className="font-bold text-slate-900">{t.author}</div>
+                    <div className="text-xs text-red-600 font-bold uppercase tracking-wider">{t.company}</div>
                   </div>
                 </div>
               </motion.div>
@@ -341,25 +368,25 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24">
-        <div className="container mx-auto px-4">
-          <div className="bg-gray-900 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl">
-            <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/20 blur-[100px] rounded-full -mr-48 -mt-48" />
-            <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/10 blur-[100px] rounded-full -ml-48 -mb-48" />
+      {/* --- CTA SECTION --- */}
+      <section className="py-24 relative z-10">
+        <div className="container mx-auto px-6 max-w-7xl">
+          <div className="bg-slate-950 rounded-[2.5rem] md:rounded-[3.5rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl ring-1 ring-white/5">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/15 blur-[120px] rounded-full -mr-48 -mt-48 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -ml-48 -mb-48 pointer-events-none" />
             
-            <div className="relative z-10">
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tight">
-                {t('partner.readyToScale')} <br /> <span className="text-red-600">{t('partner.yourProduction')}</span>
+            <div className="relative z-10 max-w-3xl mx-auto space-y-8">
+              <h2 className="text-3xl md:text-6xl font-black text-white mb-4 tracking-tight leading-tight">
+                {t('partner.readyToScale')} <br /> <span className="text-red-500">{t('partner.yourProduction')}</span>
               </h2>
-              <p className="text-gray-400 max-w-xl mx-auto text-lg mb-12">
+              <p className="text-slate-400 max-w-xl mx-auto text-base md:text-lg">
                 {t('partner.joinNetwork')}
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <button className="px-10 py-5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-2xl transition-all duration-300 shadow-xl shadow-red-600/20 hover:scale-105">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                <button className="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition-all duration-300 shadow-lg shadow-red-600/20 hover:scale-[1.02]">
                   {t('partner.becomePartner')}
                 </button>
-                <button className="px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-2xl transition-all duration-300 backdrop-blur-md border border-white/10">
+                <button className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl text-sm transition-all duration-300 backdrop-blur-md border border-white/10">
                   {t('partner.viewCaseStudies')}
                 </button>
               </div>
@@ -368,15 +395,16 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* Tracking Modal */}
+      {/* --- LIVE TRACKING MODAL --- */}
       <Dialog open={!!selectedPartner} onOpenChange={(open) => !open && setSelectedPartner(null)}>
-        <DialogContent className="sm:max-w-[600px] p-0 overflow-hidden rounded-[2.5rem] border-none shadow-2xl">
+        <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden rounded-[2.2rem] border-none shadow-2xl bg-white">
           {selectedPartner && (
             <div className="flex flex-col">
-              <div className="bg-gray-900 p-8 text-white relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/20 blur-[80px] rounded-full -mr-32 -mt-32" />
-                <div className="relative z-10 flex items-center gap-6">
-                  <div className="w-20 h-20 bg-white rounded-2xl p-4 flex items-center justify-center shadow-xl">
+              {/* Modal Header */}
+              <div className="bg-slate-950 p-8 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-red-600/15 blur-[80px] rounded-full -mr-32 -mt-32 pointer-events-none" />
+                <div className="relative z-10 flex items-center gap-5">
+                  <div className="w-16 h-16 bg-white rounded-xl p-3 flex items-center justify-center shadow-lg">
                     <img 
                       src={selectedPartner.logo} 
                       alt={selectedPartner.name} 
@@ -384,79 +412,81 @@ export default function PartnerPage() {
                       referrerPolicy="no-referrer"
                     />
                   </div>
-                  <div>
-                    <h2 className="text-2xl font-bold mb-1">{selectedPartner.name}</h2>
-                    <p className="text-gray-400 text-xs font-black uppercase tracking-widest">{t('partner.projectId')}: PRT-24-{100 + MAJOR_PARTNERS.indexOf(selectedPartner)}</p>
+                  <div className="space-y-1">
+                    <h2 className="text-xl font-bold">{selectedPartner.name}</h2>
+                    <p className="text-slate-400 text-[10px] font-black uppercase tracking-widest">{t('partner.projectId') || "Project ID"}: PRT-24-{100 + MAJOR_PARTNERS.indexOf(selectedPartner)}</p>
                   </div>
                 </div>
               </div>
 
+              {/* Modal Content */}
               <div className="p-8 bg-white">
                 <div className="flex justify-between items-center mb-8">
-                  <h3 className="text-lg font-bold text-gray-900">{t('partner.productionTimeline')}</h3>
-                  <div className="flex items-center gap-2 text-red-600 font-bold text-sm">
-                    <Activity className="w-4 h-4 animate-pulse" />
-                    {t('partner.liveStatus')}
+                  <h3 className="text-base font-bold text-slate-900">{t('partner.productionTimeline') || "Production Milestone"}</h3>
+                  <div className="flex items-center gap-1.5 text-red-600 font-bold text-xs bg-red-50 border border-red-100 px-2.5 py-1 rounded-md">
+                    <Activity className="w-3.5 h-3.5 animate-pulse" />
+                    {t('partner.liveStatus') || "Live Status"}
                   </div>
                 </div>
 
-                <div className="space-y-8 relative">
-                  {/* Vertical Line */}
-                  <div className="absolute left-[26px] top-2 bottom-2 w-0.5 bg-gray-100" />
+                {/* Timeline Steps */}
+                <div className="space-y-6 relative">
+                  <div className="absolute left-[23px] top-2 bottom-2 w-[1.5px] bg-slate-100" />
                   
                   {getTrackingSteps(selectedPartner.progress).map((step, idx) => (
                     <motion.div 
                       key={step.id}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 0, x: -10 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05, duration: 0.2 }}
-                      className="flex gap-6 relative z-10"
+                      transition={{ delay: idx * 0.04, duration: 0.2 }}
+                      className="flex gap-5 relative z-10"
                     >
-                      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-all duration-500 shadow-lg ${
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-all duration-500 shadow-sm border ${
                         step.status === "completed" 
-                          ? "bg-red-600 text-white shadow-red-600/20" 
+                          ? "bg-red-600 border-red-600 text-white shadow-red-600/10" 
                           : step.status === "current"
-                          ? "bg-white border-2 border-red-600 text-red-600 shadow-red-600/10"
-                          : "bg-gray-50 text-gray-300 border border-gray-100"
+                          ? "bg-white border-red-500 text-red-600 shadow-md ring-4 ring-red-50"
+                          : "bg-slate-50 text-slate-300 border-slate-100"
                       }`}>
-                        {step.status === "completed" ? <CheckCircle2 className="w-6 h-6" /> : step.icon}
+                        {step.status === "completed" ? <CheckCircle2 className="w-5 h-5" /> : step.icon}
                       </div>
-                      <div className="flex-1 pt-2">
-                        <div className="flex justify-between items-start mb-1">
-                          <h4 className={`font-bold ${step.status === "upcoming" ? "text-gray-400" : "text-gray-900"}`}>
+                      <div className="flex-1 pt-1.5">
+                        <div className="flex justify-between items-center mb-0.5">
+                          <h4 className={`text-sm font-bold ${step.status === "upcoming" ? "text-slate-400" : "text-slate-900"}`}>
                             {step.title}
                           </h4>
                           {step.status === "current" && (
-                            <span className="text-[10px] font-black uppercase tracking-widest text-red-600 bg-red-50 px-2 py-1 rounded-md">
-                              {t('partner.processing')}
+                            <span className="text-[9px] font-black uppercase tracking-widest text-red-600 bg-red-50 border border-red-100 px-2 py-0.5 rounded">
+                              {t('partner.processing') || "In Progress"}
                             </span>
                           )}
                         </div>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-xs text-slate-400">
                           {step.status === "completed" 
-                            ? t('partner.completedDesc') 
+                            ? t('partner.completedDesc') || "Milestone completed successfully."
                             : step.status === "current"
-                            ? `${t('partner.currentDesc')} ${selectedPartner.progress}%.`
-                            : t('partner.upcomingDesc')}
+                            ? `${t('partner.currentDesc') || "Currently processing at"} ${selectedPartner.progress}%.`
+                            : t('partner.upcomingDesc') || "Pending previous pipeline step."}
                         </p>
                       </div>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="mt-10 pt-8 border-t border-gray-100">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-2xl">
+                {/* Estimation Footer */}
+                <div className="mt-8 pt-6 border-t border-slate-100">
+                  <div className="flex items-center justify-between p-4 bg-slate-50 rounded-xl border border-slate-100">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white rounded-xl shadow-sm">
-                        <Clock className="w-5 h-5 text-gray-400" />
+                      <div className="p-2 bg-white rounded-lg border border-slate-100">
+                        <Clock className="w-4 h-4 text-slate-400" />
                       </div>
                       <div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-gray-400">{t('partner.estDelivery')}</p>
-                        <p className="font-bold text-gray-900">24 Okt 2024</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">{t('partner.estDelivery') || "Est. Delivery"}</p>
+                        <p className="text-sm font-bold text-slate-900">24 Okt 2024</p>
                       </div>
                     </div>
-                    <button className="text-red-600 font-bold text-sm hover:underline">
-                      {t('partner.viewDetails')}
+                    <button className="text-red-600 font-bold text-xs hover:underline uppercase tracking-wider">
+                      {t('partner.viewDetails') || "Details"}
                     </button>
                   </div>
                 </div>
@@ -465,7 +495,6 @@ export default function PartnerPage() {
           )}
         </DialogContent>
       </Dialog>
-      </div>
     </div>
   );
 }
