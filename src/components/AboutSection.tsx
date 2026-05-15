@@ -9,7 +9,7 @@ export default function AboutSection() {
   const [showMoreStory, setShowMoreStory] = useState(false);
 
   return (
-    <div className="relative bg-white text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+    <div className="relative bg-transparent text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
       {/* Container Utama untuk Bagian 1 & 2 */}
       <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
         
@@ -193,12 +193,13 @@ export default function AboutSection() {
       </section>
 
       {/* --- BAGIAN 3: Video Interaktif (Full-Width Professional Upgrade) --- */}
-      <section className="relative w-full py-24 lg:py-32 bg-[#0B1120] border-t border-slate-800 overflow-hidden">
+      <section className="relative w-full py-24 lg:py-32 bg-slate-50 border-t border-slate-200 overflow-hidden">
         {/* Background Image (bg2.png) dengan efek Parallax & Gradient Overlay */}
         <div 
-          className="absolute inset-0 z-0 opacity-20 mix-blend-screen bg-[url('/bg2.png')] bg-cover bg-center bg-fixed"
+          className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center bg-fixed"
+          style={{ backgroundImage: "url('/bg2.png')" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1120] via-transparent to-[#0B1120] z-0 opacity-80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/60 to-slate-50/90 z-0" />
         
         <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
           
@@ -210,14 +211,14 @@ export default function AboutSection() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12 md:mb-16 space-y-4"
           >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold tracking-[0.2em] uppercase">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-100 text-red-600 text-xs font-bold tracking-[0.2em] uppercase">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
               </span>
               Live Preview
             </span>
-            <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
               Fasilitas Produksi Kami
             </h2>
           </motion.div>
@@ -233,10 +234,10 @@ export default function AboutSection() {
             {/* Glow Latar Belakang Frame */}
             <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-slate-500/10 to-blue-600/20 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
-            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden bg-slate-900 ring-1 ring-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-10 p-2 md:p-3 backdrop-blur-sm bg-white/5">
+            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden ring-1 ring-slate-200 shadow-xl z-10 p-2 md:p-3 backdrop-blur-md bg-white/70">
               
               {/* Inner Frame */}
-              <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-black">
+              <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-slate-900">
                 {/* Loading Placeholder */}
                 <div className="absolute inset-0 flex items-center justify-center bg-slate-900 pointer-events-none">
                   <PlayCircle className="w-12 h-12 text-slate-700 animate-pulse" />
