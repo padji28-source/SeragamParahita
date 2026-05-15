@@ -9,6 +9,13 @@ export default function ContactPage() {
   const { t } = useTranslation();
 
   return (
+    <div 
+      className="relative min-h-screen bg-cover bg-center bg-fixed bg-no-repeat"
+      style={{ backgroundImage: "url('/background.png')" }}
+    >
+      {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
+      <div className="absolute inset-0 z-0 bg-white/50" />
+      
     <div className="pt-20">
       <section className="relative h-[400px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
@@ -174,6 +181,7 @@ export default function ContactPage() {
                 {t('contact.openMap')}
               </a>
             </div>
+          </div>
           </motion.div>
         </div>
       </section>
