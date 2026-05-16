@@ -69,8 +69,8 @@ const resources = {
         howItWorks: 'How It Works',
         simpleProcess: 'Simple Partnership Process',
         simpleProcessDesc: 'Getting started with Parahita is easy. We streamline our onboarding process to get your production running fast.',
-        whyPartner: 'Why Partner With Us?',
-        whyPartnerDesc: 'We don\'t just manufacture; we provide strategic advantages for your brand.',
+        whyPartner: 'Why Choose Us?',
+        whyPartnerDesc: 'We provide strategic advantages for your brand through quality, punctuality, and experience.',
         feedback: 'Partner Feedback',
         successStories: 'Success Stories',
         readyToScale: 'Ready to scale your',
@@ -88,20 +88,16 @@ const resources = {
         viewDetails: 'View Details',
         benefits: {
           quality: {
-            title: 'Quality Assurance',
-            desc: 'Rigorous multi-stage quality control to ensure every garment meets international standards.'
+            title: 'Quality',
+            desc: 'We only use the best materials and threads. Every uniform goes through a strict Quality Control (QC) process to ensure neat and durable stitching.'
           },
           fast: {
-            title: 'Fast Turnaround',
-            desc: 'Optimized production lines and supply chain management for rapid delivery cycles.'
+            title: 'Time',
+            desc: 'We understand that your time is valuable. Our production process is structured and efficient so that your uniform orders are always completed on time according to the deadline.'
           },
           scalable: {
-            title: 'Scalable Production',
-            desc: 'Flexible manufacturing capacity that grows with your business demands.'
-          },
-          tracking: {
-            title: 'Real-time Tracking',
-            desc: 'Full transparency with live monitoring of your project\'s production efficiency.'
+            title: 'Experienced',
+            desc: 'Supported by a team of tailors and management who have for years handled various uniform projects, ranging from small to large-scale corporations.'
           }
         },
         steps: {
@@ -138,7 +134,7 @@ const resources = {
         subtitle: 'Crafting excellence in every stitch since 1990.',
         vision: 'Our Vision',
         mission: 'Our Mission',
-        visionStatement: '"To become a trusted and leading garment company in quality and service."',
+        visionStatement: 'To become a trusted and leading garment company in quality and service.',
         missionStatements: [
           'Provide high quality products at competitive prices.',
           'Provide fast and timely service.',
@@ -207,21 +203,29 @@ const resources = {
         title: 'Our Production Flow',
         subtitle: 'From consultation to delivery, we ensure a transparent, easy, and high-quality process.',
         steps: {
-          consultation: {
-            title: 'Consultation & Quotation',
-            desc: 'Discuss your uniform needs (material, quantity, design) with our team and get the best price estimate.'
+          step1: {
+            title: 'Design & Pattern',
+            desc: 'Precision pattern making by experts to ensure accurate sizing and wearing comfort.'
           },
-          design: {
-            title: 'Design & Sampling',
-            desc: 'We will create a visual design mockup. If necessary, we prepare product samples before mass production.'
+          step2: {
+            title: 'Material Cutting',
+            desc: 'Cutting process using industry standard tools for material efficiency and piece consistency.'
           },
-          production: {
-            title: 'Production Process',
-            desc: 'After the sample is approved, we start the mass production process (cutting, sewing, embroidery) with high quality standards.'
+          step3: {
+            title: 'Logo Application',
+            desc: 'High quality screen printing and precision computer embroidery options to showcase your corporate identity.'
           },
-          qc: {
-            title: 'QC & Delivery',
-            desc: 'Every product goes through strict Quality Control (QC) before being neatly packaged and safely delivered to your location.'
+          step4: {
+            title: 'Sewing',
+            desc: 'Worked on by experienced sewing operators to produce strong and neat stitches.'
+          },
+          step5: {
+            title: 'Quality Control (QC)',
+            desc: 'Every garment passes through strict inspection to ensure no defects before shipping.'
+          },
+          step6: {
+            title: 'Packing',
+            desc: 'Steam iron process and neat packaging so uniforms are ready for immediate use upon receipt.'
           }
         },
         inquiry: {
@@ -330,8 +334,8 @@ const resources = {
         howItWorks: 'Cara Kerjanya',
         simpleProcess: 'Proses Kemitraan yang Sederhana',
         simpleProcessDesc: 'Memulai dengan Parahita sangat gampang. Kami menyederhanakan proses onboarding agar produksi Anda berjalan cepat.',
-        whyPartner: 'Mengapa Bermitra dengan Kami?',
-        whyPartnerDesc: 'Kami tidak hanya memproduksi; kami memberikan keunggulan strategis untuk merek Anda.',
+        whyPartner: 'Mengapa Memilih Kami',
+        whyPartnerDesc: 'Kami memberikan keunggulan strategis untuk merek Anda melalui kualitas, ketepatan waktu, dan pengalaman.',
         feedback: 'Tanggapan Mitra',
         successStories: 'Kisah Sukses',
         readyToScale: 'Siap meningkatkan',
@@ -349,20 +353,16 @@ const resources = {
         viewDetails: 'Lihat Detail',
         benefits: {
           quality: {
-            title: 'Jaminan Kualitas',
-            desc: 'Kontrol kualitas multi-tahap yang ketat untuk memastikan setiap pakaian memenuhi standar internasional.'
+            title: 'Kualitas',
+            desc: 'Kami hanya menggunakan material bahan dan benang terbaik. Setiap seragam melewati proses Quality Control (QC) yang ketat untuk memastikan jahitan rapi dan awet.'
           },
           fast: {
-            title: 'Pengerjaan Cepat',
-            desc: 'Lini produksi dan manajemen rantai pasokan yang dioptimalkan untuk siklus pengiriman yang cepat.'
+            title: 'Waktu',
+            desc: 'Kami mengerti bahwa waktu Anda berharga. Proses produksi kami terstruktur dan efisien sehingga pesanan seragam Anda selalu selesai tepat waktu sesuai tenggat (deadline).'
           },
           scalable: {
-            title: 'Produksi Skalabel',
-            desc: 'Kapasitas manufaktur fleksibel yang tumbuh seiring dengan permintaan bisnis Anda.'
-          },
-          tracking: {
-            title: 'Pelacakan Real-time',
-            desc: 'Transparansi penuh dengan pemantauan langsung efisiensi produksi proyek Anda.'
+            title: 'Berpengalaman',
+            desc: 'Didukung oleh tim penjahit dan manajemen yang telah bertahun-tahun menangani berbagai proyek seragam, mulai dari skala kecil hingga perusahaan besar.'
           }
         },
         steps: {
@@ -378,7 +378,7 @@ const resources = {
         subtitle: 'Menciptakan keunggulan dalam setiap jahitan sejak 1990.',
         vision: 'Visi',
         mission: 'Misi',
-        visionStatement: '"Menjadi perusahaan garmen yang terpercaya dan terdepan dalam kualitas serta pelayanan."',
+        visionStatement: 'Menjadi perusahaan garmen yang terpercaya dan terdepan dalam kualitas serta pelayanan.',
         missionStatements: [
           'Memberikan produk berkualitas tinggi dengan harga kompetitif.',
           'Memberikan pelayanan yang cepat dan tepat waktu.',
@@ -468,21 +468,29 @@ const resources = {
         title: 'Alur Produksi Kami',
         subtitle: 'Mulai dari konsultasi hingga barang sampai di tangan Anda, kami memastikan proses yang transparan, mudah, dan berkualitas tinggi.',
         steps: {
-          consultation: {
-            title: 'Konsultasi & Penawaran',
-            desc: 'Diskusikan kebutuhan seragam Anda (bahan, jumlah, desain) dengan tim kami dan dapatkan estimasi harga terbaik.'
+          step1: {
+            title: 'Desain & Pola',
+            desc: 'Pembuatan pola presisi oleh tenaga ahli untuk memastikan ukuran yang akurat dan nyaman dipakai.'
           },
-          design: {
-            title: 'Desain & Sampling',
-            desc: 'Kami akan membuatkan mockup desain visual. Jika diperlukan, kami siapkan sample produk sebelum produksi massal.'
+          step2: {
+            title: 'Pemotongan Bahan',
+            desc: 'Proses cutting menggunakan alat standar industri untuk efisiensi bahan dan konsistensi potongan.'
           },
-          production: {
-            title: 'Proses Produksi',
-            desc: 'Setelah sample disetujui, kami memulai proses produksi massal (potong, jahit, bordir) dengan standar kualitas tinggi.'
+          step3: {
+            title: 'Aplikasi Logo',
+            desc: 'Pilihan aplikasi sablon berkualitas tinggi dan bordir komputer presisi untuk menampilkan identitas perusahaan Anda.'
           },
-          qc: {
-            title: 'QC & Pengiriman',
-            desc: 'Setiap produk melewati Quality Control (QC) yang ketat sebelum dikemas rapi dan dikirim dengan aman ke lokasi Anda.'
+          step4: {
+            title: 'Penjahitan',
+            desc: 'Dikerjakan oleh operator jahit berpengalaman untuk menghasilkan jahitan yang kuat dan rapi.'
+          },
+          step5: {
+            title: 'Quality Control (QC)',
+            desc: 'Setiap helai pakaian melewati inspeksi ketat untuk memastikan tidak ada cacat sebelum dikirim.'
+          },
+          step6: {
+            title: 'Pengemasan (Packing)',
+            desc: 'Proses setrika uap dan pengemasan rapi agar seragam siap langsung digunakan saat diterima.'
           }
         },
         inquiry: {
