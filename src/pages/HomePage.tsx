@@ -19,8 +19,8 @@ export default function HomePage() {
       <div className="relative z-10">
         <Hero />
         <AboutSection />
-        <ProductCatalog />
         <Partners />
+        <ProductCatalog />
         <WhyChooseUs />
         <SimpleProcess />
         <QuoteForm />
