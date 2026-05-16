@@ -9,9 +9,33 @@ export default function AboutSection() {
   const [showMoreStory, setShowMoreStory] = useState(false);
 
   return (
-    <div className="relative bg-transparent text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+    <div className="relative bg-white text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+      {/* Professional Combined Background Layout */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Main Background Image 1 */}
+        <div 
+          className="absolute top-0 right-0 w-[60%] h-[800px] opacity-[0.04] grayscale blur-sm bg-cover bg-no-repeat bg-fixed"
+          style={{ backgroundImage: "url('/p1.png')" }}
+        />
+        {/* Side Decorative Image 2 */}
+        <div 
+          className="absolute top-[20%] -left-10 w-[40%] h-[600px] opacity-[0.03] grayscale bg-cover bg-no-repeat bg-fixed rotate-3"
+          style={{ backgroundImage: "url('/p2.png')" }}
+        />
+        {/* Bottom Decorative Image 3 */}
+        <div 
+          className="absolute -bottom-20 right-1/4 w-[50%] h-[500px] opacity-[0.04] grayscale bg-cover bg-no-repeat bg-fixed -rotate-2"
+          style={{ backgroundImage: "url('/p3.png')" }}
+        />
+        
+        {/* Subtle Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white" />
+        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent" />
+        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white via-white/40 to-transparent" />
+      </div>
+
       {/* Container Utama untuk Bagian 1 & 2 */}
-      <section className="container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
+      <section className="relative z-10 container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
         
         {/* --- BAGIAN 1: Cerita & Statistik (Bento Layout) --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -19,20 +43,20 @@ export default function AboutSection() {
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8 }}
             className="lg:col-span-7 space-y-8"
           >
             <div className="space-y-4">
-              <span className="flex items-center gap-3 text-red-600 font-semibold tracking-wider uppercase text-sm">
-                <Minus className="w-6 h-6" /> Tentang Kami
+              <span className="flex items-center gap-3 text-red-600 font-bold tracking-[0.2em] uppercase text-sm">
+                <Minus className="w-6 h-6" /> {t('nav.about')}
               </span>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-slate-900">
                 {t('about.story.title')}
               </h2>
             </div>
             
-            <div className="space-y-5 text-slate-600 text-base md:text-lg leading-relaxed">
+            <div className="space-y-6 text-slate-700 text-lg md:text-xl font-medium leading-relaxed">
               <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
               <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
               
