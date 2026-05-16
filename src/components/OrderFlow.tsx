@@ -89,38 +89,54 @@ Mohon hubungi saya kembali. Terima kasih!`;
           </div>
 
           {/* Steps Grid - Modern Card Style */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto">
             {[
               {
                 icon: <FileText />,
-                title: t('orderFlow.steps.consultation.title'),
-                desc: t('orderFlow.steps.consultation.desc'),
+                title: t('orderFlow.steps.step1.title'),
+                desc: t('orderFlow.steps.step1.desc'),
                 color: "text-blue-600",
                 bg: "bg-blue-600",
-                image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=800"
-              },
-              {
-                icon: <Settings />,
-                title: t('orderFlow.steps.design.title'),
-                desc: t('orderFlow.steps.design.desc'),
-                color: "text-purple-600",
-                bg: "bg-purple-600",
-                image: "/design.png"
+                image: "/pattern.jpg"
               },
               {
                 icon: <Scissors />,
-                title: t('orderFlow.steps.production.title'),
-                desc: t('orderFlow.steps.production.desc'),
+                title: t('orderFlow.steps.step2.title'),
+                desc: t('orderFlow.steps.step2.desc'),
                 color: "text-orange-600",
                 bg: "bg-orange-600",
                 image: "/cutting.jpg"
               },
               {
+                icon: <Sparkles />,
+                title: t('orderFlow.steps.step3.title'),
+                desc: t('orderFlow.steps.step3.desc'),
+                color: "text-purple-600",
+                bg: "bg-purple-600",
+                images: ["/sablon.jpg", "/bordir.jpg"]
+              },
+              {
+                icon: <Settings />,
+                title: t('orderFlow.steps.step4.title'),
+                desc: t('orderFlow.steps.step4.desc'),
+                color: "text-indigo-600",
+                bg: "bg-indigo-600",
+                image: "/jahit2.jpg"
+              },
+              {
                 icon: <CheckCircle />,
-                title: t('orderFlow.steps.qc.title'),
-                desc: t('orderFlow.steps.qc.desc'),
+                title: t('orderFlow.steps.step5.title'),
+                desc: t('orderFlow.steps.step5.desc'),
                 color: "text-green-600",
                 bg: "bg-green-600",
+                image: "/qc1.jpg"
+              },
+              {
+                icon: <Layers />,
+                title: t('orderFlow.steps.step6.title'),
+                desc: t('orderFlow.steps.step6.desc'),
+                color: "text-slate-600",
+                bg: "bg-slate-600",
                 image: "/packing.jpg"
               }
             ].map((step, index) => (
@@ -130,29 +146,52 @@ Mohon hubungi saya kembali. Terima kasih!`;
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group relative bg-white rounded-[2.5rem] p-8 border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-500"
+                className="group relative bg-white rounded-[3rem] p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden"
               >
-                <div className="flex flex-col h-full">
-                  <div className="relative mb-8">
-                    <div className="overflow-hidden rounded-2xl aspect-[4/3]">
-                      <img 
-                        src={step.image} 
-                        alt={step.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
-                        loading="lazy"
-                        decoding="async"
-                      />
+                {/* Background Number Watermark */}
+                <div className="absolute -top-10 -right-10 text-[10rem] font-black text-gray-50/50 group-hover:text-red-50/50 transition-colors pointer-events-none select-none">
+                  {index + 1}
+                </div>
+
+                <div className="flex flex-col h-full relative z-10">
+                  <div className="relative mb-8 pt-4">
+                    <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-lg">
+                      {step.images ? (
+                        <div className="grid grid-cols-2 h-full gap-1">
+                          {step.images.map((img, i) => (
+                            <img 
+                              key={i}
+                              src={img} 
+                              alt={`${step.title} ${i + 1}`} 
+                              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                              loading="lazy"
+                              decoding="async"
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <img 
+                          src={step.image} 
+                          alt={step.title} 
+                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      )}
                     </div>
-                    <div className={cn("absolute -bottom-4 -right-4 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg", step.bg)}>
-                      {React.cloneElement(step.icon as React.ReactElement, { size: 20 })}
-                    </div>
-                    <div className="absolute -top-4 -left-4 w-10 h-10 bg-white border border-gray-100 rounded-full flex items-center justify-center font-black text-gray-300 group-hover:text-red-500 transition-colors shadow-sm">
-                      {index + 1}
+                    <div className={cn("absolute -bottom-4 left-8 w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-black/10", step.bg)}>
+                      {React.cloneElement(step.icon as React.ReactElement, { size: 24 })}
                     </div>
                   </div>
                   
-                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-red-600 transition-colors">{step.title}</h3>
-                  <p className="text-gray-500 text-sm leading-relaxed flex-grow">{step.desc}</p>
+                  <div className="px-2">
+                    <div className="text-red-600 font-black text-xs uppercase tracking-widest mb-4 flex items-center gap-2">
+                      <span className="w-8 h-[1px] bg-red-600" />
+                      Tahap {index + 1}
+                    </div>
+                    <h3 className="text-2xl font-black text-gray-900 mb-4 group-hover:text-red-600 transition-colors leading-tight">{step.title}</h3>
+                    <p className="text-gray-500 text-base leading-relaxed font-medium">{step.desc}</p>
+                  </div>
                 </div>
               </motion.div>
             ))}
