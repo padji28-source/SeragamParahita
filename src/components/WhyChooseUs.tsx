@@ -23,11 +23,18 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-24 relative z-10 bg-white">
+    <section className="py-24 relative z-10 bg-slate-50/30">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
         <div className="text-center mb-20 space-y-4">
-          <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.whyPartner') || "Why Choose Us"}</h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg">{t('partner.whyPartnerDesc')}</p>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
+            Elite Standard
+          </div>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
+            {t('partner.whyPartner')}
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+            {t('partner.whyPartnerDesc')}
+          </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
