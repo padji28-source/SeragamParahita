@@ -3,9 +3,9 @@ import Hero from "../components/Hero";
 import AboutSection from "../components/AboutSection";
 import Partners from "../components/Partners";
 import ProductCatalog from "../components/ProductCatalog";
-import LiveProjects from "../components/LiveProjects";
-import OrderFlow from "../components/OrderFlow";
-import Footer from "../components/Footer";
+import WhyChooseUs from "../components/WhyChooseUs";
+import SimpleProcess from "../components/SimpleProcess";
+import QuoteForm from "../components/QuoteForm";
 
 export default function HomePage() {
   return (
@@ -14,15 +14,16 @@ export default function HomePage() {
       style={{ backgroundImage: "url('/background.png')" }}
     >
       {/* Overlay agar background tidak terlalu dominan dan teks tetap terbaca */}
-      <div className="absolute inset-0 z-0 bg-white/50" />
+      <div className="absolute inset-0 z-0 bg-white/85" />
       
       <div className="relative z-10">
         <Hero />
         <AboutSection />
         <ProductCatalog />
         <Partners />
-        <LiveProjects />
-        <OrderFlow />
+        <WhyChooseUs />
+        <SimpleProcess />
+        <QuoteForm />
       </div>
     </div>
   );
