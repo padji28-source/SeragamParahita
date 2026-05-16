@@ -121,6 +121,9 @@ export default function Hero() {
                   alt={`Factory view ${index + 1}`}
                   className="h-full w-full object-cover"
                   referrerPolicy="no-referrer"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding="async"
+                  {...(index === 0 ? { "fetchpriority": "high" } : {})}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80 backdrop-blur-[4px]" />
                 <div className="absolute inset-0 flex items-center justify-center text-center z-20">
