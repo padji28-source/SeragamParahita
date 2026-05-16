@@ -46,39 +46,19 @@ export default function PartnerPage() {
 
   const benefits = [
     {
-      icon: <ShieldCheck className="w-6 h-6" />,
-      title: t('partner.benefits.quality.title') || "Quality Assurance",
-      description: t('partner.benefits.quality.desc') || "Rigorous multi-stage quality control to ensure every garment meets international standards."
+      image: "/p3.png",
+      title: t('partner.benefits.quality.title'),
+      description: t('partner.benefits.quality.desc')
     },
     {
-      icon: <Zap className="w-6 h-6" />,
-      title: t('partner.benefits.fast.title') || "Fast Turnaround",
-      description: t('partner.benefits.fast.desc') || "Optimized production lines and supply chain management for rapid delivery cycles."
+      image: "/p2.png",
+      title: t('partner.benefits.fast.title'),
+      description: t('partner.benefits.fast.desc')
     },
     {
-      icon: <Globe className="w-6 h-6" />,
-      title: t('partner.benefits.scalable.title') || "Scalable Production",
-      description: t('partner.benefits.scalable.desc') || "Flexible manufacturing capacity that grows with your business demands."
-    },
-    {
-      icon: <BarChart3 className="w-6 h-6" />,
-      title: t('partner.benefits.tracking.title') || "Real-time Tracking",
-      description: t('partner.benefits.tracking.desc') || "Full transparency with live monitoring of your project's production efficiency."
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "Parahita has been our go-to partner for years. Their attention to detail and commitment to deadlines is unmatched in the industry.",
-      author: "Operations Manager",
-      company: "Major Retail Chain",
-      avatar: "https://picsum.photos/seed/person1/100/100"
-    },
-    {
-      quote: "The real-time tracking feature changed how we manage our inventory. We always know exactly where our orders are in the production line.",
-      author: "Procurement Lead",
-      company: "National Energy Corp",
-      avatar: "https://picsum.photos/seed/person2/100/100"
+      image: "/p1.png",
+      title: t('partner.benefits.scalable.title'),
+      description: t('partner.benefits.scalable.desc')
     }
   ];
 
@@ -302,68 +282,86 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* --- BENEFITS SECTION --- */}
-      <section className="py-24 relative z-10">
+      {/* --- WHY CHOOSE US SECTION --- */}
+      <section className="py-24 relative z-10 bg-white">
         <div className="container mx-auto px-6 md:px-12 max-w-7xl">
           <div className="text-center mb-20 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.whyPartner') || "Enterprise-Grade Capabilities"}</h2>
+            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.whyPartner') || "Why Choose Us"}</h2>
             <p className="text-slate-500 max-w-2xl mx-auto text-base md:text-lg">{t('partner.whyPartnerDesc')}</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-16">
             {benefits.map((benefit, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 15 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05, duration: 0.3 }}
+                transition={{ delay: index * 0.1, duration: 0.5 }}
                 viewport={{ once: true }}
-                className="p-8 rounded-[2rem] bg-white border border-slate-200/60 hover:border-red-500/20 transition-all duration-300 group shadow-sm hover:shadow-[0_20px_40px_rgba(0,0,0,0.04)]"
+                className="flex flex-col items-center text-center group"
               >
-                <div className="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-slate-800 flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-red-50 group-hover:text-red-600 transition-all duration-300 shadow-inner">
-                  {benefit.icon}
+                <div className="relative w-full aspect-square mb-8 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-slate-200 group-hover:shadow-red-200/50 transition-all duration-500">
+                  <img 
+                    src={benefit.image} 
+                    alt={benefit.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-3 group-hover:text-red-600 transition-colors">{benefit.title}</h3>
-                <p className="text-slate-500 leading-relaxed text-sm">{benefit.description}</p>
+                <h3 className="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-600 transition-colors uppercase tracking-tight">{benefit.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-base font-medium">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- TESTIMONIALS --- */}
-      <section className="py-24 border-t border-slate-200/60 bg-white/30 backdrop-blur-sm relative z-10">
+      {/* --- CTA SECTION (Replacing removed testimonials context if needed or just ending here) --- */}
+      <section className="py-24 relative z-10 overflow-hidden">
         <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-          <div className="text-center mb-16 space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-50 border border-red-100 text-red-600 text-xs font-bold tracking-widest uppercase">
-              <MessageSquare className="w-3.5 h-3.5" />
-              {t('partner.feedback') || "Client Reviews"}
-            </div>
-            <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">{t('partner.successStories') || "Trusted by Industry Leaders"}</h2>
-          </div>
+          <div className="bg-[#020617] rounded-[3rem] p-12 md:p-20 relative overflow-hidden text-center text-white shadow-2xl shadow-slate-950/50 border border-slate-900">
+            {/* Cinematic Background Effects - Same as Footer */}
+            <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+              {/* Background Image Texture */}
+              <img 
+                src="/Parahitaprimasentosa.png" 
+                alt="Background Texture" 
+                className="absolute inset-0 w-full h-full object-cover opacity-[0.05] grayscale"
+                loading="lazy"
+                decoding="async"
+              />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {testimonials.map((t, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -15 : 15 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="bg-white border border-slate-200/70 p-8 md:p-10 rounded-[2.5rem] relative shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between"
-              >
-                <Quote className="absolute top-8 right-8 w-12 h-12 text-slate-100 pointer-events-none" />
-                <p className="text-slate-600 italic mb-8 relative z-10 leading-relaxed text-base md:text-lg">
-                  "{t.quote}"
-                </p>
-                <div className="flex items-center gap-4 border-t border-slate-100 pt-6">
-                  <img src={t.avatar} alt={t.author} className="w-12 h-12 rounded-full object-cover ring-4 ring-slate-50 shadow-sm" />
-                  <div>
-                    <div className="font-bold text-slate-900">{t.author}</div>
-                    <div className="text-xs text-red-600 font-bold uppercase tracking-wider">{t.company}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+              {/* Subtle grid */}
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
+              
+              {/* Glow Effects */}
+              <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 blur-[100px] rounded-full translate-x-1/3 -translate-y-1/3 mix-blend-screen" />
+              <div className="absolute bottom-0 left-0 w-96 h-96 bg-blue-900/10 blur-[100px] rounded-full -translate-x-1/3 translate-y-1/3 mix-blend-screen" />
+            </div>
+            
+            <div className="relative z-10 space-y-8 max-w-3xl mx-auto">
+              <h2 className="text-4xl md:text-6xl font-black tracking-tight">
+                {t('partner.readyToScale')}{" "}
+                <span className="text-red-500/80 underline decoration-red-500/30 underline-offset-8 decoration-4">
+                  {t('partner.yourProduction')}
+                </span>
+              </h2>
+              <p className="text-slate-400 text-lg md:text-xl font-medium">{t('partner.joinNetwork')}</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <motion.a 
+                  href="https://wa.me/6282125478346" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.02, y: -2 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-10 py-5 bg-red-600 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-red-700 shadow-xl shadow-red-600/20 transition-all"
+                >
+                  {t('partner.becomePartner')}
+                </motion.a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
