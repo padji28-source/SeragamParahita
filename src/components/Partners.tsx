@@ -18,6 +18,8 @@ export default function Partners() {
                 alt={partner.name}
                 className="h-8 md:h-12 w-auto max-w-none object-contain opacity-70 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
             ))}
           </div>
