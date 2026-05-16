@@ -27,13 +27,25 @@ export default function OrderFlow() {
 
   const handleWhatsAppSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Logic tetap sama seperti sebelumnya...
-    const { name, email, whatsapp, productType, estQuantity } = formData;
-    if (!name || !email || !whatsapp || !productType || !estQuantity) {
+    const { name, whatsapp, productType, estQuantity, additionalNotes } = formData;
+    
+    if (!name || !whatsapp || !productType || !estQuantity) {
       alert("Mohon lengkapi bagian yang ditandai bintang (*).");
       return;
     }
-    // ... rest of logic
+
+    const message = `Halo Parahita! Saya ingin melakukan konsultasi pesanan:
+    
+- Nama: ${name}
+- WhatsApp: ${whatsapp}
+- Jenis Produk: ${productType}
+- Estimasi Jumlah: ${estQuantity}
+- Catatan: ${additionalNotes || '-'}
+
+Mohon hubungi saya kembali. Terima kasih!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/6282125478346?text=${encodedMessage}`, '_blank');
     setShowForm(false);
   };
 
@@ -93,7 +105,7 @@ export default function OrderFlow() {
                 desc: t('orderFlow.steps.design.desc'),
                 color: "text-purple-600",
                 bg: "bg-purple-600",
-                image: "https://images.unsplash.com/photo-1584992236310-6edddc08acff?q=80&w=800"
+                image: "/design.webp"
               },
               {
                 icon: <Scissors />,
@@ -101,7 +113,7 @@ export default function OrderFlow() {
                 desc: t('orderFlow.steps.production.desc'),
                 color: "text-orange-600",
                 bg: "bg-orange-600",
-                image: "https://images.unsplash.com/photo-1596440612457-3f8c85e2b02e?q=80&w=800"
+                image: "/cutting.jpg"
               },
               {
                 icon: <CheckCircle />,
@@ -109,7 +121,7 @@ export default function OrderFlow() {
                 desc: t('orderFlow.steps.qc.desc'),
                 color: "text-green-600",
                 bg: "bg-green-600",
-                image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=800"
+                image: "/packing.jpg"
               }
             ].map((step, index) => (
               <motion.div
@@ -127,6 +139,8 @@ export default function OrderFlow() {
                         src={step.image} 
                         alt={step.title} 
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className={cn("absolute -bottom-4 -right-4 w-12 h-12 rounded-2xl flex items-center justify-center text-white shadow-lg", step.bg)}>
