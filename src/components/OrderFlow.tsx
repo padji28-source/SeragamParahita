@@ -5,9 +5,9 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogContent, DialogTrigger, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { motion, AnimatePresence } from "motion/react";
-import { FileText, Send, Layers, Settings, Scissors, CheckCircle, ArrowRight, Sparkles, PhoneCall } from "lucide-react";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { motion } from "motion/react";
+import { FileText, Layers, Settings, Scissors, CheckCircle, ArrowRight, Sparkles, PhoneCall } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export default function OrderFlow() {
@@ -16,11 +16,9 @@ export default function OrderFlow() {
 
   const [formData, setFormData] = useState({
     name: '',
-    company: '',
-    email: '',
+    email: '', // Dipertahankan jika dibutuhkan di masa depan
     whatsapp: '',
     productType: '',
-    industryCategory: '',
     estQuantity: '',
     additionalNotes: ''
   });
@@ -34,27 +32,75 @@ export default function OrderFlow() {
       return;
     }
 
+    // Menggunakan format internasional untuk WhatsApp (+62)
+    const formattedWhatsApp = whatsapp.startsWith('0') ? '62' + whatsapp.slice(1) : whatsapp;
+
     const message = `Halo Parahita! Saya ingin melakukan konsultasi pesanan:
     
 - Nama: ${name}
-- WhatsApp: ${whatsapp}
-- Jenis Produk: ${productType}
-- Estimasi Jumlah: ${estQuantity}
-- Catatan: ${additionalNotes || '-'}
-
-Mohon hubungi saya kembali. Terima kasih!`;
+- WhatsApp: ${formattedWhatsApp}
+- Jenis Produk: ${productType.toUpperCase()}
+- Estimasi Jumlah: ${estQuantity} Pcs
+- Catatan: ${additionalNotes || '-'}`;
 
     const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/6282125478346?text=${encodedMessage}`, '_blank');
+    // Nomor admin Parahita
+    window.open(`https://wa.me/6282125478346?text=${encodedMessage}`, '_blank', 'noopener,noreferrer');
     setShowForm(false);
   };
+
+  // Pindahkan array ke dalam komponen/render untuk memastikan i18n (t) berjalan dinamis saat ganti bahasa
+  const steps = [
+    {
+      icon: <FileText />,
+      title: t('orderFlow.steps.step1.title'),
+      desc: t('orderFlow.steps.step1.desc'),
+      bg: "bg-blue-600",
+      image: "/pattern.jpg"
+    },
+    {
+      icon: <Scissors />,
+      title: t('orderFlow.steps.step2.title'),
+      desc: t('orderFlow.steps.step2.desc'),
+      bg: "bg-orange-600",
+      image: "/cutting.jpg"
+    },
+    {
+      icon: <Sparkles />,
+      title: t('orderFlow.steps.step3.title'),
+      desc: t('orderFlow.steps.step3.desc'),
+      bg: "bg-purple-600",
+      images: ["/sablon.jpg", "/bordir.jpg"]
+    },
+    {
+      icon: <Settings />,
+      title: t('orderFlow.steps.step4.title'),
+      desc: t('orderFlow.steps.step4.desc'),
+      bg: "bg-indigo-600",
+      image: "/jahit2.jpg"
+    },
+    {
+      icon: <CheckCircle />,
+      title: t('orderFlow.steps.step5.title'),
+      desc: t('orderFlow.steps.step5.desc'),
+      bg: "bg-green-600",
+      image: "/qc1.jpg"
+    },
+    {
+      icon: <Layers />,
+      title: t('orderFlow.steps.step6.title'),
+      desc: t('orderFlow.steps.step6.desc'),
+      bg: "bg-slate-600",
+      image: "/packing.jpg"
+    }
+  ];
 
   return (
     <section className="bg-transparent overflow-hidden">
       {/* --- Section 1: Header & Steps --- */}
       <div className="relative py-24 lg:py-32">
         {/* Modern Background Decor */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full -z-10 overflow-hidden">
+        <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
           <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-red-100/40 blur-[120px] rounded-full" />
           <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-blue-50/50 blur-[120px] rounded-full" />
         </div>
@@ -88,63 +134,14 @@ Mohon hubungi saya kembali. Terima kasih!`;
             </p>
           </div>
 
-          {/* Steps Grid - Modern Card Style */}
+          {/* Steps Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12 max-w-7xl mx-auto">
-            {[
-              {
-                icon: <FileText />,
-                title: t('orderFlow.steps.step1.title'),
-                desc: t('orderFlow.steps.step1.desc'),
-                color: "text-blue-600",
-                bg: "bg-blue-600",
-                image: "/pattern.jpg"
-              },
-              {
-                icon: <Scissors />,
-                title: t('orderFlow.steps.step2.title'),
-                desc: t('orderFlow.steps.step2.desc'),
-                color: "text-orange-600",
-                bg: "bg-orange-600",
-                image: "/cutting.jpg"
-              },
-              {
-                icon: <Sparkles />,
-                title: t('orderFlow.steps.step3.title'),
-                desc: t('orderFlow.steps.step3.desc'),
-                color: "text-purple-600",
-                bg: "bg-purple-600",
-                images: ["/sablon.jpg", "/bordir.jpg"]
-              },
-              {
-                icon: <Settings />,
-                title: t('orderFlow.steps.step4.title'),
-                desc: t('orderFlow.steps.step4.desc'),
-                color: "text-indigo-600",
-                bg: "bg-indigo-600",
-                image: "/jahit2.jpg"
-              },
-              {
-                icon: <CheckCircle />,
-                title: t('orderFlow.steps.step5.title'),
-                desc: t('orderFlow.steps.step5.desc'),
-                color: "text-green-600",
-                bg: "bg-green-600",
-                image: "/qc1.jpg"
-              },
-              {
-                icon: <Layers />,
-                title: t('orderFlow.steps.step6.title'),
-                desc: t('orderFlow.steps.step6.desc'),
-                color: "text-slate-600",
-                bg: "bg-slate-600",
-                image: "/packing.jpg"
-              }
-            ].map((step, index) => (
+            {steps.map((step, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
                 className="group relative bg-white rounded-[3rem] p-10 border border-gray-100 shadow-sm hover:shadow-2xl hover:shadow-red-500/10 transition-all duration-500 overflow-hidden"
               >
@@ -155,7 +152,7 @@ Mohon hubungi saya kembali. Terima kasih!`;
 
                 <div className="flex flex-col h-full relative z-10">
                   <div className="relative mb-8 pt-4">
-                    <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-lg">
+                    <div className="overflow-hidden rounded-[2rem] aspect-[4/3] shadow-lg bg-gray-100">
                       {step.images ? (
                         <div className="grid grid-cols-2 h-full gap-1">
                           {step.images.map((img, i) => (
@@ -165,7 +162,6 @@ Mohon hubungi saya kembali. Terima kasih!`;
                               alt={`${step.title} ${i + 1}`} 
                               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                               loading="lazy"
-                              decoding="async"
                             />
                           ))}
                         </div>
@@ -175,12 +171,11 @@ Mohon hubungi saya kembali. Terima kasih!`;
                           alt={step.title} 
                           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
                           loading="lazy"
-                          decoding="async"
                         />
                       )}
                     </div>
                     <div className={cn("absolute -bottom-4 left-8 w-14 h-14 rounded-2xl flex items-center justify-center text-white shadow-xl shadow-black/10", step.bg)}>
-                      {React.cloneElement(step.icon as React.ReactElement, { size: 24 })}
+                      {React.cloneElement(step.icon, { size: 24 })}
                     </div>
                   </div>
                   
@@ -202,16 +197,15 @@ Mohon hubungi saya kembali. Terima kasih!`;
       {/* --- Section 2: CTA Bento Box --- */}
       <div id="quote" className="pb-32 container mx-auto px-4">
         <div className="bg-white border border-slate-200 rounded-[3rem] p-8 md:p-16 relative overflow-hidden shadow-xl">
-          {/* Background Image (bg2.png) */}
+          {/* Background Image Overlay */}
           <div 
-            className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center bg-fixed" 
+            className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center pointer-events-none" 
             style={{ backgroundImage: "url('/bg2.png')" }}
           />
           
-          {/* Animated Background Gradients & Overlay */}
-          <div className="absolute inset-0 bg-slate-50/80 z-0" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/20 blur-[120px] -mr-64 -mt-64 z-0" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 blur-[100px] -ml-48 -mb-48 z-0" />
+          <div className="absolute inset-0 bg-slate-50/80 -z-10" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/20 blur-[120px] -mr-64 -mt-64 -z-10" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-600/10 blur-[100px] -ml-48 -mb-48 -z-10" />
 
           <div className="grid lg:grid-cols-2 gap-16 items-center relative z-10">
             <div>
@@ -289,46 +283,47 @@ Mohon hubungi saya kembali. Terima kasih!`;
                          <form onSubmit={handleWhatsAppSubmit} className="space-y-6">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                               <div className="space-y-2">
-                                <Label className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.name')}*</Label>
-                                <Input placeholder="Nama Lengkap" className="rounded-xl bg-gray-50 border-none h-12 focus:ring-2 focus:ring-red-500/20 transition-all" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+                                <Label htmlFor="form-name" className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.name')}*</Label>
+                                <Input id="form-name" placeholder="Nama Lengkap" className="rounded-xl bg-gray-50 border-none h-12 focus:ring-2 focus:ring-red-500/20 transition-all" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
                               </div>
                               <div className="space-y-2">
-                                <Label className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.whatsapp')}*</Label>
-                                <Input placeholder="0812xxxx" className="rounded-xl bg-gray-50 border-none h-12" value={formData.whatsapp} onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} />
+                                <Label htmlFor="form-whatsapp" className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.whatsapp')}*</Label>
+                                <Input id="form-whatsapp" type="tel" placeholder="0812xxxx" className="rounded-xl bg-gray-50 border-none h-12" value={formData.whatsapp} onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} />
                               </div>
                             </div>
 
                             <div className="space-y-2">
-                              <Label className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.productType')}*</Label>
+                              <Label htmlFor="form-product-type" className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.productType')}*</Label>
                               <Select value={formData.productType} onValueChange={(val) => setFormData({...formData, productType: val})}>
-                                <SelectTrigger className="rounded-xl bg-gray-50 border-none h-12">
+                                <SelectTrigger id="form-product-type" className="rounded-xl bg-gray-50 border-none h-12 text-left">
                                   <SelectValue placeholder="Pilih Jenis Produk" />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl">
-                                  <SelectItem value="kemeja">Kemeja Kerja</SelectItem>
-                                  <SelectItem value="kaos">Polo / T-Shirt</SelectItem>
-                                  <SelectItem value="jaket">Jaket / Hoodie</SelectItem>
-                                  <SelectItem value="wearpack">Wearpack Safety</SelectItem>
+                                  <SelectItem value="kemeja">Kemeja Kerja / PDH / PDL</SelectItem>
+                                  <SelectItem value="kaos">Polo Shirt / T-Shirt</SelectItem>
+                                  <SelectItem value="jaket">Jaket / Bomber / Hoodie</SelectItem>
+                                  <SelectItem value="wearpack">Wearpack Safety / Coverall</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
 
                             <div className="space-y-2">
-                              <Label className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.estQuantity')}*</Label>
-                              <Input type="number" placeholder="Contoh: 50" className="rounded-xl bg-gray-50 border-none h-12" value={formData.estQuantity} onChange={(e) => setFormData({...formData, estQuantity: e.target.value})} />
+                              <Label htmlFor="form-quantity" className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.estQuantity')}*</Label>
+                              <Input id="form-quantity" type="number" min="0" placeholder="Contoh: 50" className="rounded-xl bg-gray-50 border-none h-12" value={formData.estQuantity} onChange={(e) => setFormData({...formData, estQuantity: e.target.value})} />
                             </div>
 
                             <div className="space-y-2">
-                              <Label className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.additionalNotes')}</Label>
+                              <Label htmlFor="form-notes" className="text-[10px] font-black uppercase text-gray-400">{t('orderFlow.inquiry.form.additionalNotes')}</Label>
                               <textarea 
+                                id="form-notes"
                                 className="w-full p-4 rounded-xl bg-gray-50 border-none h-32 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-sm resize-none"
-                                placeholder="Ceritakan detail tambahan (ukuran, warna, dll)..."
+                                placeholder="Ceritakan detail tambahan (pilihan warna, penempatan bordir, atau tenggat waktu)..."
                                 value={formData.additionalNotes}
                                 onChange={(e) => setFormData({...formData, additionalNotes: e.target.value})}
                               />
                             </div>
 
-                            <Button className="w-full h-14 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all hover:shadow-lg hover:shadow-red-500/30">
+                            <Button type="submit" className="w-full h-14 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition-all hover:shadow-lg hover:shadow-red-500/30">
                               Kirim ke WhatsApp
                               <ArrowRight className="ml-2 w-4 h-4" />
                             </Button>
