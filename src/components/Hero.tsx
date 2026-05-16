@@ -139,11 +139,11 @@ export default function Hero() {
                       {t('hero.subtitle')}
                     </p>
                     <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
-                      <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
+                      <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
                         <MessageCircle className="w-5 h-5" />
                         Konsultasi Gratis
                       </Link>
-                      <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-full bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg w-full sm:w-auto border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border-2")}>
+                      <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg w-full sm:w-auto border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border-2")}>
                         Lihat Katalog
                       </a>
                     </div>
@@ -154,8 +154,8 @@ export default function Hero() {
           )})}
         </CarouselContent>
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-30 mb-safe">
-          <CarouselPrevious className="relative left-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md" />
-          <CarouselNext className="relative right-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md" />
+          <CarouselPrevious className="relative left-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md rounded-xl" />
+          <CarouselNext className="relative right-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md rounded-xl" />
         </div>
       </Carousel>
     </section>
