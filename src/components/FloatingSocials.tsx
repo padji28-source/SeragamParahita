@@ -7,6 +7,7 @@ export default function FloatingSocials() {
       {/* Instagram Button */}
       <motion.a
         href="https://www.instagram.com/seragam.parahita/" 
+        aria-label="Follow us on Instagram"
         target="_blank"
         rel="noopener noreferrer"
         initial={{ opacity: 0, y: 20, scale: 0.8 }}
@@ -34,6 +35,7 @@ export default function FloatingSocials() {
       >
         <motion.a
           href="https://wa.me/6282125478346?text=Halo%20Sales%201,%20saya%20tertarik%20dengan%20layanan%20Parahita." 
+          aria-label="Chat with us on WhatsApp"
           target="_blank"
           rel="noopener noreferrer"
           whileHover={{ scale: 1.1, y: -2 }}
