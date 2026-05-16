@@ -182,7 +182,7 @@ export default function Navbar() {
         </nav>
 
         {/* RIGHT CONTROLS */}
-        <div className="flex items-center gap-3 md:gap-5">
+        <div className="flex items-center gap-3">
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
@@ -203,16 +203,6 @@ export default function Navbar() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
-          {/* CTA Button */}
-          <Link 
-            to="/contact" 
-            className={cn(
-              "hidden md:inline-flex items-center justify-center px-6 h-11 rounded-xl bg-red-600 text-white text-[12px] font-bold uppercase tracking-widest hover:bg-red-700 active:scale-95 transition-all shadow-lg shadow-red-600/20 hover:shadow-red-600/30"
-            )}
-          >
-            {t('nav.get_started', { defaultValue: 'Mulai Sekarang' })}
-          </Link>
 
           {/* Hamburg Button Menu */}
           <button 
@@ -309,16 +299,6 @@ export default function Navbar() {
                         </button>
                       ))}
                    </div>
-                </motion.div>
-
-                {/* Mobile CTA */}
-                <motion.div variants={mobileItemVars} className="pt-6">
-                  <Link 
-                    to="/contact" 
-                    className="flex items-center justify-center w-full h-12 rounded-xl bg-red-600 text-white text-[13px] font-bold uppercase tracking-widest shadow-lg shadow-red-600/20 active:scale-95 transition-all"
-                  >
-                    {t('nav.get_started', { defaultValue: 'Mulai Sekarang' })}
-                  </Link>
                 </motion.div>
               </nav>
             </motion.div>
