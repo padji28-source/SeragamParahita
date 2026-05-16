@@ -18,17 +18,28 @@ import { PRODUCTS } from "@/src/constants";
 const snapEase = [0.25, 1, 0.5, 1];
 
 const mobileMenuVars = {
-  initial: { opacity: 0, y: -8 },
+  initial: { opacity: 0, y: -10 },
   animate: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.3, ease: snapEase } 
+    transition: { 
+      duration: 0.4, 
+      ease: snapEase,
+      staggerChildren: 0.05,
+      delayChildren: 0.1
+    } 
   },
   exit: { 
     opacity: 0, 
-    y: -8, 
-    transition: { duration: 0.2, ease: "easeInOut" } 
+    y: -10, 
+    transition: { duration: 0.3, ease: "easeInOut" } 
   }
+};
+
+const mobileItemVars = {
+  initial: { opacity: 0, x: -10 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -10 }
 };
 
 export default function Navbar() {
@@ -68,91 +79,90 @@ export default function Navbar() {
 
   // Helper style menu desktop
   const navLinkClass = (path: string) => cn(
-    "text-[14px] font-semibold tracking-wide px-1 py-2 transition-colors relative duration-200",
-    location.pathname === path ? "text-gray-900" : "text-gray-500 hover:text-gray-900"
+    "text-[13px] font-bold tracking-wider uppercase px-4 py-2 transition-all relative duration-300 rounded-xl",
+    location.pathname === path ? "text-red-600 bg-red-50/50" : "text-gray-500 hover:text-gray-950 hover:bg-gray-50/80"
   );
 
   return (
     <motion.header 
       initial={{ y: "-100%" }}
       animate={{ y: isHidden ? "-100%" : "0%" }}
-      transition={{ duration: 0.4, ease: snapEase }}
+      transition={{ duration: 0.5, ease: snapEase }}
       className={cn(
-        "fixed top-0 z-50 w-full transition-all duration-300",
+        "fixed top-0 z-50 w-full transition-all duration-500",
         isScrolled 
-          ? "border-b border-gray-200/70 bg-white/90 backdrop-blur-md h-16 shadow-[0_2px_20px_rgba(0,0,0,0.01)]" 
-          : "bg-white h-20 md:h-24"
+          ? "border-b border-gray-200/80 bg-white h-16 shadow-[0_4px_30px_rgba(0,0,0,0.05)]" 
+          : "bg-white/50 backdrop-blur-sm h-20 md:h-24"
       )}
     >
-      <div className="container mx-auto max-w-7xl h-full flex items-center justify-between px-6 lg:px-8">
+      <div className="container mx-auto max-w-7xl h-full flex items-center justify-between px-6 lg:px-10">
         
         {/* LOGO AREA */}
         <div className="flex items-center">
-          <Link to="/" className="transition-opacity hover:opacity-90">
+          <Link to="/" className="transition-transform hover:scale-105 active:scale-95 duration-300">
             <img 
               src="/Logo.png" 
               alt="Logo" 
               className={cn(
-                "w-auto object-contain transition-all duration-300",
+                "w-auto object-contain transition-all duration-500",
                 isScrolled ? "h-9" : "h-12"
               )}
             />
           </Link>
         </div>
 
-        {/* DESKTOP MINIMALIST NAVIGATION */}
-        <nav className="hidden lg:flex items-center gap-8">
+        {/* DESKTOP NAVIGATION */}
+        <nav className="hidden lg:flex items-center gap-1">
           {/* Home */}
           <Link to="/" className={navLinkClass("/")}>
-            {t('nav.home')}
-            {location.pathname === "/" && (
-              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
-            )}
+            <span className="relative z-10">{t('nav.home')}</span>
           </Link>
           
           {/* Products Dropdown */}
           <div 
-            className="relative py-2"
+            className="relative"
             onMouseEnter={() => setIsDesktopProductsOpen(true)}
             onMouseLeave={() => setIsDesktopProductsOpen(false)}
           >
             <Link 
               to="/product" 
               className={cn(
-                "text-[14px] font-semibold tracking-wide px-1 transition-colors duration-200 flex items-center gap-1 outline-none",
-                location.pathname.startsWith("/product") ? "text-gray-900" : "text-gray-500 hover:text-gray-900"
+                "text-[13px] font-bold tracking-wider uppercase px-4 py-2 transition-all duration-300 flex items-center gap-1.5 outline-none rounded-xl relative z-10",
+                location.pathname.startsWith("/product") ? "text-red-600 bg-red-50/50" : "text-gray-500 hover:text-gray-950 hover:bg-gray-50/80"
               )}
               onClick={(e) => { if (window.innerWidth >= 1024) e.preventDefault(); }}
             >
               <span>{t('nav.products')}</span>
-              <ChevronDown className={cn("w-3.5 h-3.5 opacity-70 transition-transform duration-200", isDesktopProductsOpen ? "rotate-180" : "")} />
+              <ChevronDown className={cn("w-3 h-3 opacity-50 transition-transform duration-300", isDesktopProductsOpen ? "rotate-180" : "")} />
             </Link>
-            {location.pathname.startsWith("/product") && (
-              <motion.div layoutId="activeLine" className="absolute bottom-0 left-1 right-1 h-[2px] bg-red-600 rounded-full" />
-            )}
             
             <AnimatePresence>
               {isDesktopProductsOpen && (
                 <motion.div
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  transition={{ duration: 0.15 }}
-                  className="absolute left-1/2 -translate-x-1/2 top-full w-56 bg-white border border-gray-200/80 rounded-xl shadow-xl p-1.5 z-50"
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                  transition={{ duration: 0.2, ease: snapEase }}
+                  className="absolute left-1/2 -translate-x-1/2 top-[calc(100%-5px)] w-64 bg-white border border-gray-200/60 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-2 z-50 overflow-hidden"
                 >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-red-600" />
+                  <div className="px-3 py-2 mb-1">
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">{t('nav.products_title', { defaultValue: 'Portfolio Produk' })}</span>
+                  </div>
                   {PRODUCTS.map((product) => (
                     <Link 
                       key={product.id}
                       to={`/product/${product.id}`}
                       className={cn(
-                        "w-full px-3 py-2 rounded-lg text-xs font-medium transition-colors block",
+                        "group flex items-center justify-between w-full px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all mb-0.5 last:mb-0",
                         location.pathname === `/product/${product.id}` 
-                          ? "bg-gray-50 text-red-600 font-semibold" 
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                          ? "bg-red-50 text-red-600" 
+                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-950"
                       )}
                       onClick={() => setIsDesktopProductsOpen(false)}
                     >
-                      {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
+                      <span>{t(`products.items.${product.id}.name`, { defaultValue: product.name })}</span>
+                      <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
                     </Link>
                   ))}
                 </motion.div>
@@ -162,51 +172,55 @@ export default function Navbar() {
 
           {/* Partner */}
           <Link to="/partner" className={navLinkClass("/partner")}>
-            {t('nav.partner')}
-            {location.pathname === "/partner" && (
-              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
-            )}
+            <span className="relative z-10">{t('nav.partner')}</span>
           </Link>
 
           {/* Contact */}
           <Link to="/contact" className={navLinkClass("/contact")}>
-            {t('nav.contact')}
-            {location.pathname === "/contact" && (
-              <motion.div layoutId="activeLine" className="absolute bottom-0 left-0 right-0 h-[2px] bg-red-600 rounded-full" />
-            )}
+            <span className="relative z-10">{t('nav.contact')}</span>
           </Link>
         </nav>
 
         {/* RIGHT CONTROLS */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3 md:gap-5">
           <DropdownMenu>
             <DropdownMenuTrigger
               className={cn(
                 buttonVariants({ variant: "ghost", size: "sm" }),
-                "hidden sm:flex items-center gap-1.5 font-semibold text-xs tracking-wide h-9 px-2.5 rounded-lg text-gray-600 hover:bg-gray-50 hover:text-gray-900 focus:ring-0"
+                "hidden sm:flex items-center gap-2 font-bold text-[11px] uppercase tracking-widest h-10 px-4 rounded-xl border border-gray-100 hover:border-gray-200 hover:bg-gray-50/50 transition-all focus:ring-0 outline-none"
               )}
             >
-              <Globe className="w-3.5 h-3.5 opacity-70" />
-              <span>{currentLanguage}</span>
-              <ChevronDown className="w-3 h-3 opacity-50 group-data-[state=open]:rotate-180 transition-transform" />
+              <Globe className="w-3.5 h-3.5 text-gray-400" />
+              <span className="text-gray-700">{currentLanguage}</span>
+              <ChevronDown className="w-3 h-3 text-gray-300 group-data-[state=open]:rotate-180 transition-transform" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-36 rounded-xl p-1 bg-white shadow-lg border-gray-200/80 mt-1">
-              <DropdownMenuItem onClick={() => changeLanguage('id')} className={cn("rounded-lg cursor-pointer py-2 text-xs font-medium", i18n.language.startsWith('id') ? "text-red-600 bg-red-50/50 font-semibold" : "text-gray-600")}>
-                Bahasa Indonesia
+            <DropdownMenuContent align="end" className="w-40 rounded-2xl p-1.5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.1)] border-gray-100 mt-2">
+              <DropdownMenuItem onClick={() => changeLanguage('id')} className={cn("rounded-xl cursor-pointer py-2.5 px-3 text-xs font-bold", i18n.language.startsWith('id') ? "text-red-600 bg-red-50/50" : "text-gray-600 hover:bg-gray-50")}>
+                BAHASA INDONESIA
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => changeLanguage('en')} className={cn("rounded-lg cursor-pointer py-2 text-xs font-medium", i18n.language.startsWith('en') ? "text-red-600 bg-red-50/50 font-semibold" : "text-gray-600")}>
-                English
+              <DropdownMenuItem onClick={() => changeLanguage('en')} className={cn("rounded-xl cursor-pointer py-2.5 px-3 text-xs font-bold", i18n.language.startsWith('en') ? "text-red-600 bg-red-50/50" : "text-gray-600 hover:bg-gray-50")}>
+                ENGLISH
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* CTA Button */}
+          <Link 
+            to="/contact" 
+            className={cn(
+              "hidden md:inline-flex items-center justify-center px-6 h-11 rounded-xl bg-red-600 text-white text-[12px] font-bold uppercase tracking-widest hover:bg-red-700 active:scale-95 transition-all shadow-lg shadow-red-600/20 hover:shadow-red-600/30"
+            )}
+          >
+            {t('nav.get_started', { defaultValue: 'Mulai Sekarang' })}
+          </Link>
+
           {/* Hamburg Button Menu */}
           <button 
-            className="p-2 text-gray-600 hover:text-gray-900 lg:hidden transition-colors"
+            className="p-2.5 text-gray-600 hover:text-gray-950 lg:hidden transition-all rounded-xl hover:bg-gray-100"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle Menu"
           >
-            {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {isOpen ? <X className="w-5.5 h-5.5" /> : <Menu className="w-5.5 h-5.5" />}
           </button>
         </div>
       </div>
@@ -228,20 +242,22 @@ export default function Navbar() {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-xl z-50 lg:hidden overflow-hidden"
+              className="absolute top-full left-0 w-full bg-white border-b border-gray-200 shadow-2xl z-50 lg:hidden overflow-hidden"
             >
-              <nav className="flex flex-col p-4 space-y-1">
-                <Link to="/" className={cn("block px-4 py-2.5 rounded-lg text-sm font-semibold", location.pathname === "/" ? "bg-gray-50 text-red-600" : "text-gray-600")}>
-                  {t('nav.home')}
-                </Link>
+              <nav className="flex flex-col p-6 space-y-1">
+                <motion.div variants={mobileItemVars}>
+                  <Link to="/" className={cn("block px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider", location.pathname === "/" ? "bg-gray-50 text-red-600" : "text-gray-600")}>
+                    {t('nav.home')}
+                  </Link>
+                </motion.div>
                 
-                <div className="space-y-0.5">
+                <motion.div variants={mobileItemVars} className="space-y-0.5">
                   <button 
                     onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    className={cn("px-4 py-2.5 rounded-lg text-sm font-semibold flex items-center justify-between w-full text-gray-600 hover:bg-gray-50")}
+                    className={cn("px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider flex items-center justify-between w-full text-gray-600 hover:bg-gray-50")}
                   >
                     <span>{t('nav.products')}</span>
-                    <ChevronRight className={cn("w-4 h-4 text-gray-400 transition-transform duration-200", isProductsOpen ? "rotate-90 text-gray-900" : "")} />
+                    <ChevronRight className={cn("w-4 h-4 text-gray-400 transition-transform duration-300", isProductsOpen ? "rotate-90 text-gray-950" : "")} />
                   </button>
                   
                   <AnimatePresence>
@@ -250,14 +266,14 @@ export default function Navbar() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: "auto", opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden bg-gray-50/50 rounded-lg pl-4"
+                        className="overflow-hidden bg-gray-50/50 rounded-xl ml-4 mr-2"
                       >
-                        <div className="py-1 space-y-0.5">
+                        <div className="py-2 px-1 space-y-0.5">
                           {PRODUCTS.map((product) => (
                             <Link
                               key={product.id}
                               to={`/product/${product.id}`}
-                              className={cn("block px-4 py-2 text-xs font-medium", location.pathname === `/product/${product.id}` ? "text-red-600 font-semibold" : "text-gray-500")}
+                              className={cn("block px-4 py-2.5 text-[13px] font-bold uppercase tracking-wide transition-colors", location.pathname === `/product/${product.id}` ? "text-red-600 font-bold" : "text-gray-500 hover:text-gray-900")}
                             >
                               {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
                             </Link>
@@ -266,33 +282,44 @@ export default function Navbar() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
 
                 {['partner', 'contact'].map((item) => (
-                  <Link 
-                    key={item}
-                    to={`/${item}`} 
-                    className={cn("block px-4 py-2.5 rounded-lg text-sm font-semibold", location.pathname === `/${item}` ? "bg-gray-50 text-red-600" : "text-gray-600")}
-                  >
-                    {t(`nav.${item}`)}
-                  </Link>
+                  <motion.div key={item} variants={mobileItemVars}>
+                    <Link 
+                      to={`/${item}`} 
+                      className={cn("block px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider", location.pathname === `/${item}` ? "bg-gray-50 text-red-600" : "text-gray-600")}
+                    >
+                      {t(`nav.${item}`)}
+                    </Link>
+                  </motion.div>
                 ))}
 
                 {/* Mobile Lang Selector */}
-                <div className="pt-4 mt-2 border-t border-gray-100 flex items-center justify-between px-4">
-                   <span className="text-xs font-semibold text-gray-400">Language</span>
-                   <div className="flex gap-1 bg-gray-50 p-1 rounded-lg border border-gray-200/50">
+                <motion.div variants={mobileItemVars} className="pt-6 mt-4 border-t border-gray-100 flex items-center justify-between px-4">
+                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400">Language</span>
+                   <div className="flex gap-1.5 bg-gray-50 p-1 rounded-xl border border-gray-200/50">
                       {['id', 'en'].map((lng) => (
                         <button
                           key={lng}
                           onClick={() => changeLanguage(lng)}
-                          className={cn("px-3 py-1 rounded-md text-[11px] font-bold uppercase transition-all", i18n.language.startsWith(lng) ? "bg-white text-gray-900 shadow-sm" : "text-gray-400")}
+                          className={cn("px-4 py-1.5 rounded-lg text-[11px] font-bold uppercase transition-all shadow-sm", i18n.language.startsWith(lng) ? "bg-white text-gray-950" : "text-gray-400 bg-transparent")}
                         >
                           {lng}
                         </button>
                       ))}
                    </div>
-                </div>
+                </motion.div>
+
+                {/* Mobile CTA */}
+                <motion.div variants={mobileItemVars} className="pt-6">
+                  <Link 
+                    to="/contact" 
+                    className="flex items-center justify-center w-full h-12 rounded-xl bg-red-600 text-white text-[13px] font-bold uppercase tracking-widest shadow-lg shadow-red-600/20 active:scale-95 transition-all"
+                  >
+                    {t('nav.get_started', { defaultValue: 'Mulai Sekarang' })}
+                  </Link>
+                </motion.div>
               </nav>
             </motion.div>
           </>
