@@ -9,35 +9,13 @@ export default function AboutSection() {
   const [showMoreStory, setShowMoreStory] = useState(false);
 
   return (
-    <div className="relative bg-white text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
-      {/* Professional Combined Background Layout */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* Main Background Image 1 */}
-        <div 
-          className="absolute top-0 right-0 w-[60%] h-[800px] opacity-[0.04] grayscale blur-sm bg-cover bg-no-repeat bg-fixed"
-          style={{ backgroundImage: "url('/p1.png')" }}
-        />
-        {/* Side Decorative Image 2 */}
-        <div 
-          className="absolute top-[20%] -left-10 w-[40%] h-[600px] opacity-[0.03] grayscale bg-cover bg-no-repeat bg-fixed rotate-3"
-          style={{ backgroundImage: "url('/p2.png')" }}
-        />
-        {/* Bottom Decorative Image 3 */}
-        <div 
-          className="absolute -bottom-20 right-1/4 w-[50%] h-[500px] opacity-[0.04] grayscale bg-cover bg-no-repeat bg-fixed -rotate-2"
-          style={{ backgroundImage: "url('/p3.png')" }}
-        />
-        
-        {/* Subtle Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/80 to-white" />
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-white to-transparent" />
-        <div className="absolute bottom-0 left-0 w-full h-64 bg-gradient-to-t from-white via-white/40 to-transparent" />
-      </div>
-
-      {/* Container Utama untuk Bagian 1 & 2 */}
+    // Menggunakan bg-transparent agar background utama halaman tidak tertutup
+    <div className="relative bg-transparent text-slate-900 selection:bg-red-100 font-sans overflow-hidden">
+      
+      {/* Container Utama */}
       <section className="relative z-10 container mx-auto px-6 md:px-12 py-20 lg:py-32 max-w-7xl flex flex-col gap-20 lg:gap-32">
         
-        {/* --- BAGIAN 1: Cerita & Statistik (Bento Layout) --- */}
+        {/* --- BAGIAN 1: Cerita & Statistik (Bento Glassmorphism Layout) --- */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
           <motion.div 
@@ -56,7 +34,7 @@ export default function AboutSection() {
               </h2>
             </div>
             
-            <div className="space-y-6 text-slate-700 text-lg md:text-xl font-medium leading-relaxed">
+            <div className="space-y-6 text-slate-800 text-lg md:text-xl font-medium leading-relaxed">
               <p dangerouslySetInnerHTML={{ __html: t('about.story.p1') }} />
               <p dangerouslySetInnerHTML={{ __html: t('about.story.p2') }} />
               
@@ -82,7 +60,7 @@ export default function AboutSection() {
                 download="Company Profile MKS.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-red-600 text-white font-medium h-12 md:h-14 px-8 rounded-full transition-all duration-300 group shadow-lg shadow-slate-900/20 hover:shadow-red-600/30"
+                className="inline-flex items-center gap-2 bg-slate-900 hover:bg-red-600 text-white font-semibold h-12 md:h-14 px-8 rounded-full transition-all duration-300 group shadow-lg shadow-slate-900/20 hover:shadow-red-600/30"
               >
                 <span>Unduh Profil</span>
                 <Download className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
@@ -90,7 +68,7 @@ export default function AboutSection() {
 
               <button
                 onClick={() => setShowMoreStory(!showMoreStory)}
-                className="inline-flex items-center gap-2 text-slate-900 font-semibold hover:text-red-600 transition-colors group"
+                className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-red-600 transition-colors group"
               >
                 {showMoreStory ? "Tutup Cerita" : "Baca Selengkapnya"}
                 <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${showMoreStory ? '-rotate-45' : 'group-hover:translate-x-1'}`} />
@@ -98,6 +76,7 @@ export default function AboutSection() {
             </div>
           </motion.div>
 
+          {/* Stats Cards dengan Glassmorphism */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -105,42 +84,47 @@ export default function AboutSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="lg:col-span-5 grid grid-cols-2 gap-4"
           >
-            <div className="col-span-2 bg-slate-50 rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+            {/* Card Besar */}
+            <div className="col-span-2 bg-white/40 backdrop-blur-md rounded-[2rem] p-8 md:p-12 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/60 hover:shadow-xl border border-white/60 group">
               <div className="text-7xl md:text-8xl font-black text-red-600 mb-2 tracking-tighter group-hover:scale-105 transition-transform duration-500">
                 15+
               </div>
               <h3 className="text-lg font-bold text-slate-900 uppercase tracking-widest">
                 Tahun Pengalaman
               </h3>
-              <p className="text-slate-500 font-medium mt-2">
+              <p className="text-slate-600 font-semibold mt-2">
                 Berdedikasi memberikan kualitas terbaik.
               </p>
             </div>
 
-            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+            {/* Card Kecil 1 */}
+            <div className="bg-white/40 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/60 hover:shadow-md border border-white/60 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">50k+</div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Kapasitas/Bln</p>
+              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Kapasitas/Bln</p>
             </div>
             
-            <div className="bg-slate-50 rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-transparent hover:border-slate-100 group">
+            {/* Card Kecil 2 */}
+            <div className="bg-white/40 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/60 hover:shadow-md border border-white/60 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">200+</div>
-              <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Tenaga Ahli</p>
+              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Tenaga Ahli</p>
             </div>
           </motion.div>
         </div>
 
-        {/* --- BAGIAN 2: Visi & Misi --- */}
+        {/* --- BAGIAN 2: Visi & Misi (Glass Container) --- */}
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="w-full bg-slate-50 rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)]"
+          className="w-full bg-white/50 backdrop-blur-lg rounded-[2.5rem] md:rounded-[3rem] p-6 md:p-16 relative overflow-hidden flex flex-col items-center border border-white/80 shadow-lg"
         >
+          {/* Efek Cahaya Ambient Lembut */}
           <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-red-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
           <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-blue-600/5 blur-[120px] rounded-full pointer-events-none mix-blend-multiply" />
           
-          <div className="relative z-10 flex p-1.5 bg-white/80 backdrop-blur-md rounded-full border border-slate-200 shadow-sm w-max mb-12 md:mb-16">
+          {/* Tab Filter */}
+          <div className="relative z-10 flex p-1.5 bg-white/90 backdrop-blur-md rounded-full border border-slate-200 shadow-sm w-max mb-12 md:mb-16">
             {(['vision', 'mission'] as const).map((tab) => (
               <button
                 key={tab}
@@ -164,6 +148,7 @@ export default function AboutSection() {
             ))}
           </div>
 
+          {/* Konten Tab */}
           <div className="relative z-10 w-full max-w-5xl min-h-[300px]">
             <AnimatePresence mode="wait">
               {activeTab === 'vision' && (
@@ -199,12 +184,12 @@ export default function AboutSection() {
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.4, delay: idx * 0.1 }}
-                      className="bg-white border border-slate-100 hover:border-red-200 hover:shadow-md p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:-translate-y-1"
+                      className="bg-white/80 border border-white/60 hover:border-red-200 hover:bg-white hover:shadow-md p-6 md:p-8 rounded-[1.5rem] flex items-start gap-5 group transition-all duration-300 hover:-translate-y-1"
                     >
-                      <div className="w-12 h-12 rounded-full bg-slate-50 group-hover:bg-red-50 flex items-center justify-center shrink-0 transition-colors">
+                      <div className="w-12 h-12 rounded-full bg-slate-100 group-hover:bg-red-50 flex items-center justify-center shrink-0 transition-colors">
                         <CheckCircle2 className="w-6 h-6 text-slate-400 group-hover:text-red-500 transition-colors" />
                       </div>
-                      <p className="text-slate-600 group-hover:text-slate-900 font-medium leading-relaxed text-base md:text-lg transition-colors pt-1">
+                      <p className="text-slate-700 group-hover:text-slate-900 font-semibold leading-relaxed text-base md:text-lg transition-colors pt-1">
                         {misi}
                       </p>
                     </motion.div>
@@ -216,14 +201,8 @@ export default function AboutSection() {
         </motion.div>
       </section>
 
-      {/* --- BAGIAN 3: Video Interaktif (Full-Width Professional Upgrade) --- */}
-      <section className="relative w-full py-24 lg:py-32 bg-slate-50 border-t border-slate-200 overflow-hidden">
-        {/* Background Image (bg2.png) dengan efek Parallax & Gradient Overlay */}
-        <div 
-          className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center bg-fixed"
-          style={{ backgroundImage: "url('/bg2.png')" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/60 to-slate-50/90 z-0" />
+      {/* --- BAGIAN 3: Video Interaktif (Seamless Integration) --- */}
+      <section className="relative w-full py-24 lg:py-32 bg-white/20 backdrop-blur-sm border-t border-white/30 overflow-hidden">
         
         <div className="container mx-auto px-6 md:px-12 relative z-10 flex flex-col items-center">
           
@@ -258,7 +237,7 @@ export default function AboutSection() {
             {/* Glow Latar Belakang Frame */}
             <div className="absolute -inset-4 md:-inset-6 bg-gradient-to-r from-red-600/30 via-slate-500/10 to-blue-600/20 blur-2xl rounded-[3rem] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             
-            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden ring-1 ring-slate-200 shadow-xl z-10 p-2 md:p-3 backdrop-blur-md bg-white/70">
+            <div className="relative aspect-video rounded-[1.5rem] md:rounded-[2.5rem] overflow-hidden ring-1 ring-white/80 shadow-2xl z-10 p-2 md:p-3 backdrop-blur-md bg-white/60">
               
               {/* Inner Frame */}
               <div className="relative w-full h-full rounded-[1rem] md:rounded-[1.5rem] overflow-hidden bg-slate-900">
