@@ -25,7 +25,6 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { MajorPartner } from "../types";
 import { useTranslation } from "react-i18next";
 import OrderFlow from "../components/OrderFlow";
-import QuoteForm from "../components/QuoteForm";
 
 export default function PartnerPage() {
   const { t } = useTranslation();
