@@ -105,7 +105,7 @@ Mohon hubungi saya kembali. Terima kasih!`;
                 desc: t('orderFlow.steps.design.desc'),
                 color: "text-purple-600",
                 bg: "bg-purple-600",
-                image: "/design.webp"
+                image: "/design.png"
               },
               {
                 icon: <Scissors />,
