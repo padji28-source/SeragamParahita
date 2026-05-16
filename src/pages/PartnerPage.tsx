@@ -368,33 +368,6 @@ export default function PartnerPage() {
         </div>
       </section>
 
-      {/* --- CTA SECTION --- */}
-      <section className="py-24 relative z-10">
-        <div className="container mx-auto px-6 max-w-7xl">
-          <div className="bg-slate-950 rounded-[2.5rem] md:rounded-[3.5rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl ring-1 ring-white/5">
-            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/15 blur-[120px] rounded-full -mr-48 -mt-48 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[120px] rounded-full -ml-48 -mb-48 pointer-events-none" />
-            
-            <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-              <h2 className="text-3xl md:text-6xl font-black text-white mb-4 tracking-tight leading-tight">
-                {t('partner.readyToScale')} <br /> <span className="text-red-500">{t('partner.yourProduction')}</span>
-              </h2>
-              <p className="text-slate-400 max-w-xl mx-auto text-base md:text-lg">
-                {t('partner.joinNetwork')}
-              </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-                <button className="w-full sm:w-auto px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl text-sm transition-all duration-300 shadow-lg shadow-red-600/20 hover:scale-[1.02]">
-                  {t('partner.becomePartner')}
-                </button>
-                <button className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 text-white font-bold rounded-xl text-sm transition-all duration-300 backdrop-blur-md border border-white/10">
-                  {t('partner.viewCaseStudies')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* --- LIVE TRACKING MODAL --- */}
       <Dialog open={!!selectedPartner} onOpenChange={(open) => !open && setSelectedPartner(null)}>
         <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden rounded-[2.2rem] border-none shadow-2xl bg-white">
