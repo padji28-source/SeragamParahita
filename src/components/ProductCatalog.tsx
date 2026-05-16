@@ -127,6 +127,8 @@ function ProductGrid({
                          alt={product.name}
                          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                          referrerPolicy="no-referrer"
+                         loading="lazy"
+                         decoding="async"
                        />
                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                      </div>
@@ -237,6 +239,8 @@ export default function ProductCatalog() {
                           alt={`${selectedProduct.name} - ${index + 1}`}
                           className="w-full h-full object-cover"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
                     </CarouselItem>
