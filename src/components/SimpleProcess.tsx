@@ -31,18 +31,16 @@ export default function SimpleProcess() {
   return (
     <section className="py-24 relative z-10 bg-slate-50/50">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8">
-          <div className="space-y-4 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
-              {t('partner.howItWorks')}
-            </div>
-            <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
-              {t('partner.simpleProcess')}
-            </h2>
-            <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">
-              {t('partner.simpleProcessDesc')}
-            </p>
+        <div className="text-center mb-20 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
+            {t('partner.howItWorks')}
           </div>
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
+            {t('partner.simpleProcess')}
+          </h2>
+          <p className="text-slate-500 text-lg md:text-xl font-medium leading-relaxed max-w-2xl mx-auto">
+            {t('partner.simpleProcessDesc')}
+          </p>
         </div>
 
         <div className="relative">
