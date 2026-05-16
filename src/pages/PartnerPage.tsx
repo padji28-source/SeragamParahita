@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { MAJOR_PARTNERS, PARTNERS } from "../constants";
 import { Card, CardContent } from "@/components/ui/card";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { 
   Activity, 
   ArrowRight, 
-  ShieldCheck, 
-  Zap, 
-  Globe, 
   BarChart3, 
   HeartHandshake, 
-  Quote, 
-  MessageSquare,
   CheckCircle2,
   Clock,
   Package,
@@ -227,11 +222,10 @@ export default function PartnerPage() {
             ))}
           </div>
         </div>
-      </section>      {/* --- ORDER FLOW SECTION (Moved from Home) --- */}
-      <OrderFlow />
+      </section>
 
-      {/* --- CTA SECTION (Swapped with Home) --- */}
-      <QuoteForm />
+      {/* --- ORDER FLOW SECTION --- */}
+      <OrderFlow />
 
       {/* --- LIVE TRACKING MODAL --- */}
       <Dialog open={!!selectedPartner} onOpenChange={(open) => !open && setSelectedPartner(null)}>
@@ -320,7 +314,7 @@ export default function PartnerPage() {
                       </div>
                       <div>
                         <p className="text-[9px] font-black uppercase tracking-widest text-slate-400">{t('partner.estDelivery') || "Est. Delivery"}</p>
-                        <p className="text-sm font-bold text-slate-900">24 Okt 2024</p>
+                        <p className="text-sm font-bold text-slate-900">{selectedPartner.estDelivery || "24 Okt 2026"}</p>
                       </div>
                     </div>
                     <button className="text-red-600 font-bold text-xs hover:underline uppercase tracking-wider">
