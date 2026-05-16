@@ -101,11 +101,14 @@ const resources = {
           }
         },
         steps: {
-          orderReceived: 'Order Received',
-          patternCutting: 'Pattern Cutting',
-          sewing: 'Sewing & Assembly',
-          qc: 'Quality Control',
-          delivery: 'Ready for Delivery'
+          inquiry: 'Consultation & Design',
+          inquiryDesc: 'Discuss your requirements and design concepts with our expert team.',
+          sampling: 'Sampling Process',
+          samplingDesc: 'We create prototypes for your approval to ensure quality and specifications.',
+          production: 'Efficient Production',
+          productionDesc: 'Large-scale manufacturing with real-time quality monitoring systems.',
+          delivery: 'On-time Delivery',
+          deliveryDesc: 'Quality-checked products delivered securely to your doorstep.'
         }
       },
       contact: {
@@ -366,11 +369,14 @@ const resources = {
           }
         },
         steps: {
-          orderReceived: 'Pesanan Diterima',
-          patternCutting: 'Pemotongan Pola',
-          sewing: 'Penjahitan & Perakitan',
-          qc: 'Kontrol Kualitas',
-          delivery: 'Siap Dikirim'
+          inquiry: 'Konsultasi & Desain',
+          inquiryDesc: 'Diskusikan kebutuhan dan konsep desain Anda dengan tim ahli kami.',
+          sampling: 'Pembuatan Sampel',
+          samplingDesc: 'Kami membuat produk sampel untuk memastikan kualitas dan spesifikasi sebelum produksi.',
+          production: 'Produksi Efisien',
+          productionDesc: 'Proses manufaktur skala besar dengan sistem pemantauan kualitas real-time.',
+          delivery: 'Pengiriman Tepat Waktu',
+          deliveryDesc: 'Produk yang telah lolos QC dikirimkan dengan aman langsung ke alamat Anda.'
         }
       },
       about: {
