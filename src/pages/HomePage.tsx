@@ -5,7 +5,7 @@ import Partners from "../components/Partners";
 import ProductCatalog from "../components/ProductCatalog";
 import WhyChooseUs from "../components/WhyChooseUs";
 import SimpleProcess from "../components/SimpleProcess";
-import QuoteForm from "../components/QuoteForm";
+import PartnerCTA from "../components/PartnerCTA";
 
 export default function HomePage() {
   return (
@@ -23,7 +23,7 @@ export default function HomePage() {
         <ProductCatalog />
         <WhyChooseUs />
         <SimpleProcess />
-        <QuoteForm />
+        <PartnerCTA />
       </div>
     </div>
   );
