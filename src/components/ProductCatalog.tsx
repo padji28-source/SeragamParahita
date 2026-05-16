@@ -168,11 +168,18 @@ export default function ProductCatalog() {
     : null;
 
   return (
-    <section id="products" className="py-20 bg-transparent overflow-hidden">
-      <div className="container mx-auto px-4 max-w-7xl">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4">{t('products.title')}</h2>
-          <p className="text-gray-500 max-w-2xl mx-auto text-lg">{t('products.subtitle')}</p>
+    <section id="products" className="py-32 bg-transparent overflow-hidden">
+      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+        <div className="text-center mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
+            Premium Collections
+          </div>
+          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-none">
+            {t('products.title')}
+          </h2>
+          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
+            {t('products.subtitle')}
+          </p>
         </div>
 
         {/* Search & Filter Bar - Sticky at the top of the grid */}
