@@ -99,10 +99,10 @@ export default function Navbar() {
         
         {/* LOGO AREA */}
         <div className="flex items-center">
-          <Link to="/" className="transition-transform hover:scale-105 active:scale-95 duration-300">
+          <Link to="/" aria-label="Parahita Prima Sentosa Home" className="transition-transform hover:scale-105 active:scale-95 duration-300">
             <img 
               src="/Logo.png" 
-              alt="Logo" 
+              alt="Parahita Logo" 
               className={cn(
                 "w-auto object-contain transition-all duration-500",
                 isScrolled ? "h-9" : "h-12"
