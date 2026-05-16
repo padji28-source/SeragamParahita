@@ -86,6 +86,8 @@ export default function LiveProjects() {
                           alt={partner.name}
                           className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-700 group-hover:scale-110"
                           referrerPolicy="no-referrer"
+                          loading="lazy"
+                          decoding="async"
                         />
                       </div>
 
