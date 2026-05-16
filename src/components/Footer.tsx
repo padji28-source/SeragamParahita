@@ -27,21 +27,23 @@ export default function Footer() {
   return (
     <footer className="relative bg-[#020617] text-slate-300 pt-10 md:pt-16 pb-8 overflow-hidden font-sans border-t border-slate-900">
       
-      {/* 1. Cinematic Background & Giant Watermark */}
+      {/* 1. Cinematic Background & Image Texture */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Background Image Texture */}
+        <img 
+          src="/Parahitaprimasentosa.png" 
+          alt="Background Texture" 
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.05] grayscale"
+          loading="lazy"
+          decoding="async"
+        />
+
         {/* Subtle animated noise / grid */}
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
         
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-600/10 blur-[130px] rounded-full translate-x-1/3 -translate-y-1/3 mix-blend-screen" />
         <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-900/10 blur-[150px] rounded-full -translate-x-1/3 translate-y-1/3 mix-blend-screen" />
-        
-        {/* Giant Text Watermark */}
-        <div className="absolute bottom-[-5%] left-0 w-full flex justify-center items-end select-none opacity-[0.02]">
-          <span className="text-[18vw] font-black tracking-tighter leading-none text-white whitespace-nowrap">
-            PARAHITA
-          </span>
-        </div>
       </div>
 
       <div className="container mx-auto px-6 md:px-12 lg:px-16 relative z-10">
