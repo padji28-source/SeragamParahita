@@ -176,34 +176,37 @@ export default function ProductCatalog() {
         </div>
 
         {/* Search & Filter Bar - Sticky at the top of the grid */}
-        <div className="sticky top-20 z-30 mb-12 bg-gray-50/80 backdrop-blur-md p-4 rounded-3xl border border-gray-100 shadow-sm">
-          <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
+        <div className="sticky top-20 z-30 mb-12 bg-gray-50/80 backdrop-blur-xl p-2.5 md:p-3 rounded-full border border-gray-200/50 shadow-lg shadow-gray-200/20">
+          <div className="flex flex-col md:flex-row gap-3 items-center">
             {/* Categories */}
-            <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
+            <div className="flex items-center gap-2 overflow-x-auto w-full md:flex-1 no-scrollbar px-2">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
                   className={cn(
-                    "px-5 py-2 rounded-full text-sm font-bold transition-all whitespace-nowrap",
+                    "px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 whitespace-nowrap",
                     selectedCategory === cat 
-                      ? "bg-red-600 text-white shadow-md" 
-                      : "bg-white text-gray-500 hover:bg-gray-100 border border-gray-100"
+                      ? "bg-red-600 text-white shadow-lg shadow-red-600/30 ring-2 ring-red-600/10" 
+                      : "bg-white text-slate-600 hover:text-red-500 hover:bg-gray-50 border border-gray-100"
                   )}
                 >
-                  {cat}
+                  {cat === "Semua" ? "Semua" : cat}
                 </button>
               ))}
             </div>
 
             {/* Search */}
-            <div className="relative w-full md:w-80">
+            <div className="relative w-full md:w-72 lg:w-96 px-2 md:px-0">
               <Input 
                 placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-4 h-11 rounded-2xl bg-white border-gray-100 focus:ring-2 focus:ring-red-500/10 text-sm shadow-sm"
+                className="w-full pl-4 pr-10 h-12 rounded-full bg-white border-gray-100 focus:ring-4 focus:ring-red-600/5 focus:border-red-600/20 text-sm shadow-inner transition-all"
               />
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
+                <Loader2 className={cn("w-4 h-4 animate-spin", searchQuery ? "opacity-40" : "opacity-0")} />
+              </div>
             </div>
           </div>
         </div>
