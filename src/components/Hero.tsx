@@ -123,7 +123,7 @@ export default function Hero() {
                   referrerPolicy="no-referrer"
                   loading={index === 0 ? "eager" : "lazy"}
                   decoding="async"
-                  {...(index === 0 ? { "fetchpriority": "high" } : {})}
+                  {...(index === 0 ? { fetchPriority: "high" } : {})}
                 />
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80 backdrop-blur-[4px]" />
                 <div className="absolute inset-0 flex items-center justify-center text-center z-20">
