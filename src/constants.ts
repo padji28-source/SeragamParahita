@@ -88,7 +88,7 @@ export const PRODUCTS: Product[] = [
     name: 'Merchandise',
     category: 'Merchandise',
     image: '/bd.png',
-    images: ['/bg.png'],['/tb.jpg'],
+    images: ['/bg.png', '/tb.jpg'],
     badge: 'Accessories',
     description: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.',
     features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'],
