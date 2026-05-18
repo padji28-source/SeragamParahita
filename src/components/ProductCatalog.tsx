@@ -179,30 +179,26 @@ export default function ProductCatalog() {
           </p>
         </div>
 
-        {/* Search & Filter Bar - Sticky at the top of the grid */}
-        <div className="sticky top-20 z-30 mb-12 bg-gray-50/80 backdrop-blur-xl p-2.5 md:p-3 rounded-full border border-gray-200/50 shadow-lg shadow-gray-200/20">
-          <div className="flex flex-col md:flex-row gap-3 items-center">
-            {/* Kategori Tunggal: Semua */}
-            <div className="flex items-center gap-2 overflow-x-auto w-full md:flex-1 no-scrollbar px-2">
-              <button
-                onClick={() => setSelectedCategory("Semua")}
-                className="px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 whitespace-nowrap bg-red-600 text-white shadow-lg shadow-red-600/30 ring-2 ring-red-600/10"
-              >
-                Semua
-              </button>
-            </div>
+        {/* Search & Filter Bar - Lebih Padat, Centered & Proporsional */}
+        <div className="sticky top-20 z-30 mb-12 max-w-2xl mx-auto w-full bg-white/80 backdrop-blur-xl p-2 rounded-full border border-gray-200/80 shadow-xl shadow-gray-200/20 flex items-center gap-3">
+          {/* Kategori Tunggal: Semua */}
+          <button
+            onClick={() => setSelectedCategory("Semua")}
+            className="px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 bg-red-600 text-white shadow-md shadow-red-600/20 whitespace-nowrap shrink-0"
+          >
+            Semua
+          </button>
 
-            {/* Cari Produk */}
-            <div className="relative w-full md:w-72 lg:w-96 px-2 md:px-0">
-              <Input 
-                placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-4 pr-10 h-12 rounded-full bg-white border-gray-100 focus:ring-4 focus:ring-red-600/5 focus:border-red-600/20 text-sm shadow-inner transition-all"
-              />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
-                <Loader2 className={cn("w-4 h-4 animate-spin", searchQuery ? "opacity-40" : "opacity-0")} />
-              </div>
+          {/* Cari Produk - Mengisi sisa ruang dengan pas */}
+          <div className="relative flex-1">
+            <Input 
+              placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-4 pr-10 h-11 rounded-full bg-gray-50/50 border-none focus:bg-white focus:ring-4 focus:ring-red-600/5 text-sm transition-all shadow-inner"
+            />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400">
+              <Loader2 className={cn("w-4 h-4 animate-spin", searchQuery ? "opacity-40" : "opacity-0")} />
             </div>
           </div>
         </div>
@@ -269,7 +265,7 @@ export default function ProductCatalog() {
                     {selectedProduct.category}
                   </span>
                   <h3 className="text-lg font-bold tracking-tight">
-                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: product.name })}
+                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
                   </h3>
                 </div>
                 <div className="flex items-center gap-2 w-full md:w-auto">
@@ -338,6 +334,7 @@ export default function ProductCatalog() {
                   <DialogDescription className="text-gray-500 font-medium leading-relaxed">
                      Lengkapi data untuk mendapatkan penawaran <span className="text-red-600 font-bold">{selectedProduct.name}</span>.
                   </DialogDescription>
+               </>
                </DialogHeader>
 
                <form 
