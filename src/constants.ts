@@ -49,8 +49,8 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: '4',
-    name: 'Seragam Kontraktor',
-    category: 'Kontraktor',
+    name: 'Seragam Konstruksi & Proyek',
+    category: 'Konstruksi & Proyek',
     image: '/waskita2.jpg',
     images: ['/waskita.jpg', '/waskita0.png', '/waskita1.jpg'],
     badge: 'Professional',
