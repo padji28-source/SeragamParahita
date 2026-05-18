@@ -160,6 +160,9 @@ export default function ProductCatalog() {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  // Extract unique categories directly from PRODUCTS to allow professional filtering
+  const categories = useMemo(() => ["Semua", ...new Set(PRODUCTS.map(p => p.category))], []);
+
   const selectedMaterial = selectedProduct?.materialId 
     ? MATERIALS.find(m => m.id === selectedProduct.materialId) 
     : null;
@@ -180,28 +183,33 @@ export default function ProductCatalog() {
         </div>
 
         {/* Search & Filter Bar - Sticky at the top of the grid */}
-        <div className="sticky top-20 z-30 mb-12 bg-gray-50/80 backdrop-blur-xl p-2.5 md:p-3 rounded-full border border-gray-200/50 shadow-lg shadow-gray-200/20">
-          <div className="flex flex-col md:flex-row gap-3 items-center">
-            {/* Kategori Tunggal: Semua */}
-            <div className="flex items-center gap-2 overflow-x-auto w-full md:flex-1 no-scrollbar px-2">
+        <div className="sticky top-20 z-30 mb-16 bg-white/70 backdrop-blur-2xl p-2 md:p-2.5 rounded-full border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] max-w-3xl mx-auto">
+          <div className="flex flex-row gap-2 items-center">
+            {/* Categories - Simplified to only "Semua" */}
+            <div className="flex items-center gap-1.5 px-2">
               <button
                 onClick={() => setSelectedCategory("Semua")}
-                className="px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 whitespace-nowrap bg-red-600 text-white shadow-lg shadow-red-600/30 ring-2 ring-red-600/10"
+                className={cn(
+                  "px-6 py-2.5 rounded-full text-[12px] font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap bg-red-600 text-white shadow-lg shadow-red-600/20"
+                )}
               >
                 Semua
               </button>
             </div>
 
-            {/* Cari Produk */}
-            <div className="relative w-full md:w-72 lg:w-96 px-2 md:px-0">
+            {/* Separator */}
+            <div className="w-px h-6 bg-slate-200 mx-1 hidden md:block" />
+
+            {/* Search Input */}
+            <div className="relative flex-1 px-1">
               <Input 
                 placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-4 pr-10 h-12 rounded-full bg-white border-gray-100 focus:ring-4 focus:ring-red-600/5 focus:border-red-600/20 text-sm shadow-inner transition-all"
+                className="w-full pl-4 pr-10 h-11 rounded-full bg-slate-50/50 border-transparent focus:bg-white focus:ring-4 focus:ring-red-600/5 focus:border-red-600/20 text-sm transition-all font-medium"
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-300">
-                <Loader2 className={cn("w-4 h-4 animate-spin", searchQuery ? "opacity-40" : "opacity-0")} />
+              <div className="absolute right-4 top-1/2 -translate-y-1/2">
+                <Loader2 className={cn("w-3.5 h-3.5 text-red-500 animate-spin transition-opacity duration-300", searchQuery ? "opacity-100" : "opacity-0")} />
               </div>
             </div>
           </div>
@@ -269,7 +277,7 @@ export default function ProductCatalog() {
                     {selectedProduct.category}
                   </span>
                   <h3 className="text-lg font-bold tracking-tight">
-                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: product.name })}
+                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
                   </h3>
                 </div>
                 <div className="flex items-center gap-2 w-full md:w-auto">
