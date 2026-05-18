@@ -49,18 +49,6 @@ export const PRODUCTS: Product[] = [
   },
   {
     id: '4',
-    name: 'Seragam Konstruksi & Proyek',
-    category: 'Konstruksi & Proyek',
-    image: '/waskita2.jpg',
-    images: ['/waskita.jpg', '/waskita0.png', '/waskita1.jpg'],
-    badge: 'Professional',
-    description: 'Kami juga berpengalaman dalam pembuatan seragam untuk bidang Konstruksi & Proyek dengan jaminan mutu & kualitas.',
-    features: ['Tampilan Elegan', 'Bahan Berkualitas', 'Jaminan Mutu'],
-    materialId: '1',
-    sizes: ['S', 'M', 'L', 'XL'],
-  },
-  {
-    id: '5',
     name: 'Seragam F&B',
     category: 'Food & Beverage',
     image: '/langham3.jpg',
@@ -72,7 +60,7 @@ export const PRODUCTS: Product[] = [
     sizes: ['All Size', 'S', 'M', 'L', 'XL'],
   },
   {
-    id: '6',
+    id: '5',
     name: 'Seragam Event',
     category: 'Event',
     image: '/dandan.jpg',
@@ -84,7 +72,7 @@ export const PRODUCTS: Product[] = [
     sizes: ['S', 'M', 'L', 'XL', 'XXL'],
   },
   {
-    id: '7',
+    id: '6',
     name: 'Seragam Kantor',
     category: 'Kantor',
     image: '/transmart.jpg',
@@ -96,7 +84,7 @@ export const PRODUCTS: Product[] = [
     sizes: ['S', 'M', 'L', 'XL', 'XXL', 'Custom'],
   },
   {
-    id: '8',
+    id: '7',
     name: 'Merchandise',
     category: 'Merchandise',
     image: '/images-1.jpeg',
