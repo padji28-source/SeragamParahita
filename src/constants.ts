@@ -28,7 +28,7 @@ export const PRODUCTS: Product[] = [
     name: 'Seragam Otomotif',
     category: 'Otomotif',
     image: '/shell.jpg',
-    images: ['/shell1.jpg', '/shell2.jpg', '/shell.jpg'],
+    images: ['/shell1.png', '/shell2.jpg', '/shell.jpg'],
     badge: 'Durable',
     description: 'Kami siap membantu anda dalam pembuatan seragam Otomotif dengan berbagai jenis model & desain. Yang dimana dalam pemakaiannya menuntut kualitas , daya tahan & kenyamanan.',
     features: ['Tahan Lama', 'Kualitas Tinggi', 'Desain Sporty'],
