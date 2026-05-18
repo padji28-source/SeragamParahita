@@ -36,7 +36,7 @@ const resources = {
           automotive: 'Automotive',
           mining: 'Mining',
           office: 'Office',
-          media: 'Media',
+          construction: 'Construction',
           fnb: 'Food & Beverage',
           event: 'Event',
           merchandise: 'Merchandise'
@@ -45,7 +45,7 @@ const resources = {
           1: { name: 'Franchise Uniform', category: 'Franchise', desc: 'Our flagship uniform products, mostly shirts & polo shirts. For your franchise uniform needs.', features: ['Premium Quality', 'Comfortable', 'Custom Design'] },
           2: { name: 'Automotive Uniform', category: 'Automotive', desc: 'We are ready to help you create Automotive uniforms demanding durability and comfort.', features: ['Durable', 'High Quality', 'Sporty Design'] },
           3: { name: 'Mining Uniform', category: 'Mining', desc: 'Field uniforms for oil, construction, and public works companies developed to look attractive and functional.', features: ['Reflective Tape', 'Strong Material', 'Functional'] },
-          4: { name: 'Media Uniform', category: 'Media', desc: 'We are experienced in creating uniforms for Electronic & Print Media with guaranteed quality.', features: ['Elegant Look', 'Quality Material', 'Guaranteed Quality'] },
+          4: { name: 'construction Uniform', category: 'Construction', desc: 'We are experienced in creating uniforms for Electronic & Print Media with guaranteed quality.', features: ['Elegant Look', 'Quality Material', 'Guaranteed Quality'] },
           5: { name: 'F&B Uniform', category: 'Food & Beverage', desc: 'We are ready to help with F&B uniforms like Aprons, Chef Coats & Hats for your company.', features: ['Easy to Clean', 'Comfortable', 'Complete Set'] },
           6: { name: 'Event Uniform', category: 'Event', desc: 'Need uniforms for Gathering & Promotion demanding fast & quality production? Parahita can help.', features: ['Fast Production', 'Competitive Price', 'Attractive Design'] },
           7: { name: 'Office Uniform', category: 'Office', desc: 'Formal, Exclusive, & Comfortable office uniforms. We are experienced in making them.', features: ['Formal & Exclusive', 'Premium Material', 'Neat Stitching'] },
