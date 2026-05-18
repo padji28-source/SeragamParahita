@@ -128,7 +128,7 @@ export default function ProductsPage() {
                   transition={{ duration: 0.6, ease: smoothEase }}
                 >
                   <Card 
-                    onClick={() => setSelectedProduct(product)}
+                    onClick={() => navigate(`/product/${product.id}`)}
                     className={cn(
                       "group border border-gray-100 shadow-sm bg-white overflow-hidden rounded-[2.5rem] cursor-pointer hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] transition-all duration-500 flex flex-col items-stretch",
                       idx % 2 === 1 ? "md:flex-row-reverse" : "md:flex-row"
@@ -193,86 +193,6 @@ export default function ProductsPage() {
               <p className="text-gray-400 font-medium">No products found matching your search.</p>
             </div>
           )}
-        </div>
-      </section>
-
-      {/* Modern Material Showcase Section */}
-      <section className="py-32 bg-white overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row gap-16 items-center">
-            
-            {/* Text Side */}
-            <div className="lg:w-1/2 space-y-8 order-2 lg:order-1">
-              <div>
-                <Badge variant="outline" className="border-red-200 text-red-600 mb-4 px-4 py-1">Material Library</Badge>
-                <h2 className="text-4xl md:text-6xl font-black text-gray-900 tracking-tighter leading-none">
-                  {t('productsPage.materialCatalog.title')}
-                </h2>
-              </div>
-              
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentShowcaseMaterial.id}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: 20 }}
-                  transition={{ duration: 0.5, ease: smoothEase }}
-                  className="space-y-8"
-                >
-                  <p className="text-gray-500 text-lg leading-relaxed max-w-xl">
-                    {t('productsPage.materialCatalog.subtitle')}
-                  </p>
-
-                  <div className="grid grid-cols-2 gap-6">
-                    <div className="p-6 rounded-[2rem] bg-gray-50 border border-gray-100">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-2">Grammage</p>
-                      <p className="text-xl font-bold text-gray-900">{currentShowcaseMaterial.specifications.grammage}</p>
-                    </div>
-                    <div className="p-6 rounded-[2rem] bg-gray-50 border border-gray-100">
-                      <p className="text-[10px] font-black uppercase tracking-widest text-red-500 mb-2">Composition</p>
-                      <p className="text-xl font-bold text-gray-900">{currentShowcaseMaterial.specifications.composition}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <button onClick={prevMaterial} className="p-4 rounded-full border border-gray-200 hover:bg-black hover:text-white transition-all">
-                      <ChevronLeft className="w-6 h-6" />
-                    </button>
-                    <span className="text-sm font-bold text-gray-400">
-                      {activeMaterialIndex + 1} / {MATERIALS.length}
-                    </span>
-                    <button onClick={nextMaterial} className="p-4 rounded-full border border-gray-200 hover:bg-black hover:text-white transition-all">
-                      <ChevronRight className="w-6 h-6" />
-                    </button>
-                  </div>
-                </motion.div>
-              </AnimatePresence>
-            </div>
-
-            {/* Image Side */}
-            <div className="lg:w-1/2 order-1 lg:order-2">
-              <div className="relative">
-                <div className="absolute -inset-4 bg-red-100/50 rounded-[3.5rem] rotate-3 -z-10" />
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={currentShowcaseMaterial.id}
-                    initial={{ opacity: 0, scale: 0.9, rotate: 5 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    exit={{ opacity: 0, scale: 1.1 }}
-                    transition={{ duration: 0.7, ease: smoothEase }}
-                    className="aspect-square rounded-[3rem] overflow-hidden shadow-2xl border-[12px] border-white"
-                  >
-                    <img 
-                      src={currentShowcaseMaterial.image} 
-                      alt={currentShowcaseMaterial.name} 
-                      className="w-full h-full object-cover"
-                    />
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            </div>
-
-          </div>
         </div>
       </section>
 
