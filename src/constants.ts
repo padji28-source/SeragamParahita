@@ -64,7 +64,7 @@ export const PRODUCTS: Product[] = [
     name: 'Seragam F&B',
     category: 'Food & Beverage',
     image: '/langham3.jpg',
-    images: ['/langham1.png'],['/langham2.png'],['/langham3.png'],
+    images: ['/langham1.png'],['/langham2.png'],
     badge: 'Hygienic',
     description: 'Untuk pembuatan seragam seperti Apron, Baju & Topi Koki untuk keperluan perusahaan F&B anda, kami pun siap membantu.',
     features: ['Mudah Dibersihkan', 'Bahan Nyaman', 'Set Lengkap'],
