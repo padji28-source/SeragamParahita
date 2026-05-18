@@ -68,13 +68,15 @@ function ProductGrid({
   selectedCategory, 
   setSelectedProduct,
   setSearchQuery,
-  setSelectedCategory
+  setSelectedCategory,
+  navigate
 }: { 
   searchQuery: string; 
   selectedCategory: string; 
   setSelectedProduct: (p: Product) => void;
   setSearchQuery: (q: string) => void;
   setSelectedCategory: (c: string) => void;
+  navigate: ReturnType<typeof useNavigate>;
 }) {
   const { t } = useTranslation();
   const loadedProducts = useProductsResource();
@@ -117,20 +119,27 @@ function ProductGrid({
             <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/4 lg:basis-1/4 xl:basis-1/4">
               <div className="h-full">
                 <button 
-                  onClick={() => setSelectedProduct(product)}
+                  onClick={() => navigate(`/product/${product.id}`)}
                   className="w-full h-full text-left outline-none"
                 >
                   <div className="flex flex-col items-center h-full p-2 md:p-3 rounded-[1.5rem] group border border-transparent hover:bg-red-50 transition-all duration-300 cursor-pointer">
-                     <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-shadow duration-500 bg-white">
+                    <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_40px_rgba(220,38,38,0.1)] transition-all duration-500 bg-white">
                        <img
                          src={product.image}
                          alt={product.name}
-                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                          referrerPolicy="no-referrer"
                          loading="lazy"
                          decoding="async"
                        />
-                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                       {/* Hover Overlay */}
+                       <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-500 flex items-center justify-center">
+                          <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-xl translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600 flex items-center gap-2">
+                                Lihat Detail <ArrowRight className="w-3 h-3" />
+                             </span>
+                          </div>
+                       </div>
                      </div>
                      <h3 className="text-red-900 text-sm md:text-[13px] font-black uppercase tracking-[0.1em] text-center w-full px-2">
                        {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
@@ -223,6 +232,7 @@ export default function ProductCatalog() {
               setSelectedProduct={setSelectedProduct} 
               setSearchQuery={setSearchQuery}
               setSelectedCategory={setSelectedCategory}
+              navigate={navigate}
             />
           </Suspense>
         </div>
