@@ -41,36 +41,45 @@ export default function ProductsPage() {
   const prevMaterial = () => setActiveMaterialIndex((prev) => (prev - 1 + (MATERIALS.length || 1)) % (MATERIALS.length || 1));
 
   return (
-    <div className="pt-20 min-h-screen bg-[#FAFAFA]">
+    <div className="relative min-h-screen bg-slate-50 text-slate-900 selection:bg-red-200 font-sans overflow-hidden">
+      
+      {/* --- GLOBAL BACKGROUND AMBIENT --- */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none" 
+        style={{ backgroundImage: 'radial-gradient(#000 1.5px, transparent 1.5px)', backgroundSize: '32px 32px' }}
+      />
+      <div className="absolute top-0 inset-x-0 h-[800px] bg-gradient-to-b from-slate-100 via-transparent to-transparent pointer-events-none z-0" />
+      <div className="absolute top-[20%] -left-40 w-[600px] h-[600px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute top-[40%] -right-40 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
+
       {/* High-End Hero Section */}
-      <section className="relative h-[450px] flex items-center justify-center overflow-hidden">
-        <motion.div 
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.5, ease: smoothEase }}
-          className="absolute inset-0"
-        >
+      <section className="relative h-[450px] flex items-center overflow-hidden z-10">
+        <div className="absolute inset-0">
           <img 
-            src="/background.png" 
-            alt="Hero" 
-            className="w-full h-full object-cover grayscale-[20%]"
+            src="/Parahitaprimasentosa.png" 
+            alt="Products Background" 
+            className="w-full h-full object-cover object-center"
+            referrerPolicy="no-referrer"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[#FAFAFA]" />
-        </motion.div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent" />
+        </div>
         
-        <div className="container mx-auto px-4 relative z-10 text-center">
+        <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: smoothEase }}
+            className="max-w-3xl space-y-4"
           >
-            <Badge className="bg-red-600 text-white border-none px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest mb-6">
-              Full Collection
-            </Badge>
-            <h1 className="text-5xl md:text-8xl font-black text-white tracking-tighter leading-none mb-6">
-              {t('productsPage.heroTitle1')}<span className="text-red-500">{t('productsPage.heroTitle2')}</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-[0.15em] backdrop-blur-md mb-2">
+              <Box className="w-3.5 h-3.5" />
+              {t('productsPage.badge', { defaultValue: 'Full Collection' })}
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-tight">
+              {t('productsPage.heroTitle1')} <span className="text-red-500">{t('productsPage.heroTitle2')}</span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto font-medium">
+            <p className="text-lg md:text-xl text-slate-300 max-w-xl font-medium leading-relaxed">
               {t('productsPage.heroSubtitle')}
             </p>
           </motion.div>
