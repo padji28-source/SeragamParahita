@@ -78,10 +78,16 @@ export default function Navbar() {
   const changeLanguage = (lng: string) => i18n.changeLanguage(lng);
 
   // Helper style menu desktop
-  const navLinkClass = (path: string) => cn(
-    "text-[13px] font-bold tracking-wider uppercase px-4 py-2 transition-all relative duration-300 rounded-xl",
-    location.pathname === path ? "text-red-600 bg-red-50/50" : "text-gray-500 hover:text-gray-950 hover:bg-gray-50/80"
-  );
+  const navLinkClass = (path: string) => {
+    const isActive = path === "/" 
+      ? location.pathname === "/" 
+      : location.pathname.startsWith(path);
+      
+    return cn(
+      "text-[13px] font-bold tracking-wider uppercase px-4 py-2 transition-all relative duration-300 rounded-xl",
+      isActive ? "text-red-600 bg-red-50/50" : "text-gray-500 hover:text-gray-950 hover:bg-gray-50/80"
+    );
+  };
 
   return (
     <motion.header 
@@ -118,57 +124,13 @@ export default function Navbar() {
             <span className="relative z-10">{t('nav.home')}</span>
           </Link>
           
-          {/* Products Dropdown */}
-          <div 
-            className="relative"
-            onMouseEnter={() => setIsDesktopProductsOpen(true)}
-            onMouseLeave={() => setIsDesktopProductsOpen(false)}
+          {/* Products Link */}
+          <Link 
+            to="/products" 
+            className={navLinkClass("/product")}
           >
-            <Link 
-              to="/product" 
-              className={cn(
-                "text-[13px] font-bold tracking-wider uppercase px-4 py-2 transition-all duration-300 flex items-center gap-1.5 outline-none rounded-xl relative z-10",
-                location.pathname.startsWith("/product") ? "text-red-600 bg-red-50/50" : "text-gray-500 hover:text-gray-950 hover:bg-gray-50/80"
-              )}
-              onClick={(e) => { if (window.innerWidth >= 1024) e.preventDefault(); }}
-            >
-              <span>{t('nav.products')}</span>
-              <ChevronDown className={cn("w-3 h-3 opacity-50 transition-transform duration-300", isDesktopProductsOpen ? "rotate-180" : "")} />
-            </Link>
-            
-            <AnimatePresence>
-              {isDesktopProductsOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                  transition={{ duration: 0.2, ease: snapEase }}
-                  className="absolute left-1/2 -translate-x-1/2 top-[calc(100%-5px)] w-64 bg-white border border-gray-200/60 rounded-2xl shadow-[0_10px_40px_rgba(0,0,0,0.08)] p-2 z-50 overflow-hidden"
-                >
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-500 to-red-600" />
-                  <div className="px-3 py-2 mb-1">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-[0.2em]">{t('nav.products_title', { defaultValue: 'Portfolio Produk' })}</span>
-                  </div>
-                  {PRODUCTS.map((product) => (
-                    <Link 
-                      key={product.id}
-                      to={`/product/${product.id}`}
-                      className={cn(
-                        "group flex items-center justify-between w-full px-3 py-2.5 rounded-xl text-[13px] font-semibold transition-all mb-0.5 last:mb-0",
-                        location.pathname === `/product/${product.id}` 
-                          ? "bg-red-50 text-red-600" 
-                          : "text-gray-600 hover:bg-gray-50 hover:text-gray-950"
-                      )}
-                      onClick={() => setIsDesktopProductsOpen(false)}
-                    >
-                      <span>{t(`products.items.${product.id}.name`, { defaultValue: product.name })}</span>
-                      <ChevronRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
-                    </Link>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+            <span className="relative z-10">{t('nav.products')}</span>
+          </Link>
 
           {/* Partner */}
           <Link to="/partner" className={navLinkClass("/partner")}>
@@ -241,37 +203,10 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
                 
-                <motion.div variants={mobileItemVars} className="space-y-0.5">
-                  <button 
-                    onClick={() => setIsProductsOpen(!isProductsOpen)}
-                    className={cn("px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider flex items-center justify-between w-full text-gray-600 hover:bg-gray-50")}
-                  >
-                    <span>{t('nav.products')}</span>
-                    <ChevronRight className={cn("w-4 h-4 text-gray-400 transition-transform duration-300", isProductsOpen ? "rotate-90 text-gray-950" : "")} />
-                  </button>
-                  
-                  <AnimatePresence>
-                    {isProductsOpen && (
-                      <motion.div 
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        className="overflow-hidden bg-gray-50/50 rounded-xl ml-4 mr-2"
-                      >
-                        <div className="py-2 px-1 space-y-0.5">
-                          {PRODUCTS.map((product) => (
-                            <Link
-                              key={product.id}
-                              to={`/product/${product.id}`}
-                              className={cn("block px-4 py-2.5 text-[13px] font-bold uppercase tracking-wide transition-colors", location.pathname === `/product/${product.id}` ? "text-red-600 font-bold" : "text-gray-500 hover:text-gray-900")}
-                            >
-                              {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                            </Link>
-                          ))}
-                        </div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                <motion.div variants={mobileItemVars}>
+                  <Link to="/products" className={cn("block px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider", location.pathname.startsWith("/product") ? "bg-gray-50 text-red-600" : "text-gray-600")}>
+                    {t('nav.products')}
+                  </Link>
                 </motion.div>
 
                 {['partner', 'contact'].map((item) => (
