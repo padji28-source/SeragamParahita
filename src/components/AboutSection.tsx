@@ -56,13 +56,13 @@ export default function AboutSection() {
 
             <div className="flex flex-wrap items-center gap-6 pt-2">
               <a 
-                href="/Compro-Parahita-Garment.pdf" 
-                download="Compro-Parahita-Garment.pdf"
+                href="/company-profile.pdf" 
+                download="Company Profile MKS.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-slate-900 hover:bg-red-600 text-white font-semibold h-12 md:h-14 px-8 rounded-full transition-all duration-300 group shadow-lg shadow-slate-900/20 hover:shadow-red-600/30"
               >
-                <span>Unduh Profil</span>
+                <span>{t('about.downloadProfile')}</span>
                 <Download className="w-4 h-4 transition-transform group-hover:-translate-y-1" />
               </a>
 
@@ -70,7 +70,7 @@ export default function AboutSection() {
                 onClick={() => setShowMoreStory(!showMoreStory)}
                 className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-red-600 transition-colors group"
               >
-                {showMoreStory ? "Tutup Cerita" : "Baca Selengkapnya"}
+                {showMoreStory ? t('about.closeStory') : t('about.readMore')}
                 <ArrowRight className={`w-4 h-4 transition-transform duration-300 ${showMoreStory ? '-rotate-45' : 'group-hover:translate-x-1'}`} />
               </button>
             </div>
@@ -90,23 +90,23 @@ export default function AboutSection() {
                 15+
               </div>
               <h3 className="text-lg font-bold text-slate-900 uppercase tracking-widest">
-                Tahun Pengalaman
+                {t('about.stats.experience')}
               </h3>
               <p className="text-slate-600 font-semibold mt-2">
-                Berdedikasi memberikan kualitas terbaik.
+                {t('about.stats.dedication')}
               </p>
             </div>
 
             {/* Card Kecil 1 */}
             <div className="bg-white/40 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/60 hover:shadow-md border border-white/60 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">50k+</div>
-              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Kapasitas/Bln</p>
+              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">{t('about.stats.capacity')}</p>
             </div>
             
             {/* Card Kecil 2 */}
             <div className="bg-white/40 backdrop-blur-md rounded-[2rem] p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/60 hover:shadow-md border border-white/60 group">
               <div className="text-3xl md:text-4xl font-black text-slate-900 mb-1 group-hover:text-red-600 transition-colors">200+</div>
-              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">Tenaga Ahli</p>
+              <p className="text-xs font-bold text-slate-600 uppercase tracking-wider">{t('about.stats.workers')}</p>
             </div>
           </motion.div>
         </div>
@@ -222,7 +222,7 @@ export default function AboutSection() {
               Live Preview
             </span>
             <h2 className="text-3xl md:text-5xl font-black text-slate-900 tracking-tight">
-              Fasilitas Produksi Kami
+              {t('about.videoTitle')}
             </h2>
           </motion.div>
 
