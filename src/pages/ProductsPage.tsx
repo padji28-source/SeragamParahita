@@ -3,13 +3,12 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { PRODUCTS, MATERIALS } from "../constants";
 import { Product } from "../types";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "motion/react";
-import { CheckCircle2, Ruler, Info, Box, ChevronLeft, ChevronRight, Search, ArrowRight, X } from "lucide-react";
+import { Box, ChevronLeft, ChevronRight, Search, ArrowRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
@@ -20,7 +19,6 @@ export default function ProductsPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [activeMaterialIndex, setActiveMaterialIndex] = useState(0);
 
   // Daftar Kategori Unik
@@ -204,83 +202,6 @@ export default function ProductsPage() {
           )}
         </div>
       </section>
-
-      {/* Quick View Dialog - Refresh Version */}
-      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="sm:max-w-[95vw] md:max-w-4xl p-0 overflow-hidden rounded-[2.5rem] border-none bg-white">
-          {selectedProduct && (
-            <div className="flex flex-col md:flex-row h-full max-h-[90vh]">
-              {/* Left: Image */}
-              <div className="md:w-1/2 bg-gray-100 relative group">
-                <img 
-                  src={selectedProduct.image} 
-                  alt={selectedProduct.name} 
-                  className="w-full h-full object-cover"
-                />
-                <button 
-                  onClick={() => setSelectedProduct(null)}
-                  className="absolute top-6 left-6 p-2 bg-white/90 backdrop-blur rounded-full md:hidden"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-              </div>
-
-              {/* Right: Info */}
-              <div className="md:w-1/2 p-8 md:p-12 overflow-y-auto">
-                <div className="space-y-8">
-                  <div className="space-y-3">
-                    <Badge className="bg-red-50 text-red-600 border-none">{selectedProduct.category}</Badge>
-                    <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-gray-900 leading-tight">
-                      {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
-                    </h2>
-                    <p className="text-2xl font-bold text-red-600">{selectedProduct.price}</p>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="text-xs font-black uppercase tracking-widest text-gray-400">Description</h4>
-                    <p className="text-gray-500 leading-relaxed">
-                      {t(`products.items.${selectedProduct.id}.desc`, { defaultValue: selectedProduct.description })}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
-                      <Box className="w-5 h-5 text-red-500 mb-2" />
-                      <p className="text-[10px] font-black text-gray-400 uppercase">Min Order</p>
-                      <p className="font-bold text-gray-900">50 Pcs</p>
-                    </div>
-                    <div className="p-4 rounded-2xl bg-gray-50 border border-gray-100">
-                      <Ruler className="w-5 h-5 text-red-500 mb-2" />
-                      <p className="text-[10px] font-black text-gray-400 uppercase">Size Options</p>
-                      <p className="font-bold text-gray-900">S, M, L, XL</p>
-                    </div>
-                  </div>
-
-                  <div className="pt-4 flex flex-col gap-3">
-                    <Button 
-                      onClick={() => {
-                        navigate(`/product/${selectedProduct.id}`);
-                        setSelectedProduct(null);
-                      }}
-                      className="w-full h-14 bg-black hover:bg-gray-800 text-white rounded-2xl font-bold text-base transition-all shadow-xl shadow-black/10"
-                    >
-                      View Full Details
-                      <ArrowRight className="w-4 h-4 ml-2" />
-                    </Button>
-                    <Button 
-                      variant="outline"
-                      onClick={() => navigate("/#quote")}
-                      className="w-full h-14 rounded-2xl border-gray-200 font-bold"
-                    >
-                      Inquiry via WhatsApp
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
