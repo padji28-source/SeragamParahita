@@ -57,7 +57,7 @@ export default function AboutSection() {
             <div className="flex flex-wrap items-center gap-6 pt-2">
               <a 
                 href="/company-profile.pdf" 
-                download="Company Profile MKS.pdf"
+                download="Compro-Parahita-Garment.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 bg-slate-900 hover:bg-red-600 text-white font-semibold h-12 md:h-14 px-8 rounded-full transition-all duration-300 group shadow-lg shadow-slate-900/20 hover:shadow-red-600/30"
