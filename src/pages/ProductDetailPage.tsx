@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   ArrowLeft, CheckCircle2, Factory, ShieldCheck, 
   Ruler, ArrowRight, Layers, MessageCircle, ChevronRight,
-  ChevronLeft, Send, User, Building, Package, MessageSquare, Info, Sliders
+  ChevronLeft, Send, User, Building, Package, MessageSquare, Info
 } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -42,8 +42,6 @@ export default function ProductDetailPage() {
   const product = id ? PRODUCTS.find(p => p.id === id) : undefined;
 
   if (!product) return <NotFound t={t} />;
-
-  const material = product.materialId ? MATERIALS.find(m => m.id === product.materialId) : undefined;
   
   const images = Array.isArray(product.images) && product.images.length > 0 
     ? product.images 
@@ -199,53 +197,6 @@ export default function ProductDetailPage() {
                   </div>
                 </div>
               </div>
-
-              {/* Technical Specifications Panel */}
-              {material && (
-                <div className="pt-4 space-y-4">
-                  <h3 className="font-bold text-sm uppercase text-slate-400 tracking-widest flex items-center gap-2">
-                    <Sliders className="w-4 h-4 text-red-500" />
-                    {t('productDetail.technicalSpec', { defaultValue: 'Spesifikasi Teknis Material' })}
-                  </h3>
-                  
-                  <div className="p-6 md:p-8 rounded-[2rem] bg-white border border-slate-200/80 shadow-sm relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-bl-[4rem] border-l border-b border-slate-100 flex items-center justify-center text-slate-300 font-bold text-xs pointer-events-none uppercase tracking-wider">
-                      SPEC-SHEET
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8">
-                       <div>
-                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Nama Kain</span>
-                         <div className="text-base font-extrabold text-slate-900 flex items-center gap-1.5">
-                           {material.name}
-                         </div>
-                       </div>
-                       <div>
-                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Komposisi Serat</span>
-                         <p className="text-base font-extrabold text-slate-900">{material.specifications.composition}</p>
-                       </div>
-                       <div className="sm:col-span-2 border-t border-slate-100 pt-5">
-                         <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-1">Kerapatan / Gramasi</span>
-                         <p className="text-base font-extrabold text-slate-900">{material.specifications.grammage}</p>
-                       </div>
-                    </div>
-                    
-                    {material.specifications?.technicals && material.specifications.technicals.length > 0 && (
-                      <div className="border-t border-slate-100 pt-6 mt-6">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-3">Keunggulan Teknis Kain</span>
-                        <div className="flex flex-wrap gap-2">
-                          {material.specifications.technicals.map((tech, idx) => (
-                            <span key={idx} className="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200/60 px-3.5 py-2 rounded-xl flex items-center gap-2">
-                              <span className="w-1.5 h-1.5 rounded-full bg-red-500" />
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              )}
 
               {/* Dynamic Action Gateway */}
               <div className="flex flex-col sm:flex-row gap-3 pt-6">
