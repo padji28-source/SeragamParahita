@@ -16,7 +16,9 @@ const resources = {
       hero: {
         title: 'Excellence in Garment Manufacturing',
         subtitle: 'Providing high-quality uniforms and corporate wear for Indonesia\'s leading industries since 1990.',
-        cta: 'Explore Products'
+        cta: 'Explore Products',
+        freeConsultation: 'Free Consultation',
+        viewCatalog: 'View Catalog'
       },
       footer: {
         description: 'Leading garment manufacturer specializing in high-quality uniforms, corporate wear, and safety gear.',
@@ -275,6 +277,8 @@ const resources = {
             uploadDesign: 'Upload Design (Optional)',
             additionalNotes: 'Additional Notes',
             additionalNotesPlaceholder: 'Additional notes (color, embroidery, timeline)...',
+            waPlaceholder: '0812xxxx',
+            qtyPlaceholder: 'Example: 50',
             shirt: 'Shirt / PDH',
             polo: 'Polo / T-Shirt',
             jacket: 'Jacket / Hoodie',
@@ -300,7 +304,9 @@ const resources = {
       hero: {
         title: 'Keunggulan dalam Manufaktur Garmen',
         subtitle: 'Menyediakan seragam berkualitas tinggi dan pakaian korporat untuk industri terkemuka di Indonesia sejak 1990.',
-        cta: 'Jelajahi Produk'
+        cta: 'Jelajahi Produk',
+        freeConsultation: 'Konsultasi Gratis',
+        viewCatalog: 'Lihat Katalog'
       },
       footer: {
         description: 'Produsen garmen terkemuka yang berspesialisasi dalam seragam berkualitas tinggi, pakaian korporat, dan perlengkapan keselamatan.',
@@ -559,13 +565,16 @@ const resources = {
             uploadDesign: 'Upload Desain (Opsional)',
             additionalNotes: 'Catatan Tambahan',
             additionalNotesPlaceholder: 'Detail tambahan (warna, bordir, timeline)...',
+            waPlaceholder: '0812xxxx',
+            qtyPlaceholder: 'Contoh: 50',
             shirt: 'Kemeja / PDH',
             polo: 'Polo / Kaos',
             jacket: 'Jaket / Hoodie',
             wearpack: 'Wearpack Safety',
             pilihJenis: 'Pilih Jenis',
             sendQuote: 'Kirim ke WhatsApp',
-            privacyNote: 'Data Anda aman. Kami tidak membagikan informasi Anda kepada pihak ketiga.'
+            privacyNote: 'Data Anda aman. Kami tidak membagikan informasi Anda kepada pihak ketiga.',
+            validationError: 'Mohon lengkapi bagian yang ditandai bintang (*).'
           }
         }
       }
