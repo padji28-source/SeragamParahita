@@ -28,7 +28,7 @@ export default function QuoteForm() {
     const { name, whatsapp, productType, estQuantity, additionalNotes } = formData;
     
     if (!name || !whatsapp || !productType || !estQuantity) {
-      alert("Mohon lengkapi bagian yang ditandai bintang (*).");
+      alert(t('orderFlow.inquiry.form.validationError'));
       return;
     }
 
@@ -176,10 +176,10 @@ export default function QuoteForm() {
                               </div>
                               <div className="space-y-2">
                                 <Label htmlFor="form-whatsapp" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.whatsapp')}*</Label>
-                                <Input id="form-whatsapp" type="tel" placeholder="0812xxxx" className="rounded-2xl bg-slate-50 border-none h-12 font-medium" value={formData.whatsapp} onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} />
+                                <Input id="form-whatsapp" type="tel" placeholder={t('orderFlow.inquiry.form.waPlaceholder')} className="rounded-2xl bg-slate-50 border-none h-12 font-medium" value={formData.whatsapp} onChange={(e) => setFormData({...formData, whatsapp: e.target.value})} />
                               </div>
                             </div>
-
+ 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                               <div className="space-y-2">
                                 <Label htmlFor="form-product-type" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.productType')}*</Label>
@@ -197,7 +197,7 @@ export default function QuoteForm() {
                               </div>
                               <div className="space-y-2">
                                 <Label htmlFor="form-quantity" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.estQuantity')}*</Label>
-                                <Input id="form-quantity" type="number" min="0" placeholder="Contoh: 50" className="rounded-2xl bg-slate-50 border-none h-12 font-medium" value={formData.estQuantity} onChange={(e) => setFormData({...formData, estQuantity: e.target.value})} />
+                                <Input id="form-quantity" type="number" min="0" placeholder={t('orderFlow.inquiry.form.qtyPlaceholder')} className="rounded-2xl bg-slate-50 border-none h-12 font-medium" value={formData.estQuantity} onChange={(e) => setFormData({...formData, estQuantity: e.target.value})} />
                               </div>
                             </div>
 
