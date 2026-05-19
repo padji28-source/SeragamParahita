@@ -144,10 +144,10 @@ export default function Hero() {
                     <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 px-4 sm:px-0">
                       <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
                         <MessageCircle className="w-5 h-5" />
-                        Konsultasi Gratis
+                        {t('hero.freeConsultation')}
                       </Link>
                       <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg w-full sm:w-auto border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border-2")}>
-                        Lihat Katalog
+                        {t('hero.viewCatalog')}
                       </a>
                     </div>
                   </motion.div>
