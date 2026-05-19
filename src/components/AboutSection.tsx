@@ -56,7 +56,7 @@ export default function AboutSection() {
 
             <div className="flex flex-wrap items-center gap-6 pt-2">
               <a 
-                href="/company-profile.pdf" 
+                href="/Compro-Parahita-Garment.pdf" 
                 download="Compro-Parahita-Garment.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
