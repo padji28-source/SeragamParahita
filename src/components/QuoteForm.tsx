@@ -126,8 +126,8 @@ export default function QuoteForm() {
                 </div>
                 
                 <div className="space-y-2">
-                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">Mulai Konsultasi Gratis</h3>
-                  <p className="text-slate-500 font-medium max-w-[280px] mx-auto text-sm">Tim ahli kami siap membantu mewujudkan seragam impian perusahaan Anda.</p>
+                  <h3 className="text-2xl md:text-3xl font-black text-slate-900 tracking-tight">{t('orderFlow.inquiry.startConsultation')}</h3>
+                  <p className="text-slate-500 font-medium max-w-[280px] mx-auto text-sm">{t('orderFlow.inquiry.formInfo')}</p>
                 </div>
 
                 <Dialog open={showForm} onOpenChange={setShowForm}>
@@ -135,7 +135,7 @@ export default function QuoteForm() {
                     buttonVariants(),
                     "w-full h-16 bg-red-600 hover:bg-red-700 text-white rounded-[2rem] text-base font-black uppercase tracking-widest shadow-2xl shadow-red-600/20 transition-all hover:scale-[1.03] active:scale-[0.98]"
                   )}>
-                    Hubungi Sekarang
+                    {t('orderFlow.inquiry.contactNow')}
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </DialogTrigger>
                   
@@ -147,7 +147,7 @@ export default function QuoteForm() {
                         
                         <div className="relative z-10 space-y-6">
                           <h3 className="text-3xl font-black leading-none tracking-tight">{t('orderFlow.inquiry.formTitle')}</h3>
-                          <p className="text-slate-400 text-sm leading-relaxed font-medium">Isi detail kebutuhan Anda dan tim spesialis kami akan menghubungi dalam 1x24 jam.</p>
+                          <p className="text-slate-400 text-sm leading-relaxed font-medium">{t('orderFlow.inquiry.formInfo')}</p>
                         </div>
 
                         <div className="relative z-10 space-y-4 pt-10 border-t border-slate-800">
@@ -155,24 +155,24 @@ export default function QuoteForm() {
                             <div className="w-5 h-5 rounded-full bg-red-600/20 flex items-center justify-center">
                               <CheckCircle className="w-3 h-3 text-red-500" />
                             </div>
-                            Bebas Biaya Desain
+                            {t('orderFlow.inquiry.benefitDesign')}
                           </div>
                           <div className="flex items-center gap-3 text-xs font-bold text-slate-300 uppercase tracking-wider">
                             <div className="w-5 h-5 rounded-full bg-red-600/20 flex items-center justify-center">
                               <CheckCircle className="w-3 h-3 text-red-500" />
                             </div>
-                            Sampel Bahan Gratis
+                            {t('orderFlow.inquiry.benefitSample')}
                           </div>
                         </div>
                       </div>
 
                       {/* Right Side Form fields */}
                       <div className="flex-1 p-10 md:p-14 max-h-[90vh] overflow-y-auto">
-                         <form onSubmit={handleWhatsAppSubmit} className="space-y-8">
+                          <form onSubmit={handleWhatsAppSubmit} className="space-y-8">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                               <div className="space-y-2">
                                 <Label htmlFor="form-name" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.name')}*</Label>
-                                <Input id="form-name" placeholder="Nama Lengkap" className="rounded-2xl bg-slate-50 border-none h-12 focus:ring-2 focus:ring-red-500/20 transition-all font-medium" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
+                                <Input id="form-name" placeholder={t('orderFlow.inquiry.form.name')} className="rounded-2xl bg-slate-50 border-none h-12 focus:ring-2 focus:ring-red-500/20 transition-all font-medium" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
                               </div>
                               <div className="space-y-2">
                                 <Label htmlFor="form-whatsapp" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.whatsapp')}*</Label>
@@ -185,13 +185,13 @@ export default function QuoteForm() {
                                 <Label htmlFor="form-product-type" className="text-[10px] font-black uppercase text-slate-400 tracking-widest">{t('orderFlow.inquiry.form.productType')}*</Label>
                                 <Select value={formData.productType} onValueChange={(val) => setFormData({...formData, productType: val})}>
                                   <SelectTrigger id="form-product-type" className="rounded-2xl bg-slate-50 border-none h-12 text-left font-medium">
-                                    <SelectValue placeholder="Pilih Jenis" />
+                                    <SelectValue placeholder={t('orderFlow.inquiry.form.pilihJenis')} />
                                   </SelectTrigger>
                                   <SelectContent className="rounded-2xl">
-                                    <SelectItem value="kemeja">Kemeja / PDH</SelectItem>
-                                    <SelectItem value="kaos">Polo / Kaos</SelectItem>
-                                    <SelectItem value="jaket">Jaket / Hoodie</SelectItem>
-                                    <SelectItem value="wearpack">Wearpack Safety</SelectItem>
+                                    <SelectItem value="kemeja">{t('orderFlow.inquiry.form.shirt')}</SelectItem>
+                                    <SelectItem value="kaos">{t('orderFlow.inquiry.form.polo')}</SelectItem>
+                                    <SelectItem value="jaket">{t('orderFlow.inquiry.form.jacket')}</SelectItem>
+                                    <SelectItem value="wearpack">{t('orderFlow.inquiry.form.wearpack')}</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>
@@ -206,14 +206,14 @@ export default function QuoteForm() {
                               <textarea 
                                 id="form-notes"
                                 className="w-full p-4 rounded-2xl bg-slate-50 border-none h-32 focus:ring-2 focus:ring-red-500/20 outline-none transition-all text-sm resize-none font-medium"
-                                placeholder="Detail tambahan (warna, bordir, timeline)..."
+                                placeholder={t('orderFlow.inquiry.form.additionalNotesPlaceholder')}
                                 value={formData.additionalNotes}
                                 onChange={(e) => setFormData({...formData, additionalNotes: e.target.value})}
                               />
                             </div>
 
                             <Button type="submit" className="w-full h-16 bg-red-600 hover:bg-red-700 text-white rounded-[2rem] font-black uppercase tracking-[0.2em] transition-all hover:shadow-2xl hover:shadow-red-500/30">
-                              Kirim ke WhatsApp
+                              {t('orderFlow.inquiry.form.sendQuote')}
                               <ArrowRight className="ml-2 w-5 h-5" />
                             </Button>
                          </form>
