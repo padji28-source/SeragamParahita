@@ -36,6 +36,7 @@ const resources = {
           automotive: 'Automotive',
           mining: 'Mining',
           office: 'Office',
+          construction: 'Construction',
           fnb: 'Food & Beverage',
           event: 'Event',
           merchandise: 'Merchandise'
@@ -44,10 +45,11 @@ const resources = {
           1: { name: 'Franchise Uniform', category: 'Franchise', desc: 'Our flagship uniform products, mostly shirts & polo shirts. For your franchise uniform needs.', features: ['Premium Quality', 'Comfortable', 'Custom Design'] },
           2: { name: 'Automotive Uniform', category: 'Automotive', desc: 'We are ready to help you create Automotive uniforms demanding durability and comfort.', features: ['Durable', 'High Quality', 'Sporty Design'] },
           3: { name: 'Mining Uniform', category: 'Mining', desc: 'Field uniforms for oil, construction, and public works companies developed to look attractive and functional.', features: ['Reflective Tape', 'Strong Material', 'Functional'] },
-          4: { name: 'F&B Uniform', category: 'Food & Beverage', desc: 'We are ready to help with F&B uniforms like Aprons, Chef Coats & Hats for your company.', features: ['Easy to Clean', 'Comfortable', 'Complete Set'] },
-          5: { name: 'Event Uniform', category: 'Event', desc: 'Need uniforms for Gathering & Promotion demanding fast & quality production? Parahita can help.', features: ['Fast Production', 'Competitive Price', 'Attractive Design'] },
-          6: { name: 'Office Uniform', category: 'Office', desc: 'Formal, Exclusive, & Comfortable office uniforms. We are experienced in making them.', features: ['Formal & Exclusive', 'Premium Material', 'Neat Stitching'] },
-          7: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories like Hats and Goodie bags are among the many products we can produce.', features: ['Custom Logo', 'Various Choices', 'Guaranteed Quality'] }
+          4: { name: 'construction Uniform', category: 'Construction', desc: 'We are experienced in creating uniforms for Construction & Project with guaranteed quality.', features: ['Elegant Look', 'Quality Material', 'Guaranteed Quality'] },
+          5: { name: 'F&B Uniform', category: 'Food & Beverage', desc: 'We are ready to help with F&B uniforms like Aprons, Chef Coats & Hats for your company.', features: ['Easy to Clean', 'Comfortable', 'Complete Set'] },
+          6: { name: 'Event Uniform', category: 'Event', desc: 'Need uniforms for Gathering & Promotion demanding fast & quality production? Parahita can help.', features: ['Fast Production', 'Competitive Price', 'Attractive Design'] },
+          7: { name: 'Office Uniform', category: 'Office', desc: 'Formal, Exclusive, & Comfortable office uniforms. We are experienced in making them.', features: ['Formal & Exclusive', 'Premium Material', 'Neat Stitching'] },
+          8: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories like Hats and Goodie bags are among the many products we can produce.', features: ['Custom Logo', 'Various Choices', 'Guaranteed Quality'] }
         },
         inquiry: 'Inquiry This Product',
         viewDetails: 'View Details'
@@ -145,6 +147,9 @@ const resources = {
         features: ['Premium Materials', 'Timely Delivery', 'Custom Designs', 'Quality Control'],
         yearsExcellence: 'Years of Excellence',
         companyProfile: 'Download Company Profile',
+        downloadProfile: 'Download Profile',
+        closeStory: 'Close Story',
+        readMore: 'Read More',
         story: {
           title: 'About Parahita',
           p1: 'Parahita Prima Sentosa was founded in 1990 with a simple yet strong foundation: delivering quality products and building lasting relationships. What started as a retail store gradually evolved alongside market demands and industry opportunities.',
@@ -154,10 +159,12 @@ const resources = {
           p5: 'At Parahita Prima Sentosa, we grow together with our partners, maintain high standards in every process, and remain committed to excellence — delivered professionally, with a personal touch.'
         },
         stats: {
-          capacity: 'Production Capacity',
-          workers: 'Skilled Workers',
-          experience: 'Years Experience'
-        }
+          capacity: 'Capacity/mo',
+          workers: 'Experts',
+          experience: 'Years Experience',
+          dedication: 'Dedicated to providing the best quality.'
+        },
+        videoTitle: 'Company Profile Video'
       },
       productDetail: {
         notFound: 'Product not found',
@@ -231,6 +238,11 @@ const resources = {
         },
         inquiry: {
           startNow: 'Start Now',
+          startConsultation: 'Start Free Consultation',
+          contactNow: 'Contact Now',
+          formInfo: 'Fill in your requirements and our specialist team will contact you within 24 hours.',
+          benefitDesign: 'Free Design Fee',
+          benefitSample: 'Free Material Samples',
           title1: 'Make Your ',
           titleDream: 'Dream Uniform ',
           title2: 'A Reality',
@@ -262,7 +274,13 @@ const resources = {
             estQuantity: 'Estimated Quantity',
             uploadDesign: 'Upload Design (Optional)',
             additionalNotes: 'Additional Notes',
-            sendQuote: 'Send Quote Request',
+            additionalNotesPlaceholder: 'Additional notes (color, embroidery, timeline)...',
+            shirt: 'Shirt / PDH',
+            polo: 'Polo / T-Shirt',
+            jacket: 'Jacket / Hoodie',
+            wearpack: 'Wearpack Safety',
+            pilihJenis: 'Select Type',
+            sendQuote: 'Send to WhatsApp',
             privacyNote: 'Your data is safe. We do not share your information with third parties.'
           }
         }
@@ -302,6 +320,7 @@ const resources = {
           automotive: 'Otomotif',
           mining: 'Pertambangan',
           office: 'Kantor',
+          konstruksi: 'Konstruksi & Proyek',
           fnb: 'Food & Beverage',
           event: 'Event',
           merchandise: 'Merchandise'
@@ -310,10 +329,11 @@ const resources = {
           1: { name: 'Seragam Waralaba', category: 'Waralaba', desc: 'Produk seragam unggulan kami, yang hampir seluruhnya berjenis kemeja & polo shirt. Untuk kebutuhan seragam Waralaba anda yang bergerak dibidan barang atau jasa.', features: ['Kualitas Premium', 'Nyaman Dipakai', 'Desain Custom'] },
           2: { name: 'Seragam Otomotif', category: 'Otomotif', desc: 'Kami siap membantu anda dalam pembuatan seragam Otomotif dengan berbagai jenis model & desain. Yang dimana dalam pemakaiannya menuntut kualitas , daya tahan & kenyamanan.', features: ['Tahan Lama', 'Kualitas Tinggi', 'Desain Sporty'] },
           3: { name: 'Seragam Tambang', category: 'Tambang', desc: 'Seragam lapangan untuk perusahaan minyak bumi, konstruksi & pekerjaan umum yang selalu kami kembangkan agar terlihat menarik, tanpa mengurangi fungsinya sebagai seragam lapangan.', features: ['Reflective Tape', 'Bahan Kuat', 'Fungsional'] },
-          4: { name: 'Seragam F&B', category: 'Food & Beverage', desc: 'Untuk pembuatan seragam seperti Apron, Baju & Topi Koki untuk keperluan perusahaan F&B anda, kami pun siap membantu.', features: ['Mudah Dibersihkan', 'Bahan Nyaman', 'Set Lengkap'] },
-          5: { name: 'Seragam Event', category: 'Event', desc: 'Perusahaan anda membutuhkan seragam untuk keperluan Gathering & Promosi yang di tuntun cepat & berkualitas? Parahita dapat membantu anda.', features: ['Produksi Cepat', 'Harga Kompetitif', 'Desain Menarik'] },
-          6: { name: 'Seragam Kantor', category: 'Kantor', desc: 'Formal, Exclusive, & Nyaman adalah salah satu syarat seragam Kantor atau Staff dalam perusahaan anda? Kami berpengalaman dalam pembuatannya.', features: ['Formal & Eksklusif', 'Bahan Premium', 'Jahitan Rapi'] },
-          7: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.', features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'] }
+          4: { name: 'Seragam Konstruksi & Proyek', category: 'Konstruksi & Proyek', desc: 'Kami juga berpengalaman dalam pembuatan seragam untuk Konstruksi & Proyek dengan jaminan mutu & kualitas.', features: ['Tampilan Elegan', 'Bahan Berkualitas', 'Jaminan Mutu'] },
+          5: { name: 'Seragam F&B', category: 'Food & Beverage', desc: 'Untuk pembuatan seragam seperti Apron, Baju & Topi Koki untuk keperluan perusahaan F&B anda, kami pun siap membantu.', features: ['Mudah Dibersihkan', 'Bahan Nyaman', 'Set Lengkap'] },
+          6: { name: 'Seragam Event', category: 'Event', desc: 'Perusahaan anda membutuhkan seragam untuk keperluan Gathering & Promosi yang di tuntun cepat & berkualitas? Parahita dapat membantu anda.', features: ['Produksi Cepat', 'Harga Kompetitif', 'Desain Menarik'] },
+          7: { name: 'Seragam Kantor', category: 'Kantor', desc: 'Formal, Exclusive, & Nyaman adalah salah satu syarat seragam Kantor atau Staff dalam perusahaan anda? Kami berpengalaman dalam pembuatannya.', features: ['Formal & Eksklusif', 'Bahan Premium', 'Jahitan Rapi'] },
+          8: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.', features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'] }
         },
         inquiry: 'Tanyakan Produk Ini',
         viewDetails: 'Lihat Detail'
@@ -390,6 +410,9 @@ const resources = {
         features: ['Material Premium', 'Pengiriman Tepat Waktu', 'Desain Kustom', 'Kontrol Kualitas'],
         yearsExcellence: 'Tahun Keunggulan',
         companyProfile: 'Unduh Profil Perusahaan',
+        downloadProfile: 'Unduh Profil',
+        closeStory: 'Tutup Cerita',
+        readMore: 'Baca Selengkapnya',
         story: {
           title: 'Tentang Parahita',
           p1: 'Parahita Prima Sentosa didirikan pada tahun 1990 dengan fondasi yang sederhana namun kuat: menghadirkan produk berkualitas dan membangun hubungan yang langgeng. Apa yang dimulai sebagai toko ritel secara bertahap berkembang seiring dengan tuntutan pasar dan peluang industri.',
@@ -399,10 +422,12 @@ const resources = {
           p5: 'Di Parahita Prima Sentosa, kami tumbuh bersama mitra kami, mempertahankan standar tinggi dalam setiap proses, dan tetap berkomitmen pada keunggulan — yang disampaikan secara profesional, dengan sentuhan pribadi.'
         },
         stats: {
-          capacity: 'Kapasitas Produksi',
+          capacity: 'Kapasitas/Bln',
           workers: 'Tenaga Ahli',
-          experience: 'Tahun Pengalaman'
-        }
+          experience: 'Tahun Pengalaman',
+          dedication: 'Berdedikasi memberikan kualitas terbaik.'
+        },
+        videoTitle: 'Video Profil Perusahaan'
       },
       contact: {
         title: 'Kontak',
@@ -497,6 +522,11 @@ const resources = {
         },
         inquiry: {
           startNow: 'Mulai Sekarang',
+          startConsultation: 'Mulai Konsultasi Gratis',
+          contactNow: 'Hubungi Sekarang',
+          formInfo: 'Isi detail kebutuhan Anda dan tim spesialis kami akan menghubungi dalam 1x24 jam.',
+          benefitDesign: 'Bebas Biaya Desain',
+          benefitSample: 'Sampel Bahan Gratis',
           title1: 'Wujudkan Seragam ',
           titleDream: 'Impian Anda',
           title2: '',
@@ -528,7 +558,13 @@ const resources = {
             estQuantity: 'Estimasi Jumlah',
             uploadDesign: 'Upload Desain (Opsional)',
             additionalNotes: 'Catatan Tambahan',
-            sendQuote: 'Kirim Permintaan Penawaran',
+            additionalNotesPlaceholder: 'Detail tambahan (warna, bordir, timeline)...',
+            shirt: 'Kemeja / PDH',
+            polo: 'Polo / Kaos',
+            jacket: 'Jaket / Hoodie',
+            wearpack: 'Wearpack Safety',
+            pilihJenis: 'Pilih Jenis',
+            sendQuote: 'Kirim ke WhatsApp',
             privacyNote: 'Data Anda aman. Kami tidak membagikan informasi Anda kepada pihak ketiga.'
           }
         }
