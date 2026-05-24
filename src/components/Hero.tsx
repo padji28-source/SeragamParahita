@@ -208,7 +208,7 @@ export default function Hero() {
                 
                 <iframe
                   className="w-full h-full relative z-10"
-                  src="https://www.youtube.com/embed/iKVxh4JNqgo?autoplay=1&rel=0&modestbranding=1"
+                  src="https://youtu.be/iKVxh4JNqgo?si=AnPX-whjbhAi5WsE"
                   title="Company Profile Video"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
