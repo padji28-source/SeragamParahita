@@ -136,7 +136,7 @@ export default function ContactPage() {
                   </div>
                   <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight">{t('contact.waTitle', { defaultValue: 'Instant Support & Inquiry' })}</h3>
                   <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
-                    {t('contact.waDesc', { defaultValue: 'Terhubung langsung dengan perwakilan divisi kami untuk memproses konsultasi desain, penawaran harga produksi, atau status kemitraan secara praktis.' })}
+                    {t('contact.waDesc', { defaultValue: 'Terhubung langsung dengan perwakilan divisi kami untuk memproses konsultasi desain, penawaran harga produksi, atau status kerja sama secara praktis.' })}
                   </p>
                 </div>
 
