@@ -127,7 +127,7 @@ export default function ProductsPage() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-4xl md:text-6xl font-black tracking-tight text-white mb-2"
             >
-              Catalog <span className="text-red-500">Parahita</span>
+              Produk <span className="text-red-500">Parahita</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
