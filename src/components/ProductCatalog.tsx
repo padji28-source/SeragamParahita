@@ -1,27 +1,17 @@
 import { useState, useRef, useMemo, Suspense } from "react";
 import { PRODUCTS, MATERIALS } from "@/src/constants";
 import { Product } from "@/src/types";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { motion, AnimatePresence } from "motion/react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useTranslation } from "react-i18next";
+
 import { 
-  Info, ExternalLink, CheckCircle2, Ruler, X, 
-  MessageCircle, Send, User, Building, Package, MessageSquare,
-  ChevronRight, ChevronLeft, ArrowRight, Loader2
+  Package, X, Send, Loader2, ArrowLeft
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 
@@ -34,312 +24,218 @@ function CustomLoadingSpinner() {
   return (
     <div className="flex flex-col items-center justify-center py-24 w-full min-h-[400px]">
       <div className="relative w-16 h-16 mb-4">
-         <div className="absolute inset-0 rounded-full border-4 border-gray-100"></div>
+         {/* Lingkaran statis */}
+         <div className="absolute inset-0 rounded-full border-4 border-slate-100"></div>
+         {/* Lingkaran animasi spin */}
          <div className="absolute inset-0 rounded-full border-4 border-red-600 border-t-transparent animate-spin"></div>
+         {/* Icon paket di tengah */}
          <Package className="absolute inset-0 m-auto w-6 h-6 text-red-600 animate-pulse" />
       </div>
-      <p className="text-gray-500 font-bold uppercase tracking-widest text-sm animate-pulse">Memuat Produk...</p>
+      <p className="text-slate-500 font-bold uppercase tracking-widest text-xs animate-pulse">
+        Memuat Produk...
+      </p>
     </div>
   );
 }
 
-// Simple resource to simulate fetching and trigger Suspense
-let productsCache: Product[] | null = null;
-let productsPromise: Promise<Product[]> | null = null;
-
+// Load instantly without artificial fetch delay
 function useProductsResource() {
-  if (productsCache !== null) {
-    return productsCache;
-  }
-  if (!productsPromise) {
-    productsPromise = new Promise<Product[]>((resolve) => {
-      setTimeout(() => {
-        productsCache = PRODUCTS;
-        resolve(PRODUCTS);
-      }, 1500); // 1.5 second simulated fetch delay
-    });
-  }
-  throw productsPromise;
+  return PRODUCTS;
 }
 
 // Extracted Product Grid component to be wrapped in Suspense
 function ProductGrid({ 
-  searchQuery, 
-  selectedCategory, 
-  setSelectedProduct,
-  setSearchQuery,
-  setSelectedCategory,
-  navigate
+  setSelectedProduct
 }: { 
-  searchQuery: string; 
-  selectedCategory: string; 
   setSelectedProduct: (p: Product) => void;
-  setSearchQuery: (q: string) => void;
-  setSelectedCategory: (c: string) => void;
-  navigate: ReturnType<typeof useNavigate>;
 }) {
-  const { t } = useTranslation();
   const loadedProducts = useProductsResource();
 
-  const filteredProducts = useMemo(() => {
-    return loadedProducts.filter((p) => {
-      const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                            (p.description || "").toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesCategory = selectedCategory === "Semua" || p.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-  }, [searchQuery, selectedCategory, loadedProducts]);
-
-  if (filteredProducts.length === 0) {
-    return (
-      <div className="text-center py-20 px-4 w-full">
-        <div className="bg-white rounded-[2rem] p-8 max-w-md mx-auto shadow-sm border border-gray-100">
-          <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 font-bold mb-2">Produk tidak ditemukan</p>
-          <p className="text-gray-400 text-sm">Coba cari dengan kata kunci lain atau pilih kategori berbeda.</p>
-          <Button 
-            variant="ghost" 
-            className="mt-6 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-xl"
-            onClick={() => { setSearchQuery(""); setSelectedCategory("Semua"); }}
-          >
-            Reset Filter
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <Carousel 
-      opts={{ align: "start", loop: filteredProducts.length > 4 }}
-      className="w-full"
-    >
-      <CarouselContent className="-ml-4">
-          {filteredProducts.map((product) => (
-            <CarouselItem key={product.id} className="pl-4 basis-full sm:basis-1/2 md:basis-1/4 lg:basis-1/4 xl:basis-1/4">
-              <div className="h-full">
-                <button 
-                  onClick={() => navigate(`/product/${product.id}`)}
-                  className="w-full h-full text-left outline-none"
-                >
-                  <div className="flex flex-col items-center h-full p-2 md:p-3 rounded-[1.5rem] group border border-transparent hover:bg-red-50 transition-all duration-300 cursor-pointer">
-                    <div className="w-full aspect-[4/3] md:aspect-[1/1] rounded-[1.25rem] overflow-hidden mb-4 md:mb-5 relative shadow-sm group-hover:shadow-[0_10px_40px_rgba(220,38,38,0.1)] transition-all duration-500 bg-white">
-                       <img
-                         src={product.image}
-                         alt={product.name}
-                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                         referrerPolicy="no-referrer"
-                         loading="lazy"
-                         decoding="async"
-                       />
-                       {/* Hover Overlay */}
-                       <div className="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/10 transition-all duration-500 flex items-center justify-center">
-                          <div className="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-xl translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                             <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-600 flex items-center gap-2">
-                                Lihat Detail <ArrowRight className="w-3 h-3" />
-                             </span>
-                          </div>
-                       </div>
-                     </div>
-                     <h3 className="text-red-900 text-sm md:text-[13px] font-black uppercase tracking-[0.1em] text-center w-full px-2">
-                       {t(`products.items.${product.id}.name`, { defaultValue: product.name })}
-                     </h3>
-                     <div className="w-1.5 h-1.5 rounded-full bg-transparent group-hover:bg-red-900 transition-colors mt-3"></div>
-                  </div>
-                </button>
-              </div>
-            </CarouselItem>
-          ))}
-      </CarouselContent>
-      {filteredProducts.length > 1 && (
-        <>
-          <CarouselPrevious className="hidden md:flex -left-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
-          <CarouselNext className="hidden md:flex -right-12 border-none bg-transparent hover:bg-transparent shadow-none text-red-600 hover:text-red-800 h-12 w-12 [&>svg]:w-10 [&>svg]:h-10 transition-colors" />
-        </>
-      )}
-    </Carousel>
+    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-8">
+      {loadedProducts.slice(0, 6).map((product, idx) => (
+        <motion.div 
+          key={product.id}
+          initial={{ opacity: 0, scale: 0.95, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ type: "spring", damping: 25, stiffness: 200, delay: idx * 0.05 }}
+          whileHover={{ 
+            scale: 1.03, 
+            y: -8,
+            transition: { type: "spring", stiffness: 400, damping: 22 }
+          }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => setSelectedProduct(product)}
+          className="w-full aspect-[3/4] md:aspect-[4/5] bg-white overflow-hidden cursor-pointer group rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-500 relative select-none border border-slate-100"
+        >
+          <motion.img
+            layoutId={`product-image-${product.id}`}
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            referrerPolicy="no-referrer"
+            loading="lazy"
+            decoding="async"
+          />
+          <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors duration-500" />
+        </motion.div>
+      ))}
+    </div>
   );
 }
 
 export default function ProductCatalog() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("Semua");
   const { t } = useTranslation();
   const navigate = useNavigate();
-
-  // Extract unique categories directly from PRODUCTS to allow professional filtering
-  const categories = useMemo(() => ["Semua", ...new Set(PRODUCTS.map(p => p.category))], []);
 
   const selectedMaterial = selectedProduct?.materialId 
     ? MATERIALS.find(m => m.id === selectedProduct.materialId) 
     : null;
 
   return (
-    <section id="products" className="py-32 bg-transparent overflow-hidden">
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+    <section id="products" className="py-24 bg-transparent overflow-hidden">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
-            Premium Collections
-          </div>
-          <h2 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tight leading-none">
+          <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-widest uppercase relative z-10 drop-shadow-md">
             {t('products.title')}
           </h2>
-          <p className="text-slate-500 max-w-2xl mx-auto text-lg md:text-xl font-medium leading-relaxed">
-            {t('products.subtitle')}
-          </p>
         </div>
 
-        {/* Search & Filter Bar - Sticky at the top of the grid */}
-        <div className="sticky top-20 z-30 mb-16 bg-white/70 backdrop-blur-2xl p-2 md:p-2.5 rounded-full border border-slate-200/60 shadow-[0_8px_30px_rgb(0,0,0,0.04)] max-w-3xl mx-auto">
-          <div className="flex flex-row gap-2 items-center">
-            {/* Categories - Simplified to only "Semua" */}
-            <div className="flex items-center gap-1.5 px-2">
-              <button
-                onClick={() => setSelectedCategory("Semua")}
-                className={cn(
-                  "px-6 py-2.5 rounded-full text-[12px] font-black uppercase tracking-widest transition-all duration-300 whitespace-nowrap bg-red-600 text-white shadow-lg shadow-red-600/20"
-                )}
-              >
-                Semua
-              </button>
-            </div>
-
-            {/* Separator */}
-            <div className="w-px h-6 bg-slate-200 mx-1 hidden md:block" />
-
-            {/* Search Input */}
-            <div className="relative flex-1 px-1">
-              <Input 
-                placeholder={t('productsPage.searchPlaceholder') || "Cari produk..."} 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-4 pr-10 h-11 rounded-full bg-slate-50/50 border-transparent focus:bg-white focus:ring-4 focus:ring-red-600/5 focus:border-red-600/20 text-sm transition-all font-medium"
-              />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2">
-                <Loader2 className={cn("w-3.5 h-3.5 text-red-500 animate-spin transition-opacity duration-300", searchQuery ? "opacity-100" : "opacity-0")} />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="relative px-0 sm:px-12 min-h-[400px]">
+        <div className="relative min-h-[400px]">
           <Suspense fallback={<CustomLoadingSpinner />}>
             <ProductGrid 
-              searchQuery={searchQuery} 
-              selectedCategory={selectedCategory} 
               setSelectedProduct={setSelectedProduct} 
-              setSearchQuery={setSearchQuery}
-              setSelectedCategory={setSelectedCategory}
-              navigate={navigate}
             />
           </Suspense>
         </div>
       </div>
 
-      {/* Quick View Modal - Photo Only */}
-      <Dialog open={!!selectedProduct} onOpenChange={() => setSelectedProduct(null)}>
-        <DialogContent className="max-w-3xl p-0 overflow-hidden border-none rounded-3xl shadow-2xl bg-transparent">
-          {selectedProduct && (
-            <div className="relative group">
-              <Carousel className="w-full">
-                <CarouselContent>
-                  {(selectedProduct.images && selectedProduct.images.length > 0 
-                    ? selectedProduct.images 
-                    : [selectedProduct.image]
-                  ).map((img, index) => (
-                    <CarouselItem key={index}>
-                      <div className="flex items-center justify-center bg-gray-900/10 backdrop-blur-sm rounded-3xl overflow-hidden aspect-[4/5]">
-                        <img 
-                          src={img} 
-                          alt={`${selectedProduct.name} - ${index + 1}`}
-                          className="w-full h-full object-cover"
-                          referrerPolicy="no-referrer"
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                
-                {(selectedProduct.images && selectedProduct.images.length > 1) && (
-                  <>
-                    <CarouselPrevious className="left-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-md border-none text-white hover:bg-white/40 h-10 w-10" />
-                    <CarouselNext className="right-4 opacity-0 group-hover:opacity-100 transition-opacity bg-white/20 backdrop-blur-md border-none text-white hover:bg-white/40 h-10 w-10" />
-                  </>
-                )}
-              </Carousel>
-              
-              {/* Close Button Hint */}
-              <button 
+          {/* Quick View Modal - Premium Custom Panel Overlay */}
+      <AnimatePresence>
+        {selectedProduct && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-6"
+            onClick={() => setSelectedProduct(null)} // Tutup modal jika area luar diklik
+          >
+            {/* Top Navigation Bar: Tutup / Kembali */}
+            <motion.div 
+              initial={{ y: -40, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -40, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 350, damping: 28 }}
+              className="absolute top-4 left-4 right-4 md:top-8 md:px-8 flex justify-between items-center z-[110]" 
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.button 
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+                whileTap={{ scale: 0.95 }}
                 onClick={() => setSelectedProduct(null)}
-                className="absolute top-4 right-4 z-50 p-2 bg-black/20 hover:bg-black/40 backdrop-blur-md rounded-full text-white transition-all active:scale-90"
+                className="flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white text-xs font-bold uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md cursor-pointer shadow-lg outline-none select-none transition-shadow hover:shadow-white/5"
               >
-                <X className="w-5 h-5" />
-              </button>
-              
-              {/* Product Info Overlay (Thin) */}
-              <div className="absolute bottom-6 left-6 right-6 p-4 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 text-white flex flex-col md:flex-row justify-between items-center gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black uppercase tracking-widest text-red-400 mb-0.5">
-                    {selectedProduct.category}
-                  </span>
-                  <h3 className="text-lg font-bold tracking-tight">
-                    {t(`products.items.${selectedProduct.id}.name`, { defaultValue: selectedProduct.name })}
-                  </h3>
-                </div>
-                <div className="flex items-center gap-2 w-full md:w-auto">
-                   <Button 
-                     onClick={() => setIsQuoteModalOpen(true)}
-                     size="sm"
-                     className="flex-1 md:flex-none bg-red-600 hover:bg-red-700 text-white border-none rounded-xl font-bold"
-                   >
-                     Minta Penawaran
-                   </Button>
-                   
-                   <DropdownMenu>
-                      <DropdownMenuTrigger 
-                        className={cn(
-                          buttonVariants({ variant: "outline", size: "sm" }),
-                          "bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-xl font-bold h-9 w-9 p-0 flex items-center justify-center"
-                        )}
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end" className="w-48 p-2 rounded-xl border-gray-100 shadow-2xl">
-                        {SALES_CONTACTS.map((sales, idx) => (
-                          <DropdownMenuItem 
-                            key={idx}
-                            className="rounded-lg py-2.5 px-3 cursor-pointer focus:bg-green-50 focus:text-green-700 font-bold text-xs"
-                            onClick={() => window.open(`https://wa.me/${sales.phone}?text=Halo ${sales.name}, saya tertarik dengan produk ${selectedProduct.name}`, "_blank")}
-                          >
-                            <MessageCircle className="w-3.5 h-3.5 mr-2 text-green-500" />
-                            {sales.name}
-                          </DropdownMenuItem>
-                        ))}
-                      </DropdownMenuContent>
-                   </DropdownMenu>
+                <ArrowLeft className="w-4 h-4 text-red-500" />
+                <span>Kembali</span>
+              </motion.button>
+              <motion.button 
+                whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setSelectedProduct(null)}
+                className="p-2.5 bg-white/10 text-white rounded-full border border-white/10 backdrop-blur-md cursor-pointer shadow-lg outline-none select-none"
+              >
+                <X className="w-4 h-4 text-white" />
+              </motion.button>
+            </motion.div>
+            
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 15 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
+              className="relative w-full h-[45vh] md:h-[50vh] flex justify-center items-center max-w-7xl mx-auto my-12"
+              onClick={(e) => e.stopPropagation()} // Mencegah klik di area gambar menutup modal
+            >
+              {selectedProduct.images && selectedProduct.images.length > 0 ? (
+                <Carousel className="w-full max-w-5xl mx-auto" opts={{ align: "center", loop: true }}>
+                  <CarouselContent>
+                    {selectedProduct.images.map((img, idx) => (
+                      <CarouselItem key={idx} className="flex justify-center items-center font-sans">
+                        <motion.img 
+                          layoutId={idx === 0 ? `product-image-${selectedProduct.id}` : undefined}
+                          src={img} 
+                          alt={`${selectedProduct.name} - ${idx + 1}`}
+                          className="max-w-full max-h-[40vh] md:max-h-[45vh] object-contain shadow-2xl rounded-2xl"
+                          referrerPolicy="no-referrer"
+                          transition={{ type: "spring", damping: 25, stiffness: 280 }}
+                        />
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  {selectedProduct.images.length > 1 && (
+                    <>
+                      <CarouselPrevious className="left-4 md:left-8 bg-black/50 hover:bg-black/80 border-white/20 text-white w-12 h-12" />
+                      <CarouselNext className="right-4 md:right-8 bg-black/50 hover:bg-black/80 border-white/20 text-white w-12 h-12" />
+                    </>
+                  )}
+                </Carousel>
+              ) : (
+                // Animasi layoutId akan bekerja sempurna di sini jika fallback gambar tunggal
+                <motion.img 
+                  layoutId={`product-image-${selectedProduct.id}`}
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name}
+                  className="max-w-full max-h-[40vh] md:max-h-[45vh] object-contain shadow-2xl rounded-2xl cursor-default"
+                  referrerPolicy="no-referrer"
+                  transition={{ type: "spring", damping: 25, stiffness: 280 }}
+                />
+              )}
+            </motion.div>
 
-                   <Button 
-                     onClick={(e) => {
-                       e.stopPropagation();
-                       navigate(`/product/${selectedProduct.id}`);
-                       setSelectedProduct(null);
-                     }}
-                     size="sm"
-                     variant="outline"
-                     className="bg-white/10 hover:bg-white/20 text-white border-white/20 rounded-xl font-bold h-9 w-9 p-0"
-                   >
-                     <ExternalLink className="w-4 h-4" />
-                   </Button>
-                </div>
+            {/* Bottom Sheet / Info Bar */}
+            <motion.div 
+              initial={{ y: 80, opacity: 0, scale: 0.95 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              exit={{ y: 80, opacity: 0, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 240, damping: 24, delay: 0.05 }}
+              className="absolute bottom-4 inset-x-4 md:bottom-8 md:hover:bg-black/75 md:left-1/2 md:-translate-x-1/2 md:w-full md:max-w-3xl bg-black/60 backdrop-blur-2xl border border-white/10 p-5 md:p-6 rounded-3xl text-left text-white z-[110] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xl transition-colors duration-300 font-sans"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="space-y-1 flex-1 min-w-0">
+                <span className="text-[10px] font-black uppercase text-red-500 tracking-[0.2em]">{selectedProduct.category}</span>
+                <h3 className="text-lg md:text-xl font-bold tracking-tight text-white truncate">{selectedProduct.name}</h3>
+                <p className="text-xs text-slate-300 font-medium line-clamp-1 sm:line-clamp-2 leading-relaxed">{selectedProduct.description}</p>
               </div>
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
+              <div className="flex gap-2 shrink-0 w-full sm:w-auto">
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => {
+                    setSelectedProduct(null);
+                    navigate(`/product/${selectedProduct.id}`);
+                  }}
+                  className="flex-1 sm:flex-none px-5 h-12 rounded-2xl bg-white text-slate-900 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer outline-none select-none transition-shadow hover:shadow-lg shadow-black/20"
+                >
+                  <span>Spesifikasi</span>
+                  <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.04, y: -2 }}
+                  whileTap={{ scale: 0.96 }}
+                  onClick={() => setIsQuoteModalOpen(true)}
+                  className="flex-1 sm:flex-none px-5 h-12 rounded-2xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer outline-none select-none transition-shadow hover:shadow-lg hover:shadow-red-600/10"
+                >
+                  <span>Minta Penawaran</span>
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Quote Form Modal */}
       <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
