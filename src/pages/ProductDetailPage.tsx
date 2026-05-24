@@ -313,18 +313,36 @@ export default function ProductDetailPage() {
 
   const product = id ? PRODUCTS.find(p => p.id === id) : undefined;
 
-  const [currentSliderIndex, setCurrentSliderIndex] = useState(0);
-  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
-
-  useEffect(() => {
-    setCurrentSliderIndex(0);
-    setDirection(0);
-  }, [id]);
-
   if (!product) return <NotFound t={t} />;
   
   const designVars = PRODUCT_VARIATIONS[product.id] || PRODUCT_VARIATIONS['1'];
   const variations = designVars.variations || [];
+
+  const [currentSliderIndex, setCurrentSliderIndex] = useState(0);
+  const [direction, setDirection] = useState(0); // -1 for left, 1 for right
+
+  useEffect(() => {
+    if (product && variations.length > 0) {
+      const index = variations.findIndex(v => v.img.toLowerCase() === product.image.toLowerCase());
+      if (index !== -1) {
+        setCurrentSliderIndex(index);
+      } else {
+        const index2 = variations.findIndex(v => 
+          v.name.toLowerCase().includes(product.name.toLowerCase()) ||
+          product.name.toLowerCase().includes(v.name.toLowerCase())
+        );
+        if (index2 !== -1) {
+          setCurrentSliderIndex(index2);
+        } else {
+          setCurrentSliderIndex(0);
+        }
+      }
+    } else {
+      setCurrentSliderIndex(0);
+    }
+    setDirection(0);
+  }, [id, product, variations]);
+
   const activeIndex = Math.min(Math.max(0, currentSliderIndex), Math.max(0, variations.length - 1));
 
   const nextSlide = () => {
@@ -352,7 +370,7 @@ export default function ProductDetailPage() {
         <motion.div initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 text-xs font-black text-slate-400 tracking-widest uppercase">
           <Link to="/" className="hover:text-red-600 transition-colors">Beranda</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-          <Link to="/products" className="hover:text-red-600 transition-colors">Katalog</Link>
+          <Link to="/products" className="hover:text-red-600 transition-colors">Produk</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
           <span className="text-slate-900 font-bold">{product.name}</span>
         </motion.div>
@@ -360,7 +378,7 @@ export default function ProductDetailPage() {
         <motion.div initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }}>
           <Link to="/products" className="inline-flex items-center gap-2 text-xs font-black text-slate-500 hover:text-red-600 transition-colors group bg-white px-5 py-2.5 rounded-full shadow-sm border border-slate-200/60 hover:border-red-200">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Kembali ke Katalog
+            Kembali ke Produk
           </Link>
         </motion.div>
       </nav>
@@ -385,19 +403,19 @@ export default function ProductDetailPage() {
               
               {/* STYLISH CATALOG HEADER FLAG */}
               <div className="flex flex-col items-start gap-1">
-                <div className="relative inline-flex items-center">
+                <div className="relative inline-flex items-stretch">
                   {/* Angled background banner match */}
-                  <div className="h-14 font-sans font-black text-3xl md:text-4xl text-white bg-slate-900 px-6 flex items-center shadow-lg relative rounded-l-lg z-10">
+                  <div className="min-h-14 py-3 font-sans font-black text-2xl md:text-3xl lg:text-4xl text-white bg-slate-900 px-6 flex items-center shadow-lg relative rounded-l-lg z-10 leading-tight">
                     {product.name.toUpperCase()}
                   </div>
                   {/* Angled red slice badge */}
                   <div 
-                    className="h-14 w-8 bg-red-600 -ml-2 select-none"
+                    className="w-8 bg-red-600 -ml-2 select-none z-10"
                     style={{ clipPath: 'polygon(0% 0%, 100% 0%, 0% 100%, 0% 100%)' }}
                   />
                   {/* Subtle grey angled extension */}
                   <div 
-                    className="h-14 w-12 bg-slate-800/10 -ml-6 select-none"
+                    className="w-12 bg-slate-800/10 -ml-6 select-none"
                     style={{ clipPath: 'polygon(100% 0%, 80% 100%, 0% 100%, 0% 0%)' }}
                   />
                 </div>
@@ -441,7 +459,7 @@ export default function ProductDetailPage() {
               {/* Large Hero Main Model Image at Center */}
               <div className="w-56 h-72 md:w-72 md:h-96 relative z-10 select-none pointer-events-none transition-transform hover:scale-105 duration-700">
                 <img 
-                  src={designVars.mainModel} 
+                  src={product.image || designVars.mainModel} 
                   alt={product.name} 
                   className="w-full h-full object-contain filter drop-shadow-[0_25px_30px_rgba(0,0,0,0.15)] relative z-10" 
                   referrerPolicy="no-referrer"
@@ -736,7 +754,7 @@ function NotFound({ t }: { t: any }) {
       <h1 className="text-3xl font-black mb-3 text-slate-900 tracking-tight">{t('productDetail.notFound', { defaultValue: 'Produk Tidak Ditemukan' })}</h1>
       <p className="text-base text-slate-500 mb-8 max-w-sm text-center font-medium">Data produk yang Anda cari tidak tersedia dalam direktori saat ini.</p>
       <Link to="/products" className={cn(buttonVariants({ variant: "default" }), "h-14 rounded-full font-bold px-8 bg-slate-900 hover:bg-red-600 shadow-xl")}>
-        {t('productDetail.backToHome', { defaultValue: 'Kembali ke Katalog' })}
+        {t('productDetail.backToHome', { defaultValue: 'Kembali ke Produk' })}
       </Link>
     </div>
   );
