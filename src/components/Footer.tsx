@@ -91,15 +91,21 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="lg:col-span-2">
             <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">Menu Utama</h4>
             <ul className="space-y-4">
-              {['home', 'products', 'partner', 'contact'].map((item) => (
-                <li key={item}>
+              {[
+                { key: 'home', label: t('nav.home'), path: '/' },
+                { key: 'products', label: t('nav.products'), path: '/products' },
+                { key: 'about', label: t('nav.about'), path: '/tentang-kami' },
+                { key: 'partner', label: t('nav.partner'), path: '/partner' },
+                { key: 'contact', label: t('nav.contact'), path: '/contact' }
+              ].map((item) => (
+                <li key={item.key}>
                   <Link 
-                    to={item === 'home' ? '/' : `/${item}`} 
+                    to={item.path} 
                     className="group flex items-center text-slate-300 hover:text-white transition-colors w-max"
                   >
                     <ArrowRight className="w-4 h-4 opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 group-hover:mr-2 text-red-500 transition-all duration-300" />
                     <span className="font-medium transform transition-transform duration-300 group-hover:translate-x-1">
-                      {t(`nav.${item}`)}
+                      {item.label}
                     </span>
                   </Link>
                 </li>
