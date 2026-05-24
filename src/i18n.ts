@@ -18,7 +18,8 @@ const resources = {
         subtitle: 'Providing high-quality uniforms and corporate wear for Indonesia\'s leading industries since 1990.',
         cta: 'Explore Products',
         freeConsultation: 'Free Consultation',
-        viewCatalog: 'View Catalog'
+        viewCatalog: 'View Catalog',
+        watchProfileVideo: 'WATCH OUR PROFILE VIDEO'
       },
       footer: {
         description: 'Leading garment manufacturer specializing in high-quality uniforms, corporate wear, and safety gear.',
@@ -75,6 +76,7 @@ const resources = {
         whyPartnerDesc: 'We provide strategic advantages for your brand through quality, punctuality, and experience.',
         feedback: 'Partner Feedback',
         successStories: 'Success Stories',
+        getStarted: 'Get Started',
         readyToScale: 'Ready to scale your',
         yourProduction: 'production?',
         joinNetwork: 'Join our network of successful partners and experience the future of apparel manufacturing.',
@@ -166,7 +168,9 @@ const resources = {
           experience: 'Years Experience',
           dedication: 'Dedicated to providing the best quality.'
         },
-        videoTitle: 'Company Profile Video'
+        videoTitle: 'Company Profile Video',
+        getToKnowUs: 'Get To Know Us More',
+        watchProfileVideo: 'Watch Our Profile Video'
       },
       productDetail: {
         notFound: 'Product not found',
@@ -306,7 +310,8 @@ const resources = {
         subtitle: 'Menyediakan seragam berkualitas tinggi dan pakaian korporat untuk industri terkemuka di Indonesia sejak 1990.',
         cta: 'Jelajahi Produk',
         freeConsultation: 'Konsultasi Gratis',
-        viewCatalog: 'Lihat Katalog'
+        viewCatalog: 'Lihat Katalog',
+        watchProfileVideo: 'TONTON VIDEO PROFIL KAMI'
       },
       footer: {
         description: 'Produsen garmen terkemuka yang berspesialisasi dalam seragam berkualitas tinggi, pakaian korporat, dan perlengkapan keselamatan.',
@@ -363,6 +368,7 @@ const resources = {
         whyPartnerDesc: 'Kami memberikan keunggulan strategis untuk merek Anda melalui kualitas, ketepatan waktu, dan pengalaman.',
         feedback: 'Tanggapan Mitra',
         successStories: 'Kisah Sukses',
+        getStarted: 'Mulai Sekarang',
         readyToScale: 'Siap meningkatkan',
         yourProduction: 'produksi Anda?',
         joinNetwork: 'Bergabunglah dengan jaringan mitra sukses kami dan rasakan masa depan manufaktur pakaian.',
@@ -433,7 +439,9 @@ const resources = {
           experience: 'Tahun Pengalaman',
           dedication: 'Berdedikasi memberikan kualitas terbaik.'
         },
-        videoTitle: 'Video Profil Perusahaan'
+        videoTitle: 'Video Profil Perusahaan',
+        getToKnowUs: 'Kenali Kami Lebih Dekat',
+        watchProfileVideo: 'Tonton Video Profil Kami'
       },
       contact: {
         title: 'Kontak',
