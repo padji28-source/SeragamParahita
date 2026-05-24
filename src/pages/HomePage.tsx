@@ -19,20 +19,7 @@ export default function HomePage() {
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "-10%"]);
 
   return (
-    <div ref={ref} className="relative min-h-screen bg-transparent">
-      {/* Parallax Background Global */}
-      <motion.div 
-        className="fixed top-0 left-0 right-0 z-0 bg-cover bg-center bg-no-repeat w-[100vw]"
-        style={{ 
-          backgroundImage: "url('/background.png')",
-          y,
-          height: "120vh",
-          willChange: "transform"
-        }}
-      />
-      
-      {/* Overlay agar background global tidak terlalu dominan */}
-      <div className="fixed inset-0 z-0 bg-white/80 h-screen" />
+    <div ref={ref} className="relative min-h-screen bg-white">
       
       <div className="relative z-10 w-full overflow-hidden">
         <Hero />
