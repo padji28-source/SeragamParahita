@@ -37,45 +37,45 @@ const PRODUCT_VARIATIONS: Record<string, {
 }> = {
   '1': {
     mainModel: '/alfa1.png',
-    englishTitle: 'SHIRT',
-    descEn: 'It is the most widely used uniform model for companies, government agencies, and communities. The shirt material is also used for field work safety clothing, because the material is strong.',
+    englishTitle: 'FRANCHISE UNIFORM',
+    descEn: 'Our flagship uniform products, mostly shirts & polo shirts. For your franchise uniform needs.',
     leftCornerModel: {
-      img: '/transmart1.jpg',
-      brand: 'Transmart',
+      img: '/alfa2.png',
+      brand: 'Alfamart',
       color: 'bg-red-800'
     },
     variations: [
       {
         img: '/alfa1.png',
-        name: 'Alfamart Store Crew',
+        name: 'Alfamart Store Crew (Male)',
         brand: 'Alfamart',
         bgClass: 'bg-red-950',
         textColor: 'text-red-400'
       },
       {
-        img: '/transmart1.jpg',
-        name: 'Transmart Service Uniform',
-        brand: 'Transmart',
-        bgClass: 'bg-rose-950',
-        textColor: 'text-rose-450'
+        img: '/alfa2.png',
+        name: 'Alfamart Field Polo Shift',
+        brand: 'Alfamart',
+        bgClass: 'bg-red-900',
+        textColor: 'text-rose-400'
       },
       {
-        img: '/pertamina2.jpg',
-        name: 'Pertamina Field Crew',
-        brand: 'Pertamina',
-        bgClass: 'bg-sky-950',
-        textColor: 'text-sky-450'
+        img: '/alfa3.jpg',
+        name: 'Alfamart Store Crew (Female)',
+        brand: 'Alfamart Premium',
+        bgClass: 'bg-rose-950',
+        textColor: 'text-rose-450'
       }
     ]
   },
   '2': {
     mainModel: '/shell1.png',
-    englishTitle: 'POLO & T-SHIRT',
-    descEn: 'For those who want a neat yet casual look, a polo shirt can be an excellent choice for corporate uniforms, in addition to sportswear such as golf and tennis. Meanwhile, T-shirts are intended as promotional/event clothing due to their thin and comfortable fabric.',
+    englishTitle: 'AUTOMOTIVE UNIFORM',
+    descEn: 'We are ready to help you create Automotive uniforms demanding durability and comfort.',
     leftCornerModel: {
-      img: '/langham1.png',
-      brand: 'The Langham',
-      color: 'bg-stone-900'
+      img: '/shell2.jpg',
+      brand: 'Shell',
+      color: 'bg-amber-900'
     },
     variations: [
       {
@@ -86,51 +86,190 @@ const PRODUCT_VARIATIONS: Record<string, {
         textColor: 'text-yellow-400'
       },
       {
-        img: '/langham1.png',
-        name: 'Langham Premium Polo',
-        brand: 'The Langham',
-        bgClass: 'bg-stone-800',
-        textColor: 'text-stone-300'
+        img: '/shell2.jpg',
+        name: 'Shell Service Red Uniform',
+        brand: 'Shell Red',
+        bgClass: 'bg-red-950',
+        textColor: 'text-red-400'
+      },
+      {
+        img: '/shell.jpg',
+        name: 'Shell Premium Racing Sporty',
+        brand: 'Shell Elite',
+        bgClass: 'bg-yellow-900',
+        textColor: 'text-amber-300'
       }
     ]
   },
   '3': {
-    mainModel: '/dandan1.jpg',
-    englishTitle: 'APRON',
-    descEn: 'We are ready to assist you in manufacturing uniforms such as Aprons, Chef Coats & Hats for your food and beverage business. Made with durable, water-resistant, and high-quality materials.',
+    mainModel: '/pertamina1.jpg',
+    englishTitle: 'MINING UNIFORM',
+    descEn: 'Field uniforms for oil, construction, and public works companies developed to look attractive and functional.',
     leftCornerModel: {
-      img: '/waskita0.png',
-      brand: 'Waskita Karya',
-      color: 'bg-amber-900'
+      img: '/pertamina2.jpg',
+      brand: 'Pertamina',
+      color: 'bg-blue-900'
     },
     variations: [
       {
-        img: '/dandan1.jpg',
-        name: 'Dan+Dan Store Apron',
-        brand: 'Dan+Dan',
-        bgClass: 'bg-purple-950',
-        textColor: 'text-purple-400'
+        img: '/pertamina2.jpg',
+        name: 'Pertamina Field Crew Oil Eng',
+        brand: 'Pertamina',
+        bgClass: 'bg-sky-950',
+        textColor: 'text-sky-450'
       },
       {
-        img: '/mk.png',
-        name: 'Media Karya Premium Apron',
-        brand: 'Media Karya',
-        bgClass: 'bg-slate-900',
-        textColor: 'text-teal-400'
+        img: '/pertamina1.jpg',
+        name: 'Pertamina Operator Crew Shirt',
+        brand: 'Pertamina Gas',
+        bgClass: 'bg-blue-950',
+        textColor: 'text-blue-400'
       },
+      {
+        img: '/pertamina3.png',
+        name: 'Pertamina Custom Safety Jkt',
+        brand: 'Pertamina Safety',
+        bgClass: 'bg-red-950',
+        textColor: 'text-red-400'
+      }
+    ]
+  },
+  '4': {
+    mainModel: '/waskita0.png',
+    englishTitle: 'CONSTRUCTION UNIFORM',
+    descEn: 'We are experienced in creating uniforms for Construction & Project with guaranteed quality.',
+    leftCornerModel: {
+      img: '/waskita1.jpg',
+      brand: 'Waskita',
+      color: 'bg-amber-900'
+    },
+    variations: [
       {
         img: '/waskita0.png',
         name: 'Waskita Custom Safety',
         brand: 'Waskita Karya',
         bgClass: 'bg-yellow-950',
         textColor: 'text-yellow-500'
+      },
+      {
+        img: '/waskita1.jpg',
+        name: 'Waskita Project Crew Polo',
+        brand: 'Waskita',
+        bgClass: 'bg-amber-950',
+        textColor: 'text-yellow-400'
+      },
+      {
+        img: '/waskita2.jpg',
+        name: 'Waskita Supervisor Shirt',
+        brand: 'Waskita Corporate',
+        bgClass: 'bg-slate-900',
+        textColor: 'text-amber-500'
       }
     ]
   },
-  '4': {
+  '5': {
+    mainModel: '/langham3.jpg',
+    englishTitle: 'F&B UNIFORM',
+    descEn: 'We are ready to help with F&B uniforms like Aprons, Chef Coats & Hats for your company.',
+    leftCornerModel: {
+      img: '/langham1.png',
+      brand: 'The Langham',
+      color: 'bg-stone-900'
+    },
+    variations: [
+      {
+        img: '/langham1.png',
+        name: 'Langham Premium Chef Coat',
+        brand: 'The Langham',
+        bgClass: 'bg-stone-800',
+        textColor: 'text-stone-300'
+      },
+      {
+        img: '/langham2.png',
+        name: 'Langham Premium Bistro Apron',
+        brand: 'The Langham',
+        bgClass: 'bg-stone-950',
+        textColor: 'text-stone-200'
+      },
+      {
+        img: '/langham3.jpg',
+        name: 'Langham Waiter Service Suit',
+        brand: 'The Langham Hotel',
+        bgClass: 'bg-stone-900',
+        textColor: 'text-stone-400'
+      }
+    ]
+  },
+  '6': {
+    mainModel: '/dandan.jpg',
+    englishTitle: 'EVENT UNIFORM',
+    descEn: 'Need uniforms for Gathering & Promotion demanding fast & quality production? Parahita can help.',
+    leftCornerModel: {
+      img: '/dandan1.jpg',
+      brand: 'Dan+Dan',
+      color: 'bg-purple-900'
+    },
+    variations: [
+      {
+        img: '/dandan1.jpg',
+        name: 'Dan+Dan Store Apron Spec',
+        brand: 'Dan+Dan',
+        bgClass: 'bg-purple-950',
+        textColor: 'text-purple-400'
+      },
+      {
+        img: '/dandan2.jpg',
+        name: 'Dan+Dan Polo Team Edition',
+        brand: 'Dan+Dan Service',
+        bgClass: 'bg-fuchsia-950',
+        textColor: 'text-pink-400'
+      },
+      {
+        img: '/dandan.jpg',
+        name: 'Dan+Dan Promotion Shirt',
+        brand: 'Dan+Dan Event',
+        bgClass: 'bg-purple-900',
+        textColor: 'text-purple-300'
+      }
+    ]
+  },
+  '7': {
+    mainModel: '/transmart.jpg',
+    englishTitle: 'OFFICE UNIFORM',
+    descEn: 'Formal, Exclusive, & Comfortable office uniforms. We are experienced in making them.',
+    leftCornerModel: {
+      img: '/transmart1.jpg',
+      brand: 'Transmart',
+      color: 'bg-rose-800'
+    },
+    variations: [
+      {
+        img: '/transmart1.jpg',
+        name: 'Transmart Service Uniform',
+        brand: 'Transmart',
+        bgClass: 'bg-rose-950',
+        textColor: 'text-rose-455'
+      },
+      {
+        img: '/transmart2.jpg',
+        name: 'Transmart Executive Staff Fit',
+        brand: 'Transmart corporate',
+        bgClass: 'bg-red-950',
+        textColor: 'text-red-400'
+      },
+      {
+        img: '/transmart.jpg',
+        name: 'Transmart Area Manager Blazer',
+        brand: 'Transmart HQ',
+        bgClass: 'bg-rose-900',
+        textColor: 'text-rose-350'
+      }
+    ]
+  },
+  '8': {
     mainModel: '/bd.png',
-    englishTitle: 'CAP & TOTE BAG',
-    descEn: 'Accessories such as premium hats, canvas/goodie bags, and other custom accessories to complete your corporate uniform identity and promo needs.',
+    englishTitle: 'MERCHANDISE & ACCESSORIES',
+    descEn: 'Accessories like Hats and Goodie bags are among the many products we can produce.',
     leftCornerModel: {
       img: '/tb.jpg',
       brand: 'Active Promo',
@@ -139,17 +278,24 @@ const PRODUCT_VARIATIONS: Record<string, {
     variations: [
       {
         img: '/bd.png',
-        name: 'Bukit Darmo Cap',
+        name: 'Bukit Darmo Cap Premium',
         brand: 'Bukit Darmo',
         bgClass: 'bg-emerald-950',
         textColor: 'text-emerald-400'
       },
       {
         img: '/tb.jpg',
-        name: 'Premium Canvas Tote Bag',
+        name: 'Premium Canvas Promo Tote',
         brand: 'Parahita Promo',
         bgClass: 'bg-zinc-900',
         textColor: 'text-zinc-400'
+      },
+      {
+        img: '/bg2.png',
+        name: 'Canvas Shopping Eco-Bag',
+        brand: 'Parahita Eco',
+        bgClass: 'bg-teal-950',
+        textColor: 'text-teal-400'
       }
     ]
   }
