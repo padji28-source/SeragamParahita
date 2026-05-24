@@ -50,7 +50,7 @@ export default function PartnerPage() {
               className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-950/60 border border-slate-700/50 text-red-500 text-[10px] font-black uppercase tracking-[0.2em] backdrop-blur-md"
             >
               <HeartHandshake className="w-3.5 h-3.5" />
-              {t('partner.strategicPartnerships', { defaultValue: 'Strategic Partnerships' })}
+              {t('partner.strategicPartnerships', { defaultValue: 'Client Partnerships' })}
             </motion.div>
             <motion.h1 
               initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
@@ -58,7 +58,7 @@ export default function PartnerPage() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05]"
             >
-              {t('partner.title', { defaultValue: 'Mitra Strategis' })} <br />
+              {t('partner.title', { defaultValue: 'Klien Strategis' })} <br />
               <span className="text-red-500">Parahita.</span>
             </motion.h1>
             <motion.p 
@@ -77,7 +77,7 @@ export default function PartnerPage() {
       <section className="py-12 relative z-10 -mt-16">
         <div className="container mx-auto px-6 max-w-7xl mb-8">
           <div className="flex items-center gap-3 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
-            <Minus className="w-5 h-5 text-red-500" /> {t('partner.distinguished', { defaultValue: 'Distinguished Partners' })}
+            <Minus className="w-5 h-5 text-red-500" /> {t('partner.distinguished', { defaultValue: 'Distinguished Clients' })}
           </div>
         </div>
         
@@ -103,7 +103,7 @@ export default function PartnerPage() {
           <div className="flex flex-col items-start space-y-4 mb-16 max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-black text-red-600 uppercase tracking-[0.2em]">
               <Building2 className="w-4 h-4" />
-              Kemitraan Aktif
+              Kerja Sama Aktif
             </div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
               Kolaborasi Industri Skala Besar
