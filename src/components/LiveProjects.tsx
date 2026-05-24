@@ -2,21 +2,31 @@ import { useRef } from "react";
 import { MAJOR_PARTNERS } from "@/src/constants";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
 import { Activity, ArrowRight } from "lucide-react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useTranslation } from "react-i18next";
 
 export default function LiveProjects() {
   const { t } = useTranslation();
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   return (
-    <section className="relative w-full py-24 lg:py-32 bg-slate-50 border-y border-slate-200 overflow-hidden font-sans">
+    <section ref={sectionRef} className="relative w-full py-24 lg:py-32 bg-slate-50 border-y border-slate-200 overflow-hidden font-sans">
       
       {/* Background Image (bg2.png) dengan efek Parallax & Overlay Premium */}
-      <div 
-        className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center bg-fixed"
-        style={{ backgroundImage: "url('/bg2.png')" }}
+      <motion.div 
+        className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center"
+        style={{ 
+          backgroundImage: "url('/bg2.png')",
+          y: bgY,
+          height: "140%"
+        }}
       />
       {/* Gradient Overlay untuk meredupkan background agar teks tetap terbaca */}
       <div className="absolute inset-0 bg-gradient-to-b from-slate-50/90 via-slate-50/60 to-slate-50/90 z-0" />
