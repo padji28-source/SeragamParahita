@@ -121,9 +121,21 @@ export default function ProductCatalog() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-6"
+            style={{ perspective: 1200 }}
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-6 overflow-hidden"
             onClick={() => setSelectedProduct(null)} // Tutup modal jika area luar diklik
           >
+            {/* Cinematic Ambient Glow */}
+            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 flex items-center justify-center z-0 pointer-events-none select-none">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.7 }}
+                animate={{ opacity: 0.18, scale: 1.15 }}
+                exit={{ opacity: 0, scale: 0.7 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="w-[280px] h-[280px] md:w-[600px] md:h-[600px] rounded-full bg-gradient-to-r from-red-650 via-red-600 to-amber-500 blur-[80px] md:blur-[160px] animate-pulse"
+              />
+            </div>
+
             {/* Top Navigation Bar: Tutup / Kembali */}
             <motion.div 
               initial={{ y: -40, opacity: 0 }}
@@ -140,7 +152,7 @@ export default function ProductCatalog() {
                 className="flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white text-xs font-bold uppercase tracking-widest rounded-full border border-white/10 backdrop-blur-md cursor-pointer shadow-lg outline-none select-none transition-shadow hover:shadow-white/5"
               >
                 <ArrowLeft className="w-4 h-4 text-red-500" />
-                <span>Kembali</span>
+                <span>{t('nav.home') === 'Home' ? 'Back' : 'Kembali'}</span>
               </motion.button>
               <motion.button 
                 whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 255, 255, 0.15)" }}
@@ -153,15 +165,15 @@ export default function ProductCatalog() {
             </motion.div>
             
             <motion.div 
-              initial={{ opacity: 0, scale: 0.9, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 15 }}
-              transition={{ type: "spring", stiffness: 280, damping: 26 }}
-              className="relative w-full h-[45vh] md:h-[50vh] flex justify-center items-center max-w-7xl mx-auto my-12"
+              initial={{ opacity: 0, scale: 0.82, rotateX: 10, rotateY: -5, y: 35 }}
+              animate={{ opacity: 1, scale: 1, rotateX: 0, rotateY: 0, y: 0 }}
+              exit={{ opacity: 0, scale: 0.82, rotateX: -10, rotateY: 5, y: 35 }}
+              transition={{ type: "spring", stiffness: 180, damping: 22 }}
+              className="relative w-full h-[50vh] md:h-[58vh] lg:h-[64vh] flex justify-center items-center max-w-5xl mx-auto my-12 z-10"
               onClick={(e) => e.stopPropagation()} // Mencegah klik di area gambar menutup modal
             >
               {selectedProduct.images && selectedProduct.images.length > 0 ? (
-                <Carousel className="w-full max-w-5xl mx-auto" opts={{ align: "center", loop: true }}>
+                <Carousel className="w-full max-w-4xl mx-auto" opts={{ align: "center", loop: true }}>
                   <CarouselContent>
                     {selectedProduct.images.map((img, idx) => (
                       <CarouselItem key={idx} className="flex justify-center items-center font-sans">
@@ -169,9 +181,9 @@ export default function ProductCatalog() {
                           layoutId={idx === 0 ? `product-image-${selectedProduct.id}` : undefined}
                           src={img} 
                           alt={`${selectedProduct.name} - ${idx + 1}`}
-                          className="max-w-full max-h-[40vh] md:max-h-[45vh] object-contain shadow-2xl rounded-2xl"
+                          className="max-w-full max-h-[46vh] md:max-h-[54vh] lg:max-h-[60vh] object-contain shadow-2xl rounded-[2.5rem] border border-white/10"
                           referrerPolicy="no-referrer"
-                          transition={{ type: "spring", damping: 25, stiffness: 280 }}
+                          transition={{ type: "spring", damping: 22, stiffness: 180 }}
                         />
                       </CarouselItem>
                     ))}
@@ -189,9 +201,9 @@ export default function ProductCatalog() {
                   layoutId={`product-image-${selectedProduct.id}`}
                   src={selectedProduct.image} 
                   alt={selectedProduct.name}
-                  className="max-w-full max-h-[40vh] md:max-h-[45vh] object-contain shadow-2xl rounded-2xl cursor-default"
+                  className="max-w-full max-h-[46vh] md:max-h-[54vh] lg:max-h-[60vh] object-contain shadow-2xl rounded-[2.5rem] border border-white/10 cursor-default"
                   referrerPolicy="no-referrer"
-                  transition={{ type: "spring", damping: 25, stiffness: 280 }}
+                  transition={{ type: "spring", damping: 22, stiffness: 180 }}
                 />
               )}
             </motion.div>
@@ -220,16 +232,16 @@ export default function ProductCatalog() {
                   }}
                   className="flex-1 sm:flex-none px-5 h-12 rounded-2xl bg-white text-slate-900 text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 cursor-pointer outline-none select-none transition-shadow hover:shadow-lg shadow-black/20"
                 >
-                  <span>Spesifikasi</span>
+                  <span>{t('products.specification', { defaultValue: 'Spesifikasi' })}</span>
                   <ArrowLeft className="w-3.5 h-3.5 rotate-180" />
                 </motion.button>
                 <motion.button
                   whileHover={{ scale: 1.04, y: -2 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => setIsQuoteModalOpen(true)}
-                  className="flex-1 sm:flex-none px-5 h-12 rounded-2xl bg-red-600 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer outline-none select-none transition-shadow hover:shadow-lg hover:shadow-red-600/10"
+                  className="flex-1 sm:flex-none px-5 h-12 rounded-2xl bg-red-650 hover:bg-red-700 text-white text-xs font-bold uppercase tracking-wider flex items-center justify-center cursor-pointer outline-none select-none transition-shadow hover:shadow-lg hover:shadow-red-600/10"
                 >
-                  <span>Minta Penawaran</span>
+                  <span>{t('products.requestQuote', { defaultValue: 'Minta Penawaran' })}</span>
                 </motion.button>
               </div>
             </motion.div>
