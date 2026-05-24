@@ -118,17 +118,16 @@ export default function ProductsPage() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold uppercase tracking-[0.15em] backdrop-blur-md"
             >
-              {/* Error sebelumnya terjadi di baris ini karena Shield tidak di-import */}
               <Shield className="w-3.5 h-3.5" />
-              {t('contact.badge', { defaultValue: 'Get In Touch' })}
+              {t('products.title', { defaultValue: 'Produk Kami' })}
             </motion.div>
             <motion.h1 
               initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
               animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
-              className="text-4xl md:text-6xl font-black tracking-tight text-white"
+              className="text-4xl md:text-6xl font-black tracking-tight text-white mb-2"
             >
-              {t('contact.title', { defaultValue: 'Hubungi' })} <span className="text-red-500">Parahita</span>
+              Catalog <span className="text-red-500">Parahita</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -136,7 +135,7 @@ export default function ProductsPage() {
               transition={{ delay: 0.2 }}
               className="text-lg md:text-xl text-slate-300 max-w-xl font-medium leading-relaxed"
             >
-              {t('contact.subtitle')}
+              {t('products.subtitle', { defaultValue: 'Solusi garmen berkualitas tinggi yang disesuaikan untuk kebutuhan industri Anda.' })}
             </motion.p>
           </div>
         </div>
@@ -159,21 +158,18 @@ export default function ProductsPage() {
                     "group relative grid grid-cols-1 md:grid-cols-12 gap-8 items-center",
                   )}
                 >
-                  {/* Image Container - Bento Style */}
+                  {/* Image Container - Clean Transparent Style (No box background/borders) */}
                   <div className={cn(
-                    "md:col-span-6 lg:col-span-7 relative h-[400px] md:h-[550px] rounded-[3rem] overflow-hidden bg-white/50 backdrop-blur-xl border border-white shadow-xl flex items-center justify-center p-12 transition-all duration-700 hover:shadow-2xl hover:shadow-red-500/10",
+                    "md:col-span-6 lg:col-span-7 relative h-[400px] md:h-[550px] flex items-center justify-center p-6 transition-all duration-700",
                     idx % 2 === 1 ? "md:order-last" : ""
                   )}>
-                    <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: 'linear-gradient(to right, #000 1px, transparent 1px), linear-gradient(to bottom, #000 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
-                    
                     <motion.img
                       layoutId={`product-image-${product.id}`}
                       src={product.image}
                       alt={product.name}
-                      className="w-full h-full object-contain relative z-10 transition-transform duration-1000 ease-out group-hover:scale-110 drop-shadow-2xl"
+                      className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-1000 ease-out group-hover:scale-105 drop-shadow-[0_25px_35px_rgba(0,0,0,0.12)]"
+                      referrerPolicy="no-referrer"
                     />
-
-                    <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/40 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 translate-x-[-100%] group-hover:translate-x-[100%] ease-in-out" />
                   </div>
                   
                   {/* Content Container */}
