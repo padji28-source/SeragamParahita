@@ -23,8 +23,9 @@ export default function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-24 relative z-10 bg-slate-50/30">
-      <div className="container mx-auto px-6 md:px-12 max-w-7xl">
+    // Dibuat bg-transparent dan menghapus div background
+    <section className="py-24 relative z-10 bg-transparent">
+      <div className="container mx-auto px-6 md:px-12 max-w-7xl relative z-10">
         <div className="text-center mb-20 space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[10px] font-bold uppercase tracking-[0.2em]">
             Elite Standard
