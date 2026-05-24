@@ -143,6 +143,7 @@ const resources = {
         subtitle: 'Crafting excellence in every stitch since 1990.',
         vision: 'Our Vision',
         mission: 'Our Mission',
+        missionSubtitle: 'Our practical steps to achieve the vision',
         visionStatement: 'To become a trusted and leading garment company in quality and service.',
         missionStatements: [
           'Provide high quality products at competitive prices.',
@@ -199,6 +200,7 @@ const resources = {
         heroSubtitle: 'High-quality garment collections designed for your industry needs.',
         searchPlaceholder: 'Search products...',
         materialCatalog: {
+          badge: 'MATERIAL COLLECTION',
           title: 'Material Catalog',
           subtitle: 'Take a closer look at the details and specifications of our premium materials.',
           composition: 'Composition',
@@ -218,6 +220,7 @@ const resources = {
         howToOrder: 'How to Order',
         title: 'Our Production Flow',
         subtitle: 'From consultation to delivery, we ensure a transparent, easy, and high-quality process.',
+        stage: 'Stage',
         steps: {
           step1: {
             title: 'Design & Pattern',
@@ -293,6 +296,24 @@ const resources = {
             sendQuote: 'Send to WhatsApp',
             privacyNote: 'Your data is safe. We do not share your information with third parties.'
           }
+        },
+        quoteForm: {
+          manufacturingSolution: 'Manufacturing Solution',
+          title: 'Production Solutions for Your Best Brand.',
+          subtitle: 'We combine the latest manufacturing technology with high quality standards to ensure your products stand out in the market.',
+          benefits: [
+            'High Quality Standardization',
+            'Mass Production Efficiency',
+            'Professional Design Consultation'
+          ],
+          readyToStart: 'Ready to Get Started?',
+          teamReady: 'Our team is ready to help with your production needs.',
+          cta: 'Start Consultation',
+          dialogTitle: 'Order Details',
+          placeholderName: 'Full Name',
+          placeholderProduct: 'Product Type (e.g. T-Shirt/Jacket)',
+          placeholderQty: 'Estimated Quantity (Pcs)',
+          sendWhatsapp: 'Send via WhatsApp'
         }
       }
     }
@@ -416,6 +437,7 @@ const resources = {
         subtitle: 'Menciptakan keunggulan dalam setiap jahitan sejak 1990.',
         vision: 'Visi',
         mission: 'Misi',
+        missionSubtitle: 'Langkah nyata kami untuk mencapai visi',
         visionStatement: 'Menjadi perusahaan garmen yang terpercaya dan terdepan dalam kualitas serta pelayanan.',
         missionStatements: [
           'Memberikan produk berkualitas tinggi dengan harga kompetitif.',
@@ -493,6 +515,7 @@ const resources = {
         heroSubtitle: 'Koleksi garmen berkualitas tinggi yang dirancang untuk kebutuhan industri Anda.',
         searchPlaceholder: 'Cari produk...',
         materialCatalog: {
+          badge: 'KOLEKSI MATERIAL',
           title: 'Katalog Material',
           subtitle: 'Lihat lebih dekat detail dan spesifikasi dari bahan premium kami.',
           composition: 'Komposisi',
@@ -512,6 +535,7 @@ const resources = {
         howToOrder: 'Cara Pemesanan',
         title: 'Alur Produksi Kami',
         subtitle: 'Mulai dari konsultasi hingga barang sampai di tangan Anda, kami memastikan proses yang transparan, mudah, dan berkualitas tinggi.',
+        stage: 'Tahap',
         steps: {
           step1: {
             title: 'Desain & Pola',
@@ -588,6 +612,24 @@ const resources = {
             privacyNote: 'Data Anda aman. Kami tidak membagikan informasi Anda kepada pihak ketiga.',
             validationError: 'Mohon lengkapi bagian yang ditandai bintang (*).'
           }
+        },
+        quoteForm: {
+          manufacturingSolution: 'Solusi Manufaktur',
+          title: 'Solusi Produksi untuk Brand Terbaik Anda.',
+          subtitle: 'Kami menggabungkan teknologi manufaktur terkini dengan standar kualitas tinggi untuk memastikan produk Anda menonjol di pasar.',
+          benefits: [
+            'Standardisasi Kualitas Tinggi',
+            'Efisiensi Produksi Massal',
+            'Konsultasi Desain Profesional'
+          ],
+          readyToStart: 'Siap untuk Memulai?',
+          teamReady: 'Tim kami siap membantu kebutuhan produksi Anda.',
+          cta: 'Mulai Konsultasi',
+          dialogTitle: 'Detail Pesanan',
+          placeholderName: 'Nama Lengkap',
+          placeholderProduct: 'Jenis Produk (ex: Kaos/Jaket)',
+          placeholderQty: 'Estimasi Jumlah (Pcs)',
+          sendWhatsapp: 'Kirim via WhatsApp'
         }
       }
     }
