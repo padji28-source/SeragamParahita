@@ -137,6 +137,11 @@ export default function Navbar() {
             <span className="relative z-10">{t('nav.partner')}</span>
           </Link>
 
+          {/* About */}
+          <Link to="/tentang-kami" className={navLinkClass("/tentang-kami")}>
+            <span className="relative z-10">{t('nav.about')}</span>
+          </Link>
+
           {/* Contact */}
           <Link to="/contact" className={navLinkClass("/contact")}>
             <span className="relative z-10">{t('nav.contact')}</span>
@@ -209,13 +214,17 @@ export default function Navbar() {
                   </Link>
                 </motion.div>
 
-                {['partner', 'contact'].map((item) => (
-                  <motion.div key={item} variants={mobileItemVars}>
+                {[
+                  { key: 'about', label: t('nav.about'), path: '/tentang-kami' },
+                  { key: 'partner', label: t('nav.partner'), path: '/partner' },
+                  { key: 'contact', label: t('nav.contact'), path: '/contact' }
+                ].map((item) => (
+                  <motion.div key={item.key} variants={mobileItemVars}>
                     <Link 
-                      to={`/${item}`} 
-                      className={cn("block px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider", location.pathname === `/${item}` ? "bg-gray-50 text-red-600" : "text-gray-600")}
+                      to={item.path} 
+                      className={cn("block px-4 py-3 rounded-xl text-[13px] font-bold uppercase tracking-wider", location.pathname === item.path ? "bg-gray-50 text-red-600" : "text-gray-600")}
                     >
-                      {t(`nav.${item}`)}
+                      {item.label}
                     </Link>
                   </motion.div>
                 ))}
