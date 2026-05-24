@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -6,14 +6,14 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FloatingSocials from "./components/FloatingSocials";
 
-// 1. Lazy Loading untuk performa maksimal
-const HomePage = lazy(() => import("./pages/HomePage"));
-const ProductsPage = lazy(() => import("./pages/ProductsPage"));
-const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
-const PartnerPage = lazy(() => import("./pages/PartnerPage"));
-const ContactPage = lazy(() => import("./pages/ContactPage"));
+// Static imports for instant, lag-free routing transitions
+import HomePage from "./pages/HomePage";
+import ProductsPage from "./pages/ProductsPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
+import PartnerPage from "./pages/PartnerPage";
+import ContactPage from "./pages/ContactPage";
 
-// Loading Fallback (Sederhana tapi penting)
+// Loading Fallback (Used as a general safety net)
 const PageLoader = () => (
   <div className="h-screen w-full flex items-center justify-center bg-white">
     <div className="w-10 h-10 border-4 border-red-100 border-t-red-600 rounded-full animate-spin" />
@@ -21,7 +21,7 @@ const PageLoader = () => (
 );
 
 function ScrollToTop() {
-  const { pathname, hash } = useLocation();
+  const { hash } = useLocation();
 
   useEffect(() => {
     if (hash) {
@@ -32,23 +32,21 @@ function ScrollToTop() {
           element.scrollIntoView({ behavior: "smooth" });
         }, 100);
       }
-    } else {
-      window.scrollTo(0, 0);
     }
-  }, [pathname, hash]);
+  }, [hash]);
 
   return null;
 }
 
 const pageVariants = {
-  initial: { opacity: 0, y: 10, filter: "blur(10px)", scale: 0.99 },
+  initial: { opacity: 0, y: 12, filter: "blur(6px)" },
   animate: { 
-    opacity: 1, y: 0, filter: "blur(0px)", scale: 1,
-    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } 
+    opacity: 1, y: 0, filter: "blur(0px)",
+    transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } 
   },
   exit: { 
-    opacity: 0, y: -10, filter: "blur(5px)",
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] } 
+    opacity: 0, y: -12, filter: "blur(6px)",
+    transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } 
   }
 };
 
@@ -57,7 +55,14 @@ function AnimatedRoutes() {
   
   return (
     // Tambahkan mode="wait" agar halaman lama hilang dulu baru halaman baru muncul
-    <AnimatePresence mode="wait">
+    // Hubungkan onExitComplete agar scroll disapu keatas setelah halaman keluar sempurna,
+    // di saat layar kosong (atau transisi), menghindari scroll jump yang merusak keindahan visual.
+    <AnimatePresence 
+      mode="wait"
+      onExitComplete={() => {
+        window.scrollTo(0, 0);
+      }}
+    >
       <motion.div 
         key={location.pathname}
         variants={pageVariants}
