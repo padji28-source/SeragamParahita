@@ -183,8 +183,8 @@ export const MAJOR_PARTNERS: MajorPartner[] = [
   },
   {
     id: '2',
-    name: 'Shell',
-    logo: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Shell_logo.svg',
+    name: 'Hankook',
+    logo: 'https://1000logos.net/wp-content/uploads/2020/08/Hankook-Logo-1990s.png',
     status: 'Live Order',
     progress: 60,
   },
