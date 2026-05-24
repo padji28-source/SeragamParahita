@@ -65,7 +65,7 @@ export default function AboutSection() {
 
             <div className="flex flex-wrap items-center gap-8 pt-4">
               <a 
-                href="/company-profile.pdf" 
+                href="/Compro-Parahita-Garment.pdf" 
                 className="group relative inline-flex items-center gap-3 bg-slate-900 text-white font-bold h-14 px-10 rounded-2xl transition-all duration-300 overflow-hidden shadow-xl shadow-slate-900/20"
               >
                 <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
@@ -133,7 +133,7 @@ export default function AboutSection() {
       <div 
         className="h-full w-full bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: 'url(/product-1.jpg)',
+          backgroundImage: 'url(https://uniformparahita.com/wp-content/uploads/2026/02/poster.png)',
           backgroundSize: 'cover'
         }}
       />
