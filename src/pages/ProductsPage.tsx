@@ -48,57 +48,7 @@ export default function ProductsPage() {
       <div className="absolute top-[30%] -right-40 w-[600px] h-[600px] bg-red-500/5 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute bottom-[20%] -left-40 w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none" />
 
-      {/* --- FLOATING DYNAMIC ISLAND (NAVBAR PENCARIAN DIKEMBALIKAN) --- */}
-      <div className="fixed top-6 inset-x-0 z-50 flex justify-center px-4 pointer-events-none">
-        <motion.div 
-          layout
-          className={cn(
-            "pointer-events-auto bg-white/80 backdrop-blur-3xl border border-white shadow-2xl shadow-slate-200/50 rounded-full flex flex-col md:flex-row items-center p-2 gap-2 transition-all duration-700 ease-out",
-            isScrolled ? "md:w-auto scale-95" : "w-full max-w-4xl"
-          )}
-        >
-          <LayoutGroup>
-            <div className="flex items-center gap-1 overflow-x-auto w-full md:w-auto px-2 no-scrollbar mask-fade-edges">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setSelectedCategory(cat)}
-                  className="relative px-5 py-2.5 rounded-full text-sm font-bold whitespace-nowrap outline-none group"
-                >
-                  {selectedCategory === cat && (
-                    <motion.div
-                      layoutId="activePill"
-                      className="absolute inset-0 bg-slate-900 rounded-full"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
-                  <span className={cn(
-                    "relative z-10 transition-colors duration-300",
-                    selectedCategory === cat ? "text-white" : "text-slate-500 group-hover:text-slate-900"
-                  )}>
-                    {cat}
-                  </span>
-                </button>
-              ))}
-            </div>
-          </LayoutGroup>
-
-          <div className="hidden md:block w-[1px] h-8 bg-slate-200 mx-2" />
-
-          <div className="relative w-full md:w-64 group flex-shrink-0">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 w-4 h-4 transition-colors group-focus-within:text-red-500" />
-            <input 
-              type="text"
-              placeholder="Cari produk..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 h-11 rounded-full bg-slate-50/50 hover:bg-slate-100 border border-transparent focus:border-slate-200 focus:bg-white text-sm font-medium transition-all outline-none placeholder:text-slate-400"
-            />
-          </div>
-        </motion.div>
-      </div>
-
-      {/* --- HERO SECTION --- */}
+         {/* --- HERO SECTION --- */}
       <section className="relative h-[450px] flex items-center overflow-hidden z-10">
         <div className="absolute inset-0">
           <img 
