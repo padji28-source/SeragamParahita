@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Navbar from "./components/Navbar";
@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import PartnerPage from "./pages/PartnerPage";
+import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 
 // Loading Fallback (Used as a general safety net)
@@ -77,6 +78,8 @@ function AnimatedRoutes() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route path="/partner" element={<PartnerPage />} />
+            <Route path="/about" element={<Navigate to="/tentang-kami" replace />} />
+            <Route path="/tentang-kami" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             
             {/* 2. Catch-all Route 404 */}
