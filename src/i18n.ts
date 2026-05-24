@@ -55,7 +55,9 @@ const resources = {
           8: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories like Hats and Goodie bags are among the many products we can produce.', features: ['Custom Logo', 'Various Choices', 'Guaranteed Quality'] }
         },
         inquiry: 'Inquiry This Product',
-        viewDetails: 'View Details'
+        viewDetails: 'View Details',
+        specification: 'Specification',
+        requestQuote: 'Request Quote'
       },
       partner: {
         title: 'Our Trusted',
@@ -347,7 +349,9 @@ const resources = {
           8: { name: 'Merchandise', category: 'Merchandise', desc: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.', features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'] }
         },
         inquiry: 'Tanyakan Produk Ini',
-        viewDetails: 'Lihat Detail'
+        viewDetails: 'Lihat Detail',
+        specification: 'Spesifikasi',
+        requestQuote: 'Minta Penawaran'
       },
       partner: {
         title: 'Mitra Terpercaya',
