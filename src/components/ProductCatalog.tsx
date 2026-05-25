@@ -132,7 +132,7 @@ export default function ProductCatalog() {
             {/* Sliding Red Overlay on Hover */}
             <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             
-            <span className="relative z-10 text-sm">Lihat Semua Produk</span>
+            <span className="relative z-10 text-sm">{t('catalog.viewAll', { defaultValue: 'Lihat Semua Produk' })}</span>
             <ArrowRight className="relative z-10 w-5 h-5 transition-transform group-hover:translate-x-1" />
           </motion.button>
         </div>
