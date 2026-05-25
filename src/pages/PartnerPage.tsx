@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "motion/react";
 import { 
   HeartHandshake, 
-  Minus,
   Building2
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
@@ -75,12 +74,6 @@ export default function PartnerPage() {
 
       {/* --- TRUSTED BY / MARQUEE LOGO --- */}
       <section className="py-12 relative z-10 -mt-16">
-        <div className="container mx-auto px-6 max-w-7xl mb-8">
-          <div className="flex items-center gap-3 text-slate-400 font-bold uppercase tracking-[0.2em] text-xs">
-            <Minus className="w-5 h-5 text-red-500" /> {t('partner.distinguished', { defaultValue: 'Distinguished Clients' })}
-          </div>
-        </div>
-        
         <div className="relative w-full flex overflow-hidden before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-24 before:bg-gradient-to-r before:from-slate-50 before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-24 after:bg-gradient-to-l after:from-slate-50 after:to-transparent">
           <div className="flex items-center space-x-20 animate-marquee min-w-max pr-20 hover:[animation-play-state:paused] py-4">
             {[...PARTNERS, ...PARTNERS].map((partner, index) => (
@@ -136,13 +129,6 @@ export default function PartnerPage() {
                         className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
                         referrerPolicy="no-referrer"
                       />
-                      
-                      <div className="absolute top-4 right-4">
-                        <div className="bg-white border border-slate-100 text-slate-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest flex items-center gap-1.5 shadow-sm group-hover:border-green-200 group-hover:text-green-600 transition-colors">
-                          <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" />
-                          {partner.status}
-                        </div>
-                      </div>
                     </div>
 
                     <div className="p-6 md:p-8 space-y-4 flex-1 flex flex-col justify-center">
