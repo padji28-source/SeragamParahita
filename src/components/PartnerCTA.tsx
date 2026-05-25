@@ -31,6 +31,22 @@ const itemVariants = {
 export default function PartnerCTA() {
   const { t } = useTranslation();
 
+  // Konfigurasi Email
+  const emailTo = "seragamparahita01@gmail.com,cs@seragamparahita.com,seragamparahita02@gmail.com";
+  const emailSubject = "Pengajuan Kemitraan / Penawaran Produksi - Parahita";
+  const emailBody = 
+    `Halo Tim Parahita,\r\n\r\n` +
+    `Saya tertarik untuk menjalin kemitraan dan ingin mendiskusikan lebih lanjut mengenai penawaran produksi.\r\n\r\n` +
+    `Berikut adalah beberapa informasi awal dari kami:\r\n` +
+    `- Nama Perusahaan / Instansi : \r\n` +
+    `- Jenis Kebutuhan Produksi   : \r\n` +
+    `- Estimasi Kuantitas         : \r\n` +
+    `- Nomor Kontak (WhatsApp)    : \r\n\r\n` +
+    `Mohon informasi lebih lanjut terkait prosedur kemitraan dan penawaran dari Parahita.\r\n\r\n` +
+    `Terima kasih.`;
+
+  const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
   return (
     <section className="py-24 relative z-10 bg-white min-h-[50vh] flex items-center overflow-hidden border-t border-slate-100">
       {/* Ambient background decoration with micro slow-float animation */}
@@ -105,7 +121,7 @@ export default function PartnerCTA() {
           {/* Button Modern dengan Animasi Hover yang Memikat */}
           <motion.div variants={itemVariants} className="flex justify-center pt-2">
             <motion.a 
-              href="https://wa.me/6282125478346" 
+              href={mailtoLink} 
               target="_blank" 
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05, y: -2 }}
