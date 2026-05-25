@@ -682,12 +682,32 @@ export default function ProductDetailPage() {
                 const quantity = formData.get('quantity');
                 const message = formData.get('message');
                 
-                const waMessage = `Halo Sales 1, saya ingin meminta penawaran untuk produk *${product.name}*.\n\n*Deskripsi Produk:*\n${product.description}\n\n*Detail Data:*\n- Nama: ${name}\n- Perusahaan: ${company || '-'}\n- Jumlah: ${quantity} Pcs\n- Pesan: ${message || '-'}`;
+                // Daftar email tujuan
+                const emailTo = "seragamparahita01@gmail.com,cs@seragamparahita.com,seragamparahita02@gmail.com";
+                const emailSubject = `Request Penawaran Produk: ${product.name}`;
                 
-                window.open(`https://wa.me/6282125478346?text=${encodeURIComponent(waMessage)}`, "_blank");
+                // Menyusun isi form agar tercopy rapi ke body email menggunakan \r\n (Enter)
+                const emailBody = 
+                  `Halo Tim Sales,\r\n\r\n` +
+                  `Saya ingin meminta penawaran untuk produk berikut:\r\n` +
+                  `Nama Produk: ${product.name}\r\n\r\n` +
+                  `Berikut adalah detail pesanan saya:\r\n` +
+                  `----------------------------------------\r\n` +
+                  `Nama Lengkap        : ${name}\r\n` +
+                  `Perusahaan/Instansi : ${company || '-'}\r\n` +
+                  `Kuantitas           : ${quantity} Pcs\r\n` +
+                  `Catatan Tambahan    : ${message || '-'}\r\n` +
+                  `----------------------------------------\r\n\r\n` +
+                  `Mohon informasi lebih lanjut mengenai harga dan estimasi produksi.\r\n\r\n` +
+                  `Terima kasih.`;
+                
+                // Mengarahkan user ke email bawaan dengan data yang sudah tercopy
+                window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                
                 setIsQuoteModalOpen(false); 
               }}
            >
+              {/* Sisa kode input form tetap sama... */}
               <div className="space-y-5">
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
@@ -734,7 +754,7 @@ export default function ProductDetailPage() {
                    Batal
                  </Button>
                  <Button type="submit" className="sm:flex-[2] h-14 rounded-full bg-slate-900 hover:bg-red-600 text-white font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-xl hover:shadow-red-500/30 order-1 sm:order-2">
-                    Kirim via WhatsApp
+                    Kirim via Email
                     <Send className="w-4 h-4 ml-3" />
                  </Button>
               </div>
