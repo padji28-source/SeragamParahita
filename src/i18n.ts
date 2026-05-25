@@ -341,7 +341,7 @@ const resources = {
         quickLinks: 'Tautan Cepat',
         products: 'Produk',
         contact: 'Kontak',
-        rights: '© 2024 Parahita Garment. Hak cipta dilindungi undang-undang.',
+        rights: '. Hak cipta dilindungi undang-undang.',
         privacy: 'Kebijakan Privasi',
         terms: 'Syarat & Ketentuan'
       },
