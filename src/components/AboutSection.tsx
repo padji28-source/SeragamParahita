@@ -38,7 +38,7 @@ export default function AboutSection() {
                     {t('nav.about')}
                  </span>
               </div>
-              <h2 className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tighter leading-[1] text-slate-900 uppercase">
+              <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-black tracking-tighter leading-[1] text-slate-900 uppercase">
                 {t('about.story.title')}
               </h2>
             </div>
