@@ -140,7 +140,7 @@ export default function AboutPage() {
               <span className="text-red-650 font-black tracking-[0.25em] uppercase text-xs block">
                 {t('nav.home') === 'Home' ? 'ESTABLISHED 1990' : 'SEJAK TAHUN 1990'}
               </span>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 leading-none uppercase">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-slate-900 leading-none uppercase">
                 {t('about.story.title', { defaultValue: 'Tentang Parahita' })}
               </h2>
             </div>
