@@ -89,7 +89,7 @@ export default function Footer() {
 
           {/* Kolom 2: Navigasi */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
-            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">Menu Utama</h4>
+            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">{t('footer.menuUtama', { defaultValue: 'Menu Utama' })}</h4>
             <ul className="space-y-4">
               {[
                 { key: 'home', label: t('nav.home'), path: '/' },
@@ -115,7 +115,7 @@ export default function Footer() {
 
           {/* Kolom 3: Produk */}
           <motion.div variants={itemVariants} className="lg:col-span-3">
-            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">Koleksi Produk</h4>
+            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">{t('footer.koleksiProduk', { defaultValue: 'Koleksi Produk' })}</h4>
             <ul className="space-y-4">
               {PRODUCTS.slice(0, 4).map((product) => (
                 <li key={product.id}>
@@ -132,7 +132,7 @@ export default function Footer() {
 
           {/* Kolom 4: Kontak */}
           <motion.div variants={itemVariants} className="lg:col-span-3">
-            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">Informasi Kontak</h4>
+            <h4 className="text-xs font-black mb-8 uppercase tracking-[0.2em] text-slate-100/50">{t('footer.informasiKontak', { defaultValue: 'Informasi Kontak' })}</h4>
             <ul className="space-y-6">
               <li className="flex gap-4 items-start group">
                 <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-red-500/50 group-hover:bg-red-500/10 transition-colors">
@@ -146,8 +146,8 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-red-500/50 group-hover:bg-red-500/10 transition-colors">
                   <Mail className="w-4 h-4 text-slate-400 group-hover:text-red-400 transition-colors" />
                 </div>
-                <a href="mailto:cs@seragamparahita.com" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                  cs@seragamparahita.com
+                <a href="mailto:seragam@parahitaps.com" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                  seragam@parahitaps.com
                 </a>
               </li>
               <li className="flex gap-4 items-center group">
