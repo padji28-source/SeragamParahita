@@ -146,8 +146,8 @@ export default function Footer() {
                 <div className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center shrink-0 group-hover:border-red-500/50 group-hover:bg-red-500/10 transition-colors">
                   <Mail className="w-4 h-4 text-slate-400 group-hover:text-red-400 transition-colors" />
                 </div>
-                <a href="mailto:seragam@parahitaps.com" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
-                  seragam@parahitaps.com
+                <a href="mailto:cs@seragamparahita.com" className="text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                  cs@seragamparahita.com
                 </a>
               </li>
               <li className="flex gap-4 items-center group">
