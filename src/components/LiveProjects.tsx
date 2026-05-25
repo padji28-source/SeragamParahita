@@ -79,14 +79,14 @@ export default function LiveProjects() {
                       {/* Logo Container (White box to preserve brand colors) */}
                       <div className="w-full aspect-[4/3] rounded-[1.25rem] overflow-hidden mb-6 relative bg-white flex items-center justify-center p-6 shadow-inner ring-4 ring-slate-100">
                         
-                        {/* Live Badge */}
+                        {/* Live Badge 
                         <Badge className="absolute top-3 right-3 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 border border-emerald-100 shadow-sm flex items-center gap-1.5 z-20 px-2.5 py-1 text-[10px] uppercase tracking-wider font-bold">
                           <span className="relative flex h-2 w-2">
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                           </span>
                           {partner.status}
-                        </Badge>
+                        </Badge> */}
 
                         {/* Subtle Grid overlay for texture inside logo box */}
                         <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, black 1px, transparent 0)', backgroundSize: '16px 16px' }} />
