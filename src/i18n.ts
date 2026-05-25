@@ -26,9 +26,12 @@ const resources = {
         quickLinks: 'Quick Links',
         products: 'Products',
         contact: 'Contact',
-        rights: ' All rights reserved.',
+        rights: '© 2024 Parahita Garment. All rights reserved.',
         privacy: 'Privacy Policy',
-        terms: 'Terms & Conditions'
+        terms: 'Terms & Conditions',
+        menuUtama: 'Main Menu',
+        koleksiProduk: 'Product Collection',
+        informasiKontak: 'Contact Information'
       },
       products: {
         title: 'Our Product',
@@ -92,6 +95,9 @@ const resources = {
         upcomingDesc: 'Scheduled for upcoming production phase.',
         estDelivery: 'Est. Delivery',
         viewDetails: 'View Details',
+        activeCooperation: 'Active Collaboration',
+        largeScaleCollab: 'Large-Scale Industrial Collaboration',
+        largeScaleCollabDesc: 'List of entities and ongoing projects trusting their production standardization to our manufacturing infrastructure.',
         benefits: {
           quality: {
             title: 'Quality',
@@ -297,6 +303,9 @@ const resources = {
             privacyNote: 'Your data is safe. We do not share your information with third parties.'
           }
         },
+        catalog: {
+          viewAll: 'See All Products'
+        },
         quoteForm: {
           manufacturingSolution: 'Manufacturing Solution',
           title: 'Production Solutions for Your Best Brand.',
@@ -341,9 +350,12 @@ const resources = {
         quickLinks: 'Tautan Cepat',
         products: 'Produk',
         contact: 'Kontak',
-        rights: ' Hak cipta dilindungi undang-undang.',
+        rights: '© 2024 Parahita Garment. Hak cipta dilindungi undang-undang.',
         privacy: 'Kebijakan Privasi',
-        terms: 'Syarat & Ketentuan'
+        terms: 'Syarat & Ketentuan',
+        menuUtama: 'Menu Utama',
+        koleksiProduk: 'Koleksi Produk',
+        informasiKontak: 'Informasi Kontak'
       },
       products: {
         title: 'Produk Kami',
@@ -407,6 +419,9 @@ const resources = {
         upcomingDesc: 'Dijadwalkan untuk fase produksi mendatang.',
         estDelivery: 'Perkiraan Pengiriman',
         viewDetails: 'Lihat Detail',
+        activeCooperation: 'Kerja Sama Aktif',
+        largeScaleCollab: 'Kolaborasi Industri Skala Besar',
+        largeScaleCollabDesc: 'Daftar entitas dan pengerjaan proyek berjalan yang memercayakan standardisasi produksinya kepada infrastruktur manufaktur kami.',
         benefits: {
           quality: {
             title: 'Kualitas',
@@ -612,6 +627,9 @@ const resources = {
             privacyNote: 'Data Anda aman. Kami tidak membagikan informasi Anda kepada pihak ketiga.',
             validationError: 'Mohon lengkapi bagian yang ditandai bintang (*).'
           }
+        },
+        catalog: {
+          viewAll: 'Lihat Semua Produk'
         },
         quoteForm: {
           manufacturingSolution: 'Solusi Manufaktur',
