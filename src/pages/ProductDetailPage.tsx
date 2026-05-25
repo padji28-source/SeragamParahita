@@ -308,13 +308,16 @@ const SALES_CONTACTS = [
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
-  const isId = i18n.language === 'id';
+  const isId = i18n.language?.startsWith('id');
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   const product = id ? PRODUCTS.find(p => p.id === id) : undefined;
 
   if (!product) return <NotFound t={t} />;
   
+  const translatedName = t(`products.items.${product.id}.name`, { defaultValue: product.name });
+  const translatedDesc = t(`products.items.${product.id}.desc`, { defaultValue: product.description });
+
   const designVars = PRODUCT_VARIATIONS[product.id] || PRODUCT_VARIATIONS['1'];
   const variations = designVars.variations || [];
 
@@ -368,17 +371,17 @@ export default function ProductDetailPage() {
       {/* --- EXTRA BREADCRUMBS ROW --- */}
       <nav className="container mx-auto px-6 lg:px-12 max-w-7xl relative z-10 py-4 flex flex-wrap items-center justify-between gap-4 mb-4 lg:mb-8">
         <motion.div initial={{ opacity: 0, x: -15 }} animate={{ opacity: 1, x: 0 }} className="flex items-center gap-2 text-xs font-black text-slate-400 tracking-widest uppercase">
-          <Link to="/" className="hover:text-red-600 transition-colors">Beranda</Link>
+          <Link to="/" className="hover:text-red-600 transition-colors">{t('nav.home', { defaultValue: 'Beranda' })}</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-          <Link to="/products" className="hover:text-red-600 transition-colors">Produk</Link>
+          <Link to="/products" className="hover:text-red-600 transition-colors">{t('nav.products', { defaultValue: 'Produk' })}</Link>
           <ChevronRight className="w-3.5 h-3.5 text-slate-300" />
-          <span className="text-slate-900 font-bold">{product.name}</span>
+          <span className="text-slate-900 font-bold">{translatedName}</span>
         </motion.div>
         
         <motion.div initial={{ opacity: 0, x: 15 }} animate={{ opacity: 1, x: 0 }}>
           <Link to="/products" className="inline-flex items-center gap-2 text-xs font-black text-slate-500 hover:text-red-600 transition-colors group bg-white px-5 py-2.5 rounded-full shadow-sm border border-slate-200/60 hover:border-red-200">
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            Kembali ke Produk
+            {t('productDetail.backToProducts', { defaultValue: isId ? 'Kembali ke Produk' : 'Back to Products' })}
           </Link>
         </motion.div>
       </nav>
@@ -515,7 +518,7 @@ export default function ProductDetailPage() {
                 <div className="relative inline-flex items-stretch">
                   {/* Angled background banner match */}
                   <div className="min-h-14 py-3 font-sans font-black text-2xl md:text-3xl lg:text-4xl text-white bg-slate-900 px-6 flex items-center shadow-lg relative rounded-l-lg z-10 leading-tight">
-                    {product.name.toUpperCase()}
+                    {translatedName.toUpperCase()}
                   </div>
                   {/* Angled red slice badge */}
                   <div 
@@ -531,19 +534,19 @@ export default function ProductDetailPage() {
                 {/* Secondary Category Code Indicator */}
                 <span className="text-[11px] font-black text-red-500 uppercase tracking-[0.3em] pl-1.5 mt-2 flex items-center gap-1.5">
                   <span className="w-4 h-[2px] bg-red-500" />
-                  {designVars.englishTitle}
+                  {isId ? designVars.englishTitle : product.name.toUpperCase()}
                 </span>
               </div>
 
               {/* PRODUCT LITERATURE */}
               <div className="space-y-4 max-w-xl">
-                {/* Indonesian Text (Requested Main Content) */}
+                {/* Main Localized Text */}
                 <p className="text-slate-800 text-sm md:text-base leading-relaxed font-semibold">
-                  {product.description}
+                  {translatedDesc}
                 </p>
-                {/* Italicized Technical Translation Matching Brochure Mockup */}
+                {/* Italicized Alternate Translation Matching Brochure Mockup */}
                 <p className="text-slate-400 text-xs md:text-sm leading-relaxed italic font-medium pt-2 border-t border-slate-100">
-                  {designVars.descEn}
+                  {isId ? designVars.descEn : product.description}
                 </p>
               </div>
 
@@ -555,8 +558,10 @@ export default function ProductDetailPage() {
                     <Factory className="w-5 h-5 flex-shrink-0" />
                   </div>
                   <div className="space-y-0.5 truncate">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Kapasitas Produksi</p>
-                    <p className="font-bold text-slate-900 text-xs truncate">Mencapai 20,000 Pcs/Bulan</p>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{t('productDetail.capacity', { defaultValue: 'Kapasitas Produksi' })}</p>
+                    <p className="font-bold text-slate-900 text-xs truncate">
+                      {t('productDetail.capacityValue', { defaultValue: isId ? 'Mencapai 20,000 Pcs/Bulan' : 'Up to 20,000 Pcs/Month' })}
+                    </p>
                   </div>
                 </div>
 
@@ -565,8 +570,10 @@ export default function ProductDetailPage() {
                     <ShieldCheck className="w-5 h-5 flex-shrink-0" />
                   </div>
                   <div className="space-y-0.5 truncate">
-                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Layanan Garansi</p>
-                    <p className="font-bold text-slate-900 text-xs truncate">Garansi Kualitas Presisi</p>
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">{t('productDetail.warranty', { defaultValue: 'Layanan Garansi' })}</p>
+                    <p className="font-bold text-slate-900 text-xs truncate">
+                      {t('productDetail.warrantyValue', { defaultValue: isId ? 'Garansi Kualitas Presisi' : 'Precision Quality Guarantee' })}
+                    </p>
                   </div>
                 </div>
 
@@ -613,8 +620,12 @@ export default function ProductDetailPage() {
               <FileText className="w-6 h-6" />
             </div>
             <div>
-              <h5 className="font-black text-slate-900 text-sm">Konsultasi Desain & Penawaran Kustom</h5>
-              <p className="text-xs text-slate-500 font-medium">Kirimkan request ukuran, model, and kustomisasi logo via WhatsApp atau form penawaran.</p>
+              <h5 className="font-black text-slate-900 text-sm">
+                {t('productDetail.consultationTitle', { defaultValue: isId ? 'Konsultasi Desain & Penawaran Kustom' : 'Design Consultation & Custom Quote' })}
+              </h5>
+              <p className="text-xs text-slate-500 font-medium">
+                {t('productDetail.consultationDesc', { defaultValue: isId ? 'Kirimkan request ukuran, model, dan kustomisasi logo via WhatsApp atau form penawaran.' : 'Send size, model, and logo customization requests via WhatsApp or quote form.' })}
+              </p>
             </div>
           </div>
           
@@ -623,7 +634,7 @@ export default function ProductDetailPage() {
               onClick={() => setIsQuoteModalOpen(true)}
               className="flex-1 md:flex-none h-14 rounded-full bg-slate-900 hover:bg-red-600 text-white font-black text-xs tracking-widest uppercase shadow-lg transition-all duration-300"
             >
-              Minta Penawaran
+              {t('productDetail.requestQuote', { defaultValue: isId ? 'Minta Penawaran' : 'Request Quote' })}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
@@ -639,10 +650,16 @@ export default function ProductDetailPage() {
                  <div className="w-12 h-12 bg-red-100 border border-red-200 rounded-2xl flex items-center justify-center">
                     <Package className="w-6 h-6 text-red-600" />
                  </div>
-                 <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">Form Penawaran</DialogTitle>
+                 <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">
+                   {t('orderFlow.inquiry.formTitle', { defaultValue: isId ? 'Form Penawaran' : 'Quote Request' })}
+                 </DialogTitle>
               </div>
               <DialogDescription className="text-slate-500 font-medium text-sm leading-relaxed pt-1">
-                 Isi detail kebutuhan Anda untuk mendapatkan estimasi produksi <span className="text-red-600 font-bold">{product.name}</span>.
+                 {isId ? (
+                   <>Isi detail kebutuhan Anda untuk mendapatkan estimasi produksi <span className="text-red-600 font-bold">{translatedName}</span>.</>
+                 ) : (
+                   <>Fill in your requirements to receive a production estimate for <span className="text-red-600 font-bold">{translatedName}</span>.</>
+                 )}
               </DialogDescription>
            </DialogHeader>
 
@@ -658,13 +675,13 @@ export default function ProductDetailPage() {
                 
                 // Daftar email tujuan
                 const emailTo = "seragamparahita01@gmail.com,cs@seragamparahita.com,seragamparahita02@gmail.com";
-                const emailSubject = `Request Penawaran Produk: ${product.name}`;
+                const emailSubject = isId ? `Request Penawaran Produk: ${translatedName}` : `Product Quote Request: ${translatedName}`;
                 
                 // Menyusun isi form agar tercopy rapi ke body email menggunakan \r\n (Enter)
-                const emailBody = 
+                const emailBody = isId ? (
                   `Halo Tim Sales,\r\n\r\n` +
                   `Saya ingin meminta penawaran untuk produk berikut:\r\n` +
-                  `Nama Produk: ${product.name}\r\n\r\n` +
+                  `Nama Produk: ${translatedName}\r\n\r\n` +
                   `Berikut adalah detail pesanan saya:\r\n` +
                   `----------------------------------------\r\n` +
                   `Nama Lengkap        : ${name}\r\n` +
@@ -673,7 +690,21 @@ export default function ProductDetailPage() {
                   `Catatan Tambahan    : ${message || '-'}\r\n` +
                   `----------------------------------------\r\n\r\n` +
                   `Mohon informasi lebih lanjut mengenai harga dan estimasi produksi.\r\n\r\n` +
-                  `Terima kasih.`;
+                  `Terima kasih.`
+                ) : (
+                  `Hello Sales Team,\r\n\r\n` +
+                  `I would like to request a quote for the following product:\r\n` +
+                  `Product Name: ${translatedName}\r\n\r\n` +
+                  `Here are my order details:\r\n` +
+                  `----------------------------------------\r\n` +
+                  `Full Name           : ${name}\r\n` +
+                  `Company/Institution : ${company || '-'}\r\n` +
+                  `Quantity            : ${quantity} Pcs\r\n` +
+                  `Additional Notes    : ${message || '-'}\r\n` +
+                  `----------------------------------------\r\n\r\n` +
+                  `Please provide further information regarding the price and production estimate.\r\n\r\n` +
+                  `Thank you.`
+                );
                 
                 // Mengarahkan user ke email bawaan dengan data yang sudah tercopy
                 window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
@@ -681,18 +712,21 @@ export default function ProductDetailPage() {
                 setIsQuoteModalOpen(false); 
               }}
            >
-              {/* Sisa kode input form tetap sama... */}
               <div className="space-y-5">
                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                     <div className="space-y-2">
-                       <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nama Lengkap</Label>
+                       <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
+                         {t('orderFlow.inquiry.form.name', { defaultValue: 'Nama Lengkap' })}
+                       </Label>
                        <div className="relative">
                           <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
                        </div>
                     </div>
                     <div className="space-y-2">
-                       <Label htmlFor="company" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Perusahaan / instansi</Label>
+                       <Label htmlFor="company" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
+                         {t('orderFlow.inquiry.form.company', { defaultValue: 'Perusahaan/Instansi' })}
+                       </Label>
                        <div className="relative">
                           <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
                           <Input id="company" name="company" placeholder="PT / Instansi" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" />
@@ -701,21 +735,25 @@ export default function ProductDetailPage() {
                  </div>
 
                  <div className="space-y-2">
-                    <Label htmlFor="quantity" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Kuantitas (Pcs)</Label>
+                    <Label htmlFor="quantity" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
+                      {isId ? 'Kuantitas (Pcs)' : 'Quantity (Pcs)'}
+                    </Label>
                     <div className="relative">
                        <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                       <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
+                       <Input id="quantity" name="quantity" type="number" placeholder={isId ? "Contoh: 100" : "Example: 100"} className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
                     </div>
                  </div>
 
                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Catatan Tambahan</Label>
+                    <Label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">
+                      {t('orderFlow.inquiry.form.additionalNotes', { defaultValue: 'Catatan Tambahan' })}
+                    </Label>
                     <div className="relative">
                        <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
                        <textarea 
                         id="message" 
                         name="message"
-                        placeholder="Detail kustomisasi..." 
+                        placeholder={isId ? "Detail kustomisasi..." : "Customization details..."} 
                         rows={3}
                         className="w-full pl-11 pr-4 pt-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 focus:ring-2 focus:ring-red-500/20 focus:border-red-500 text-sm font-medium outline-none transition-all resize-none min-h-[100px]"
                        />
@@ -725,10 +763,10 @@ export default function ProductDetailPage() {
 
               <div className="pt-4 flex flex-col sm:flex-row gap-3">
                  <Button type="button" variant="ghost" onClick={() => setIsQuoteModalOpen(false)} className="sm:flex-1 h-14 rounded-full font-bold text-slate-500 hover:bg-slate-100 order-2 sm:order-1">
-                   Batal
+                   {isId ? 'Batal' : 'Cancel'}
                  </Button>
                  <Button type="submit" className="sm:flex-[2] h-14 rounded-full bg-slate-900 hover:bg-red-600 text-white font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-xl hover:shadow-red-500/30 order-1 sm:order-2">
-                    Kirim via Email
+                    {isId ? 'Kirim via Email' : 'Send via Email'}
                     <Send className="w-4 h-4 ml-3" />
                  </Button>
               </div>
