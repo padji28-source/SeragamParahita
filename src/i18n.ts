@@ -26,7 +26,7 @@ const resources = {
         quickLinks: 'Quick Links',
         products: 'Products',
         contact: 'Contact',
-        rights: '© 2024 Parahita Garment. All rights reserved.',
+        rights: '. All rights reserved.',
         privacy: 'Privacy Policy',
         terms: 'Terms & Conditions'
       },
