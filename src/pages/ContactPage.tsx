@@ -102,8 +102,8 @@ export default function ContactPage() {
                   </div>
                   <div className="flex-1 space-y-0.5">
                     <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('contact.email', { defaultValue: 'Korespondensi Email' })}</h4>
-                    <a href="mailto:seragam@parahitaps.com" className="text-base font-bold text-slate-900 hover:text-red-600 transition-colors block breakdown-all">
-                      seragam@parahitaps.com
+                    <a href="mailto:cs@seragamparahita.com" className="text-base font-bold text-slate-900 hover:text-red-600 transition-colors block breakdown-all">
+                      cs@seragamparahita.com
                     </a>
                   </div>
                 </div>
