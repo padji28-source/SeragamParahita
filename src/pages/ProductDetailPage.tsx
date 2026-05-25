@@ -392,11 +392,120 @@ export default function ProductDetailPage() {
           {/* Middle Spine Divider Line on Desktop */}
           <div className="hidden lg:block absolute inset-y-0 left-1/2 w-[1px] bg-slate-200 z-30 pointer-events-none transform -translate-x-1/2 shadow-inner" />
           
-          {/* ================= PAGE 1: LEFT HAND COMPONENT ================= */}
+          {/* ================= PAGE 1: LEFT HAND COMPONENT (CLIENT VARIATIONS) ================= */}
+          <div className="lg:col-span-6 p-8 md:p-10 lg:p-12 pb-6 flex flex-col justify-between relative bg-gradient-to-br from-slate-50 via-white to-slate-50/20 overflow-hidden">
+            
+            {/* Top Layout Corner Ribbon Accents */}
+            <div className="absolute top-0 left-0 w-24 h-24 bg-red-600/5 rotate-45 transform -translate-x-12 -translate-y-12 select-none pointer-events-none" />
+            
+            <div>
+              {/* Column Title */}
+              <div className="mb-6 text-left">
+                <h4 className="text-xs font-black text-red-600 uppercase tracking-[0.2em] mb-1">
+                  CLIENT VARIATIONS
+                </h4>
+                <div className="w-20 h-[3px] bg-red-600 rounded-full" />
+              </div>
+
+              {/* 1 Large Transparent Cutout & Elegant Manual Slider Controls */}
+              {variations.length > 0 && (
+                <div className="relative flex flex-col items-center justify-center py-2">
+                  
+                  {/* Slider box boundaries */}
+                  <div className="w-full max-w-xl mx-auto flex items-center justify-between gap-4 relative">
+                    
+                    {/* Previous Button */}
+                    <button
+                      type="button"
+                      onClick={prevSlide}
+                      className="absolute left-[-15px] md:left-[-35px] z-30 w-12 h-12 rounded-full bg-white hover:bg-slate-50 border border-slate-200/60 shadow-xl flex items-center justify-center text-slate-700 hover:text-red-600 transition-all duration-300 hover:scale-115 active:scale-95 shrink-0"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+
+                    {/* Image Slide Area - ENLARGED */}
+                    <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden min-h-[580px] md:min-h-[640px] lg:min-h-[700px]">
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeIndex}
+                          initial={{ opacity: 0, x: direction > 0 ? 50 : -50, scale: 0.96 }}
+                          animate={{ opacity: 1, x: 0, scale: 1 }}
+                          exit={{ opacity: 0, x: direction > 0 ? -50 : 50, scale: 0.96 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 26 }}
+                          className="flex flex-col items-center w-full"
+                        >
+                          {/* Inner Model cut-out placement - ENLARGED */}
+                          <div className="h-[500px] md:h-[560px] lg:h-[620px] w-full flex items-center justify-center relative">
+                            {/* Soft glowing ambient spotlight aura */}
+                            <div className="absolute inset-0 bg-radial-gradient from-red-500/5 to-transparent blur-3xl rounded-full scale-125 pointer-events-none" />
+                            
+                            <img
+                              src={variations[activeIndex].img}
+                              alt={variations[activeIndex].name}
+                              className="max-h-full max-w-full object-contain object-bottom filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.15)] select-none transition-all duration-500 hover:scale-110"
+                              referrerPolicy="no-referrer"
+                            />
+                          </div>
+                          
+                          {/* Label information */}
+                          <div className="mt-4 flex flex-col items-center text-center space-y-1.5">
+                             {/* Glowing Badge label */}
+                             <div className="px-4 py-2 rounded-2xl bg-white border border-slate-200/80 shadow-md flex items-center justify-center gap-2">
+                               <span className={cn("w-2.5 h-2.5 rounded-full shrink-0", variations[activeIndex].bgClass || "bg-slate-900")} />
+                               <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{variations[activeIndex].brand}</span>
+                             </div>
+                             
+                             {/* Specific variation specifications */}
+                             <span className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase pt-1">
+                               {variations[activeIndex].name}
+                             </span>
+                          </div>
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Next Button */}
+                    <button
+                      type="button"
+                      onClick={nextSlide}
+                      className="absolute right-[-15px] md:right-[-35px] z-30 w-12 h-12 rounded-full bg-white hover:bg-slate-50 border border-slate-200/60 shadow-xl flex items-center justify-center text-slate-700 hover:text-red-600 transition-all duration-300 hover:scale-115 active:scale-95 shrink-0"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+
+                  </div>
+
+                  {/* Manual Pagination dots */}
+                  <div className="flex items-center justify-center gap-2 mt-4">
+                    {variations.map((_, idx) => (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => {
+                          setDirection(idx > activeIndex ? 1 : -1);
+                          setCurrentSliderIndex(idx);
+                        }}
+                        className={cn(
+                          "w-2.5 h-2.5 rounded-full transition-all duration-300",
+                          idx === activeIndex
+                            ? "bg-red-600 w-8 shadow-sm shadow-red-500/30"
+                            : "bg-slate-200 hover:bg-slate-300"
+                        )}
+                      />
+                    ))}
+                  </div>
+
+                </div>
+              )}
+            </div>
+
+          </div>
+
+          {/* ================= PAGE 2: RIGHT HAND COMPONENT (PRODUCT DETAIL INFO) ================= */}
           <div className="lg:col-span-6 p-8 md:p-12 lg:p-16 flex flex-col justify-between relative bg-gradient-to-br from-white via-slate-50/50 to-white overflow-hidden">
             
             {/* Top ribbon layout decoration line */}
-            <div className="absolute top-0 left-0 w-32 h-1 bg-gradient-to-r from-red-600 to-transparent" />
+            <div className="absolute top-0 right-0 w-32 h-1 bg-gradient-to-l from-red-600 to-transparent" />
             
             {/* Content Segment */}
             <div className="space-y-8 relative z-20">
@@ -438,16 +547,41 @@ export default function ProductDetailPage() {
                 </p>
               </div>
 
+              {/* MOVED TECHNICAL SPECS BAR */}
+              <div className="border-t border-slate-200/80 pt-6 mt-6 grid grid-cols-2 gap-4">
+                
+                <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-red-200 transition-all duration-300 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
+                    <Factory className="w-5 h-5 flex-shrink-0" />
+                  </div>
+                  <div className="space-y-0.5 truncate">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Kapasitas Produksi</p>
+                    <p className="font-bold text-slate-900 text-xs truncate">Mencapai 20,000 Pcs/Bulan</p>
+                  </div>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-blue-200 transition-all duration-300 flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
+                    <ShieldCheck className="w-5 h-5 flex-shrink-0" />
+                  </div>
+                  <div className="space-y-0.5 truncate">
+                    <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Layanan Garansi</p>
+                    <p className="font-bold text-slate-900 text-xs truncate">Garansi Kualitas Presisi</p>
+                  </div>
+                </div>
+
+              </div>
+
             </div>
 
-            {/* LOWER CO-BRANDING & MAIN MODEL IMAGE */}
-            <div className="relative mt-8 min-h-[350px] md:min-h-[450px] flex items-center justify-center z-10">
+            {/* LOWER CO-BRANDING & MAIN MODEL IMAGE - SLIGHTLY SMALLER */}
+            <div className="relative mt-6 min-h-[260px] md:min-h-[320px] flex items-center justify-center z-10">
               
               {/* Slanted framing block */}
               <div className="absolute inset-x-0 bottom-4 top-12 bg-slate-900/5 rounded-[2.5rem] transform -skew-y-3 pointer-events-none" />
               
               {/* Overlapping Bottom-Left Model (Clean Transparent Cutout Style) */}
-              <div className="absolute left-4 bottom-4 w-32 h-44 md:w-40 md:h-52 z-20 group cursor-pointer transition-transform hover:scale-105 select-none pointer-events-none">
+              <div className="absolute left-4 bottom-4 w-24 h-32 md:w-28 md:h-38 z-20 group cursor-pointer transition-transform hover:scale-105 select-none pointer-events-none">
                 <img 
                   src={designVars.leftCornerModel.img} 
                   alt="Spec Model" 
@@ -457,147 +591,13 @@ export default function ProductDetailPage() {
               </div>
 
               {/* Large Hero Main Model Image at Center */}
-              <div className="w-56 h-72 md:w-72 md:h-96 relative z-10 select-none pointer-events-none transition-transform hover:scale-105 duration-700">
+              <div className="w-36 h-48 md:w-44 md:h-60 lg:w-48 lg:h-64 relative z-10 select-none pointer-events-none transition-transform hover:scale-105 duration-700">
                 <img 
                   src={product.image || designVars.mainModel} 
                   alt={product.name} 
                   className="w-full h-full object-contain filter drop-shadow-[0_25px_30px_rgba(0,0,0,0.15)] relative z-10" 
                   referrerPolicy="no-referrer"
                 />
-              </div>
-
-            </div>
-
-          </div>
-
-          {/* ================= PAGE 2: RIGHT HAND COMPONENT ================= */}
-          <div className="lg:col-span-6 p-8 md:p-12 lg:p-16 flex flex-col justify-between relative bg-gradient-to-br from-slate-50 via-white to-slate-50/20 overflow-hidden">
-            
-            {/* Top Layout Corner Ribbon Accents */}
-            <div className="absolute top-0 right-0 w-24 h-24 bg-red-600/5 rotate-45 transform translate-x-12 -translate-y-12 select-none pointer-events-none" />
-            
-            <div>
-              {/* Column Title */}
-              <div className="mb-10 text-right">
-                <h4 className="text-xs font-black text-red-600 uppercase tracking-[0.2em] mb-1">
-                  CLIENT VARIATIONS
-                </h4>
-                <div className="w-20 h-[3px] bg-red-600 ml-auto rounded-full" />
-              </div>
-
-              {/* 1 Large Transparent Cutout & Elegant Manual Slider Controls */}
-              {variations.length > 0 && (
-                <div className="relative flex flex-col items-center justify-center py-4">
-                  
-                  {/* Slider box boundaries */}
-                  <div className="w-full max-w-xl mx-auto flex items-center justify-between gap-4 relative">
-                    
-                    {/* Previous Button */}
-                    <button
-                      type="button"
-                      onClick={prevSlide}
-                      className="absolute left-[-15px] md:left-[-35px] z-30 w-12 h-12 rounded-full bg-white hover:bg-slate-50 border border-slate-200/60 shadow-xl flex items-center justify-center text-slate-700 hover:text-red-600 transition-all duration-300 hover:scale-115 active:scale-95 shrink-0"
-                    >
-                      <ChevronLeft className="w-6 h-6" />
-                    </button>
-
-                    {/* Image Slide Area */}
-                    <div className="flex-1 flex flex-col items-center justify-center relative overflow-hidden min-h-[460px] md:min-h-[520px]">
-                      <AnimatePresence mode="wait">
-                        <motion.div
-                          key={activeIndex}
-                          initial={{ opacity: 0, x: direction > 0 ? 50 : -50, scale: 0.96 }}
-                          animate={{ opacity: 1, x: 0, scale: 1 }}
-                          exit={{ opacity: 0, x: direction > 0 ? -50 : 50, scale: 0.96 }}
-                          transition={{ type: "spring", stiffness: 300, damping: 26 }}
-                          className="flex flex-col items-center w-full"
-                        >
-                          {/* Inner Model cut-out placement */}
-                          <div className="h-[380px] md:h-[440px] lg:h-[480px] w-full flex items-center justify-center relative">
-                            {/* Soft glowing ambient spotlight aura */}
-                            <div className="absolute inset-0 bg-radial-gradient from-red-500/5 to-transparent blur-3xl rounded-full scale-100 pointer-events-none" />
-                            
-                            <img
-                              src={variations[activeIndex].img}
-                              alt={variations[activeIndex].name}
-                              className="max-h-full max-w-full object-contain filter drop-shadow-[0_25px_45px_rgba(0,0,0,0.15)] select-none transition-all duration-500 hover:scale-105"
-                              referrerPolicy="no-referrer"
-                            />
-                          </div>
-                          
-                          {/* Label information */}
-                          <div className="mt-6 flex flex-col items-center text-center space-y-2">
-                             {/* Glowing Badge label */}
-                             <div className="px-4 py-2 rounded-2xl bg-white border border-slate-200/80 shadow-md flex items-center justify-center gap-2">
-                               <span className={cn("w-2.5 h-2.5 rounded-full shrink-0", variations[activeIndex].bgClass || "bg-slate-900")} />
-                               <span className="text-[10px] font-black text-slate-900 uppercase tracking-widest">{variations[activeIndex].brand}</span>
-                             </div>
-                             
-                             {/* Specific variation specifications */}
-                             <span className="text-[10px] font-black text-slate-400 tracking-[0.2em] uppercase pt-1">
-                               {variations[activeIndex].name}
-                             </span>
-                          </div>
-                        </motion.div>
-                      </AnimatePresence>
-                    </div>
-
-                    {/* Next Button */}
-                    <button
-                      type="button"
-                      onClick={nextSlide}
-                      className="absolute right-[-15px] md:right-[-35px] z-30 w-12 h-12 rounded-full bg-white hover:bg-slate-50 border border-slate-200/60 shadow-xl flex items-center justify-center text-slate-700 hover:text-red-600 transition-all duration-300 hover:scale-115 active:scale-95 shrink-0"
-                    >
-                      <ChevronRight className="w-6 h-6" />
-                    </button>
-
-                  </div>
-
-                  {/* Manual Pagination dots */}
-                  <div className="flex items-center justify-center gap-2 mt-6">
-                    {variations.map((_, idx) => (
-                      <button
-                        key={idx}
-                        type="button"
-                        onClick={() => {
-                          setDirection(idx > activeIndex ? 1 : -1);
-                          setCurrentSliderIndex(idx);
-                        }}
-                        className={cn(
-                          "w-2.5 h-2.5 rounded-full transition-all duration-300",
-                          idx === activeIndex
-                            ? "bg-red-600 w-8 shadow-sm shadow-red-500/30"
-                            : "bg-slate-200 hover:bg-slate-300"
-                        )}
-                      />
-                    ))}
-                  </div>
-
-                </div>
-              )}
-            </div>
-
-            {/* LOWER TECHNICAL SPECS BAR */}
-            <div className="border-t border-slate-200/80 pt-10 mt-12 grid grid-cols-2 gap-4">
-              
-              <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-red-200 transition-all duration-300 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
-                  <Factory className="w-5 h-5" />
-                </div>
-                <div className="space-y-0.5 truncate">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Kapasitas Produksi</p>
-                  <p className="font-bold text-slate-900 text-xs truncate">Mencapai 20,000 Pcs/Bulan</p>
-                </div>
-              </div>
-
-              <div className="p-4 rounded-2xl bg-white border border-slate-100 shadow-sm hover:border-blue-200 transition-all duration-300 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-                  <ShieldCheck className="w-5 h-5" />
-                </div>
-                <div className="space-y-0.5 truncate">
-                  <p className="text-[9px] font-black text-slate-400 uppercase tracking-wider">Layanan Garansi</p>
-                  <p className="font-bold text-slate-900 text-xs truncate">Garansi Kualitas Presisi</p>
-                </div>
               </div>
 
             </div>
@@ -626,143 +626,115 @@ export default function ProductDetailPage() {
               Minta Penawaran
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger 
-                className={cn(
-                  buttonVariants({ variant: "outline" }),
-                  "h-14 w-14 rounded-full border-2 border-slate-200 bg-white hover:bg-green-50 hover:border-green-500 hover:text-green-600 transition-all duration-300 p-0 flex items-center justify-center shrink-0"
-                )}
-              >
-                <MessageCircle className="w-6 h-6" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64 p-3 rounded-[2rem] border-slate-200 shadow-2xl bg-white relative z-[100]">
-                <div className="px-4 py-3 text-[9px] font-black uppercase tracking-widest text-slate-400 border-b border-slate-100 mb-2">Hubungi Sales Konsultan</div>
-                {SALES_CONTACTS.map((sales, idx) => (
-                  <DropdownMenuItem 
-                    key={idx}
-                    className="rounded-2xl py-3 px-4 cursor-pointer focus:bg-green-50 focus:text-green-700 font-bold text-sm transition-colors"
-                    onClick={() => window.open(`https://wa.me/${sales.phone}?text=Halo ${sales.name}, saya tertarik dengan produk ${product.name}`, "_blank")}
-                  >
-                    <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                      <MessageSquare className="w-4 h-4 text-green-600" />
-                    </div>
-                    Chat {sales.name}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
           </div>
         </div>
 
       </div>
 
       {/* --- FORM PENAWARAN MODAL --- */}
-<Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
-  <DialogContent className="sm:max-w-[520px] p-0 overflow-hidden rounded-[3rem] border border-white shadow-2xl bg-white">
-    <DialogHeader className="p-10 pb-6 bg-slate-50/50 border-b border-slate-100 relative">
-      <div className="flex items-center gap-4 mb-3">
-        <div className="w-12 h-12 bg-red-100 border border-red-200 rounded-2xl flex items-center justify-center">
-          <Package className="w-6 h-6 text-red-600" />
-        </div>
-        <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">Form Penawaran</DialogTitle>
-      </div>
-      <DialogDescription className="text-slate-500 font-medium text-sm leading-relaxed pt-1">
-        Isi detail kebutuhan Anda untuk mendapatkan estimasi produksi <span className="text-red-600 font-bold">{product.name}</span>.
-      </DialogDescription>
-    </DialogHeader>
+      <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
+        <DialogContent className="sm:max-w-[520px] p-0 overflow-hidden rounded-[3rem] border border-white shadow-2xl bg-white">
+           <DialogHeader className="p-10 pb-6 bg-slate-50/50 border-b border-slate-100 relative">
+              <div className="flex items-center gap-4 mb-3">
+                 <div className="w-12 h-12 bg-red-100 border border-red-200 rounded-2xl flex items-center justify-center">
+                    <Package className="w-6 h-6 text-red-600" />
+                 </div>
+                 <DialogTitle className="text-2xl font-black text-slate-900 tracking-tight">Form Penawaran</DialogTitle>
+              </div>
+              <DialogDescription className="text-slate-500 font-medium text-sm leading-relaxed pt-1">
+                 Isi detail kebutuhan Anda untuk mendapatkan estimasi produksi <span className="text-red-600 font-bold">{product.name}</span>.
+              </DialogDescription>
+           </DialogHeader>
 
-    <form 
-      className="p-10 space-y-6" 
-      onSubmit={(e) => { 
-        e.preventDefault(); 
-        const formData = new FormData(e.currentTarget);
-        const name = formData.get('name');
-        const company = formData.get('company');
-        const quantity = formData.get('quantity');
-        const message = formData.get('message');
-        
-        // Daftar email tujuan
-        const emailTo = "seragamparahita01@gmail.com,cs@seragamparahita.com,seragamparahita02@gmail.com";
-        const emailSubject = `Request Penawaran Produk: ${product.name}`;
-        
-        // Menggunakan spasi biasa (bukan non-breaking space) agar aman dibaca email client
-        const emailBody = 
-          `Halo Tim Sales,\r\n\r\n` +
-          `Saya ingin meminta penawaran untuk produk berikut:\r\n` +
-          `Nama Produk: ${product.name}\r\n\r\n` +
-          `Berikut adalah detail pesanan saya:\r\n` +
-          `----------------------------------------\r\n` +
-          `Nama Lengkap        : ${name}\r\n` +
-          `Perusahaan/Instansi : ${company || '-'}\r\n` +
-          `Kuantitas           : ${quantity} Pcs\r\n` +
-          `Catatan Tambahan    : ${message || '-'}\r\n` +
-          `----------------------------------------\r\n\r\n` +
-          `Mohon informasi lebih lanjut mengenai harga dan estimasi waktu produksi.\r\n\r\n` +
-          `Terima kasih.`;
-        
-        // Mengarahkan user ke email bawaan
-        window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-        
-        // Berikan sedikit jeda sebelum menutup modal agar browser selesai memproses mailto
-        setTimeout(() => {
-          setIsQuoteModalOpen(false); 
-        }, 300);
-      }}
-    >
-      <div className="space-y-5">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-          <div className="space-y-2">
-            <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nama Lengkap</Label>
-            <div className="relative">
-              <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="company" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Perusahaan / instansi</Label>
-            <div className="relative">
-              <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-              <Input id="company" name="company" placeholder="PT / Instansi" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" />
-            </div>
-          </div>
-        </div>
+           <form 
+              className="p-10 space-y-6" 
+              onSubmit={(e) => { 
+                e.preventDefault(); 
+                const formData = new FormData(e.currentTarget);
+                const name = formData.get('name');
+                const company = formData.get('company');
+                const quantity = formData.get('quantity');
+                const message = formData.get('message');
+                
+                // Daftar email tujuan
+                const emailTo = "seragamparahita01@gmail.com,cs@seragamparahita.com,seragamparahita02@gmail.com";
+                const emailSubject = `Request Penawaran Produk: ${product.name}`;
+                
+                // Menyusun isi form agar tercopy rapi ke body email menggunakan \r\n (Enter)
+                const emailBody = 
+                  `Halo Tim Sales,\r\n\r\n` +
+                  `Saya ingin meminta penawaran untuk produk berikut:\r\n` +
+                  `Nama Produk: ${product.name}\r\n\r\n` +
+                  `Berikut adalah detail pesanan saya:\r\n` +
+                  `----------------------------------------\r\n` +
+                  `Nama Lengkap        : ${name}\r\n` +
+                  `Perusahaan/Instansi : ${company || '-'}\r\n` +
+                  `Kuantitas           : ${quantity} Pcs\r\n` +
+                  `Catatan Tambahan    : ${message || '-'}\r\n` +
+                  `----------------------------------------\r\n\r\n` +
+                  `Mohon informasi lebih lanjut mengenai harga dan estimasi produksi.\r\n\r\n` +
+                  `Terima kasih.`;
+                
+                // Mengarahkan user ke email bawaan dengan data yang sudah tercopy
+                window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                
+                setIsQuoteModalOpen(false); 
+              }}
+           >
+              {/* Sisa kode input form tetap sama... */}
+              <div className="space-y-5">
+                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div className="space-y-2">
+                       <Label htmlFor="name" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Nama Lengkap</Label>
+                       <div className="relative">
+                          <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Input id="name" name="name" placeholder="John Doe" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
+                       </div>
+                    </div>
+                    <div className="space-y-2">
+                       <Label htmlFor="company" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Perusahaan / instansi</Label>
+                       <div className="relative">
+                          <Building className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                          <Input id="company" name="company" placeholder="PT / Instansi" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" />
+                       </div>
+                    </div>
+                 </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="quantity" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Kuantitas (Pcs)</Label>
-          <div className="relative">
-            <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
-          </div>
-        </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="quantity" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Kuantitas (Pcs)</Label>
+                    <div className="relative">
+                       <Package className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+                       <Input id="quantity" name="quantity" type="number" placeholder="Contoh: 100" className="pl-11 h-14 rounded-2xl bg-slate-50 hover:bg-slate-100 border-slate-200/80 focus-visible:ring-2 focus-visible:ring-red-500/20 focus-visible:border-red-500 transition-all font-medium text-sm" required />
+                    </div>
+                 </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Catatan Tambahan</Label>
-          <div className="relative">
-            <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
-            <textarea 
-              id="message" 
-              name="message"
-              placeholder="Detail kustomisasi..." 
-              rows={3}
-              className="w-full pl-11 pr-4 pt-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 focus:ring-2 focus:ring-red-500/20 focus:border-red-500 text-sm font-medium outline-none transition-all resize-none min-h-[100px]"
-            />
-          </div>
-        </div>
-      </div>
+                 <div className="space-y-2">
+                    <Label htmlFor="message" className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Catatan Tambahan</Label>
+                    <div className="relative">
+                       <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-slate-400" />
+                       <textarea 
+                        id="message" 
+                        name="message"
+                        placeholder="Detail kustomisasi..." 
+                        rows={3}
+                        className="w-full pl-11 pr-4 pt-3.5 rounded-2xl bg-slate-50 hover:bg-slate-100 border border-slate-200/80 focus:ring-2 focus:ring-red-500/20 focus:border-red-500 text-sm font-medium outline-none transition-all resize-none min-h-[100px]"
+                       />
+                    </div>
+                 </div>
+              </div>
 
-      <div className="pt-4 flex flex-col sm:flex-row gap-3">
-        <Button type="button" variant="ghost" onClick={() => setIsQuoteModalOpen(false)} className="sm:flex-1 h-14 rounded-full font-bold text-slate-500 hover:bg-slate-100 order-2 sm:order-1">
-          Batal
-        </Button>
-        <Button type="submit" className="sm:flex-[2] h-14 rounded-full bg-slate-900 hover:bg-red-600 text-white font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-xl hover:shadow-red-500/30 order-1 sm:order-2">
-          Kirim via Email
-          <Send className="w-4 h-4 ml-3" />
-        </Button>
-      </div>
-    </form>
-  </DialogContent>
-</Dialog>
+              <div className="pt-4 flex flex-col sm:flex-row gap-3">
+                 <Button type="button" variant="ghost" onClick={() => setIsQuoteModalOpen(false)} className="sm:flex-1 h-14 rounded-full font-bold text-slate-500 hover:bg-slate-100 order-2 sm:order-1">
+                   Batal
+                 </Button>
+                 <Button type="submit" className="sm:flex-[2] h-14 rounded-full bg-slate-900 hover:bg-red-600 text-white font-bold uppercase tracking-widest text-xs transition-all duration-300 shadow-xl hover:shadow-red-500/30 order-1 sm:order-2">
+                    Kirim via Email
+                    <Send className="w-4 h-4 ml-3" />
+                 </Button>
+              </div>
+           </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
