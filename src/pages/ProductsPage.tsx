@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 const smoothEase = [0.16, 1, 0.3, 1];
 
 export default function ProductsPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
@@ -77,7 +77,11 @@ export default function ProductsPage() {
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-4xl md:text-6xl font-black tracking-tight text-white mb-2"
             >
-              Produk <span className="text-red-500">Parahita</span>
+              {i18n.language?.startsWith('id') ? (
+                <>Produk <span className="text-red-500">Parahita</span></>
+              ) : (
+                <>Parahita <span className="text-red-500">Products</span></>
+              )}
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
