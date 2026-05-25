@@ -135,12 +135,12 @@ export default function Partners() {
             {duplicatedPartners.map((partner, index) => (
               <div
                 key={`${partner.name}-${index}`}
-                className="flex-shrink-0 w-44 md:w-56 h-28 md:h-36 bg-white/80 backdrop-blur-md rounded-2xl md:rounded-3xl border border-slate-200/60 flex items-center justify-center p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_15px_45px_rgba(239,68,68,0.03)] hover:border-red-500/20 hover:scale-[1.03] transition-all duration-300 group/card"
+                className="flex-shrink-0 w-44 md:w-56 h-28 md:h-36 bg-white/80 backdrop-blur-md rounded-2xl md:rounded-3xl border border-slate-200/60 flex items-center justify-center p-6 md:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.01)] hover:shadow-[0_20px_50px_rgba(239,68,68,0.08)] hover:border-red-500/35 hover:scale-110 transition-all duration-300 group/card"
               >
                 <img
                   src={partner.logo}
                   alt={partner.name}
-                  className="max-h-12 md:max-h-16 max-w-full object-contain filter grayscale group-hover/card:grayscale-0 opacity-60 group-hover/card:opacity-100 transition-all duration-350"
+                  className="max-h-12 md:max-h-16 max-w-full object-contain filter grayscale group-hover/card:grayscale-0 opacity-60 group-hover/card:opacity-100 transform group-hover/card:scale-115 transition-all duration-300"
                   referrerPolicy="no-referrer"
                   draggable="false"
                   loading="lazy"
