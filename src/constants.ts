@@ -190,28 +190,24 @@ export const MAJOR_PARTNERS: MajorPartner[] = [
     id: '1',
     name: 'Alfamart',
     logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/ALFAMART_LOGO_BARU.png',
-    status: '',
     progress: 85,
   },
   {
     id: '2',
     name: 'Shell',
     logo: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Shell_logo.svg',
-    status: '',
     progress: 60,
   },
   {
     id: '3',
     name: 'Dan+Dan',
     logo: 'https://e7.pngegg.com/pngimages/235/773/png-clipart-logo-indonesia-alfamart-service-health-and-beauty-miscellaneous-blue.png',
-    status: '',
     progress: 45,
   },
   {
     id: '4',
     name: 'Bridgestone',
     logo: 'https://bpando.org/wp-content/uploads/New-Bridgestone-Logo-Design-2011-BPO.jpg',
-    status: '',
     progress: 90,
   },
 ];
