@@ -124,15 +124,15 @@ export default function PartnerCTA() {
               href={mailtoLink} 
               target="_blank" 
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.05, y: -2 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.96 }}
-              className="relative overflow-hidden group/btn px-8 md:px-12 py-4 md:py-5 bg-slate-950 text-white rounded-full font-black uppercase tracking-[0.15em] text-xs md:text-sm flex items-center gap-3 transition-all duration-300 shadow-xl shadow-slate-950/15 hover:shadow-red-600/25 hover:bg-red-650"
+              className="group relative inline-flex items-center gap-3 bg-slate-900 text-white font-bold h-14 px-10 rounded-2xl transition-all duration-300 overflow-hidden shadow-xl shadow-slate-900/20 cursor-pointer select-none"
             >
-              {/* Efek Kilau Putih Halus saat Dihover */}
-              <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
+              {/* Sliding Red Overlay on Hover like Download Profile */}
+              <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               
               <span className="relative z-10">{t('partner.becomePartner')}</span>
-              <ArrowRight className="relative z-10 w-4 h-4 md:w-5 md:h-5 transition-transform duration-300 group-hover/btn:translate-x-2" />
+              <ArrowRight className="relative z-10 w-5 h-5 transition-transform group-hover:translate-x-1" />
             </motion.a>
           </motion.div>
         </motion.div>
