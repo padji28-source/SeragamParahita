@@ -9,7 +9,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useTranslation } from "react-i18next";
 
 import { 
-  Package, X, Send, Loader2, ArrowLeft
+  Package, X, Send, Loader2, ArrowLeft, ArrowRight
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Label } from "@/components/ui/label";
@@ -52,8 +52,8 @@ function ProductGrid({
   const loadedProducts = useProductsResource();
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8 mt-8">
-      {loadedProducts.slice(0, 6).map((product, idx) => (
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10 mt-8">
+      {loadedProducts.slice(0, 3).map((product, idx) => (
         <motion.div 
           key={product.id}
           initial={{ opacity: 0, scale: 0.95, y: 30 }}
@@ -61,24 +61,29 @@ function ProductGrid({
           viewport={{ once: true, margin: "-50px" }}
           transition={{ type: "spring", damping: 25, stiffness: 200, delay: idx * 0.05 }}
           whileHover={{ 
-            scale: 1.03, 
-            y: -8,
-            transition: { type: "spring", stiffness: 400, damping: 22 }
+            scale: 1.04, 
+            y: -10,
+            transition: { type: "spring", stiffness: 450, damping: 20 }
           }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setSelectedProduct(product)}
-          className="w-full aspect-[3/4] md:aspect-[4/5] bg-white overflow-hidden cursor-pointer group rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-500 relative select-none border border-slate-100"
+          className="w-full aspect-[4/5] bg-white overflow-hidden cursor-pointer group rounded-[2.5rem] shadow-sm hover:shadow-2xl hover:shadow-red-500/5 transition-all duration-500 relative select-none border border-slate-100"
         >
           <motion.img
             layoutId={`product-image-${product.id}`}
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
             referrerPolicy="no-referrer"
             loading="lazy"
             decoding="async"
           />
-          <div className="absolute inset-0 bg-black/5 group-hover:bg-black/15 transition-colors duration-500" />
+          {/* Elegant overlay card with title inside */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+            <span className="text-[10px] font-black uppercase text-red-500 tracking-[0.2em] mb-1">{product.category}</span>
+            <h4 className="text-xl font-bold text-white tracking-tight">{product.name}</h4>
+          </div>
+          <div className="absolute inset-0 bg-black/[0.03] group-hover:bg-transparent transition-colors duration-500" />
         </motion.div>
       ))}
     </div>
@@ -110,6 +115,26 @@ export default function ProductCatalog() {
               setSelectedProduct={setSelectedProduct} 
             />
           </Suspense>
+        </div>
+
+        {/* --- VIEW ALL PRODUCTS BUTTON --- */}
+        <div className="flex justify-center mt-16 relative z-20">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: "spring", stiffness: 350, damping: 20 }}
+            onClick={() => navigate("/products")}
+            className="group relative inline-flex items-center gap-3 bg-slate-900 text-white font-bold h-14 px-10 rounded-2xl transition-all duration-300 overflow-hidden shadow-xl shadow-slate-900/20 cursor-pointer select-none"
+          >
+            {/* Sliding Red Overlay on Hover */}
+            <div className="absolute inset-0 bg-red-600 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
+            
+            <span className="relative z-10 text-sm">Lihat Semua Produk</span>
+            <ArrowRight className="relative z-10 w-5 h-5 transition-transform group-hover:translate-x-1" />
+          </motion.button>
         </div>
       </div>
 
