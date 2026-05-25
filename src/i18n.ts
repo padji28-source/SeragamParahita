@@ -26,7 +26,7 @@ const resources = {
         quickLinks: 'Quick Links',
         products: 'Products',
         contact: 'Contact',
-        rights: '. All rights reserved.',
+        rights: ' All rights reserved.',
         privacy: 'Privacy Policy',
         terms: 'Terms & Conditions'
       },
@@ -341,7 +341,7 @@ const resources = {
         quickLinks: 'Tautan Cepat',
         products: 'Produk',
         contact: 'Kontak',
-        rights: '. Hak cipta dilindungi undang-undang.',
+        rights: ' Hak cipta dilindungi undang-undang.',
         privacy: 'Kebijakan Privasi',
         terms: 'Syarat & Ketentuan'
       },
