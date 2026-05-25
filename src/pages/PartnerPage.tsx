@@ -96,13 +96,13 @@ export default function PartnerPage() {
           <div className="flex flex-col items-start space-y-4 mb-16 max-w-2xl">
             <div className="inline-flex items-center gap-2 text-xs font-black text-red-600 uppercase tracking-[0.2em]">
               <Building2 className="w-4 h-4" />
-              Kerja Sama Aktif
+              {t('partner.activeCooperation', { defaultValue: 'Kerja Sama Aktif' })}
             </div>
             <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.1]">
-              Kolaborasi Industri Skala Besar
+              {t('partner.largeScaleCollab', { defaultValue: 'Kolaborasi Industri Skala Besar' })}
             </h2>
             <p className="text-slate-500 font-medium text-base md:text-lg">
-              Daftar entitas dan pengerjaan proyek berjalan yang memercayakan standardisasi produksinya kepada infrastruktur manufaktur kami.
+              {t('partner.largeScaleCollabDesc', { defaultValue: 'Daftar entitas dan pengerjaan proyek berjalan yang memercayakan standardisasi produksinya kepada infrastruktur manufaktur kami.' })}
             </p>
           </div>
           
