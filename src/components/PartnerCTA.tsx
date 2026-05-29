@@ -51,29 +51,11 @@ export default function PartnerCTA() {
     <section className="py-24 relative z-10 bg-white min-h-[50vh] flex items-center overflow-hidden border-t border-slate-100">
       {/* Ambient background decoration with micro slow-float animation */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden select-none">
-        <motion.div 
-          animate={{
-            y: [0, -10, 0],
-            x: [0, 8, 0],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute -top-12 -left-12 w-96 h-96 bg-red-500/[0.02] rounded-full blur-3xl"
+        <div 
+          className="absolute -top-12 -left-12 w-96 h-96 bg-red-500/[0.02] rounded-full blur-3xl transform -translate-y-2 translate-x-2"
         />
-        <motion.div 
-          animate={{
-            y: [0, 10, 0],
-            x: [0, -8, 0],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className="absolute -bottom-12 -right-12 w-96 h-96 bg-blue-500/[0.02] rounded-full blur-3xl"
+        <div 
+          className="absolute -bottom-12 -right-12 w-96 h-96 bg-blue-500/[0.02] rounded-full blur-3xl transform translate-y-2 -translate-x-2"
         />
       </div>
 
