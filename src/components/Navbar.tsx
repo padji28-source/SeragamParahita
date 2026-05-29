@@ -91,7 +91,7 @@ export default function Navbar() {
 
   return (
     <motion.header 
-      initial={{ y: "-100%" }}
+      initial={false}
       animate={{ y: isHidden ? "-100%" : "0%" }}
       transition={{ duration: 0.5, ease: snapEase }}
       className={cn(
