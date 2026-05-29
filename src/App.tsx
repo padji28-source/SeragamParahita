@@ -60,6 +60,7 @@ function AnimatedRoutes() {
     // di saat layar kosong (atau transisi), menghindari scroll jump yang merusak keindahan visual.
     <AnimatePresence 
       mode="wait"
+      initial={false}
       onExitComplete={() => {
         window.scrollTo(0, 0);
       }}
