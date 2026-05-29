@@ -130,8 +130,9 @@ export default function Hero() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80 backdrop-blur-[4px]" />
                   <div className="absolute inset-0 flex items-center justify-center text-center z-20">
+                    {/* use initial=false for the first index, to prevent LCP tracking failure. */}
                     <motion.div
-                      initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+                      initial={index === 0 ? false : { opacity: 0, y: 30, filter: "blur(10px)" }}
                       animate={isActive ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 30, filter: "blur(10px)" }}
                       transition={{ duration: 0.8, delay: 0.2 }}
                       className="max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center"
