@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -53,6 +53,11 @@ const pageVariants = {
 
 function AnimatedRoutes() {
   const location = useLocation();
+  const isInitialMount = useRef(true);
+
+  useEffect(() => {
+    isInitialMount.current = false;
+  }, []);
   
   return (
     // Tambahkan mode="wait" agar halaman lama hilang dulu baru halaman baru muncul
@@ -68,7 +73,7 @@ function AnimatedRoutes() {
       <motion.div 
         key={location.pathname}
         variants={pageVariants}
-        initial="initial"
+        initial={isInitialMount.current ? false : "initial"}
         animate="animate"
         exit="exit"
         className="will-change-[opacity,transform]" // Optimasi GPU
