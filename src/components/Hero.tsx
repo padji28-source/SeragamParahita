@@ -86,7 +86,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative w-full h-[65dvh] min-h-[550px] md:h-[100dvh] max-h-[1080px] overflow-hidden bg-gray-900">
+      <section className="relative w-full h-[100dvh] md:h-[100dvh] max-h-[1080px] overflow-hidden bg-gray-900">
         <Carousel
           setApi={setApi}
           opts={{
@@ -156,7 +156,7 @@ export default function Hero() {
               </CarouselItem>
             )})}
           </CarouselContent>
-          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-4 z-30 mb-safe">
+          <div className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden sm:flex gap-4 z-30 mb-safe">
             <CarouselPrevious className="relative left-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md rounded-xl" />
             <CarouselNext className="relative right-0 translate-y-0 h-12 w-12 bg-white/10 hover:bg-white/30 text-white border-white/20 backdrop-blur-md rounded-xl" />
           </div>
