@@ -111,7 +111,7 @@ export default function Hero() {
                     {...(index === 0 ? { fetchPriority: "high" } : {})}
                   />
                   <div className="absolute inset-0 bg-gradient-to-b from-gray-900/60 via-gray-900/40 to-gray-900/80 backdrop-blur-[4px]" />
-                  <div className="absolute inset-0 flex items-center justify-center text-center z-20">
+                  <div className="absolute inset-0 flex items-center justify-center text-center z-20 pt-16 sm:pt-24 lg:pt-0">
                     {/* use initial=false for the first index, to prevent LCP tracking failure. */}
                     <motion.div
                       initial={index === 0 ? false : { opacity: 0, y: 30, filter: "blur(10px)" }}
@@ -127,25 +127,25 @@ export default function Hero() {
                       <p className="mt-4 sm:mt-6 text-base sm:text-lg md:text-xl xl:text-2xl text-white/90 drop-shadow-md font-medium max-w-2xl mx-auto px-4 sm:px-0">
                         {t('hero.subtitle')}
                       </p>
-                      <div className="mt-8 flex flex-col w-full items-center gap-4">
+                      <div className="mt-6 sm:mt-8 flex flex-col w-full items-center gap-3 sm:gap-4 px-2 sm:px-0">
                         <button 
                           onClick={() => setIsVideoOpen(true)}
-                          className="group relative inline-flex items-center gap-3 bg-[#eebb20] hover:bg-amber-400 text-slate-950 font-black px-6 md:px-8 py-3.5 md:py-4 transition-all duration-300 shadow-xl shadow-[#eebb20]/20 hover:shadow-[#eebb20]/40 hover:-translate-y-1 active:translate-y-0 text-sm md:text-base tracking-[0.15em] uppercase outline-none focus:ring-4 focus:ring-amber-400/30 w-full sm:w-auto"
+                          className="group relative inline-flex items-center justify-center gap-2 sm:gap-3 bg-[#eebb20] hover:bg-amber-400 text-slate-950 font-black px-4 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-none transition-all duration-300 shadow-xl shadow-[#eebb20]/20 hover:shadow-[#eebb20]/40 hover:-translate-y-1 active:translate-y-0 text-[11px] sm:text-base tracking-[0.1em] sm:tracking-[0.15em] uppercase outline-none focus:ring-4 focus:ring-amber-400/30 w-full sm:w-auto"
                         >
-                         <span className="relative flex h-3 w-3 mr-1">
+                         <span className="relative flex h-2 w-2 sm:h-3 sm:w-3">
                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-slate-950 opacity-75"></span>
-                           <span className="relative inline-flex rounded-full h-3 w-3 bg-slate-950"></span>
+                           <span className="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-slate-950"></span>
                          </span>
                          <span>{t('hero.watchProfileVideo', { defaultValue: 'WATCH OUR PROFILE VIDEO' })}</span>
-                         <Play className="w-5 h-5 transition-transform group-hover:scale-110" fill="currentColor" />
+                         <Play className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover:scale-110" fill="currentColor" />
                         </button> 
                         
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mt-2">
-                          <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-base sm:text-lg w-full sm:w-auto shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2")}>
-                            <MessageCircle className="w-5 h-5" />
+                        <div className="grid grid-cols-2 sm:flex sm:flex-row items-center justify-center gap-2 sm:gap-4 w-full sm:w-auto mt-1 sm:mt-2">
+                          <Link to="/contact" className={cn(buttonVariants({ size: "lg" }), "h-11 sm:h-14 px-2 sm:px-8 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-[11px] sm:text-lg w-full shadow-lg shadow-red-500/30 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-1.5 sm:gap-2")}>
+                            <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                             {t('hero.freeConsultation')}
                           </Link>
-                          <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-12 sm:h-14 px-6 sm:px-8 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-base sm:text-lg w-full sm:w-auto border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border-2")}>
+                          <a href="#products" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "h-11 sm:h-14 px-2 sm:px-8 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-[11px] sm:text-lg w-full border-white/20 backdrop-blur-md transition-all hover:scale-105 active:scale-95 border sm:border-2 flex items-center justify-center")}>
                             {t('hero.viewCatalog')}
                           </a>
                         </div>
