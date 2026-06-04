@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "r
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import Navbar from "./components/Navbar";
+import MobileBottomNav from "./components/MobileBottomNav";
 import Footer from "./components/Footer";
 import FloatingSocials from "./components/FloatingSocials";
 
@@ -108,13 +109,14 @@ export default function App() {
     <Router>
       <ScrollToTop />
       {/* selection:bg-red-100 adalah detail kecil yang sangat "lux" */}
-      <div className="min-h-screen bg-white font-sans selection:bg-red-600 selection:text-white overflow-x-hidden">
+      <div className="min-h-screen bg-white font-sans selection:bg-red-600 selection:text-white overflow-x-hidden pb-24 lg:pb-0 relative">
         <Navbar />
         <main>
           <AnimatedRoutes />
         </main>
         <FloatingSocials />
         <Footer />
+        <MobileBottomNav />
       </div>
     </Router>
   );
