@@ -3,7 +3,7 @@ import { MessageCircle, Instagram } from "lucide-react";
 
 export default function FloatingSocials() {
   return (
-    <div className="fixed bottom-6 right-6 z-[100] flex flex-col gap-4">
+    <div className="fixed bottom-20 lg:bottom-6 right-4 lg:right-6 z-[100] flex flex-col gap-3 lg:gap-4 scale-90 lg:scale-100 origin-bottom-right">
       {/* Instagram Button */}
       <motion.a
         href="https://www.instagram.com/seragam.parahita/" 
