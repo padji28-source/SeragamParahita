@@ -62,8 +62,6 @@ export default function Footer() {
               <img 
                 src="/Logo.png" 
                 alt="Parahita Logo" 
-                width={210}
-                height={56}
                 className="h-14 w-auto object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                 referrerPolicy="no-referrer"
               />
