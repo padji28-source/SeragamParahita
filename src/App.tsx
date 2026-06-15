@@ -1,4 +1,4 @@
-import { Suspense, useRef } from "react";
+import { Suspense, useRef, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -7,13 +7,15 @@ import MobileBottomNav from "./components/MobileBottomNav";
 import Footer from "./components/Footer";
 import FloatingSocials from "./components/FloatingSocials";
 
-// Static imports for instant, lag-free routing transitions
+// Statically import HomePage for instantaneous initial load and LCP
 import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
-import PartnerPage from "./pages/PartnerPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
+
+// Lazily load other views to minimize initial bundle size
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
+const PartnerPage = lazy(() => import("./pages/PartnerPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 // Loading Fallback (Used as a general safety net)
 const PageLoader = () => (
