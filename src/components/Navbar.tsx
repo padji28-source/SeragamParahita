@@ -109,6 +109,8 @@ export default function Navbar() {
             <img 
               src="/Logo.png" 
               alt="Parahita Logo" 
+              width={180}
+              height={48}
               className={cn(
                 "w-auto object-contain transition-all duration-500",
                 isScrolled ? "h-9" : "h-12"
