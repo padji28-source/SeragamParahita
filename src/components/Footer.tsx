@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         {/* Background Image Texture */}
         <img 
-          src="/Parahitaprimasentosa.png" 
+          src="/Parahitaprimasentosa.webp" 
           alt="Background Texture" 
           className="absolute inset-0 w-full h-full object-cover opacity-[0.05] grayscale"
           loading="lazy"
@@ -60,8 +60,11 @@ export default function Footer() {
           <motion.div variants={itemVariants} className="lg:col-span-4 lg:pr-12 flex flex-col h-full">
             <Link to="/" onClick={scrollToTop} className="inline-block mb-8">
               <img 
-                src="/Logo.png" 
-                alt="Parahita Logo" 
+                src="/Logo.png"
+                alt="Parahita Logo"
+                width={798}
+                height={250}
+                decoding="async" 
                 className="h-14 w-auto object-contain brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
                 referrerPolicy="no-referrer"
               />
