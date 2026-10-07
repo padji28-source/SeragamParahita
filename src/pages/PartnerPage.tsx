@@ -30,10 +30,15 @@ export default function PartnerPage() {
       <section className="relative h-[550px] lg:h-[600px] flex items-center overflow-hidden z-10">
         <div className="absolute inset-0">
           <img 
-            src="/Parahitaprimasentosa.png" 
+            src="/Parahitaprimasentosa.webp" 
             alt="Partners Background" 
             className="w-full h-full object-cover object-center"
-            referrerPolicy="no-referrer"
+            width={1600}
+            height={773}
+            srcSet="/Parahitaprimasentosa-800.webp 800w, /Parahitaprimasentosa-1200.webp 1200w, /Parahitaprimasentosa.webp 1600w"
+            sizes="100vw"
+            decoding="async"
+            fetchPriority="high"
           />
           {/* Overlay Gelap Kiri ke Kanan */}
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/80 to-transparent" />
@@ -52,8 +57,8 @@ export default function PartnerPage() {
               {t('partner.strategicPartnerships', { defaultValue: 'Client Partnerships' })}
             </motion.div>
             <motion.h1 
-              initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-5xl md:text-6xl lg:text-7xl font-black tracking-tight text-white leading-[1.05]"
             >
@@ -82,6 +87,8 @@ export default function PartnerPage() {
                 src={partner.logo}
                 alt={partner.name}
                 className="h-9 md:h-11 w-auto max-w-none object-contain opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-300 hover:scale-105"
+                loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             ))}
@@ -127,6 +134,8 @@ export default function PartnerPage() {
                         src={partner.logo}
                         alt={partner.name}
                         className="max-h-full max-w-full object-contain relative z-10 transition-transform duration-500 group-hover:scale-105 grayscale group-hover:grayscale-0 opacity-80 group-hover:opacity-100"
+                        loading="lazy"
+                        decoding="async"
                         referrerPolicy="no-referrer"
                       />
                     </div>
