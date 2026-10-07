@@ -67,7 +67,7 @@ export default function SimpleProcess() {
           <div 
             className="h-full w-full bg-cover bg-center bg-no-repeat"
             style={{ 
-              backgroundImage: 'url(https://uniformparahita.com/wp-content/uploads/2026/02/poster.png)',
+              backgroundImage: 'url(/poster.webp)',
               backgroundSize: 'cover'
             }}
           />
