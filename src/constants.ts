@@ -15,8 +15,8 @@ export const PRODUCTS: Product[] = [
     id: '1',
     name: 'Seragam Waralaba',
     category: 'Waralaba',
-    image: '/alfa3.jpg',
-    images: ['/alfa1.png', '/alfa2.png', '/alfa3.jpg'],
+    image: '/alfa3.webp',
+    images: ['/alfa1.webp', '/alfa2.webp', '/alfa3.webp'],
     badge: 'Best Seller',
     description: 'Produk seragam unggulan kami, yang hampir seluruhnya berjenis kemeja & polo shirt. Untuk kebutuhan seragam Waralaba anda yang bergerak dibidan barang atau jasa.',
     features: ['Kualitas Premium', 'Nyaman Dipakai', 'Desain Custom'],
@@ -27,8 +27,8 @@ export const PRODUCTS: Product[] = [
     id: '2',
     name: 'Seragam Otomotif',
     category: 'Otomotif',
-    image: '/shell.jpg',
-    images: ['/shell1.png', '/shell2.jpg', '/shell.jpg'],
+    image: '/shell.webp',
+    images: ['/shell1.webp', '/shell2.webp', '/shell.webp'],
     badge: 'Durable',
     description: 'Kami siap membantu anda dalam pembuatan seragam Otomotif dengan berbagai jenis model & desain. Yang dimana dalam pemakaiannya menuntut kualitas , daya tahan & kenyamanan.',
     features: ['Tahan Lama', 'Kualitas Tinggi', 'Desain Sporty'],
@@ -39,8 +39,8 @@ export const PRODUCTS: Product[] = [
     id: '3',
     name: 'Seragam Tambang',
     category: 'Tambang',
-    image: '/pertamina1.jpg',
-    images: ['/pertamina2.jpg', '/pertamina1.jpg', '/pertamina3.png'],
+    image: '/pertamina1.webp',
+    images: ['/pertamina2.webp', '/pertamina1.webp', '/pertamina3.webp'],
     badge: 'Safety First',
     description: 'Seragam lapangan untuk perusahaan minyak bumi, konstruksi & pekerjaan umum yang selalu kami kembangkan agar terlihat menarik, tanpa mengurangi fungsinya sebagai seragam lapangan.',
     features: ['Reflective Tape', 'Bahan Kuat', 'Fungsional'],
@@ -51,8 +51,8 @@ export const PRODUCTS: Product[] = [
     id: '4',
     name: 'Seragam Konstruksi & Proyek',
     category: 'Konstruksi & Proyek',
-    image: '/waskita.jpg',
-    images: ['/waskita0.png', '/waskita1.jpg', '/waskita2.jpg'],
+    image: '/waskita.webp',
+    images: ['/waskita0.webp', '/waskita1.webp', '/waskita2.webp'],
     badge: 'Heavy Duty',
     description: 'Kami juga berpengalaman dalam pembuatan seragam untuk Konstruksi & Proyek dengan jaminan mutu & kualitas.',
     features: ['Tampilan Elegan', 'Bahan Berkualitas', 'Jaminan Mutu'],
@@ -63,8 +63,8 @@ export const PRODUCTS: Product[] = [
     id: '5',
     name: 'Seragam F&B',
     category: 'Food & Beverage',
-    image: '/langham3.jpg',
-    images: ['/langham1.png', '/langham2.png', '/langham3.jpg'],
+    image: '/langham3.webp',
+    images: ['/langham1.webp', '/langham2.webp', '/langham3.webp'],
     badge: 'Hygienic',
     description: 'Untuk pembuatan seragam seperti Apron, Baju & Topi Koki untuk keperluan perusahaan F&B anda, kami pun siap membantu.',
     features: ['Mudah Dibersihkan', 'Bahan Nyaman', 'Set Lengkap'],
@@ -75,8 +75,8 @@ export const PRODUCTS: Product[] = [
     id: '6',
     name: 'Seragam Event',
     category: 'Event',
-    image: '/dandan.jpg',
-    images: ['/dandan1.jpg', '/dandan2.jpg', '/dandan.jpg'],
+    image: '/dandan.webp',
+    images: ['/dandan1.webp', '/dandan2.webp', '/dandan.webp'],
     badge: 'Fast Production',
     description: 'Perusahaan anda membutuhkan seragam untuk keperluan Gathering & Promosi yang di tuntun cepat & berkualitas? Parahita dapat membantu anda.',
     features: ['Produksi Cepat', 'Harga Kompetitif', 'Desain Menarik'],
@@ -87,8 +87,8 @@ export const PRODUCTS: Product[] = [
     id: '7',
     name: 'Seragam Kantor',
     category: 'Kantor',
-    image: '/transmart.jpg',
-    images: ['/transmart1.jpg', '/transmart2.jpg', '/transmart.jpg'],
+    image: '/transmart.webp',
+    images: ['/transmart1.webp', '/transmart2.webp', '/transmart.webp'],
     badge: 'Exclusive',
     description: 'Formal, Exclusive, & Nyaman adalah salah satu syarat seragam Kantor atau Staff dalam perusahaan anda? Kami berpengalaman dalam pembuatannya.',
     features: ['Formal & Eksklusif', 'Bahan Premium', 'Jahitan Rapi'],
@@ -99,8 +99,8 @@ export const PRODUCTS: Product[] = [
     id: '8',
     name: 'Merchandise',
     category: 'Merchandise',
-    image: '/bd.png',
-    images: ['/bg.png', '/tb.jpg'],
+    image: '/bd.webp',
+    images: ['/bg.webp', '/tb.webp'],
     badge: 'Accessories',
     description: 'Accessories seperti Topi dan Goodie bag, adalah salah satu dari sekian banyak produk yang dapat kami produksi.',
     features: ['Custom Logo', 'Berbagai Pilihan', 'Kualitas Terjamin'],
@@ -113,7 +113,7 @@ export const MATERIALS: Material[] = [
   {
     id: '1',
     name: 'Premium Cotton Pique',
-    image: '/images.jpeg',
+    image: '/images.webp',
     specifications: {
       grammage: '230g',
       composition: '100% Cotton',
@@ -124,7 +124,7 @@ export const MATERIALS: Material[] = [
   {
     id: '2',
     name: 'Heavy Duty Drill',
-    image: '/product-1.jpg',
+    image: '/product-1.webp',
     specifications: {
       grammage: '280g',
       composition: '65% Poly, 35% Cotton',
@@ -135,7 +135,7 @@ export const MATERIALS: Material[] = [
   {
     id: '3',
     name: 'Lacoste CVC',
-    image: '/images-1.jpeg',
+    image: '/images-1.webp',
     specifications: {
       grammage: '210g',
       composition: '60% Cotton, 40% Polyester',
@@ -146,7 +146,7 @@ export const MATERIALS: Material[] = [
   {
     id: '4',
     name: 'Oxford Tropical',
-    image: '/images.jpeg',
+    image: '/images.webp',
     specifications: {
       grammage: '180g',
       composition: 'Polyester Cotton Blend',
@@ -157,8 +157,8 @@ export const MATERIALS: Material[] = [
 ];
 
 export const HERO_IMAGES = [
-  '/Parahitaprimasentosa.png',
-  '/product-1.jpg',
+  '/Parahitaprimasentosa.webp',
+  '/product-1.webp',
 ];
 
 export const LIVE_PROJECTS: LiveProject[] = [
@@ -167,21 +167,21 @@ export const LIVE_PROJECTS: LiveProject[] = [
     title: 'Pattern Cutting',
     status: 'Sewing 75k complete',
     progress: 75,
-    image: '/images.jpeg',
+    image: '/images.webp',
   },
   {
     id: '2',
     title: 'Sewing & Assembly',
     status: 'Sewing 75% complete',
     progress: 98,
-    image: '/images-1.jpeg',
+    image: '/images-1.webp',
   },
   {
     id: '3',
     title: 'Quality Control & Finishing',
     status: 'Quality 70k complete',
     progress: 55,
-    image: '/images-2.jpeg',
+    image: '/images-2.webp',
   },
 ];
 
