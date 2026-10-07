@@ -8,7 +8,7 @@ interface OrderFlowProps {
   bgImage?: string; // Menambahkan prop opsional untuk background gambar
 }
 
-export default function OrderFlow({ bgImage = "/bg2.png" }: OrderFlowProps) {
+export default function OrderFlow({ bgImage = "/bg2.webp" }: OrderFlowProps) {
   const { t } = useTranslation();
   const sectionRef = React.useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -18,12 +18,12 @@ export default function OrderFlow({ bgImage = "/bg2.png" }: OrderFlowProps) {
   const bgY = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
 
   const steps = [
-    { icon: <FileText />, title: t('orderFlow.steps.step1.title'), desc: t('orderFlow.steps.step1.desc'), bg: "bg-blue-600", image: "/pattern.jpg" },
-    { icon: <Scissors />, title: t('orderFlow.steps.step2.title'), desc: t('orderFlow.steps.step2.desc'), bg: "bg-orange-600", image: "/cutting.jpg" },
-    { icon: <Sparkles />, title: t('orderFlow.steps.step3.title'), desc: t('orderFlow.steps.step3.desc'), bg: "bg-purple-600", images: ["/sablon.jpg", "/bordir.jpg"] },
-    { icon: <Settings />, title: t('orderFlow.steps.step4.title'), desc: t('orderFlow.steps.step4.desc'), bg: "bg-indigo-600", image: "/jahit2.jpg" },
-    { icon: <CheckCircle />, title: t('orderFlow.steps.step5.title'), desc: t('orderFlow.steps.step5.desc'), bg: "bg-green-600", image: "/qc1.jpg" },
-    { icon: <Layers />, title: t('orderFlow.steps.step6.title'), desc: t('orderFlow.steps.step6.desc'), bg: "bg-slate-600", image: "/packing.jpg" }
+    { icon: <FileText />, title: t('orderFlow.steps.step1.title'), desc: t('orderFlow.steps.step1.desc'), bg: "bg-blue-600", image: "/pattern.webp" },
+    { icon: <Scissors />, title: t('orderFlow.steps.step2.title'), desc: t('orderFlow.steps.step2.desc'), bg: "bg-orange-600", image: "/cutting.webp" },
+    { icon: <Sparkles />, title: t('orderFlow.steps.step3.title'), desc: t('orderFlow.steps.step3.desc'), bg: "bg-purple-600", images: ["/sablon.webp", "/bordir.webp"] },
+    { icon: <Settings />, title: t('orderFlow.steps.step4.title'), desc: t('orderFlow.steps.step4.desc'), bg: "bg-indigo-600", image: "/jahit2.webp" },
+    { icon: <CheckCircle />, title: t('orderFlow.steps.step5.title'), desc: t('orderFlow.steps.step5.desc'), bg: "bg-green-600", image: "/qc1.webp" },
+    { icon: <Layers />, title: t('orderFlow.steps.step6.title'), desc: t('orderFlow.steps.step6.desc'), bg: "bg-slate-600", image: "/packing.webp" }
   ];
 
   return (
@@ -37,7 +37,7 @@ export default function OrderFlow({ bgImage = "/bg2.png" }: OrderFlowProps) {
           height: "140%"
         }}
       >
-        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm" />
+        <div className="absolute inset-0 bg-white/80" />
       </motion.div>
 
       <div className="container mx-auto px-4 relative z-10">
