@@ -133,12 +133,12 @@ export default function AboutSection() {
       <div 
         className="h-full w-full bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: 'url(https://uniformparahita.com/wp-content/uploads/2026/02/poster.png)',
+          backgroundImage: 'url(/poster.webp)',
           backgroundSize: 'cover'
         }}
       />
       {/* Overlay Gelap Asli untuk Menjaga Keaslian Gambar dengan Kontras Teks Ekstrem */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/65 to-slate-950/85 backdrop-blur-[1.5px]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/65 to-slate-950/85" />
     </motion.div>
   </div>
 
