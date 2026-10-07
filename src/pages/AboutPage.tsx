@@ -13,6 +13,7 @@ import {
   Calendar,
   Sparkles
 } from "lucide-react";
+
 const smoothEase = [0.16, 1, 0.3, 1];
 
 export default function AboutPage() {
@@ -206,17 +207,17 @@ export default function AboutPage() {
                   transition={{ delay: idx * 0.1, duration: 0.5, ease: smoothEase }}
                   className={`border border-slate-200/60 p-8 rounded-[2rem] flex items-center gap-6 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/40 relative overflow-hidden ${stat.color}`}
                 >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${stat.value === '200+' ? 'bg-white/10 border-white/20 text-white' : 'bg-red-50/50 border-red-100 text-red-600'}`}>
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center border bg-red-50/50 border-red-100 text-red-600 shrink-0">
                     <stat.icon className="w-6 h-6 shrink-0" />
                   </div>
                   <div>
-                    <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-1">
+                    <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-1 text-slate-900">
                       {stat.value}
                     </h3>
-                    <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-80 ${stat.value === '200+' ? 'text-white/85' : 'text-slate-500'}`}>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-80 text-slate-500">
                       {stat.label}
                     </p>
-                    <p className={`text-xs font-semibold ${stat.value === '200+' ? 'text-white/70' : 'text-slate-400'}`}>
+                    <p className="text-xs font-semibold text-slate-500">
                       {stat.desc}
                     </p>
                   </div>
