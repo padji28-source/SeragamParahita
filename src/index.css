@@ -2,11 +2,10 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 @import "@fontsource-variable/geist";
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;700;900&display=swap');
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Space Grotesk", sans-serif;
+  --font-display: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {
@@ -18,8 +17,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --font-heading: "Space Grotesk", sans-serif;
-    --font-display: "Space Grotesk", sans-serif;
+    --font-heading: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-display: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
     --font-sans: 'Geist Variable', sans-serif;
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -171,4 +170,20 @@
   html {
     @apply font-sans;
     }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
