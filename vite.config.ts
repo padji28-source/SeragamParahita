@@ -15,20 +15,25 @@ export default defineConfig(({mode}) => {
         manifest: {
           name: 'Parahita Garment',
           short_name: 'Parahita',
-          description: 'Aplikasi Parahita Garment',
+          description: 'Website resmi PT. Parahita Prima Sentosa.',
+          lang: 'id',
+          start_url: '/',
+          scope: '/',
           theme_color: '#ffffff',
           background_color: '#ffffff',
           display: 'standalone',
           icons: [
             {
-              src: '/Parahitaprimasentosa.png',
+              src: '/pwa-192.png',
               sizes: '192x192',
-              type: 'image/png'
+              type: 'image/png',
+              purpose: 'any maskable'
             },
             {
-              src: '/Parahitaprimasentosa.png',
+              src: '/pwa-512.png',
               sizes: '512x512',
-              type: 'image/png'
+              type: 'image/png',
+              purpose: 'any maskable'
             }
           ]
         }
