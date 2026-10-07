@@ -41,7 +41,7 @@ export default function AboutPage() {
       label: t('about.stats.workers', { defaultValue: 'Experts' }),
       icon: Users,
       desc: t('nav.home') === 'Home' ? "Highly skilled professional tailors & team" : "Tenaga ahli profesional & penjahit terlatih",
-      color: "bg-red-650 border-red-650 text-white shadow-xl shadow-red-650/10"
+      color: "border-slate-200/60 hover:border-slate-300 bg-white"
     }
   ];
 
