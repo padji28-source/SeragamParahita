@@ -19,11 +19,11 @@ export default function LiveProjects() {
   return (
     <section ref={sectionRef} className="relative w-full py-24 lg:py-32 bg-slate-50 border-y border-slate-200 overflow-hidden font-sans">
       
-      {/* Background Image (bg2.png) dengan efek Parallax & Overlay Premium */}
+      {/* Background Image (optimized WebP) dengan efek Parallax & Overlay Premium */}
       <motion.div 
         className="absolute inset-0 z-0 opacity-15 mix-blend-multiply bg-cover bg-center"
         style={{ 
-          backgroundImage: "url('/bg2.png')",
+          backgroundImage: "url('/bg2.webp')",
           y: bgY,
           height: "140%"
         }}
