@@ -1,10 +1,9 @@
-import * as React from "react";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { PRODUCTS, MATERIALS } from "../constants";
-import { motion, AnimatePresence, LayoutGroup } from "motion/react";
+import { PRODUCTS } from "../constants";
+import { motion, AnimatePresence } from "motion/react";
 // Tambahkan Shield ke dalam import lucide-react
-import { Search, ArrowUpRight, Sparkles, Fingerprint, Shield } from "lucide-react";
+import { Search, ArrowUpRight, Fingerprint, Shield } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 
@@ -15,15 +14,6 @@ export default function ProductsPage() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  // Deteksi Scroll untuk mengecilkan Floating Island
-  useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 100);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   // Daftar Kategori Unik
   const categories = useMemo(() => ["Semua", ...new Set(PRODUCTS.map(p => p.category))], []);
 
@@ -52,10 +42,15 @@ export default function ProductsPage() {
       <section className="relative h-[450px] flex items-center overflow-hidden z-10">
         <div className="absolute inset-0">
           <img 
-            src="/Parahitaprimasentosa.png" 
+            src="/Parahitaprimasentosa.webp" 
             alt="Contact Background" 
             className="w-full h-full object-cover object-center"
-            referrerPolicy="no-referrer"
+            width={1600}
+            height={773}
+            srcSet="/Parahitaprimasentosa-800.webp 800w, /Parahitaprimasentosa-1200.webp 1200w, /Parahitaprimasentosa.webp 1600w"
+            sizes="100vw"
+            decoding="async"
+            fetchPriority="high"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-50 via-transparent to-transparent" />
@@ -72,8 +67,8 @@ export default function ProductsPage() {
               {t('products.title', { defaultValue: 'Produk Kami' })}
             </motion.div>
             <motion.h1 
-              initial={{ opacity: 0, filter: "blur(10px)", y: 20 }}
-              animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.5 }}
               className="text-4xl md:text-6xl font-black tracking-tight text-white mb-2"
             >
