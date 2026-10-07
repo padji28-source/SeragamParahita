@@ -36,31 +36,31 @@ const PRODUCT_VARIATIONS: Record<string, {
   variations: { img: string; name: string; brand: string; bgClass: string; textColor: string }[];
 }> = {
   '1': {
-    mainModel: '/alfa1.png',
+    mainModel: '/alfa1.webp',
     englishTitle: 'FRANCHISE UNIFORM',
     descEn: 'Our flagship uniform products, mostly shirts & polo shirts. For your franchise uniform needs.',
     leftCornerModel: {
-      img: '/alfa2.png',
+      img: '/alfa2.webp',
       brand: 'Alfamart',
       color: 'bg-red-800'
     },
     variations: [
       {
-        img: '/alfa1.png',
+        img: '/alfa1.webp',
         name: 'Alfamart Store Crew (Male)',
         brand: 'Alfamart',
         bgClass: 'bg-red-950',
         textColor: 'text-red-400'
       },
       {
-        img: '/alfa2.png',
+        img: '/alfa2.webp',
         name: 'Alfamart Field Polo Shift',
         brand: 'Alfamart',
         bgClass: 'bg-red-900',
         textColor: 'text-rose-400'
       },
       {
-        img: '/alfa3.jpg',
+        img: '/alfa3.webp',
         name: 'Alfamart Store Crew (Female)',
         brand: 'Alfamart Premium',
         bgClass: 'bg-rose-950',
@@ -69,31 +69,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '2': {
-    mainModel: '/shell1.png',
+    mainModel: '/shell1.webp',
     englishTitle: 'AUTOMOTIVE UNIFORM',
     descEn: 'We are ready to help you create Automotive uniforms demanding durability and comfort.',
     leftCornerModel: {
-      img: '/shell2.jpg',
+      img: '/shell2.webp',
       brand: 'Shell',
       color: 'bg-amber-900'
     },
     variations: [
       {
-        img: '/shell1.png',
+        img: '/shell1.webp',
         name: 'Shell Fuel Team Polo',
         brand: 'Shell',
         bgClass: 'bg-amber-950',
         textColor: 'text-yellow-400'
       },
       {
-        img: '/shell2.jpg',
+        img: '/shell2.webp',
         name: 'Shell Service Red Uniform',
         brand: 'Shell Red',
         bgClass: 'bg-red-950',
         textColor: 'text-red-400'
       },
       {
-        img: '/shell.jpg',
+        img: '/shell.webp',
         name: 'Shell Premium Racing Sporty',
         brand: 'Shell Elite',
         bgClass: 'bg-yellow-900',
@@ -102,31 +102,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '3': {
-    mainModel: '/pertamina1.jpg',
+    mainModel: '/pertamina1.webp',
     englishTitle: 'MINING UNIFORM',
     descEn: 'Field uniforms for oil, construction, and public works companies developed to look attractive and functional.',
     leftCornerModel: {
-      img: '/pertamina2.jpg',
+      img: '/pertamina2.webp',
       brand: 'Pertamina',
       color: 'bg-blue-900'
     },
     variations: [
       {
-        img: '/pertamina2.jpg',
+        img: '/pertamina2.webp',
         name: 'Pertamina Field Crew Oil Eng',
         brand: 'Pertamina',
         bgClass: 'bg-sky-950',
         textColor: 'text-sky-450'
       },
       {
-        img: '/pertamina1.jpg',
+        img: '/pertamina1.webp',
         name: 'Pertamina Operator Crew Shirt',
         brand: 'Pertamina Gas',
         bgClass: 'bg-blue-950',
         textColor: 'text-blue-400'
       },
       {
-        img: '/pertamina3.png',
+        img: '/pertamina3.webp',
         name: 'Pertamina Custom Safety Jkt',
         brand: 'Pertamina Safety',
         bgClass: 'bg-red-950',
@@ -135,31 +135,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '4': {
-    mainModel: '/waskita0.png',
+    mainModel: '/waskita0.webp',
     englishTitle: 'CONSTRUCTION UNIFORM',
     descEn: 'We are experienced in creating uniforms for Construction & Project with guaranteed quality.',
     leftCornerModel: {
-      img: '/waskita1.jpg',
+      img: '/waskita1.webp',
       brand: 'Waskita',
       color: 'bg-amber-900'
     },
     variations: [
       {
-        img: '/waskita0.png',
+        img: '/waskita0.webp',
         name: 'Waskita Custom Safety',
         brand: 'Waskita Karya',
         bgClass: 'bg-yellow-950',
         textColor: 'text-yellow-500'
       },
       {
-        img: '/waskita1.jpg',
+        img: '/waskita1.webp',
         name: 'Waskita Project Crew Polo',
         brand: 'Waskita',
         bgClass: 'bg-amber-950',
         textColor: 'text-yellow-400'
       },
       {
-        img: '/waskita2.jpg',
+        img: '/waskita2.webp',
         name: 'Waskita Supervisor Shirt',
         brand: 'Waskita Corporate',
         bgClass: 'bg-slate-900',
@@ -168,31 +168,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '5': {
-    mainModel: '/langham3.jpg',
+    mainModel: '/langham3.webp',
     englishTitle: 'F&B UNIFORM',
     descEn: 'We are ready to help with F&B uniforms like Aprons, Chef Coats & Hats for your company.',
     leftCornerModel: {
-      img: '/langham1.png',
+      img: '/langham1.webp',
       brand: 'The Langham',
       color: 'bg-stone-900'
     },
     variations: [
       {
-        img: '/langham1.png',
+        img: '/langham1.webp',
         name: 'Langham Premium Chef Coat',
         brand: 'The Langham',
         bgClass: 'bg-stone-800',
         textColor: 'text-stone-300'
       },
       {
-        img: '/langham2.png',
+        img: '/langham2.webp',
         name: 'Langham Premium Bistro Apron',
         brand: 'The Langham',
         bgClass: 'bg-stone-950',
         textColor: 'text-stone-200'
       },
       {
-        img: '/langham3.jpg',
+        img: '/langham3.webp',
         name: 'Langham Waiter Service Suit',
         brand: 'The Langham Hotel',
         bgClass: 'bg-stone-900',
@@ -201,31 +201,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '6': {
-    mainModel: '/dandan.jpg',
+    mainModel: '/dandan.webp',
     englishTitle: 'EVENT UNIFORM',
     descEn: 'Need uniforms for Gathering & Promotion demanding fast & quality production? Parahita can help.',
     leftCornerModel: {
-      img: '/dandan1.jpg',
+      img: '/dandan1.webp',
       brand: 'Dan+Dan',
       color: 'bg-purple-900'
     },
     variations: [
       {
-        img: '/dandan1.jpg',
+        img: '/dandan1.webp',
         name: 'Dan+Dan Store Apron Spec',
         brand: 'Dan+Dan',
         bgClass: 'bg-purple-950',
         textColor: 'text-purple-400'
       },
       {
-        img: '/dandan2.jpg',
+        img: '/dandan2.webp',
         name: 'Dan+Dan Polo Team Edition',
         brand: 'Dan+Dan Service',
         bgClass: 'bg-fuchsia-950',
         textColor: 'text-pink-400'
       },
       {
-        img: '/dandan.jpg',
+        img: '/dandan.webp',
         name: 'Dan+Dan Promotion Shirt',
         brand: 'Dan+Dan Event',
         bgClass: 'bg-purple-900',
@@ -234,31 +234,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '7': {
-    mainModel: '/transmart.jpg',
+    mainModel: '/transmart.webp',
     englishTitle: 'OFFICE UNIFORM',
     descEn: 'Formal, Exclusive, & Comfortable office uniforms. We are experienced in making them.',
     leftCornerModel: {
-      img: '/transmart1.jpg',
+      img: '/transmart1.webp',
       brand: 'Transmart',
       color: 'bg-rose-800'
     },
     variations: [
       {
-        img: '/transmart1.jpg',
+        img: '/transmart1.webp',
         name: 'Transmart Service Uniform',
         brand: 'Transmart',
         bgClass: 'bg-rose-950',
         textColor: 'text-rose-455'
       },
       {
-        img: '/transmart2.jpg',
+        img: '/transmart2.webp',
         name: 'Transmart Executive Staff Fit',
         brand: 'Transmart corporate',
         bgClass: 'bg-red-950',
         textColor: 'text-red-400'
       },
       {
-        img: '/transmart.jpg',
+        img: '/transmart.webp',
         name: 'Transmart Area Manager Blazer',
         brand: 'Transmart HQ',
         bgClass: 'bg-rose-900',
@@ -267,31 +267,31 @@ const PRODUCT_VARIATIONS: Record<string, {
     ]
   },
   '8': {
-    mainModel: '/bd.png',
+    mainModel: '/bd.webp',
     englishTitle: 'MERCHANDISE & ACCESSORIES',
     descEn: 'Accessories like Hats and Goodie bags are among the many products we can produce.',
     leftCornerModel: {
-      img: '/tb.jpg',
+      img: '/tb.webp',
       brand: 'Active Promo',
       color: 'bg-neutral-900'
     },
     variations: [
       {
-        img: '/bd.png',
+        img: '/bd.webp',
         name: 'Bukit Darmo Cap Premium',
         brand: 'Bukit Darmo',
         bgClass: 'bg-emerald-950',
         textColor: 'text-emerald-400'
       },
       {
-        img: '/tb.jpg',
+        img: '/tb.webp',
         name: 'Premium Canvas Promo Tote',
         brand: 'Parahita Promo',
         bgClass: 'bg-zinc-900',
         textColor: 'text-zinc-400'
       },
       {
-        img: '/bg2.png',
+        img: '/bg2.webp',
         name: 'Canvas Shopping Eco-Bag',
         brand: 'Parahita Eco',
         bgClass: 'bg-teal-950',
