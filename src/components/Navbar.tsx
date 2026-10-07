@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Menu, X, Globe, ChevronDown, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from "motion/react";
@@ -52,21 +52,21 @@ export default function Navbar() {
   const [isDesktopProductsOpen, setIsDesktopProductsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
-  const [lastYPos, setLastYPos] = useState(0);
+  const lastYPos = useRef(0);
 
   const { scrollY } = useScroll();
 
   // Smart Hide/Show on Scroll
   useMotionValueEvent(scrollY, "change", (latest) => {
     setIsScrolled(latest > 20);
-    const scrollDelta = latest - lastYPos;
+    const scrollDelta = latest - lastYPos.current;
     
     if (latest > 100 && scrollDelta > 15 && !isOpen) {
       setIsHidden(true);
     } else if (scrollDelta < -15) {
       setIsHidden(false);
     }
-    setLastYPos(latest);
+    lastYPos.current = latest;
   });
 
   useEffect(() => {
@@ -107,8 +107,11 @@ export default function Navbar() {
         <div className="flex items-center">
           <Link to="/" aria-label="Parahita Prima Sentosa Home" className="transition-transform hover:scale-105 active:scale-95 duration-300">
             <img 
-              src="/Logo.png" 
-              alt="Parahita Logo" 
+              src="/Logo.png"
+              alt="Parahita Logo"
+              width={798}
+              height={250}
+              decoding="async" 
               className={cn(
                 "w-auto object-contain transition-all duration-500",
                 isScrolled ? "h-9" : "h-12"
