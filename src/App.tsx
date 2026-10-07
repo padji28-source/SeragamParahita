@@ -1,4 +1,4 @@
-import { Suspense, useRef } from "react";
+import { lazy, Suspense, useRef } from "react";
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "motion/react";
@@ -8,12 +8,12 @@ import Footer from "./components/Footer";
 import FloatingSocials from "./components/FloatingSocials";
 
 // Static imports for instant, lag-free routing transitions
-import HomePage from "./pages/HomePage";
-import ProductsPage from "./pages/ProductsPage";
-import ProductDetailPage from "./pages/ProductDetailPage";
-import PartnerPage from "./pages/PartnerPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
+const HomePage = lazy(() => import("./pages/HomePage"));
+const ProductsPage = lazy(() => import("./pages/ProductsPage"));
+const ProductDetailPage = lazy(() => import("./pages/ProductDetailPage"));
+const PartnerPage = lazy(() => import("./pages/PartnerPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
 
 // Loading Fallback (Used as a general safety net)
 const PageLoader = () => (
@@ -41,13 +41,13 @@ function ScrollToTop() {
 }
 
 const pageVariants = {
-  initial: { opacity: 0, y: 12, filter: "blur(6px)" },
+  initial: { opacity: 0, y: 12 },
   animate: { 
-    opacity: 1, y: 0, filter: "blur(0px)",
+    opacity: 1, y: 0,
     transition: { duration: 0.3, ease: [0.22, 1, 0.36, 1] } 
   },
   exit: { 
-    opacity: 0, y: -12, filter: "blur(6px)",
+    opacity: 0, y: -12,
     transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] } 
   }
 };
@@ -77,7 +77,7 @@ function AnimatedRoutes() {
         initial={isInitialMount.current ? false : "initial"}
         animate="animate"
         exit="exit"
-        className="will-change-[opacity,transform]" // Optimasi GPU
+        // Optimasi GPU
       >
         <Suspense fallback={<PageLoader />}>
           <Routes location={location}>
