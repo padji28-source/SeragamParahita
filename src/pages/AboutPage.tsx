@@ -20,28 +20,25 @@ export default function AboutPage() {
   const { t } = useTranslation();
   const [showMore, setShowMore] = useState(false);
 
-  // Stats definition
+  // Stats definition - Dibuat seragam & jelas terbaca
   const stats = [
     {
       value: "15+",
       label: t('about.stats.experience', { defaultValue: 'Years Experience' }),
       icon: Calendar,
       desc: t('about.stats.dedication', { defaultValue: 'Dedicated to providing the best quality.' }),
-      color: "border-red-500/10 hover:border-red-500/30 bg-white"
     },
     {
       value: "50k+",
       label: t('about.stats.capacity', { defaultValue: 'Capacity/mo' }),
       icon: Cpu,
       desc: t('nav.home') === 'Home' ? "Garment production capacity" : "Kapasitas produksi garmen bulanan",
-      color: "border-slate-200/60 hover:border-slate-300 bg-white"
     },
     {
       value: "200+",
       label: t('about.stats.workers', { defaultValue: 'Experts' }),
       icon: Users,
       desc: t('nav.home') === 'Home' ? "Highly skilled professional tailors & team" : "Tenaga ahli profesional & penjahit terlatih",
-      color: "bg-red-650 border-red-650 text-white shadow-xl shadow-red-650/10"
     }
   ];
 
@@ -137,7 +134,7 @@ export default function AboutPage() {
             className="lg:col-span-7 space-y-8"
           >
             <div className="space-y-3">
-              <span className="text-red-650 font-black tracking-[0.25em] uppercase text-xs block">
+              <span className="text-red-600 font-black tracking-[0.25em] uppercase text-xs block">
                 {t('nav.home') === 'Home' ? 'ESTABLISHED 1990' : 'SEJAK TAHUN 1990'}
               </span>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-black text-slate-900 leading-none uppercase">
@@ -170,7 +167,7 @@ export default function AboutPage() {
               <a 
                 href="/company-profile.pdf" 
                 download
-                className="group relative inline-flex items-center gap-3 bg-slate-900 hover:bg-red-650 text-white font-bold h-12 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-slate-950/10 cursor-pointer"
+                className="group relative inline-flex items-center gap-3 bg-slate-900 hover:bg-red-600 text-white font-bold h-12 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-slate-950/10 cursor-pointer"
               >
                 <span>{t('about.companyProfile', { defaultValue: 'Unduh Profil Perusahaan' })}</span>
                 <Download className="w-4 h-4 transition-transform group-hover:-translate-y-0.5" />
@@ -178,7 +175,7 @@ export default function AboutPage() {
 
               <button 
                 onClick={() => setShowMore(!showMore)}
-                className="inline-flex items-center gap-2 hover:text-red-650 text-slate-800 text-sm font-black uppercase tracking-wider cursor-pointer select-none transition-colors"
+                className="inline-flex items-center gap-2 hover:text-red-600 text-slate-800 text-sm font-black uppercase tracking-wider cursor-pointer select-none transition-colors"
               >
                 <span>{showMore ? t('about.closeStory', { defaultValue: 'Tutup' }) : t('about.readMore', { defaultValue: 'Selengkapnya' })}</span>
                 <span className="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center transition-transform hover:border-red-600 duration-300">
@@ -198,19 +195,19 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: idx * 0.1, duration: 0.5, ease: smoothEase }}
-                  className={`border border-slate-200/60 p-8 rounded-[2rem] flex items-center gap-6 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/40 relative overflow-hidden ${stat.color}`}
+                  className="bg-white border border-slate-200/80 hover:border-red-500/30 p-8 rounded-[2rem] flex items-center gap-6 transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/40 relative overflow-hidden"
                 >
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center border ${stat.value === '200+' ? 'bg-white/10 border-white/20 text-white' : 'bg-red-50/50 border-red-100 text-red-600'}`}>
-                    <stat.icon className="w-6 h-6 shrink-0" />
+                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center border bg-red-50/60 border-red-100 text-red-600 shrink-0">
+                    <stat.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h3 className="text-3xl md:text-4xl font-black tracking-tight leading-none mb-1">
+                    <h3 className="text-3xl md:text-4xl font-black text-slate-900 tracking-tight leading-none mb-1">
                       {stat.value}
                     </h3>
-                    <p className={`text-[10px] font-black uppercase tracking-[0.2em] mb-1 opacity-80 ${stat.value === '200+' ? 'text-white/85' : 'text-slate-500'}`}>
+                    <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1 text-slate-500">
                       {stat.label}
                     </p>
-                    <p className={`text-xs font-semibold ${stat.value === '200+' ? 'text-white/70' : 'text-slate-400'}`}>
+                    <p className="text-xs font-semibold text-slate-500">
                       {stat.desc}
                     </p>
                   </div>
@@ -231,13 +228,13 @@ export default function AboutPage() {
         <div className="container mx-auto px-6 md:px-12 lg:px-16 max-w-7xl relative z-10">
           
           <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20 space-y-4">
-            <span className="text-red-650 font-black tracking-[0.3em] uppercase text-xs block">
+            <span className="text-red-600 font-black tracking-[0.3em] uppercase text-xs block">
               {t('nav.home') === 'Home' ? 'OUR GUIDING VALUES' : 'NILAI PEDOMAN KAMI'}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black uppercase tracking-tight text-slate-900 leading-none">
               {t('nav.home') === 'Home' ? 'Vision & Mission' : 'Visi & Misi'}
             </h2>
-            <div className="h-1 w-16 bg-red-650 mx-auto rounded-full mt-2" />
+            <div className="h-1 w-16 bg-red-600 mx-auto rounded-full mt-2" />
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-stretch">
@@ -255,7 +252,7 @@ export default function AboutPage() {
               </div>
               
               <div className="space-y-6 relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-650">
+                <div className="w-14 h-14 rounded-2xl bg-red-50 border border-red-100 flex items-center justify-center text-red-600">
                   <Target className="w-7 h-7" />
                 </div>
                 <div className="space-y-1">
@@ -290,7 +287,7 @@ export default function AboutPage() {
               </div>
 
               <div className="space-y-6 relative z-10">
-                <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-650">
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                   <Rocket className="w-7 h-7" />
                 </div>
                 <div className="space-y-1">
@@ -303,9 +300,9 @@ export default function AboutPage() {
                 </div>
 
                 <ul className="space-y-4">
-                  {(t('about.missionStatements', { returnObjects: true }) as string[]).map((missionText, idx) => (
+                  {((t('about.missionStatements', { returnObjects: true }) as string[]) || []).map((missionText, idx) => (
                     <li key={idx} className="flex gap-4 items-start group/item">
-                      <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 group-hover/item:bg-red-650 group-hover/item:text-white select-none transition-all">
+                      <div className="w-6 h-6 rounded-full bg-red-50 border border-red-100 flex items-center justify-center shrink-0 mt-0.5 group-hover/item:scale-110 group-hover/item:bg-red-600 group-hover/item:text-white select-none transition-all">
                         <CheckCircle2 className="w-3.5 h-3.5 text-red-600 group-hover/item:text-white transition-colors" />
                       </div>
                       <span className="text-slate-600 font-medium leading-relaxed text-sm md:text-base">
@@ -329,7 +326,7 @@ export default function AboutPage() {
       {/* --- SECTION 3: VIDEO PROFIL (Stunning Mock Player framed inline) --- */}
       <section className="relative z-20 py-16 md:py-24 max-w-7xl mx-auto px-6 md:px-12 lg:px-16 text-center">
         <div className="max-w-3xl mx-auto mb-12 md:mb-16 space-y-4">
-          <span className="text-red-650 font-black tracking-[0.3em] uppercase text-xs block">
+          <span className="text-red-600 font-black tracking-[0.3em] uppercase text-xs block">
             {t('about.getToKnowUs', { defaultValue: 'KENALI KAMI LEBIH DEKAT' })}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-slate-900 uppercase">
@@ -378,7 +375,7 @@ export default function AboutPage() {
                 transition={{ delay: idx * 0.1, duration: 0.5 }}
                 className="space-y-4"
               >
-                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-650 border border-red-100">
+                <div className="w-12 h-12 rounded-2xl bg-red-50 flex items-center justify-center text-red-600 border border-red-100">
                   <item.icon className="w-5 h-5 shrink-0" />
                 </div>
                 <h3 className="text-lg font-black text-slate-900 uppercase tracking-wide">
