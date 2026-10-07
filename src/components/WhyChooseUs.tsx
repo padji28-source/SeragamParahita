@@ -6,17 +6,17 @@ export default function WhyChooseUs() {
 
   const benefits = [
     {
-      image: "/p3.png",
+      image: "/p3.webp",
       title: t('partner.benefits.quality.title'),
       description: t('partner.benefits.quality.desc')
     },
     {
-      image: "/p2.png",
+      image: "/p2.webp",
       title: t('partner.benefits.fast.title'),
       description: t('partner.benefits.fast.desc')
     },
     {
-      image: "/p1.png",
+      image: "/p1.webp",
       title: t('partner.benefits.scalable.title'),
       description: t('partner.benefits.scalable.desc')
     }
